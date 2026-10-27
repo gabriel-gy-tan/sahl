@@ -1,4 +1,6 @@
+<p align="center">
 <img src="assets/logo.png" alt="Sahl" width="240">
+</p>
 
 A free, open-source desktop helper that looks at the form on your screen, tells you in your language which box comes next, and helps you autofill and confirm the details. Fill a form in seconds to minutes. Everything runs on your own computer: completely local AI. The government side changes nothing.
 
