@@ -15,6 +15,7 @@ export type Field = {
 export type Person = { id: string; name: string };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
 export type Guide = { id: string; service: Record<Lang, string> };
+export type Reply = { reply: string; kind: "match" | "new" | "unsure"; guide: string | null; name: string };
 
 let base: { url: string; token: string } | null = null;
 
@@ -28,7 +29,7 @@ async function connect() {
 }
 
 // safe to send again if the sidecar died mid-call; /fill and /vault/import are not
-const RETRY = new Set(["/guides", "/read"]);
+const RETRY = new Set(["/guides", "/read", "/chat"]);
 
 /** Calls the local sidecar. Waits for it to come up, and for a restarted one to come back. */
 export async function api<T>(path: string, body?: unknown): Promise<T> {
