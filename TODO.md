@@ -9,7 +9,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 ## Next
 
 - [ ] **Windows version**: see the table in AGENTS.md (sidecar path, vault folder, Recycle Bin, DPI, overlay)
-- [ ] Split first / last name boxes (fill from one stored name)
+- [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
 - [ ] Dropdowns and date pickers (show-only today)
@@ -30,3 +30,4 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [x] Guides: medical fitness booking, and "any form" common details
 - [x] Panel in English, Arabic, Urdu and Malayalam (RTL for Arabic and Urdu)
 - [x] Sidecar restarts itself if it exits
+- [x] Separate Surname / Given names boxes (DS-160), split by the passport MRZ

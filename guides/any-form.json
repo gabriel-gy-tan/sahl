@@ -38,6 +38,53 @@
       }
     },
     {
+      "id": "surname",
+      "vault_key": [
+        "passport.surname",
+        "eid.surname"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Surname",
+        "Surnames",
+        "Last name",
+        "Family name",
+        "Surname (as in passport)",
+        "اسم العائلة",
+        "اللقب"
+      ],
+      "help": {
+        "en": "Your surname (family name) exactly as on your passport.",
+        "ar": "اسم العائلة كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا خاندانی نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിലുള്ളതുപോലെ നിങ്ങളുടെ കുടുംബപ്പേര് (സർനെയിം)."
+      }
+    },
+    {
+      "id": "given_names",
+      "vault_key": [
+        "passport.given",
+        "eid.given"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Given names",
+        "Given name",
+        "First name",
+        "First and middle names",
+        "First name(s)",
+        "الاسم الأول"
+      ],
+      "help": {
+        "en": "Your given names (first and middle) exactly as on your passport.",
+        "ar": "اسمك الأول والأوسط كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پہلا اور درمیانی نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിലുള്ളതുപോലെ നിങ്ങളുടെ പേര് (ആദ്യ പേരും മധ്യ പേരും)."
+      }
+    },
+    {
       "id": "dob",
       "vault_key": [
         "passport.dob",

@@ -104,8 +104,19 @@ def test_passport_needs_no_ai_but_an_id_front_does(monkeypatch):
     # check digits verify the numbers, and the printed name matching the MRZ verifies the name: no AI call
     assert got["passport.number"][:2] == ("X1234567", True)
     assert got["passport.name"][:2] == ("MOHAMMED RAFEEQ KUNNUMMAL", True) and calls == []
+    assert got["passport.given"][:2] == ("MOHAMMED RAFEEQ", True) and got["passport.surname"][:2] == ("KUNNUMMAL", True)
     front = vault.read_document(ROOT / "demo/samples/emirates_id.png")[1]
     assert calls and front["eid.number"][1] is False and "eid.name" not in front  # nothing backs it without the AI
+
+
+def test_split_name_boxes_are_found():
+    # DS-160 style: separate Surnames / Given Names boxes, and a native-alphabet name that isn't ours to fill
+    import json
+    from sahl import match
+    guide = json.loads((ROOT / "guides/any-form.json").read_text())
+    lines = [("Surnames", (100, 100, 300, 130)), ("Given Names", (100, 400, 320, 430)),
+             ("Full Name in Native Alphabet", (100, 600, 600, 630))]
+    assert sorted(f["id"] for f in match.match(lines, guide)) == ["given_names", "surname"]
 
 
 def test_token_required(client):
