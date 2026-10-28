@@ -1,0 +1,145 @@
+{
+  "id": "any-form",
+  "service": {
+    "en": "Any form · common details",
+    "ar": "أي نموذج · البيانات الشائعة",
+    "ur": "کوئی بھی فارم · عام تفصیلات",
+    "ml": "ഏത് ഫോമും · പൊതുവായ വിവരങ്ങൾ"
+  },
+  "source": null,
+  "checked": null,
+  "note": "Not tied to one service: finds the usual identity boxes by their label. Boxes it doesn't know are left to you.",
+  "fields": [
+    {
+      "id": "full_name",
+      "vault_key": [
+        "passport.name",
+        "eid.name",
+        "other.name"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Full name",
+        "Full name (as in passport)",
+        "Name (as in passport)",
+        "Name in English",
+        "Applicant name",
+        "Name",
+        "الاسم الكامل",
+        "الاسم",
+        "الاسم بالإنجليزية"
+      ],
+      "help": {
+        "en": "Your full name exactly as printed on your passport.",
+        "ar": "اسمك الكامل كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پورا نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ മുഴുവൻ പേര്."
+      }
+    },
+    {
+      "id": "dob",
+      "vault_key": [
+        "passport.dob",
+        "eid.dob",
+        "other.dob"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Date of birth",
+        "Birth date",
+        "DOB",
+        "تاريخ الميلاد"
+      ],
+      "help": {
+        "en": "Day, month and year, as DD/MM/YYYY.",
+        "ar": "اليوم والشهر والسنة بصيغة يوم/شهر/سنة.",
+        "ur": "دن، مہینہ اور سال، DD/MM/YYYY کی شکل میں۔",
+        "ml": "ദിവസം, മാസം, വർഷം — DD/MM/YYYY ആയി."
+      }
+    },
+    {
+      "id": "nationality",
+      "vault_key": [
+        "passport.nationality",
+        "eid.nationality",
+        "other.nationality"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Nationality",
+        "Current nationality",
+        "الجنسية",
+        "الجنسية الحالية"
+      ],
+      "help": {
+        "en": "The country on your passport.",
+        "ar": "الدولة المذكورة في جواز سفرك.",
+        "ur": "وہ ملک جو آپ کے پاسپورٹ پر ہے۔",
+        "ml": "നിങ്ങളുടെ പാസ്പോർട്ടിലെ രാജ്യം."
+      }
+    },
+    {
+      "id": "passport_number",
+      "vault_key": "passport.number",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Passport number",
+        "Passport No.",
+        "Passport No",
+        "رقم جواز السفر",
+        "رقم الجواز"
+      ],
+      "help": {
+        "en": "Letters and numbers at the top right of your passport's photo page.",
+        "ar": "الحروف والأرقام في أعلى صفحة الصورة في جواز السفر.",
+        "ur": "پاسپورٹ کے تصویر والے صفحے پر اوپر لکھے حروف اور نمبر۔",
+        "ml": "പാസ്പോർട്ടിന്റെ ഫോട്ടോ പേജിലെ അക്ഷരങ്ങളും നമ്പറുകളും."
+      }
+    },
+    {
+      "id": "passport_expiry",
+      "vault_key": "passport.expiry",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Passport expiry date",
+        "Passport expiry",
+        "Expiry date",
+        "تاريخ انتهاء الجواز",
+        "تاريخ انتهاء جواز السفر",
+        "تاريخ الانتهاء"
+      ],
+      "help": {
+        "en": "When your passport stops being valid, as DD/MM/YYYY.",
+        "ar": "تاريخ انتهاء صلاحية جواز السفر بصيغة يوم/شهر/سنة.",
+        "ur": "پاسپورٹ کی میعاد ختم ہونے کی تاریخ، DD/MM/YYYY۔",
+        "ml": "പാസ്പോർട്ടിന്റെ കാലാവധി തീരുന്ന തീയതി, DD/MM/YYYY."
+      }
+    },
+    {
+      "id": "emirates_id",
+      "vault_key": "eid.number",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Emirates ID number",
+        "Emirates ID",
+        "EID number",
+        "ID number",
+        "Identity number",
+        "رقم الهوية",
+        "رقم الهوية الإماراتية"
+      ],
+      "help": {
+        "en": "The 15-digit number starting with 784, on the front of your Emirates ID.",
+        "ar": "الرقم المكوّن من 15 خانة ويبدأ بـ 784 على وجه بطاقة الهوية.",
+        "ur": "784 سے شروع ہونے والا 15 ہندسوں کا نمبر، امارات آئی ڈی کے سامنے۔",
+        "ml": "എമിറേറ്റ്സ് ഐഡിയുടെ മുന്നിലുള്ള 784-ൽ തുടങ്ങുന്ന 15 അക്ക നമ്പർ."
+      }
+    }
+  ]
+}

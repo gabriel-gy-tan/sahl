@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medical fitness exam · booking (sample)</title>
+<style>
+  body { margin: 0; font: 16px/1.4 -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; color: #1f2933; }
+  header { background: #234; color: #fff; padding: 14px 32px; }
+  header small { opacity: .7; }
+  main { max-width: 640px; margin: 24px auto; background: #fff; padding: 24px 32px 32px; border-radius: 8px; }
+  h2 { font-size: 18px; margin: 28px 0 8px; border-bottom: 1px solid #e3e6ea; padding-bottom: 6px; }
+  label { display: block; margin-top: 16px; font-weight: 600; }
+  input, select { display: block; width: 100%; box-sizing: border-box; margin-top: 6px; padding: 10px; font: inherit; border: 1px solid #b8c0c8; border-radius: 4px; }
+  button { margin-top: 28px; padding: 12px 24px; font: inherit; background: #2a6; color: #fff; border: 0; border-radius: 4px; }
+  .note { color: #667; font-size: 13px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<header>sample-portal.example/medical-fitness/book &nbsp; <small>Invented sample page, not a real portal</small></header>
+<main>
+  <h1>Medical fitness exam · booking</h1>
+
+  <h2>1 · Applicant</h2>
+  <label for="name">Full name (as in passport)</label><input id="name" autocomplete="off">
+  <label for="dob">Date of birth</label><input id="dob" placeholder="DD/MM/YYYY" autocomplete="off">
+  <label for="nat">Nationality</label><input id="nat" autocomplete="off">
+
+  <h2>2 · Documents</h2>
+  <label for="pp">Passport number</label><input id="pp" autocomplete="off">
+  <label for="ppx">Passport expiry date</label><input id="ppx" placeholder="DD/MM/YYYY" autocomplete="off">
+  <label for="eid">Emirates ID number</label><input id="eid" autocomplete="off">
+
+  <h2>3 · Booking</h2>
+  <label for="centre">Medical centre</label>
+  <select id="centre"><option>Choose…</option><option>Sample Centre A</option><option>Sample Centre B</option></select>
+  <label for="appt">Appointment date</label><input id="appt" placeholder="DD/MM/YYYY" autocomplete="off">
+  <label for="mob">Mobile number</label><input id="mob" autocomplete="off">
+
+  <button type="button" onclick="alert('Sample page: nothing is sent.')">Submit</button>
+  <p class="note">Sahl never presses Submit.</p>
+</main>
+</body>
+</html>
