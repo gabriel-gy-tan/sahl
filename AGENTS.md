@@ -5,7 +5,7 @@ Rules and context for any coding agent (and human) working on Sahl.
 ## Rules
 
 1. **Never reference yourself.** No agent names, model names, "Generated with", `Co-Authored-By` lines or tool links in any commit message, PR title, PR body, code comment or file. Commits are authored as the human you are working for.
-2. **One change, one PR.** Every new feature, research spike or bug fix gets its own branch and its own PR. Don't bundle unrelated work. Branch names: `feat/…`, `fix/…`, `research/…`, `docs/…`.
+2. **One significant change, one PR.** A significant new feature, research spike or bug fix gets its own branch and its own PR. Small fixes and tweaks go on the PR already open for that work; don't open a PR for them. Branch names: `feat/…`, `fix/…`, `research/…`, `docs/…`.
 3. **Keep [TODO.md](TODO.md) current.** Add a task when you start it, move it to Done (with the PR link) when it merges.
 4. **Never touch real personal data.** Don't print, log, commit or screenshot values from someone's real documents. Inspect the vault only by counts and types. Test data is invented (`demo/make_samples.py`).
 5. **Tests stay in tmp.** Tests set `SAHL_HOME` and `SAHL_LIBRARY` to temp folders; never point them at a real vault or `~/Documents/Sahl`.
