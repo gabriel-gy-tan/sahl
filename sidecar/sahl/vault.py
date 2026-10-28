@@ -61,7 +61,11 @@ def _db():
     if db.execute("pragma user_version").fetchone()[0] < 2:  # older dev formats: rebuilt from the documents folder
         for t in ("vals", "files", "people", "readings"):
             db.execute(f"drop table if exists {t}")
-        db.execute("pragma user_version = 2")
+        db.execute("pragma user_version = 3")
+    if db.execute("pragma user_version").fetchone()[0] < 3:  # 3 adds given/surname: re-read only identity documents
+        if db.execute("select 1 from sqlite_master where name = 'files'").fetchone():
+            db.execute("update files set mtime = 0 where doc_type in ('passport', 'eid')")
+        db.execute("pragma user_version = 3")
     db.execute("create table if not exists people (id integer primary key, name text, first text, last text, dob text)")
     db.execute("create table if not exists files (path text primary key, size int, mtime int, person int, doc_type text,"
                " ai_pending int default 0)")
@@ -144,8 +148,8 @@ def _printed(value: str, text: str) -> bool:
     return bool(words) and all(fuzz.partial_ratio(w, text) >= 90 for w in words)
 
 
-def _printed_name(lines, field: str) -> str | None:
-    """The holder's name from the printed lines, given names first, when it matches the MRZ name field.
+def _printed_name(lines, field: str) -> tuple[str, str] | None:
+    """(given names, surname) from the printed lines, when they match the MRZ name field.
 
     The MRZ spells the name but OCR reads its "<" fillers as letters (KOMALKVIJAY); the printed
     lines have the real spacing. Label words ("Surname") are dropped because the MRZ doesn't contain them.
@@ -169,7 +173,7 @@ def _printed_name(lines, field: str) -> str | None:
         if not best:
             return None
         parts.append(best[1])
-    return " ".join(parts)
+    return parts[0], parts[1]
 
 
 def _shown_as(key, value):
@@ -213,8 +217,9 @@ def _read_page(gray: np.ndarray, force: bool = False) -> tuple[str, dict, bool]:
     if mrz_name:
         field = mrz_name[5:] if len(mrz_name) == 44 else mrz_name
         printed = _printed_name(lines, field.translate(TO_ALPHA))
-        if printed:
-            found["name"] = (printed, True)
+        if printed:  # the MRZ's "<<" also says where the surname ends, for forms with separate boxes
+            given, surname = printed
+            found.update(name=(f"{given} {surname}", True), given=(given, True), surname=(surname, True))
 
     # the AI (seconds per page) only reads what the check digits and the printed text couldn't settle
     settled = found.get("name", ("", False))[1] and "nationality" in found and not (
@@ -254,7 +259,7 @@ def _read_page(gray: np.ndarray, force: bool = False) -> tuple[str, dict, bool]:
     img = Image.fromarray(gray)
     out = {}
     for k, (v, ok) in found.items():
-        typed = f"{doc}.{k}" if k in ("name", "dob", "nationality") else k
+        typed = f"{doc}.{k}" if k in ("name", "given", "surname", "dob", "nationality") else k
         box = boxes.get(k)
         try:
             best = max(lines, key=lambda l: fuzz.ratio(l[0].upper(), _shown_as(typed, v)))
