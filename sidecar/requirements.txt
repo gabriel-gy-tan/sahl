@@ -1,0 +1,11 @@
+fastapi==0.147.0
+uvicorn==0.53.0
+indra-ocr==1.1.2
+pillow==12.3.0
+rapidfuzz==3.14.6
+numpy==2.5.3
+mss==10.2.0
+pynput==1.8.2
+# tests only
+pytest==9.1.1
+httpx==0.28.1

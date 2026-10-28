@@ -1,0 +1,32 @@
+# TODO
+
+Active log. Add tasks when you start them; move them to Done with the PR link when merged. One task = one PR (see [AGENTS.md](AGENTS.md)).
+
+## In progress
+
+- [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
+
+## Next
+
+- [ ] **Windows version**: see the table in AGENTS.md (sidecar path, vault folder, Recycle Bin, DPI, overlay)
+- [ ] Split first / last name boxes (fill from one stored name)
+- [ ] More label variants in guides, from real portal results
+- [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
+- [ ] Dropdowns and date pickers (show-only today)
+- [ ] Start Ollama automatically, or tell the user clearly when it isn't running
+- [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
+- [ ] Read each document page once instead of twice (ID check and reading both OCR it)
+
+## Done
+
+- [x] README and logo
+- [x] First vertical slice: Tauri panel + click-through ring overlay, Python sidecar, OCR, label matching, fill with a landed check
+- [x] Multi-monitor reading; overlay moves to the form's screen
+- [x] Passport MRZ and Emirates ID parsing with check digits and OCR repairs
+- [x] PDFs (rendered in a child process so a crash can't take Sahl down)
+- [x] Folder drag-and-drop; Sahl documents folder that caches readings and syncs every 30 s
+- [x] Local AI (Qwen3-VL 8B instruct via Ollama), only when check digits can't settle a page; retried when it fails
+- [x] Several people in one folder ("Filling for"), matched by birth date and first name
+- [x] Guides: medical fitness booking, and "any form" common details
+- [x] Panel in English, Arabic, Urdu and Malayalam (RTL for Arabic and Urdu)
+- [x] Sidecar restarts itself if it exits

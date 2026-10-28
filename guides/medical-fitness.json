@@ -1,0 +1,173 @@
+{
+  "id": "medical-fitness",
+  "service": {
+    "en": "Residency medical fitness · booking",
+    "ar": "الفحص الطبي للإقامة · حجز موعد",
+    "ur": "رہائشی طبی معائنہ · بکنگ",
+    "ml": "റസിഡൻസി മെഡിക്കൽ ഫിറ്റ്നസ് · ബുക്കിംഗ്"
+  },
+  "source": "https://mohap.gov.ae/en/services",
+  "checked": null,
+  "note": "Field list follows the invented demo portal. Requirements not yet checked against the official service page; translations not reviewed by native speakers. vault_key lists the sources in the order the form prefers them.",
+  "fields": [
+    {
+      "id": "full_name",
+      "vault_key": [
+        "passport.name",
+        "eid.name",
+        "other.name"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Full name (as in passport)",
+        "Full name",
+        "الاسم الكامل"
+      ],
+      "help": {
+        "en": "Your full name exactly as printed on your passport.",
+        "ar": "اسمك الكامل كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پورا نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ മുഴുവൻ പേര്."
+      }
+    },
+    {
+      "id": "dob",
+      "vault_key": [
+        "passport.dob",
+        "eid.dob",
+        "other.dob"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Date of birth",
+        "تاريخ الميلاد"
+      ],
+      "help": {
+        "en": "Day, month and year, as DD/MM/YYYY.",
+        "ar": "اليوم والشهر والسنة بصيغة يوم/شهر/سنة.",
+        "ur": "دن، مہینہ اور سال، DD/MM/YYYY کی شکل میں۔",
+        "ml": "ദിവസം, മാസം, വർഷം — DD/MM/YYYY ആയി."
+      }
+    },
+    {
+      "id": "nationality",
+      "vault_key": [
+        "passport.nationality",
+        "eid.nationality",
+        "other.nationality"
+      ],
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Nationality",
+        "الجنسية"
+      ],
+      "help": {
+        "en": "The country on your passport.",
+        "ar": "الدولة المذكورة في جواز سفرك.",
+        "ur": "وہ ملک جو آپ کے پاسپورٹ پر ہے۔",
+        "ml": "നിങ്ങളുടെ പാസ്പോർട്ടിലെ രാജ്യം."
+      }
+    },
+    {
+      "id": "passport_number",
+      "vault_key": "passport.number",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Passport number",
+        "Passport No.",
+        "رقم جواز السفر"
+      ],
+      "help": {
+        "en": "Letters and numbers at the top right of your passport's photo page.",
+        "ar": "الحروف والأرقام في أعلى صفحة الصورة في جواز السفر.",
+        "ur": "پاسپورٹ کے تصویر والے صفحے پر اوپر لکھے حروف اور نمبر۔",
+        "ml": "പാസ്പോർട്ടിന്റെ ഫോട്ടോ പേജിലെ അക്ഷരങ്ങളും നമ്പറുകളും."
+      }
+    },
+    {
+      "id": "passport_expiry",
+      "vault_key": "passport.expiry",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Passport expiry date",
+        "Date of expiry",
+        "تاريخ انتهاء جواز السفر"
+      ],
+      "help": {
+        "en": "When your passport stops being valid, as DD/MM/YYYY.",
+        "ar": "تاريخ انتهاء صلاحية جواز السفر بصيغة يوم/شهر/سنة.",
+        "ur": "پاسپورٹ کی میعاد ختم ہونے کی تاریخ، DD/MM/YYYY۔",
+        "ml": "പാസ്പോർട്ടിന്റെ കാലാവധി തീരുന്ന തീയതി, DD/MM/YYYY."
+      }
+    },
+    {
+      "id": "emirates_id",
+      "vault_key": "eid.number",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Emirates ID number",
+        "رقم الهوية الإماراتية"
+      ],
+      "help": {
+        "en": "The 15-digit number starting with 784, on the front of your Emirates ID.",
+        "ar": "الرقم المكوّن من 15 خانة ويبدأ بـ 784 على وجه بطاقة الهوية.",
+        "ur": "784 سے شروع ہونے والا 15 ہندسوں کا نمبر، امارات آئی ڈی کے سامنے۔",
+        "ml": "എമിറേറ്റ്സ് ഐഡിയുടെ മുന്നിലുള്ള 784-ൽ തുടങ്ങുന്ന 15 അക്ക നമ്പർ."
+      }
+    },
+    {
+      "id": "centre",
+      "vault_key": null,
+      "input": "select",
+      "box": "below",
+      "aliases": [
+        "Medical centre",
+        "المركز الطبي"
+      ],
+      "help": {
+        "en": "Pick the centre closest to you. Sahl doesn't choose this for you.",
+        "ar": "اختر أقرب مركز إليك. سهل لا يختار عنك.",
+        "ur": "اپنے قریب ترین مرکز کا انتخاب کریں۔ سہل یہ آپ کے لیے نہیں چنتا۔",
+        "ml": "നിങ്ങൾക്ക് ഏറ്റവും അടുത്തുള്ള കേന്ദ്രം തിരഞ്ഞെടുക്കുക. സഹൽ ഇത് തിരഞ്ഞെടുക്കില്ല."
+      }
+    },
+    {
+      "id": "appointment_date",
+      "vault_key": null,
+      "input": "date",
+      "box": "below",
+      "aliases": [
+        "Appointment date",
+        "تاريخ الموعد"
+      ],
+      "help": {
+        "en": "A day that suits you, as DD/MM/YYYY.",
+        "ar": "يوم يناسبك، بصيغة يوم/شهر/سنة.",
+        "ur": "آپ کے لیے مناسب دن، DD/MM/YYYY۔",
+        "ml": "നിങ്ങൾക്ക് സൗകര്യമുള്ള ദിവസം, DD/MM/YYYY."
+      }
+    },
+    {
+      "id": "mobile",
+      "vault_key": "profile.mobile",
+      "input": "text",
+      "box": "below",
+      "aliases": [
+        "Mobile number",
+        "رقم الهاتف المتحرك"
+      ],
+      "help": {
+        "en": "Your UAE mobile number, starting 05.",
+        "ar": "رقم هاتفك المتحرك في الإمارات، يبدأ بـ 05.",
+        "ur": "آپ کا یو اے ای موبائل نمبر، 05 سے شروع۔",
+        "ml": "05-ൽ തുടങ്ങുന്ന നിങ്ങളുടെ യുഎഇ മൊബൈൽ നമ്പർ."
+      }
+    }
+  ]
+}
