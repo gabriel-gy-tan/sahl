@@ -7,6 +7,7 @@ import os
 import secrets
 import socket
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Literal
@@ -22,7 +23,7 @@ GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] 
 
 
 def load_guides() -> dict:
-    return {g["id"]: g for g in (json.loads(p.read_text()) for p in sorted(GUIDES.glob("*.json")))}
+    return {g["id"]: g for g in (json.loads(p.read_text(encoding="utf-8")) for p in sorted(GUIDES.glob("*.json")))}
 
 
 class Read(BaseModel):
@@ -54,7 +55,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
                        allow_methods=["*"], allow_headers=["*"])
     guides = load_guides()
-    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None}
+    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0}
 
     def auth(x_sahl_token: str = Header("")):
         if not secrets.compare_digest(x_sahl_token, token):
@@ -76,9 +77,9 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             raise HTTPException(404, "unknown guide")
         try:
             shots = screen()
-        except Exception as e:  # macOS without Screen Recording permission lands here
+        except Exception as e:  # macOS without Screen Recording permission, or a capture error on Windows
             raise HTTPException(409, f"screen capture failed: {e}")
-        best, monitor = [], None
+        best, monitor, best_scale = [], None, 1.0
         for gray, scale, mon in shots:  # the form is on whichever monitor matches the most fields
             gray = gray.copy()
             H, W = gray.shape
@@ -87,7 +88,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
                 gray[c(y0, mon[1], H):c(y1, mon[1], H), c(x0, mon[0], W):c(x1, mon[0], W)] = 255
             hits = match.match(ocr.lines(gray), g, gray, scale, mon[:2])
             if len(hits) > len(best):
-                best, monitor = hits, mon
+                best, monitor, best_scale = hits, mon, scale
         everyone = vault.people()
         person = body.person if any(p["id"] == body.person for p in everyone) else (
             everyone[0]["id"] if len(everyone) == 1 else None)
@@ -101,6 +102,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
                            "confirmed": m["id"] in state["confirmed"]})
         state["fields"] = {f["id"]: f for f in fields}
         state["monitor"] = monitor
+        state["scale"] = best_scale
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
         return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
 
@@ -124,9 +126,12 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             raise HTTPException(422, "Sahl only types into plain text boxes")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
+        box = f["input_box"]  # screen points
+        if sys.platform == "win32":  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
+            box = tuple(round(v * state["scale"]) for v in box)
         try:
-            typer(f["input_box"], v["value"])
-        except Exception as e:  # macOS without Accessibility permission lands here
+            typer(box, v["value"])
+        except Exception as e:  # no permission to type, or the form is elevated
             raise HTTPException(409, f"typing failed: {e}")
         time.sleep(0.3)
         landed = _landed(f["input_box"], v["value"])
@@ -197,7 +202,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         with vault._IMPORT_LOCK:  # the background reader must not re-read files mid-forget
             try:
                 library.forget()
-            except subprocess.CalledProcessError:
+            except (OSError, subprocess.SubprocessError):
                 raise HTTPException(409, "couldn't move the documents to the Trash")
             vault.forget_all()
         return {"ok": True}

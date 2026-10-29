@@ -7,6 +7,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import threading
 import time
 from pathlib import Path
@@ -26,7 +27,7 @@ def default() -> Path:
 
 def folder() -> Path:
     try:
-        p = Path(json.loads(_settings().read_text())["library"])
+        p = Path(json.loads(_settings().read_text(encoding="utf-8"))["library"])
     except (OSError, ValueError, KeyError):
         p = default()
     p.mkdir(parents=True, exist_ok=True)
@@ -34,7 +35,7 @@ def folder() -> Path:
 
 
 def set_folder(p: Path):
-    _settings().write_text(json.dumps({"library": str(p)}))
+    _settings().write_text(json.dumps({"library": str(p)}), encoding="utf-8")
 
 
 def add(p: Path):
@@ -65,8 +66,8 @@ def watch():
 
 
 def forget():
-    """Forgetting everything: Sahl's own folder goes to the Trash (recoverable); a folder you chose is
-    never touched, Sahl just stops reading it."""
+    """Forgetting everything: Sahl's own folder goes to the Trash / Recycle Bin (recoverable); a folder
+    you chose is never touched, Sahl just stops reading it."""
     lib = folder()
     if lib.resolve() != default().resolve():
         _settings().unlink(missing_ok=True)
@@ -74,5 +75,9 @@ def forget():
     for p in lib.iterdir():
         if p.name.startswith("."):
             continue
-        subprocess.run(["osascript", "-e", 'on run argv\ntell application "Finder" to delete (POSIX file (item 1 of argv) as alias)\nend run',
-                        str(p)], check=True, capture_output=True)
+        if sys.platform == "darwin":
+            subprocess.run(["osascript", "-e", 'on run argv\ntell application "Finder" to delete (POSIX file (item 1 of argv) as alias)\nend run',
+                            str(p)], check=True, capture_output=True)
+        else:
+            from send2trash import send2trash
+            send2trash(str(p))

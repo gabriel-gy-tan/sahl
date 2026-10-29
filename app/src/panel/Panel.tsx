@@ -25,6 +25,11 @@ const WING = 34; // folded, the island reaches this far past each side of the no
 type Key = keyof typeof strings.en;
 type Notch = { real: boolean; width: number; height: number };
 
+/** `/Users/me/...` or `C:\Users\me\...` → `~/...` */
+function prettyPath(p: string) {
+  return p.replace(/^\/Users\/[^/]+/, "~").replace(/^[A-Za-z]:\\Users\\[^\\]+/, "~");
+}
+
 function saved<T extends string>(key: string, fallback: T): T {
   try {
     return (localStorage.getItem(key) as T) || fallback;
@@ -502,7 +507,7 @@ export default function Panel() {
                   </div>
                   {library && (
                     <div className="row">
-                      <span className="path" dir="ltr" title={library}>{library.replace(/^\/Users\/[^/]+/, "~")}</span>
+                      <span className="path" dir="ltr" title={library}>{prettyPath(library)}</span>
                       <button className="ghost" disabled={busy || !guides} onClick={changeLibrary}>{t("change")}</button>
                     </div>
                   )}

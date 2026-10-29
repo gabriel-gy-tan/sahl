@@ -29,18 +29,19 @@ Rules and context for any coding agent (and human) working on Sahl.
 
 ## Windows port
 
-A collaborator is building the Windows version. Known macOS-only spots:
+The Windows code paths are in place and the app builds and launches; a live run on a portal and in Edge/Chrome, plus mixed-DPI checks, still need doing.
 
-| Where | macOS today | Windows needs |
-|---|---|---|
-| `app/src-tauri/src/lib.rs` | starts `sidecar/.venv/bin/python` | `sidecar\.venv\Scripts\python.exe` |
-| `app/src-tauri/src/lib.rs` | notch size from `NSScreen`, window above the menu bar (behind `cfg(target_os = "macos")`) | falls back to a tab at the top centre of the primary monitor; check it stays above the taskbar and other windows. On a Mac, `SAHL_NO_NOTCH=1` shows that tab to try it |
-| `sidecar/sahl/vault.py` `home()` | `~/Library/Application Support/Sahl` | `%APPDATA%\Sahl` |
-| `sidecar/sahl/library.py` `forget()` | Finder via `osascript` to move files to Trash | move to Recycle Bin (e.g. `send2trash`, or the shell API) |
-| `sidecar/sahl/fill.py` | already uses Ctrl instead of Cmd off macOS | check that the double click and timings work in Edge/Chrome |
-| `sidecar/sahl/ocr.py` | `mss` monitor coordinates in points | check DPI scaling: screen points vs physical pixels |
-| Overlay | `macOSPrivateApi` for transparency | check click-through and transparency on Windows |
-| `app/src-tauri/src/lib.rs` `dictate` | sends `startDictation:` | presses Win+H for Voice Typing (written, not yet built or tested on Windows) |
-| `app/src-tauri/src/lib.rs` `island` | one `setFrame` for size and position | one `SetWindowPos` (written, not yet built or tested); check the island doesn't jump when it opens, and the hover area with mixed display scaling |
+| Where | Windows behaviour |
+|---|---|
+| `app/src-tauri/src/lib.rs` | starts `sidecar\.venv\Scripts\python.exe` with `CREATE_NO_WINDOW` |
+| `app/src-tauri/src/lib.rs` `find_notch`/`island` | no camera notch: a 190×8 tab at the top centre of the primary monitor; one `SetWindowPos` for size and position; still to check it stays above the taskbar and doesn't jump when it opens. Moving it to the screen whose top the pointer reaches is in TODO |
+| `app/src-tauri/src/lib.rs` `SHORTCUT` | `Ctrl+Alt+Space`, because Alt+Space opens the window menu |
+| `app/src-tauri/src/lib.rs` `dictate` | presses Win+H for Voice Typing |
+| `sidecar/sahl/vault.py` `home()` | `%APPDATA%\Sahl` (`SAHL_HOME` still overrides it) |
+| `sidecar/sahl/library.py` `forget()` | `send2trash`, so files go to the Recycle Bin |
+| `sidecar/sahl/ocr.py` | `mss` reports physical pixels; `screenshots()` divides each monitor by its DPI scale |
+| `sidecar/sahl/server.py` | a fill converts screen points back to physical pixels before `pynput` clicks |
+| `sidecar/sahl/fill.py` | uses Ctrl instead of Cmd off macOS; double-click timings still to check in Edge/Chrome |
+| Overlay | transparent + click-through is requested through Tauri; still to check on Windows |
 
 Keep platform branches small (`sys.platform`, `#[cfg(...)]`) and in the file that owns the behaviour. Don't fork whole modules per platform.

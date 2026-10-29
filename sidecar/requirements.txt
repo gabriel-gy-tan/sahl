@@ -6,6 +6,7 @@ rapidfuzz==3.14.6
 numpy==2.5.3
 mss==10.2.0
 pynput==1.8.2
+send2trash==2.1.0
 # tests only
 pytest==9.1.1
 httpx==0.28.1
