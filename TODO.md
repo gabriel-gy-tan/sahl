@@ -9,6 +9,10 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] **Windows port**: sidecar path and hidden console, `%APPDATA%\Sahl` vault, Recycle Bin, per-monitor DPI
   for capture/ring/fill, UTF-8 files, and the notch island/`Ctrl+Alt+Space`; then run the app and check the
   overlay, shortcut and fill in Edge/Chrome
+- [ ] UAE form matching: normalize labels, cover common EN/AR aliases, test hard negatives, and find bordered/underlined input boxes (`feat/field-matching`)
+- [ ] Read form starts from the first box again after a form has been completed
+- [ ] Fold the island out of the way while Sahl clicks and types into the form
+- [ ] Confirm short values such as surnames after filling, even when OCR is imperfect
 
 ## Next
 
