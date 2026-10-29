@@ -12,6 +12,7 @@ import time
 from pathlib import Path
 from typing import Literal
 
+import numpy as np
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -30,6 +31,7 @@ class Read(BaseModel):
     guide: str
     person: str | None = None  # whose documents fill this form; the only person if there is just one
     exclude: list[tuple[float, float, float, float]] = []  # screen boxes in points to blank, e.g. Sahl's own panel
+    restart: bool = False  # the Read form button: start this form from the first box again
 
 
 class FieldRef(BaseModel):
@@ -47,6 +49,20 @@ class Turn(BaseModel):
 
 class Chat(BaseModel):
     messages: list[Turn] = Field(max_length=50)
+
+
+def _matches(seen: str, want: str) -> bool:
+    """Whether OCR's reading of a box is the value Sahl typed. Short values get more room for an OCR slip."""
+    seen = "".join(c for c in seen.upper() if c.isalnum())
+    want = "".join(c for c in want.upper() if c.isalnum())
+    if not seen or not want:
+        return False
+    if seen == want or (len(want) >= 3 and want in seen):
+        return True
+    score = fuzz.ratio(seen, want)
+    if score >= 90 or (len(want) <= 12 and score >= 85) or (len(want) <= 6 and score >= 80):
+        return True
+    return len(seen) >= 4 and fuzz.partial_ratio(seen, want) >= 92
 
 
 def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> FastAPI:
@@ -92,7 +108,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         everyone = vault.people()
         person = body.person if any(p["id"] == body.person for p in everyone) else (
             everyone[0]["id"] if len(everyone) == 1 else None)
-        if state["guide"] != (g["id"], person):  # a new form, or a different person: start from the first box
+        if body.restart or state["guide"] != (g["id"], person):  # Read again, or a new form/person: start from the first box
             state.update(guide=(g["id"], person), confirmed=set())
         spec = {f["id"]: f for f in g["fields"]}
         fields = []
@@ -149,10 +165,14 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             crop = gray[max(0, int(y0 - pad)):int(y1 + pad), max(0, int(x0 - pad)):int(x1 + pad)]
             if crop.size == 0:
                 return False
-            seen = "".join(t for t, _ in ocr.lines(crop)).replace(" ", "").upper()
-            want = value.replace(" ", "").upper()
-            # a narrow box shows only part of a long value
-            return fuzz.ratio(seen, want) >= 90 or (len(seen) >= 6 and fuzz.partial_ratio(seen, want) >= 92)
+            if _matches("".join(t for t, _ in ocr.lines(crop)), value):
+                return True
+            if crop.shape[1] < 400 or crop.shape[0] < 80:  # a small input, whose text OCR may miss at native size
+                from PIL import Image
+                big = np.array(Image.fromarray(crop).resize(
+                    (crop.shape[1] * 2, crop.shape[0] * 2), Image.Resampling.LANCZOS))
+                return _matches("".join(t for t, _ in ocr.lines(big)), value)
+            return False
         return False
 
     @app.post("/vault/import", dependencies=[Depends(auth)])

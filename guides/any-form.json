@@ -18,13 +18,20 @@
         "other.name"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Full name",
         "Full name (as in passport)",
         "Name (as in passport)",
         "Name in English",
         "Applicant name",
+        "Applicant's Name",
+        "Applicant's Full Name",
+        "Applicant Full Name",
+        "Name as per Emirates ID",
+        "Name as per passport",
+        "Name of Applicant",
+        "Customer Name",
         "Name",
         "الاسم الكامل",
         "الاسم",
@@ -44,13 +51,16 @@
         "eid.surname"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Surname",
         "Surnames",
         "Last name",
         "Family name",
         "Surname (as in passport)",
+        "Surname as per passport",
+        "Family name (as in passport)",
+        "Last name (as in passport)",
         "اسم العائلة",
         "اللقب"
       ],
@@ -68,13 +78,16 @@
         "eid.given"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Given names",
         "Given name",
         "First name",
         "First and middle names",
         "First name(s)",
+        "First Name(s)",
+        "Given Name(s)",
+        "Given names (as in passport)",
         "الاسم الأول"
       ],
       "help": {
@@ -92,11 +105,14 @@
         "other.dob"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Date of birth",
         "Birth date",
         "DOB",
+        "Date of Birth (DD/MM/YYYY)",
+        "Birth Date (DD/MM/YYYY)",
+        "Applicant's Date of Birth",
         "تاريخ الميلاد"
       ],
       "help": {
@@ -114,10 +130,14 @@
         "other.nationality"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Nationality",
         "Current nationality",
+        "Nationality (Country)",
+        "Country of Nationality",
+        "Nationality as per passport",
+        "Applicant's Nationality",
         "الجنسية",
         "الجنسية الحالية"
       ],
@@ -132,11 +152,15 @@
       "id": "passport_number",
       "vault_key": "passport.number",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Passport number",
         "Passport No.",
         "Passport No",
+        "Passport #",
+        "Passport Number (as in passport)",
+        "Passport No. (as in passport)",
+        "Applicant's Passport Number",
         "رقم جواز السفر",
         "رقم الجواز"
       ],
@@ -151,11 +175,17 @@
       "id": "passport_expiry",
       "vault_key": "passport.expiry",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Passport expiry date",
         "Passport expiry",
         "Expiry date",
+        "Passport Expiry",
+        "Passport Expiry Date",
+        "Expiry Date of Passport",
+        "Date of Expiry",
+        "Passport Expiry (DD/MM/YYYY)",
+        "Applicant's Passport Expiry Date",
         "تاريخ انتهاء الجواز",
         "تاريخ انتهاء جواز السفر",
         "تاريخ الانتهاء"
@@ -171,13 +201,22 @@
       "id": "emirates_id",
       "vault_key": "eid.number",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Emirates ID number",
         "Emirates ID",
+        "Emirates ID No.",
+        "Emirates ID No",
         "EID number",
+        "EID No.",
+        "EID No",
         "ID number",
+        "ID No.",
+        "ID No",
         "Identity number",
+        "Identity No.",
+        "Identity No",
+        "Applicant's Emirates ID Number",
         "رقم الهوية",
         "رقم الهوية الإماراتية"
       ],

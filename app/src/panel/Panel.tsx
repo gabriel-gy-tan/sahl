@@ -22,6 +22,7 @@ const GENERIC = "any-form"; // the guide for forms Sahl has no guide for
 const WIDTH = 600; // the island when open, at normal text size
 const EAR = 12; // the concave corners that join the island to the top of the screen
 const WING = 34; // folded, the island reaches this far past each side of the notch, to show the palm beside it
+const FOLD_MS = 650;
 type Key = keyof typeof strings.en;
 type Notch = { real: boolean; width: number; height: number };
 
@@ -261,7 +262,7 @@ export default function Panel() {
     void WebviewWindow.getByLabel("overlay").then((o) => o?.hide());
   };
 
-  const read = useCallback(async () => {
+  const read = useCallback(async (restart = false) => {
     if (!guide) return;
     setBusy(true);
     setError(null);
@@ -273,7 +274,7 @@ export default function Panel() {
       const win = getCurrentWindow();
       const [pos, size, scale] = await Promise.all([win.outerPosition(), win.outerSize(), win.scaleFactor()]);
       const panel = [pos.x / scale, pos.y / scale, (pos.x + size.width) / scale, (pos.y + size.height) / scale];
-      const r = await api<Reading>("/read", { guide, person: person || null, exclude: [panel] });
+      const r = await api<Reading>("/read", { guide, person: person || null, exclude: [panel], restart });
       setReading(r);
       setPeople(r.people);
       const next = r.fields.find((f) => f.id === r.next);
@@ -292,18 +293,25 @@ export default function Panel() {
   }, [guide, person]);
 
   useEffect(() => {
-    const un = listen("read", () => (setOpen(true), void read()));
+    const un = listen("read", () => (setOpen(true), void read(true)));
     return () => void un.then((f) => f());
   }, [read]);
 
   const act = async (path: "/fill" | "/confirm", fieldId: string) => {
+    const wrote = path === "/fill";
     setBusy(true);
+    if (wrote) {
+      setOpen(false);
+      await new Promise((r) => setTimeout(r, FOLD_MS));
+    }
     try {
       const r = await api<{ landed?: boolean }>(path, { field_id: fieldId });
       await read();
       if (r.landed === false) setError("missed"); // after read(), which clears errors
     } catch (e) {
       fail(e);
+    } finally {
+      if (wrote) setOpen(true);
       setBusy(false);
     }
   };
@@ -664,7 +672,7 @@ export default function Panel() {
                 ) : (
                   <>
                     {reading && !error && <p className="quiet">{reading.fields.length ? t("all_done") : t("no_form")}</p>}
-                    <button className="primary" disabled={busy} onClick={read}>
+                    <button className="primary" disabled={busy} onClick={() => void read(true)}>
                       {busy ? t("reading") : t("read")} <kbd>{KEY}</kbd>
                     </button>
                     {!reading && <p className="quiet">{t("open_form_hint", { key: KEY })}</p>}

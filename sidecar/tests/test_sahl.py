@@ -231,6 +231,33 @@ def test_read_fill_flow(client):
     assert "dob" not in {f["id"] for f in hidden["fields"]}  # a blanked region is never read
 
 
+def test_read_again_after_every_field_is_skipped_starts_over(client):
+    client.post("/vault/import", json={"path": str(ROOT / "demo/samples")})
+    read = lambda **kw: client.post("/read", json={"guide": "medical-fitness", **kw}).json()
+    first = read()
+    assert first["next"] == "full_name"
+    for f in first["fields"]:
+        assert client.post("/confirm", json={"field_id": f["id"]}).status_code == 200
+    done = read()
+    assert done["next"] is None and all(f["confirmed"] for f in done["fields"])
+    again = read(restart=True)
+    assert again["next"] == "full_name" and not any(f["confirmed"] for f in again["fields"])
+
+
+@pytest.mark.parametrize("seen, want, expected", [
+    ("Khan", "Khan", True),
+    ("Khan|", "Khan", True),
+    ("Last nameKhan", "Khan", True),
+    ("Khaan", "Khan", True),
+    ("KUNN", "KUNNUMMAL", True),  # a narrow box shows only the start of a long surname
+    ("Khalid", "Khan", False),
+    ("Last name", "Khan", False),
+    ("", "Khan", False),
+])
+def test_landed_text_tolerates_ocr_noise(seen, want, expected):
+    assert server._matches(seen, want) is expected
+
+
 def test_fill_that_misses_does_not_advance(client, monkeypatch):
     client.post("/vault/import", json={"path": str(ROOT / "demo/samples/passport.png")})
     client.post("/read", json={"guide": "medical-fitness"})
