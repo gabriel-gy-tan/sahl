@@ -36,12 +36,24 @@ Return JSON only. Copy text exactly as printed in the human-readable part of the
 Use "" for anything not on this page. Do not guess."""
 
 
-def available() -> bool:
+def available(model: str = MODEL) -> bool:
     try:
         with urllib.request.urlopen(OLLAMA + "/api/tags", timeout=2) as r:
-            return any(m["name"].startswith(MODEL) for m in json.load(r)["models"])
+            return any(m["name"].startswith(model) for m in json.load(r)["models"])
     except (urllib.error.URLError, OSError, KeyError, ValueError):
         return False
+
+
+def chat(body: dict, timeout: float, tries: int = 2) -> dict | None:
+    """One structured-output chat call to the local Ollama; the parsed JSON answer, or None."""
+    for _ in range(tries):  # a busy or just-loading model sometimes returns nothing usable
+        req = urllib.request.Request(OLLAMA + "/api/chat", json.dumps(body).encode(), {"content-type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(json.load(r)["message"]["content"])
+        except (urllib.error.URLError, OSError, KeyError, ValueError):
+            continue
+    return None
 
 
 def read_page(gray: np.ndarray) -> dict | None:
@@ -59,12 +71,5 @@ def read_page(gray: np.ndarray) -> dict | None:
         "options": {"temperature": 0, "num_predict": 300},  # the answer is ~100 tokens; stop any runaway output
         "messages": [{"role": "user", "content": PROMPT, "images": [base64.b64encode(buf.getvalue()).decode()]}],
     }
-    for _ in range(2):  # one retry: a busy or just-loading model sometimes returns nothing usable
-        req = urllib.request.Request(OLLAMA + "/api/chat", json.dumps(body).encode(), {"content-type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=180) as r:
-                out = json.loads(json.load(r)["message"]["content"])
-            return {k: str(out.get(k, "")).strip() for k in FIELDS}
-        except (urllib.error.URLError, OSError, KeyError, ValueError):
-            continue
-    return None
+    out = chat(body, timeout=180)
+    return {k: str(out.get(k, "")).strip() for k in FIELDS} if isinstance(out, dict) else None

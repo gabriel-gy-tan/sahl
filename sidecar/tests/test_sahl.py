@@ -260,8 +260,33 @@ def test_pdf_crash_stays_in_child(tmp_path):
     from concurrent.futures.process import BrokenProcessPool
     from sahl import ocr
     with pytest.raises(BrokenProcessPool):
-        ocr.pages(tmp_path / "bad.pdf", render=_crash)
-    assert ocr.pages(Path(__file__).parent / "fixtures/passport_scan.pdf")  # Sahl itself is still fine
+        ocr._in_child(_crash, str(tmp_path / "bad.pdf"))
+    assert ocr.pdf_page(Path(__file__).parent / "fixtures/passport_scan.pdf", 0).size  # a fresh helper takes over
+
+
+def _text_pdf(lines):
+    """A digital (not scanned) one-page PDF with these lines of text."""
+    body = "BT /F1 14 Tf 72 720 Td " + " ".join(f"({t}) Tj 0 -24 Td" for t in lines) + " ET"
+    objs = ["<</Type/Catalog/Pages 2 0 R>>", "<</Type/Pages/Kids[3 0 R]/Count 1>>",
+            "<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Contents 4 0 R/Resources<</Font<</F1 5 0 R>>>>>>",
+            f"<</Length {len(body)}>>stream\n{body}\nendstream", "<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>"]
+    out, offsets = "%PDF-1.4\n", []
+    for i, o in enumerate(objs, 1):
+        offsets.append(len(out))
+        out += f"{i} 0 obj{o}endobj\n"
+    xref = len(out)
+    out += f"xref\n0 {len(objs) + 1}\n0000000000 65535 f \n" + "".join(f"{o:010} 00000 n \n" for o in offsets)
+    return (out + f"trailer<</Size {len(objs) + 1}/Root 1 0 R>>\nstartxref\n{xref}\n%%EOF").encode()
+
+
+def test_digital_pdfs_skip_ocr(tmp_path, monkeypatch):
+    from sahl import ocr
+    pdf = tmp_path / "statement.pdf"
+    pdf.write_bytes(_text_pdf(["Monthly account statement", "Opening balance 1,200.00 AED"]))
+    assert [t for t, _ in ocr.pdf_text(pdf)[0]] == ["Monthly account statement", "Opening balance 1,200.00 AED"]
+    monkeypatch.setattr(ocr, "lines", lambda g: pytest.fail("OCR'd a page that has its own text"))
+    monkeypatch.setattr(ocr, "pdf_page", lambda p, i: pytest.fail("rendered a page nothing needs"))
+    assert vault.read_document(pdf) == ("other", {}, False)
 
 
 def test_unchanged_files_are_not_read_again(client, monkeypatch):

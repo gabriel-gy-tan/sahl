@@ -47,6 +47,8 @@ EID = re.compile(r"784-?\d{4}-?\d{7}-?\d")
 ID_WORDS = re.compile(r"passport|identity|emirates|resident|nationality|surname|given name|date of expiry|place of birth"
                       r"|place of issue|جواز|هوية|الجنسية", re.I)
 FORCED_PAGES = 3  # when one page of a document is an ID, the AI also reads its first pages: OCR can miss the words
+# ponytail: an ID copy buried past this page of a long scan is missed; raise it if real folders have those
+SCAN_LIMIT = 5  # scanned pages OCR'd before giving up on a document with no ID signs
 # OCR mixes letters and digits in the MRZ; each field is known to be one or the other
 TO_ALPHA = str.maketrans("0125861", "OIZSBGI")
 TO_DIGIT = str.maketrans("OQDILZSBG", "001112586")
@@ -198,13 +200,13 @@ def _mrz_lines(flat, width):
     return [i for i, (t, _) in enumerate(flat) if len(t) == width and re.fullmatch(r"[A-Z0-9<]+", t)]
 
 
-def _read_page(gray: np.ndarray, force: bool = False) -> tuple[str, dict, bool]:
+def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, dict, bool]:
     """(document type, {key: (value, verified, crop PNG bytes or None)}, AI needed but failed) for one page.
 
     Name, birth date and nationality are kept per document type (passport.name, eid.name, other.name)
     so a form can ask for the one it wants: "as in passport" means the passport's.
     """
-    lines = ocr.lines(gray)
+    lines = ocr.lines(gray) if lines is None else lines
     flat = [(t.replace(" ", "").upper(), b) for t, b in lines]
     text = " ".join(t for t, _ in lines).upper()
     found, boxes = {}, {}
@@ -308,12 +310,23 @@ def read_document(path) -> tuple[str, dict, bool]:
     A verified reading beats an unverified one.
     """
     doc, found, ai_failed = "other", {}, False
-    pages = ocr.pages(path)
-    looks = [i for i, g in enumerate(pages) if _looks_like_id(g)]
-    for i, gray in enumerate(pages):
+    pdf = str(path).lower().endswith(".pdf")
+    layers = ocr.pdf_text(path) if pdf else [None]  # digital pages come with their text: no rendering, no OCR
+    pages, looks = [], []  # (gray or None until needed, lines) for each page looked at
+    for i, layer in enumerate(layers):
+        if layer is None and i >= SCAN_LIMIT and not looks:
+            break  # a long scan with no ID in its first pages: the rest isn't read
+        gray = None if layer is not None else ocr.pdf_page(path, i) if pdf else ocr.image(path)
+        lines = layer if layer is not None else ocr.lines(gray)
+        pages.append((gray, lines))
+        if _looks_like_id(lines):
+            looks.append(i)
+    for i, (gray, lines) in enumerate(pages):
         if i not in looks and not (looks and i < FORCED_PAGES):
             continue
-        t, page, failed = _read_page(gray, force=True)
+        if gray is None:
+            gray = ocr.pdf_page(path, i)  # the AI and the source crops need the picture
+        t, page, failed = _read_page(gray, lines, force=True)
         ai_failed |= failed
         if page and doc == "other":
             doc = t
@@ -323,8 +336,8 @@ def read_document(path) -> tuple[str, dict, bool]:
     return doc, found, ai_failed
 
 
-def _looks_like_id(gray) -> bool:
-    texts = [t for t, _ in ocr.lines(gray)]
+def _looks_like_id(lines) -> bool:
+    texts = [t for t, _ in lines]
     flat = [t.replace(" ", "").upper() for t in texts]
     return any(EID.search(t) or (len(t) in (30, 44) and "<" in t) for t in flat) or bool(ID_WORDS.search(" ".join(texts)))
 

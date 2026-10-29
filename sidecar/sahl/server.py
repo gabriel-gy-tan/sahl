@@ -10,13 +10,14 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from typing import Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
-from . import ai, fill, library, match, ocr, vault
+from . import ai, fill, intent, library, match, ocr, vault
 
 GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] / "guides"))
 
@@ -39,6 +40,15 @@ class ImportDoc(BaseModel):
     path: str
 
 
+class Turn(BaseModel):
+    role: Literal["user", "assistant"]
+    text: str = Field(max_length=2000)
+
+
+class Chat(BaseModel):
+    messages: list[Turn] = Field(max_length=50)
+
+
 def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> FastAPI:
     app = FastAPI()
     # the Tauri webview's origins in dev and in a built app
@@ -54,6 +64,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
     @app.get("/guides", dependencies=[Depends(auth)])
     def list_guides():
         return [{"id": g["id"], "service": g["service"]} for g in guides.values()]
+
+    @app.post("/chat", dependencies=[Depends(auth)])
+    def chat(body: Chat):
+        """Sahl's next message in the "what form?" conversation, maybe offering a guide."""
+        return intent.talk([t.model_dump() for t in body.messages], guides)
 
     @app.post("/read", dependencies=[Depends(auth)])
     def read(body: Read):
@@ -203,6 +218,7 @@ def main():
     print(f"SAHL_PORT={sock.getsockname()[1]}", flush=True)
     if "SAHL_TOKEN" not in os.environ:
         print(f"SAHL_TOKEN={token}", flush=True)
+    intent.warm()
     ocr.engine()  # load the model before the first read
     library.watch()  # read new documents in the background
     uvicorn.Server(uvicorn.Config(create_app(token), log_level="warning")).run(sockets=[sock])
