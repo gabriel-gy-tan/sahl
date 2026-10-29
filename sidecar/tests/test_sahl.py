@@ -113,7 +113,7 @@ def test_split_name_boxes_are_found():
     # DS-160 style: separate Surnames / Given Names boxes, and a native-alphabet name that isn't ours to fill
     import json
     from sahl import match
-    guide = json.loads((ROOT / "guides/any-form.json").read_text())
+    guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
     lines = [("Surnames", (100, 100, 300, 130)), ("Given Names", (100, 400, 320, 430)),
              ("Full Name in Native Alphabet", (100, 600, 600, 630))]
     assert sorted(f["id"] for f in match.match(lines, guide)) == ["given_names", "surname"]
@@ -122,6 +122,49 @@ def test_split_name_boxes_are_found():
 def test_token_required(client):
     assert client.get("/guides", headers={"x-sahl-token": "wrong"}).status_code == 403
     assert TestClient(client.app).get("/guides").status_code == 403
+
+
+def test_vault_lives_in_appdata_on_windows(monkeypatch, tmp_path):
+    import sys
+    monkeypatch.delenv("SAHL_HOME", raising=False)
+    monkeypatch.setenv("APPDATA", str(tmp_path / "roaming"))
+    monkeypatch.setattr(sys, "platform", "win32")
+    assert vault.home() == tmp_path / "roaming/Sahl"
+
+
+def test_forget_uses_the_recycle_bin_off_macos(monkeypatch, tmp_path):
+    import sys
+    import types
+    from sahl import library
+    lib = tmp_path / "library"
+    lib.mkdir()
+    (lib / "passport.png").write_bytes(b"x")
+    (lib / ".keep").write_bytes(b"")
+    monkeypatch.setenv("SAHL_LIBRARY", str(lib))
+    sent = []
+    monkeypatch.setitem(sys.modules, "send2trash", types.SimpleNamespace(send2trash=sent.append))
+    monkeypatch.setattr(sys, "platform", "win32")
+    library.forget()
+    assert sent == [str(lib / "passport.png")]  # dot files stay; a real Windows run puts it in the Recycle Bin
+
+
+def test_fill_clicks_physical_pixels_on_windows(fake_ai, monkeypatch):
+    import sys
+    typed, page = [], PORTAL.copy()
+
+    def typer(box, value):
+        typed.append(box)
+        img = Image.fromarray(page)
+        ImageDraw.Draw(img).text((box[0] + 12, box[1] + 14), value, fill=0, font=ImageFont.load_default(26))
+        page[:] = np.array(img)
+
+    app = server.create_app("t0k", screen=lambda: [(page, 2.0, (0, 0, 700, 700))], typer=typer)
+    c = TestClient(app, headers={"x-sahl-token": "t0k"})
+    c.post("/vault/import", json={"path": str(ROOT / "demo/samples/passport.png")})
+    field = next(f for f in c.post("/read", json={"guide": "medical-fitness"}).json()["fields"] if f["id"] == "full_name")
+    monkeypatch.setattr(sys, "platform", "win32")  # pynput/SetCursorPos wants pixels on a DPI-aware Windows process
+    assert c.post("/fill", json={"field_id": "full_name"}).json()["landed"] is True
+    assert typed == [tuple(v * 2 for v in field["input_box"])]
 
 
 def test_family_in_one_folder(client):

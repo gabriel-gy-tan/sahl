@@ -1,17 +1,20 @@
 """Draws the invented resident's passport and Emirates ID into demo/samples/. Not real documents.
 
-Run: sidecar/.venv/bin/python demo/make_samples.py
+Run it with the sidecar's Python: `python demo/make_samples.py`.
 """
+import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
 OUT = Path(__file__).parent / "samples"
+WINDOWS_FONTS = Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts"
 
 
 def font(size, mono=False):
-    for p in (["/System/Library/Fonts/Menlo.ttc", "DejaVuSansMono.ttf"] if mono
-              else ["/System/Library/Fonts/Helvetica.ttc", "DejaVuSans.ttf"]):
+    mac = ["/System/Library/Fonts/Menlo.ttc"] if mono else ["/System/Library/Fonts/Helvetica.ttc"]
+    win = [WINDOWS_FONTS / "consola.ttf"] if mono else [WINDOWS_FONTS / "arial.ttf"]
+    for p in mac + win + (["DejaVuSansMono.ttf"] if mono else ["DejaVuSans.ttf"]):
         try:
             return ImageFont.truetype(p, size)
         except OSError:

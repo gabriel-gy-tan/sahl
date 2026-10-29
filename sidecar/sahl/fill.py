@@ -10,7 +10,7 @@ def type_into(box, value: str):
     x0, y0, x1, y1 = box
     mouse, keys = Mouse(), Keys()
     mouse.position = ((x0 + x1) / 2, (y0 + y1) / 2)
-    time.sleep(0.12)  # macOS registers the move late; clicking at once lands on the previous position
+    time.sleep(0.12)  # the cursor move can land late; clicking at once hits the previous position
     # the browser is in the background (you just tapped Sahl's panel), so the first click only brings
     # its window forward; the second puts the cursor in the box. pynput sends each as a single click.
     mouse.click(Button.left)

@@ -4,6 +4,9 @@ use std::process::{Child, Command, Stdio};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Mutex;
 
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
+
 use tauri::{Emitter, Manager, RunEvent, WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_global_shortcut::ShortcutState;
 
@@ -36,14 +39,22 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
     std::thread::spawn(move || loop {
         // ponytail: dev layout only (repo checkout with sidecar/.venv); bundle the sidecar for releases
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../sidecar");
+        let python = if cfg!(windows) {
+            root.join(".venv/Scripts/python.exe")
+        } else {
+            root.join(".venv/bin/python")
+        };
         let s = handle.state::<Sidecar>();
-        let mut child = Command::new(root.join(".venv/bin/python"))
-            .args(["-m", "sahl.server"])
+        let mut cmd = Command::new(&python);
+        cmd.args(["-m", "sahl.server"])
             .current_dir(&root)
             .env("SAHL_TOKEN", &s.token)
-            .stdout(Stdio::piped())
+            .stdout(Stdio::piped());
+        #[cfg(windows)]
+        cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW: no console flashes up beside the panel
+        let mut child = cmd
             .spawn()
-            .expect("could not start sidecar/.venv/bin/python, see sidecar/README.md");
+            .unwrap_or_else(|e| panic!("could not start {} ({e}), see sidecar/README.md", python.display()));
         let out = child.stdout.take().unwrap();
         *s.child.lock().unwrap() = Some(child);
         for line in BufReader::new(out).lines().map_while(Result::ok) {
@@ -91,6 +102,10 @@ pub fn run() {
             panel.set_position(tauri::LogicalPosition::new(pos.x + size.width - 400.0, pos.y + 80.0))?;
             #[cfg(target_os = "macos")]
             window_vibrancy::apply_vibrancy(&panel, window_vibrancy::NSVisualEffectMaterial::HudWindow, None, Some(16.0))?;
+            #[cfg(target_os = "windows")]
+            if let Err(e) = window_vibrancy::apply_mica(&panel, None) {
+                eprintln!("sahl: Mica unavailable ({e}), using the panel's own background");
+            }
 
             // full-screen, click-through layer that draws the ring around the next box
             let overlay = WebviewWindowBuilder::new(app, "overlay", WebviewUrl::App("index.html".into()))

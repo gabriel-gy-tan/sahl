@@ -1,5 +1,6 @@
 """Screen capture and Indra OCR. Everything stays on this computer."""
 import os
+import sys
 
 import numpy as np
 
@@ -40,7 +41,38 @@ def pages(path, render=_render_pdf) -> list[np.ndarray]:
     return [np.array(ImageOps.exif_transpose(Image.open(path)).convert("L"))]
 
 
-def screenshots() -> list[tuple[np.ndarray, float, tuple[int, int, int, int]]]:
+def _windows_scale(mon) -> float:
+    """Pixels per point for the monitor at the centre of a Windows rectangle.
+
+    mss reports Windows monitor rectangles in physical pixels. Tauri and the ring use points,
+    so the physical rectangle is divided by this scale before it leaves screenshots().
+    """
+    import ctypes
+    from ctypes import wintypes
+
+    user32 = ctypes.windll.user32
+    user32.MonitorFromPoint.argtypes = [wintypes.POINT, wintypes.DWORD]
+    user32.MonitorFromPoint.restype = wintypes.HMONITOR
+    point = wintypes.POINT(mon["left"] + mon["width"] // 2, mon["top"] + mon["height"] // 2)
+    handle = user32.MonitorFromPoint(point, 2)  # MONITOR_DEFAULTTONEAREST
+    dpi_x, dpi_y = wintypes.UINT(), wintypes.UINT()
+    try:
+        shcore = ctypes.windll.shcore
+        shcore.GetDpiForMonitor.argtypes = [wintypes.HMONITOR, ctypes.c_int,
+                                            ctypes.POINTER(wintypes.UINT), ctypes.POINTER(wintypes.UINT)]
+        if shcore.GetDpiForMonitor(handle, 0, ctypes.byref(dpi_x), ctypes.byref(dpi_y)) == 0 and dpi_x.value:
+            return dpi_x.value / 96.0
+    except (AttributeError, OSError):
+        pass
+    dc = user32.GetDC(None)  # older Windows: system DPI is the best available answer
+    try:
+        dpi = ctypes.windll.gdi32.GetDeviceCaps(dc, 88)  # LOGPIXELSX
+    finally:
+        user32.ReleaseDC(None, dc)
+    return dpi / 96.0 if dpi else 1.0
+
+
+def screenshots() -> list[tuple[np.ndarray, float, tuple[float, float, float, float]]]:
     """One grayscale capture per monitor, with its pixels-per-point scale and its (left, top, width, height) in points."""
     import mss
     out = []
@@ -49,5 +81,7 @@ def screenshots() -> list[tuple[np.ndarray, float, tuple[int, int, int, int]]]:
             shot = sct.grab(mon)
             rgb = np.frombuffer(shot.rgb, np.uint8).reshape(shot.height, shot.width, 3)
             gray = (rgb @ np.array([0.299, 0.587, 0.114])).astype(np.uint8)
-            out.append((gray, shot.width / mon["width"], (mon["left"], mon["top"], mon["width"], mon["height"])))
+            scale = _windows_scale(mon) if sys.platform == "win32" else shot.width / mon["width"]
+            points = tuple(v / scale for v in (mon["left"], mon["top"], mon["width"], mon["height"]))
+            out.append((gray, scale, points))
     return out

@@ -5,10 +5,12 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 ## In progress
 
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
+- [ ] **Windows port**: sidecar path and hidden console, `%APPDATA%\Sahl` vault, Recycle Bin, per-monitor DPI
+  for capture/ring/fill, UTF-8 files on Windows; then run the app and check overlay, shortcut and fill in Edge/Chrome
 
 ## Next
 
-- [ ] **Windows version**: see the table in AGENTS.md (sidecar path, vault folder, Recycle Bin, DPI, overlay)
+- [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)

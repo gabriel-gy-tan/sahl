@@ -1,8 +1,9 @@
 """The residents' own documents, read once and kept on this computer.
 
 Every reading is kept per document file, with a PNG crop of the line it came from, in SQLite under
-SAHL_HOME (default ~/Library/Application Support/Sahl). Documents are grouped into people by birth
-date and name, and a form asks for values in the order of sources it prefers.
+SAHL_HOME (default: %APPDATA%\\Sahl on Windows, ~/Library/Application Support/Sahl on macOS).
+Documents are grouped into people by birth date and name, and a form asks for values in the order of
+sources it prefers.
 The public form guides never touch this store.
 
 A value is "verified" only when something other than one reading backs it: a check digit in the
@@ -14,6 +15,7 @@ import os
 import re
 import shutil
 import sqlite3
+import sys
 import threading
 import time
 from io import BytesIO
@@ -51,7 +53,15 @@ TO_DIGIT = str.maketrans("OQDILZSBG", "001112586")
 
 
 def home() -> Path:
-    p = Path(os.environ.get("SAHL_HOME", Path.home() / "Library/Application Support/Sahl"))
+    """Where Sahl keeps its vault database and settings; SAHL_HOME overrides it (tests use a temp folder)."""
+    if p := os.environ.get("SAHL_HOME"):
+        p = Path(p)
+    elif sys.platform == "win32":
+        p = Path(os.environ.get("APPDATA", Path.home() / "AppData/Roaming")) / "Sahl"
+    elif sys.platform == "darwin":
+        p = Path.home() / "Library/Application Support/Sahl"
+    else:
+        p = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share")) / "Sahl"
     p.mkdir(parents=True, exist_ok=True)
     return p
 

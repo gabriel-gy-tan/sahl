@@ -15,7 +15,13 @@ const LANGS: { id: Lang; name: string }[] = [
   { id: "ml", name: "മലയാളം" },
 ];
 const RTL = new Set<Lang>(["ar", "ur"]);
+const SHORTCUT = navigator.userAgent.includes("Mac") ? "⌥ Space" : "Alt+Space";
 type Key = keyof typeof strings.en;
+
+/** `/Users/me/...` or `C:\Users\me\...` → `~/...` */
+function prettyPath(p: string) {
+  return p.replace(/^\/Users\/[^/]+/, "~").replace(/^[A-Za-z]:\\Users\\[^\\]+/, "~");
+}
 
 function saved<T extends string>(key: string, fallback: T): T {
   try {
@@ -231,7 +237,7 @@ export default function Panel() {
       </div>
 
       <button className="primary" disabled={busy || !guides} onClick={read}>
-        {!guides ? t("starting") : busy ? t("reading") : t("read")} <kbd>⌥ Space</kbd>
+        {!guides ? t("starting") : busy ? t("reading") : t("read")} <kbd>{SHORTCUT}</kbd>
       </button>
 
       {error && <p className="error" role="alert">{error in strings.en ? t(error as Key) : error}</p>}
@@ -290,7 +296,7 @@ export default function Panel() {
         </div>
         {library && (
           <div className="library">
-            <span dir="ltr" title={library}>{library.replace(/^\/Users\/[^/]+/, "~")}</span>
+            <span dir="ltr" title={library}>{prettyPath(library)}</span>
             <button className="ghost" disabled={busy || !guides} onClick={changeLibrary}>{t("change")}</button>
           </div>
         )}

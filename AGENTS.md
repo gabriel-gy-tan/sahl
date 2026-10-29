@@ -28,16 +28,16 @@ Rules and context for any coding agent (and human) working on Sahl.
 
 ## Windows port
 
-A collaborator is building the Windows version. Known macOS-only spots:
+The Windows code paths are in place; a real Windows build still needs a run on a portal and in Edge/Chrome.
 
-| Where | macOS today | Windows needs |
-|---|---|---|
-| `app/src-tauri/src/lib.rs` | starts `sidecar/.venv/bin/python` | `sidecar\.venv\Scripts\python.exe` |
-| `app/src-tauri/src/lib.rs` | `apply_vibrancy` (behind `cfg(target_os = "macos")`) | optional `apply_mica` / `apply_acrylic` from `window-vibrancy` |
-| `sidecar/sahl/vault.py` `home()` | `~/Library/Application Support/Sahl` | `%APPDATA%\Sahl` |
-| `sidecar/sahl/library.py` `forget()` | Finder via `osascript` to move files to Trash | move to Recycle Bin (e.g. `send2trash`, or the shell API) |
-| `sidecar/sahl/fill.py` | already uses Ctrl instead of Cmd off macOS | check that the double click and timings work in Edge/Chrome |
-| `sidecar/sahl/ocr.py` | `mss` monitor coordinates in points | check DPI scaling: screen points vs physical pixels |
-| Overlay | `macOSPrivateApi` for transparency | check click-through and transparency on Windows |
+| Where | Windows behaviour |
+|---|---|
+| `app/src-tauri/src/lib.rs` | starts `sidecar\.venv\Scripts\python.exe` with `CREATE_NO_WINDOW`; tries Mica on the panel |
+| `sidecar/sahl/vault.py` `home()` | `%APPDATA%\Sahl` (`SAHL_HOME` still overrides it) |
+| `sidecar/sahl/library.py` `forget()` | `send2trash`, so files go to the Recycle Bin |
+| `sidecar/sahl/ocr.py` | `mss` reports physical pixels; `screenshots()` divides each monitor by its DPI scale |
+| `sidecar/sahl/server.py` | a fill converts screen points back to physical pixels before `pynput` clicks |
+| `sidecar/sahl/fill.py` | uses Ctrl instead of Cmd off macOS; double-click timings still to check in Edge/Chrome |
+| Overlay | transparent + click-through is requested through Tauri; still to check on Windows |
 
 Keep platform branches small (`sys.platform`, `#[cfg(...)]`) and in the file that owns the behaviour. Don't fork whole modules per platform.
