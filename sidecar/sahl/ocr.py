@@ -1,4 +1,5 @@
 """Screen capture and Indra OCR. Everything stays on this computer."""
+import atexit
 import os
 
 import numpy as np
@@ -20,24 +21,78 @@ def lines(gray: np.ndarray) -> list[tuple[str, tuple[float, float, float, float]
     return [(l.text, tuple(l.box)) for l in engine().ocr(gray).lines]
 
 
-def _render_pdf(path: str) -> list[np.ndarray]:
-    import indra_ocr
-    return [gray for _, gray in indra_ocr.load_pages(path, dpi=200)]  # yields (page index, gray)
+DPI = 200  # PDF pages render at this; text-layer boxes are given in the same pixels
+_POOL = None
 
 
-def pages(path, render=_render_pdf) -> list[np.ndarray]:
-    """Grayscale pages of a document: every page of a PDF, or one photo turned upright.
-
-    PDFs render in a throwaway child process: pdfium can crash on a malformed file, and that
-    must take down only the child (raising BrokenProcessPool here), never Sahl.
+def _in_child(fn, *args):
+    """Runs fn in Sahl's one PDF helper process. pdfium can crash or hang on a malformed file, and that
+    must take down only the helper (raising BrokenProcessPool or TimeoutError here), never Sahl.
+    The helper stays up between documents, so each PDF doesn't pay for a new Python process.
     """
-    if str(path).lower().endswith(".pdf"):
-        import multiprocessing as mp
-        from concurrent.futures import ProcessPoolExecutor
-        with ProcessPoolExecutor(1, mp_context=mp.get_context("spawn")) as ex:
-            return ex.submit(render, str(path)).result(timeout=180)
+    global _POOL
+    import multiprocessing as mp
+    from concurrent.futures import ProcessPoolExecutor
+    from concurrent.futures.process import BrokenProcessPool
+    if _POOL is None:
+        _POOL = ProcessPoolExecutor(1, mp_context=mp.get_context("spawn"))
+        atexit.register(_POOL.shutdown)  # stop the helper before the interpreter tears down
+    try:
+        return _POOL.submit(fn, *args).result(timeout=180)
+    except (BrokenProcessPool, TimeoutError):
+        pool, _POOL = _POOL, None  # the next call starts a fresh helper
+        for p in list((pool._processes or {}).values()):
+            p.kill()  # a hung pdfium must not outlive its timeout
+        pool.shutdown(wait=False, cancel_futures=True)
+        raise
+
+
+def _pdf_text(path: str) -> list[list | None]:
+    """Per page: the text layer as OCR-style lines for a digital page, or None for a scanned one."""
+    import pypdfium2 as pdfium
+    import pypdfium2.raw as c
+    doc = pdfium.PdfDocument(path)
+    try:
+        out, k = [], DPI / 72
+        for page in doc:
+            w, h = page.get_size()
+            pictured = sum((r - l) * (t - b) for o in page.get_objects(filter=(c.FPDF_PAGEOBJ_IMAGE,))
+                           for l, b, r, t in [o.get_bounds()])
+            tp = page.get_textpage()
+            lines = []
+            for i in range(tp.count_rects()):
+                l, b, r, t = tp.get_rect(i)
+                if s := tp.get_text_bounded(l, b, r, t).strip():
+                    lines.append((s, (l * k, (h - t) * k, r * k, (h - b) * k)))
+            # a scan (one big picture, maybe with a scanner's hidden OCR layer) or an empty page goes to Indra
+            out.append(None if pictured > 0.5 * w * h or sum(len(s) for s, _ in lines) < 20 else lines)
+        return out
+    finally:
+        doc.close()
+
+
+def _pdf_render(path: str, i: int) -> np.ndarray:
+    import pypdfium2 as pdfium
+    doc = pdfium.PdfDocument(path)
+    try:
+        arr = doc[i].render(scale=DPI / 72, grayscale=True).to_numpy()
+        return np.ascontiguousarray(arr[..., 0] if arr.ndim == 3 else arr)
+    finally:
+        doc.close()
+
+
+def pdf_text(path) -> list[list | None]:
+    return _in_child(_pdf_text, str(path))
+
+
+def pdf_page(path, i: int) -> np.ndarray:
+    return _in_child(_pdf_render, str(path), i)
+
+
+def image(path) -> np.ndarray:
+    """A photo or scan, turned upright, in grayscale."""
     from PIL import Image, ImageOps
-    return [np.array(ImageOps.exif_transpose(Image.open(path)).convert("L"))]
+    return np.array(ImageOps.exif_transpose(Image.open(path)).convert("L"))
 
 
 def screenshots() -> list[tuple[np.ndarray, float, tuple[int, int, int, int]]]:
