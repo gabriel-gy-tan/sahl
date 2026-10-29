@@ -167,6 +167,17 @@ def test_fill_clicks_physical_pixels_on_windows(fake_ai, monkeypatch):
     assert typed == [tuple(v * 2 for v in field["input_box"])]
 
 
+def test_import_says_what_it_read_and_the_summary_has_no_values(client):
+    passport = str(ROOT / "demo/samples/passport.png")
+    r = client.post("/vault/import", json={"path": passport}).json()
+    assert r["read"] == [{"person": r["people"][0], "type": "passport"}]
+    assert client.post("/vault/import", json={"path": passport}).json()["read"] == []  # nothing new to read
+    s = client.get("/vault/summary").json()
+    assert s == {"people": [{"id": s["people"][0]["id"], "name": r["people"][0], "docs": {"passport": 1}}], "unmatched": 0}
+    fields = {f["id"]: f for f in client.post("/read", json={"guide": "medical-fitness"}).json()["fields"]}
+    assert fields["emirates_id"]["vault"] is None and fields["emirates_id"]["needs"] == "eid"  # the panel asks for it
+
+
 def test_family_in_one_folder(client):
     r = client.post("/vault/import", json={"path": str(ROOT / "demo/samples")}).json()
     # one entry per person, though the son's name appears three ways (passport, ID with his father's
@@ -266,6 +277,25 @@ def test_fill_that_misses_does_not_advance(client, monkeypatch):
     client.post("/read", json={"guide": "medical-fitness"})
     assert client.post("/fill", json={"field_id": "full_name"}).json()["landed"] is False
     assert client.post("/read", json={"guide": "medical-fitness"}).json()["next"] == "full_name"
+
+
+def test_improvement_reports_are_off_by_default_and_hold_no_values(client, monkeypatch):
+    import json
+    client.post("/vault/import", json={"path": str(ROOT / "demo/samples/passport.png")})
+    client.post("/read", json={"guide": "medical-fitness"})
+    assert client.get("/improve").json() == {"on": False, "folder": client.get("/improve").json()["folder"], "reports": []}
+    assert client.post("/improve", json={"on": True}).json()["on"] is True
+    fields = client.post("/read", json={"guide": "medical-fitness"}).json()["fields"]
+    real = vault.get
+    monkeypatch.setattr(vault, "get", lambda k, p: {**real(k, p), "value": "MISS" + real(k, p)["value"]} if real(k, p) else None)
+    client.post("/read", json={"guide": "medical-fitness"})
+    client.post("/fill", json={"field_id": "full_name"})
+    [r] = client.get("/improve").json()["reports"]
+    assert (r["guide"], r["found"], r["missed"]) == ("medical-fitness", len(fields), 1)
+    report = json.loads(r["text"])
+    assert report["found"]["full_name"]["label"] == next(f["seen"] for f in fields if f["id"] == "full_name")
+    values = [f["vault"]["value"] for f in fields if f["vault"]]
+    assert values and not any(v in r["text"] for v in values)  # labels and positions only, never the person's details
 
 
 def test_pdfs(tmp_path):

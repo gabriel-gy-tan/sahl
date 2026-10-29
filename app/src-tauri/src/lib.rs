@@ -180,6 +180,41 @@ fn dictate(window: tauri::WebviewWindow) -> tauri::Result<()> {
     Ok(())
 }
 
+/// Documents and folders in one picker, which the dialog plugin can't do (it picks one or the other).
+/// None where that isn't written yet: the panel then opens the plugin's file picker.
+#[tauri::command]
+async fn pick_documents(app: tauri::AppHandle) -> Option<Vec<String>> {
+    #[cfg(target_os = "macos")]
+    {
+        let (tx, rx) = std::sync::mpsc::channel();
+        app.run_on_main_thread(move || {
+            use objc2_app_kit::{NSModalResponseOK, NSOpenPanel};
+            use objc2_foundation::{NSArray, NSString};
+            let panel = NSOpenPanel::openPanel(objc2::MainThreadMarker::new().expect("main thread"));
+            panel.setCanChooseFiles(true);
+            panel.setCanChooseDirectories(true);
+            panel.setAllowsMultipleSelection(true);
+            // public.folder: with a type list set, folders are greyed out unless they're one of the types
+            let kinds = ["pdf", "png", "jpg", "jpeg", "public.folder"].map(NSString::from_str);
+            #[allow(deprecated)] // allowedContentTypes needs UniformTypeIdentifiers for the same four types
+            panel.setAllowedFileTypes(Some(&NSArray::from_retained_slice(&kinds)));
+            let picked = if panel.runModal() == NSModalResponseOK {
+                panel.URLs().iter().filter_map(|u| u.path()).map(|p| p.to_string()).collect()
+            } else {
+                vec![]
+            };
+            let _ = tx.send(picked);
+        })
+        .ok()?;
+        return tauri::async_runtime::spawn_blocking(move || rx.recv().ok()).await.ok().flatten();
+    }
+    #[cfg(not(target_os = "macos"))]
+    {
+        let _ = app;
+        None
+    }
+}
+
 /// Tells the panel when the pointer enters or leaves it. A webview in a window that isn't
 /// focused gets no hover events on macOS, and the island must open without a click.
 fn watch_hover(app: &tauri::AppHandle) {
@@ -300,7 +335,7 @@ pub fn run() {
                 })
                 .build(),
         )
-        .invoke_handler(tauri::generate_handler![sidecar_info, notch, island, dictate])
+        .invoke_handler(tauri::generate_handler![sidecar_info, notch, island, dictate, pick_documents])
         .setup(|app| {
             spawn_sidecar(app.handle());
             let mon = app.primary_monitor()?.expect("a monitor");

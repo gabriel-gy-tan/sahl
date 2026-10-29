@@ -17,7 +17,7 @@ def model(monkeypatch):
 
     def chat(body, timeout, tries=2):
         said["calls"] += 1
-        if "reply" in body["format"]["properties"]:
+        if "reply" in body.get("format", {}).get("properties", {}):  # warm() sends no format
             said["talk"] = body
             return None if said["reply"] is None else {"reply": said["reply"]}
         return said["pick"]
@@ -78,3 +78,17 @@ def test_chat_endpoint(model, tmp_path, monkeypatch):
     assert c.post("/chat", json={"messages": me("medical fitness")}).json()["guide"] == "medical-fitness"
     assert c.post("/chat", json={"messages": [{"role": "system", "text": "x"}]}).status_code == 422
     assert c.post("/chat", json={"messages": me("x")}, headers={"x-sahl-token": "no"}).status_code == 403
+
+
+def test_the_model_size_is_chosen_and_kept(model, tmp_path, monkeypatch):
+    monkeypatch.setenv("SAHL_HOME", str(tmp_path / "home"))
+    monkeypatch.setenv("SAHL_LIBRARY", str(tmp_path / "library"))
+    monkeypatch.delenv("SAHL_INTENT_MODEL", raising=False)
+    monkeypatch.setattr(ai, "installed", lambda: ["qwen3:0.6b", "qwen3-vl:4b-instruct"])
+    c = TestClient(server.create_app("t0k", screen=lambda: [], typer=lambda *a: None), headers={"x-sahl-token": "t0k"})
+    m = c.get("/models").json()
+    assert m["tier"] == "standard" and {t["id"]: t["installed"] for t in m["tiers"]} == {
+        "light": True, "standard": False, "strong": False}
+    assert c.post("/models", json={"tier": "light"}).json()["tier"] == "light"
+    assert ai.text_model() == "qwen3:0.6b" and ai.vision_model() == "qwen3-vl:4b-instruct"
+    assert c.post("/models", json={"tier": "huge"}).status_code == 422
