@@ -6,6 +6,7 @@
     "ur": "رہائشی طبی معائنہ · بکنگ",
     "ml": "റസിഡൻസി മെഡിക്കൽ ഫിറ്റ്നസ് · ബുക്കിംഗ്"
   },
+  "about": "Book the medical fitness test (blood test and chest X-ray) needed to get or renew a UAE residence visa.",
   "source": "https://mohap.gov.ae/en/services",
   "checked": null,
   "note": "Field list follows the invented demo portal. Requirements not yet checked against the official service page; translations not reviewed by native speakers. vault_key lists the sources in the order the form prefers them.",

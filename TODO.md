@@ -4,6 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
+- [ ] Notch panel: black island that opens on hover, palm while starting, "What form?" box picked by a small local model (`feat/notch-panel`)
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 
 ## Next
@@ -16,6 +17,9 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Start Ollama automatically, or tell the user clearly when it isn't running
 - [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] Read each document page once instead of twice (ID check and reading both OCR it)
+- [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
+- [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)
+- [ ] Native speakers to check the new greeting and form-picker strings (ar/ur/ml)
 
 ## Done
 

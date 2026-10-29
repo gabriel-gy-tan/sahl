@@ -15,12 +15,16 @@
       {
         "label": "panel",
         "title": "Sahl",
-        "width": 360,
-        "height": 620,
+        "width": 200,
+        "height": 32,
         "resizable": false,
         "decorations": false,
         "transparent": true,
-        "alwaysOnTop": true
+        "shadow": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "acceptFirstMouse": true
       }
     ],
     "security": {
