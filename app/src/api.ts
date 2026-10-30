@@ -7,11 +7,12 @@ export type Field = {
   label: string;
   label_box: Box;
   input_box: Box;
-  input: "text" | "date" | "select";
+  input: "text" | "date" | "select" | "choice";
   help: Record<Lang, string>;
   vault: { value: string; verified: boolean; source: string; crop: string | null } | null;
   confirmed: boolean;
 };
+export type PickOption = { label: string; box: Box };
 export type Person = { id: string; name: string };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
 export type Guide = { id: string; service: Record<Lang, string> };

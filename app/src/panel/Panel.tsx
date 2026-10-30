@@ -5,7 +5,7 @@ import { emitTo, listen } from "@tauri-apps/api/event";
 import { getCurrentWindow, LogicalPosition, LogicalSize } from "@tauri-apps/api/window";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { ask, open } from "@tauri-apps/plugin-dialog";
-import { api, ApiError, type Guide, type Lang, type Person, type Reading, type Reply } from "../api";
+import { api, ApiError, type Guide, type Lang, type Person, type PickOption, type Reading, type Reply } from "../api";
 import strings from "./i18n.json";
 import "./panel.css";
 
@@ -129,6 +129,7 @@ export default function Panel() {
   const [error, setError] = useState<Key | string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [picks, setPicks] = useState<{ fieldId: string; items: PickOption[] } | null>(null);
 
   const t = (k: Key, vars: Record<string, string | number> = {}) =>
     Object.entries(vars).reduce((s, [a, b]) => s.replace(`{${a}}`, String(b)), strings[lang][k] ?? strings.en[k]);
@@ -142,7 +143,9 @@ export default function Panel() {
   const fail = (e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
     if (e instanceof ApiError && e.status === 0) return setError("restarted");
-    setError(e instanceof ApiError && e.status === 409 ? (msg.startsWith("typing") ? "err_type" : "err_screen") : msg);
+    setError(e instanceof ApiError && e.status === 409
+      ? msg.startsWith("typing") ? "err_type" : msg.startsWith("list") ? "err_list" : "err_screen"
+      : msg);
   };
 
   // --- the island: boot palm, then open / folded into the notch ---
@@ -210,6 +213,7 @@ export default function Panel() {
     setGuide(id);
     setFormName(name);
     setReading(null);
+    setPicks(null);
     setError(null);
   };
   const say = (m: Said) => setThread((th) => [...th, m]);
@@ -257,6 +261,7 @@ export default function Panel() {
   const restart = () => { // back to the conversation, which is kept
     setGuide(null);
     setReading(null);
+    setPicks(null);
     setError(null);
     void emitTo("overlay", "ring", null);
     void WebviewWindow.getByLabel("overlay").then((o) => o?.hide());
@@ -267,6 +272,7 @@ export default function Panel() {
     setBusy(true);
     setError(null);
     setCopied(false);
+    setPicks(null);
     const overlay = await WebviewWindow.getByLabel("overlay");
     try {
       await overlay?.hide(); // never read our own ring
@@ -297,21 +303,59 @@ export default function Panel() {
     return () => void un.then((f) => f());
   }, [read]);
 
+  const foldAway = async () => {
+    setOpen(false);
+    await new Promise((r) => setTimeout(r, FOLD_MS));
+  };
+
   const act = async (path: "/fill" | "/confirm", fieldId: string) => {
     const wrote = path === "/fill";
     setBusy(true);
-    if (wrote) {
-      setOpen(false);
-      await new Promise((r) => setTimeout(r, FOLD_MS));
-    }
+    setError(null);
+    if (wrote) await foldAway();
     try {
-      const r = await api<{ landed?: boolean }>(path, { field_id: fieldId });
+      const r = await api<{ landed?: boolean; options?: PickOption[] }>(path, { field_id: fieldId });
       await read();
-      if (r.landed === false) setError("missed"); // after read(), which clears errors
+      if (r.options?.length) setPicks({ fieldId, items: r.options });
+      if (r.landed === false && !r.options?.length) setError(field?.input === "select" ? "no_options" : "missed"); // after read(), which clears errors
     } catch (e) {
       fail(e);
     } finally {
       if (wrote) setOpen(true);
+      setBusy(false);
+    }
+  };
+
+  const openList = async (fieldId: string) => {
+    setBusy(true);
+    setError(null);
+    setPicks(null);
+    await foldAway();
+    try {
+      const r = await api<{ options: PickOption[] }>("/options", { field_id: fieldId });
+      setPicks({ fieldId, items: r.options });
+      if (!r.options.length) setError("no_options");
+    } catch (e) {
+      fail(e);
+    } finally {
+      setOpen(true);
+      setBusy(false);
+    }
+  };
+
+  const chooseOption = async (fieldId: string, value: string) => {
+    setBusy(true);
+    setError(null);
+    await foldAway();
+    try {
+      const r = await api<{ landed: boolean; options: PickOption[] }>("/choose", { field_id: fieldId, value });
+      await read();
+      if (r.options?.length) setPicks({ fieldId, items: r.options });
+      if (!r.landed && !r.options?.length) setError("no_options");
+    } catch (e) {
+      fail(e);
+    } finally {
+      setOpen(true);
       setBusy(false);
     }
   };
@@ -398,7 +442,9 @@ export default function Panel() {
 
   const field = reading?.fields.find((f) => f.id === reading.next) ?? null;
   const index = field ? reading!.fields.indexOf(field) + 1 : 0;
-  const canFill = mode === "fill" && field?.input === "text" && field.vault?.verified;
+  const listable = field?.input === "select" || field?.input === "date" || field?.input === "choice";
+  const canFill = mode === "fill" && !!field?.vault?.verified;
+  const canPick = mode === "fill" && listable;
   const guideName = guides?.find((g) => g.id === guide)?.service[lang];
 
   // --- open on hover, fold back into the notch a moment after the pointer leaves ---
@@ -663,11 +709,31 @@ export default function Panel() {
                     <div className="actions">
                       {canFill ? (
                         <button className="primary" disabled={busy} onClick={() => act("/fill", field.id)}>{t("yes_fill")}</button>
+                      ) : canPick ? (
+                        <button className="primary" disabled={busy} onClick={() => void openList(field.id)}>{t("pick_list")}</button>
                       ) : (
                         <button className="primary" disabled={busy} onClick={() => act("/confirm", field.id)}>{t("done_next")}</button>
                       )}
-                      <button className="ghost" disabled={busy} onClick={() => act("/confirm", field.id)}>{t("skip")}</button>
+                      {canFill && canPick && (
+                        <button className="ghost" disabled={busy} onClick={() => void openList(field.id)}>{t("pick_list")}</button>
+                      )}
+                      <button className="ghost" disabled={busy} onClick={() => act("/confirm", field.id)}>
+                        {canFill ? t("skip") : canPick ? t("done_next") : t("skip")}
+                      </button>
                     </div>
+                    {picks?.fieldId === field.id && picks.items.length > 0 && (
+                      <div className="picker">
+                        <span className="quiet">{t("pick_option")}</span>
+                        <div className="options" role="listbox" aria-label={t("pick_list")}>
+                          {picks.items.map((option, i) => (
+                            <button key={`${i}-${option.label}`} role="option" aria-selected={false} dir="auto"
+                              disabled={busy} onClick={() => void chooseOption(field.id, option.label)}>
+                              {option.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </section>
                 ) : (
                   <>

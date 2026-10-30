@@ -104,7 +104,7 @@
         "eid.dob",
         "other.dob"
       ],
-      "input": "text",
+      "input": "date",
       "box": "auto",
       "aliases": [
         "Date of birth",
@@ -129,7 +129,7 @@
         "eid.nationality",
         "other.nationality"
       ],
-      "input": "text",
+      "input": "choice",
       "box": "auto",
       "aliases": [
         "Nationality",
@@ -174,7 +174,7 @@
     {
       "id": "passport_expiry",
       "vault_key": "passport.expiry",
-      "input": "text",
+      "input": "date",
       "box": "auto",
       "aliases": [
         "Passport expiry date",

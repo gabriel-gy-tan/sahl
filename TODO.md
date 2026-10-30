@@ -13,6 +13,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Read form starts from the first box again after a form has been completed
 - [ ] Fold the island out of the way while Sahl clicks and types into the form
 - [ ] Confirm short values such as surnames after filling, even when OCR is imperfect
+- [ ] Dropdowns and date pickers: auto-pick verified values, with a manual list fallback (`feat/dropdowns`)
 
 ## Next
 
@@ -20,7 +21,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
-- [ ] Dropdowns and date pickers (show-only today)
+- [ ] Split day/month/year dropdowns, long list scrolling, and calendar month/year navigation
 - [ ] Start Ollama automatically, or tell the user clearly when it isn't running
 - [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] Read each document page once instead of twice (ID check and reading both OCR it)

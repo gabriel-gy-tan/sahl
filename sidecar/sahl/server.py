@@ -4,6 +4,7 @@ Run: SAHL_TOKEN=... python -m sahl.server   (prints SAHL_PORT=<n> once it is lis
 """
 import json
 import os
+import re
 import secrets
 import socket
 import subprocess
@@ -38,6 +39,10 @@ class FieldRef(BaseModel):
     field_id: str
 
 
+class PickRef(FieldRef):
+    value: str
+
+
 class ImportDoc(BaseModel):
     path: str
 
@@ -65,7 +70,92 @@ def _matches(seen: str, want: str) -> bool:
     return len(seen) >= 4 and fuzz.partial_ratio(seen, want) >= 92
 
 
-def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> FastAPI:
+MONTH_NAMES = "January February March April May June July August September October November December".split()
+
+
+def _flat(text: str) -> str:
+    return "".join(c for c in text.casefold() if c.isalnum())
+
+
+def _value_variants(value: str) -> set[str]:
+    """The ways a portal may spell a verified value: country vs nationality, or a date."""
+    out = {value}
+    m = re.fullmatch(r"(\d{1,2})[./-](\d{1,2})[./-](\d{4})", value.strip())
+    if m:
+        day, month, year = (int(v) for v in m.groups())
+        if 1 <= month <= 12:
+            name = MONTH_NAMES[month - 1]
+            short = vault.MONTHS[month - 1].title()
+            out.update((f"{day}/{month}/{year}", f"{day}-{month}-{year}", f"{day} {month} {year}",
+                        f"{day} {name} {year}", f"{day} {short} {year}", f"{name} {day}, {year}",
+                        f"{short} {day}, {year}", f"{year}-{month:02d}-{day:02d}", f"{year} {name} {day}"))
+    for country, nationality in vault.NATIONS.values():
+        if value.casefold() in (country.casefold(), nationality.casefold()):
+            out.update((country, nationality))
+    return out
+
+
+def _option_score(value: str, text: str) -> float:
+    """How closely one visible dropdown or calendar label matches a verified value."""
+    seen = _flat(text)
+    if not seen:
+        return 0
+    date = re.fullmatch(r"(\d{1,2})[./-](\d{1,2})[./-](\d{4})", value.strip())
+    if date:
+        day, month, year = (int(v) for v in date.groups())
+        tokens = set(re.findall(r"[a-z]+|\d+", text.casefold()))
+        day_ok = str(day) in tokens or f"{day:02d}" in tokens
+        month_ok = (str(month) in tokens or f"{month:02d}" in tokens
+                    or MONTH_NAMES[month - 1].casefold() in tokens
+                    or vault.MONTHS[month - 1].casefold() in tokens) if 1 <= month <= 12 else False
+        return 100 if day_ok and month_ok and str(year) in tokens else 0
+    best = 0.0
+    for variant in _value_variants(value):
+        want = _flat(variant)
+        if not want:
+            continue
+        if want == seen:
+            return 100
+        if min(len(want), len(seen)) >= 3 and (want in seen or seen in want):
+            best = max(best, 96)
+        best = max(best, fuzz.ratio(want, seen), fuzz.partial_ratio(want, seen))
+    return best
+
+
+def _option_candidates(lines, field, scale, mon):
+    """Lines that appeared below (or above) the opened control, in screen points."""
+    x0, y0, x1, y1 = field["input_box"]
+    w, h = max(x1 - x0, 8), max(y1 - y0, 8)
+    below, above = [], []
+    for text, box in lines:
+        text = text.strip()
+        if not text or len(text) > 70:
+            continue
+        left, top = box[0] / scale + mon[0], box[1] / scale + mon[1]
+        right, bottom = box[2] / scale + mon[0], box[3] / scale + mon[1]
+        cx, cy = (left + right) / 2, (top + bottom) / 2
+        if not x0 - 0.75 * w <= cx <= x1 + 0.75 * w:
+            continue
+        item = (cy, cx, text, (left, top, right, bottom))
+        if y1 + 0.05 * h < cy <= y1 + 24 * h:
+            below.append(item)
+        elif y0 - 24 * h <= cy < y0 - 0.05 * h:
+            above.append(item)
+    chosen = below if len(below) >= 2 else above if len(above) >= 2 else []
+    out, seen = [], set()
+    for _, _, text, box in sorted(chosen, key=lambda item: (item[0], item[1])):
+        key = (text.casefold(), round(box[1]))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"label": text, "box": box})
+        if len(out) == 60:
+            break
+    return out
+
+
+def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into,
+               opener=fill.open_list, picker=fill.pick_option) -> FastAPI:
     app = FastAPI()
     # the Tauri webview's origins in dev and in a built app
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
@@ -128,32 +218,95 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             raise HTTPException(404, "field not on screen at last read")
         return f
 
+    def _physical(box):
+        # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
+        return tuple(round(v * state["scale"]) for v in box) if sys.platform == "win32" else box
+
+    def _open_options(f):
+        if state["monitor"] is None:
+            raise HTTPException(409, "list failed: no form on screen")
+        try:
+            opener(_physical(f["input_box"]))
+        except Exception as e:  # no permission to click, or the form is elevated
+            raise HTTPException(409, f"list failed: {e}")
+        time.sleep(0.35)
+        try:
+            shots = screen()
+        except Exception as e:
+            raise HTTPException(409, f"screen capture failed: {e}")
+        for gray, scale, mon in shots:
+            if tuple(mon) == tuple(state["monitor"]):
+                return _option_candidates(ocr.lines(gray), f, scale, mon)
+        raise HTTPException(409, "list failed: the form's screen is gone")
+
+    def _best_option(value, options):
+        scored = [(_option_score(value, option["label"]), option) for option in options]
+        return max(scored, default=(0, None), key=lambda pair: pair[0])
+
+    def _pick_option(f, option):
+        try:
+            picker(_physical(option["box"]))
+        except Exception as e:
+            raise HTTPException(409, f"list failed: {e}")
+        time.sleep(0.3)
+        landed = _landed(f["input_box"], option["label"])
+        if landed:
+            state["confirmed"].add(f["id"])
+        return landed
+
+    def _type_verified(f, value):
+        try:
+            typer(_physical(f["input_box"]), value)
+        except Exception as e:
+            raise HTTPException(409, f"typing failed: {e}")
+        time.sleep(0.3)
+        landed = _landed(f["input_box"], value)
+        if landed:
+            state["confirmed"].add(f["id"])
+        return landed
+
     @app.post("/confirm", dependencies=[Depends(auth)])
     def confirm(body: FieldRef):
         _field(body.field_id)
         state["confirmed"].add(body.field_id)
         return {"ok": True}
 
+    @app.post("/options", dependencies=[Depends(auth)])
+    def options(body: FieldRef):
+        f = _field(body.field_id)
+        if f["input"] not in ("select", "date", "choice"):
+            raise HTTPException(422, "this box is not a list or date")
+        return {"options": _open_options(f)}
+
+    @app.post("/choose", dependencies=[Depends(auth)])
+    def choose(body: PickRef):
+        f = _field(body.field_id)
+        if f["input"] not in ("select", "date", "choice"):
+            raise HTTPException(422, "this box is not a list or date")
+        options = _open_options(f)
+        score, option = _best_option(body.value, options)
+        if not option or score < 82:
+            return {"landed": False, "options": options}
+        landed = _pick_option(f, option)
+        return {"landed": landed, "options": options if not landed else []}
+
     @app.post("/fill", dependencies=[Depends(auth)])
     def do_fill(body: FieldRef):
         f = _field(body.field_id)
         v = f["vault"]
-        if f["input"] != "text":
-            raise HTTPException(422, "Sahl only types into plain text boxes")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
-        box = f["input_box"]  # screen points
-        if sys.platform == "win32":  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
-            box = tuple(round(v * state["scale"]) for v in box)
-        try:
-            typer(box, v["value"])
-        except Exception as e:  # no permission to type, or the form is elevated
-            raise HTTPException(409, f"typing failed: {e}")
-        time.sleep(0.3)
-        landed = _landed(f["input_box"], v["value"])
-        if landed:  # only move on when the box visibly shows what was typed
-            state["confirmed"].add(body.field_id)
-        return {"ok": True, "landed": landed}
+        if f["input"] == "text":
+            return {"ok": True, "landed": _type_verified(f, v["value"])}
+        if f["input"] not in ("select", "date", "choice"):
+            raise HTTPException(422, "Sahl can't fill this kind of box")
+        if f["input"] in ("date", "choice") and _type_verified(f, v["value"]):
+            return {"ok": True, "landed": True, "options": []}  # a plain text or native date input
+        options = _open_options(f)
+        score, option = _best_option(v["value"], options)
+        if option and score >= 88 and _pick_option(f, option):
+            return {"ok": True, "landed": True, "options": []}
+        return {"ok": True, "landed": False, "options": options}
 
     def _landed(box, value) -> bool:
         """Re-reads one box from the screen and checks it now shows the value."""
@@ -161,17 +314,21 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             if tuple(mon) != tuple(state["monitor"]):
                 continue
             x0, y0, x1, y1 = ((v - mon[i % 2]) * scale for i, v in enumerate(box))
-            pad = 6 * scale  # OCR needs a margin round the text
-            crop = gray[max(0, int(y0 - pad)):int(y1 + pad), max(0, int(x0 - pad)):int(x1 + pad)]
-            if crop.size == 0:
-                return False
-            if _matches("".join(t for t, _ in ocr.lines(crop)), value):
-                return True
-            if crop.shape[1] < 400 or crop.shape[0] < 80:  # a small input, whose text OCR may miss at native size
+            pad = 6 * scale
+            crops = [gray[max(0, int(y0)):int(y1), max(0, int(x0)):int(x1)],
+                     gray[max(0, int(y0 - pad)):int(y1 + pad), max(0, int(x0 - pad)):int(x1 + pad)]]
+            for crop in crops:
+                if crop.size and _matches("".join(t for t, _ in ocr.lines(crop)), value):
+                    return True
+            if any(crop.size and (crop.shape[1] < 400 or crop.shape[0] < 80) for crop in crops):
                 from PIL import Image
-                big = np.array(Image.fromarray(crop).resize(
-                    (crop.shape[1] * 2, crop.shape[0] * 2), Image.Resampling.LANCZOS))
-                return _matches("".join(t for t, _ in ocr.lines(big)), value)
+                for crop in crops:
+                    if not crop.size:
+                        continue
+                    big = np.array(Image.fromarray(crop).resize(
+                        (crop.shape[1] * 2, crop.shape[0] * 2), Image.Resampling.LANCZOS))
+                    if _matches("".join(t for t, _ in ocr.lines(big)), value):
+                        return True
             return False
         return False
 

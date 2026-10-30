@@ -1,6 +1,30 @@
-"""Types one confirmed value into one box. Never presses Enter, so nothing gets submitted."""
+"""Types or picks one confirmed value in one box. Never presses Enter, so nothing gets submitted."""
 import sys
 import time
+
+
+def open_list(box):
+    """Clicks a dropdown once. A double click could land on and choose an option."""
+    from pynput.mouse import Button, Controller as Mouse
+
+    x0, y0, x1, y1 = box
+    mouse = Mouse()
+    mouse.position = ((x0 + x1) / 2, (y0 + y1) / 2)
+    time.sleep(0.12)
+    mouse.click(Button.left)
+    time.sleep(0.4)
+
+
+def pick_option(box):
+    """Clicks one visible option in a list that open_list() just opened."""
+    from pynput.mouse import Button, Controller as Mouse
+
+    x0, y0, x1, y1 = box
+    mouse = Mouse()
+    mouse.position = ((x0 + x1) / 2, (y0 + y1) / 2)
+    time.sleep(0.12)
+    mouse.click(Button.left)
+    time.sleep(0.25)
 
 
 def type_into(box, value: str):

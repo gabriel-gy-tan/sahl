@@ -269,8 +269,17 @@ button.ghost.danger { color: var(--danger); }
 figure { margin: 0; }
 figure img { display: block; width: 100%; border-radius: 6px; }
 figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-top: 4px; }
-.actions { display: flex; gap: 8px; margin-top: 4px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .actions .primary { flex: 1; }
+.picker { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+.options {
+  display: flex; flex-direction: column; gap: 2px; max-height: 230px; overflow-y: auto;
+  padding: 5px; border-radius: 14px; border: 1px solid var(--line); background: #000;
+}
+.options button {
+  border: 0; background: none; text-align: start; padding: 9px 12px; border-radius: 10px; cursor: pointer;
+}
+.options button:hover, .options button:focus-visible { background: #2c2c2e; outline: none; }
 
 .busy { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0 4px; color: var(--muted); }
 .busy p { margin: 0; }
