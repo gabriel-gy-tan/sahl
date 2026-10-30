@@ -1,0 +1,38 @@
+{
+  "id": "emirates-id-renewal",
+  "service": {
+    "en": "Emirates ID renewal",
+    "ar": "تجديد الهوية الإماراتية",
+    "ur": "ایمریٹس آئی ڈی کی تجدید",
+    "ml": "എമിറേറ്റ്സ് ഐഡി പുതുക്കൽ"
+  },
+  "about": "Renew an Emirates ID card that has expired or is close to expiring.",
+  "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5d",
+  "checked": "2026-10-30",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID renewal. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Residents can renew when the card has expired or has less than six months left",
+      "The passport must be valid for at least 3 months",
+      "A resident outside Dubai who renews together with a residence permit needs a medical exam result of fit"
+    ],
+    "documents": [
+      "Passport",
+      "A recent personal photo that is not the same as the photo on the current card",
+      "For residents, proof of the reason for residence such as a GCC ID, study, employment, investment or property papers, and attested family documents for relatives"
+    ],
+    "fees": [
+      "100 AED per year of residence plus a 100 AED smart application fee",
+      "20 AED a day for renewing late, up to 1,000 AED"
+    ],
+    "timing": [
+      "About 5 days",
+      "Anyone aged 15 or over gives fingerprints and a signature at an ICP service centre"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

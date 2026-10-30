@@ -24,8 +24,8 @@ Rules and context for any coding agent (and human) working on Sahl.
   - `intent.py`: "what form do you want to work on?" A guide name typed plainly matches at once; otherwise a small local text model (`qwen3:1.7b` by default) picks a guide id, which is only kept if it is a real guide. The person still confirms it.
   - `library.py`: the Sahl documents folder, synced every 30 s.
   - `fill.py`: clicks and types with `pynput`.
-  - `report.py`: "Help improve Sahl", off by default. When on, each form gets a report in `SAHL_HOME/reports`: the labels Sahl matched (only text that matched a guide alias), box positions as screen fractions, and which boxes it never saw or missed. Never a value. It sends nothing; the person copies or attaches a report themselves.
-- **`guides/`**: one JSON per form: field aliases (EN/AR), which vault key fills it, help text in en/ar/ur/ml, and an `about` sentence (what the form is for) that the form picker reads.
+  - `report.py`: "Help improve Sahl", off by default. When on, each form gets a report in `SAHL_HOME/reports`: the labels Sahl matched (only text that matched a guide alias), short unrecognised labels beside an input box (no digits, never one of the person's own values), box positions as screen fractions, and which boxes it never saw or missed. Never a value. It sends nothing; the person copies or attaches a report themselves.
+- **`guides/`**: one JSON per form: field aliases (EN/AR), which vault key fills it, help text in en/ar/ur/ml, an `about` sentence (what the form is for) and optional `requirements` (eligibility, documents, fees, timing, channels, copied from the official service page named in `source`, dated in `checked`) that the form picker reads.
 - **`demo/`**: an invented portal page and invented sample documents.
 
 ## Windows port

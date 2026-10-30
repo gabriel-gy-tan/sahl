@@ -1,9 +1,9 @@
 """"Help improve Sahl": off unless the person turns it on. Then each form gets a small report, on this computer, of which
 of its boxes Sahl found, never saw, or typed into and missed, for whoever maintains the guides.
 
-A report holds only what Sahl matched to a guide's own label words (the label as the form prints it) and where the
-boxes sit as fractions of the screen. Never a value, never other text from the screen, never anything from the
-documents. Nothing here sends anything: the person reads the report and chooses whether to share it.
+A report holds only what Sahl matched to a guide's own label words (the label as the form prints it), short
+unrecognised labels that sit beside an input box (never text with digits, never one of the person's own values), and
+where the boxes sit as fractions of the screen. Never a value, never anything from the documents. Nothing here sends anything: the person reads the report and chooses whether to share it.
 """
 import json
 import time
@@ -40,7 +40,7 @@ def _load(guide_id: str) -> dict:
     try:
         return json.loads(_file(guide_id).read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return {"guide": guide_id, "date": time.strftime("%Y-%m-%d"), "found": {}, "not_seen": [], "missed": []}
+        return {"guide": guide_id, "date": time.strftime("%Y-%m-%d"), "found": {}, "not_seen": [], "missed": [], "unknown_labels": {}}
 
 
 def _save(r: dict):
@@ -48,7 +48,7 @@ def _save(r: dict):
     _file(r["guide"]).write_text(json.dumps(r, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def record_read(guide: dict, fields: list[dict], monitor):
+def record_read(guide: dict, fields: list[dict], monitor, unknown: list[str] = ()):
     """Adds one read of a form: each found box's printed label and where it is; the guide's boxes not seen."""
     if not enabled() or not monitor:
         return
@@ -58,6 +58,10 @@ def record_read(guide: dict, fields: list[dict], monitor):
     for f in fields:
         r["found"][f["id"]] = {"label": f["seen"][:80], "label_box": rel(f["label_box"]), "input_box": rel(f["input_box"])}
     r["not_seen"] = sorted(set(r["not_seen"]) | {f["id"] for f in guide["fields"]} - {f["id"] for f in fields})
+    u = r.setdefault("unknown_labels", {})  # label text no alias matched, with how often it was seen
+    for t in unknown:
+        if t in u or len(u) < 40:
+            u[t] = u.get(t, 0) + 1
     _save(r)
 
 

@@ -109,16 +109,17 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             shots = screen()
         except Exception as e:  # macOS without Screen Recording permission, or a capture error on Windows
             raise HTTPException(409, f"screen capture failed: {e}")
-        best, monitor, best_scale = [], None, 1.0
+        best, monitor, best_scale, unknown = [], None, 1.0, []
         for gray, scale, mon in shots:  # the form is on whichever monitor matches the most fields
             gray = gray.copy()
             H, W = gray.shape
             for x0, y0, x1, y1 in body.exclude:  # the panel shows field names that would match as labels
                 c = lambda v, o, n: min(max(int((v - o) * scale), 0), n)
                 gray[c(y0, mon[1], H):c(y1, mon[1], H), c(x0, mon[0], W):c(x1, mon[0], W)] = 255
-            hits = match.match(ocr.lines(gray), g, gray, scale, mon[:2])
+            text = ocr.lines(gray)
+            hits = match.match(text, g, gray, scale, mon[:2])
             if len(hits) > len(best):
-                best, monitor, best_scale = hits, mon, scale
+                best, monitor, best_scale, shot = hits, mon, scale, (text, gray)
         everyone = vault.people()
         person = body.person if any(p["id"] == body.person for p in everyone) else (
             everyone[0]["id"] if len(everyone) == 1 else None)
@@ -133,7 +134,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         state["fields"] = {f["id"]: f for f in fields}
         state["monitor"] = monitor
         state["scale"] = best_scale
-        report.record_read(g, fields, monitor)
+        if report.enabled() and best:
+            known = {match._norm(str(v["value"])) for x in guides.values() for f in x["fields"]
+                     if (v := vault.get(f["vault_key"], person))}
+            unknown = match.unknown_labels(shot[0], g, shot[1], known)
+        report.record_read(g, fields, monitor, unknown)
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
         return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
 

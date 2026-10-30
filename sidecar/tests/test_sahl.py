@@ -296,6 +296,7 @@ def test_improvement_reports_are_off_by_default_and_hold_no_values(client, monke
     assert report["found"]["full_name"]["label"] == next(f["seen"] for f in fields if f["id"] == "full_name")
     values = [f["vault"]["value"] for f in fields if f["vault"]]
     assert values and not any(v in r["text"] for v in values)  # labels and positions only, never the person's details
+    assert all(not any(c.isdigit() for c in k) for k in report["unknown_labels"])
 
 
 def test_pdfs(tmp_path):

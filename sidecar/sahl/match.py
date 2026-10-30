@@ -170,3 +170,22 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
         out.append({"id": f["id"], "seen": lines[hits[fi]][0], "label_box": to_pt(label),
                     "input_box": to_pt(_input_box(gray, label, f["box"]))})
     return out
+
+
+def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
+    """Printed labels no alias of the guide matches, to learn new aliases from.
+
+    Only short text with no digits that has an input border next to it (a value sits inside a box, not beside one),
+    and never text that is one of the person's own values (`known`, already normalised)."""
+    if gray is None:
+        return []
+    aliases = [a for f in guide["fields"] for a in f["aliases"]]
+    out = []
+    for text, box in lines:
+        t = _norm(text)
+        if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", t) or _score(text, aliases) >= THRESHOLD:
+            continue
+        if any(t in k or k in t for k in known) or not (_below(gray, box) or _right(gray, box)):
+            continue
+        out.append(text.strip(" :*"))
+    return out

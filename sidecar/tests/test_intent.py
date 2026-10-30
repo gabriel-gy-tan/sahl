@@ -47,6 +47,13 @@ def test_questions_get_a_reply_and_the_whole_conversation_is_sent(model):
     assert sent[0]["role"] == "system" and [m["role"] for m in sent[1:]] == ["user", "assistant", "user"]
 
 
+def test_the_reply_is_given_what_a_form_needs(model):
+    model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="Bring your passport.")
+    intent.talk(me("what do I need to renew my Emirates ID?"), GUIDES)
+    system = model["talk"]["messages"][0]["content"]
+    assert "Needs, documents: Passport" in system and "Needs, fees:" in system
+
+
 def test_the_reply_is_asked_for_in_their_language(model):
     model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="مرحبا")
     intent.talk(me("مرحبا، ما هو الفحص الطبي؟"), GUIDES)
@@ -54,16 +61,16 @@ def test_the_reply_is_asked_for_in_their_language(model):
 
 
 def test_a_made_up_or_generic_guide_is_not_trusted(model):
-    for bad in ("emirates-id-renewal", "any-form"):
+    for bad in ("driving-licence-renewal", "any-form"):
         model.update(pick={"kind": "match", "guide": bad, "name": ""}, reply="Sure.")
-        r = intent.talk(me("renew my Emirates ID"), GUIDES)
+        r = intent.talk(me("renew my driving licence"), GUIDES)
         assert (r["kind"], r["guide"]) == ("unsure", None)
 
 
 def test_a_form_sahl_has_no_guide_for(model):
-    model.update(pick={"kind": "new", "guide": "", "name": "Emirates ID renewal"}, reply="I don't have that one.")
-    r = intent.talk(me("renew my Emirates ID"), GUIDES)
-    assert (r["kind"], r["name"]) == ("new", "Emirates ID renewal")
+    model.update(pick={"kind": "new", "guide": "", "name": "Driving licence renewal"}, reply="I don't have that one.")
+    r = intent.talk(me("renew my driving licence"), GUIDES)
+    assert (r["kind"], r["name"]) == ("new", "Driving licence renewal")
 
 
 def test_no_model_running_gives_no_reply(model):
