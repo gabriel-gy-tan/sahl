@@ -5,7 +5,7 @@ import { emitTo, listen } from "@tauri-apps/api/event";
 import { getCurrentWindow, LogicalPosition, LogicalSize } from "@tauri-apps/api/window";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { ask, open } from "@tauri-apps/plugin-dialog";
-import { api, ApiError, type Guide, type Lang, type Person, type Reading, type Reply } from "../api";
+import { api, ApiError, type Doc, type Guide, type Held, type Lang, type Person, type Reading, type Reply } from "../api";
 import strings from "./i18n.json";
 import "./panel.css";
 
@@ -86,6 +86,9 @@ function Dropdown({ value, options, placeholder, label, onChange }: {
 }
 
 const TEXT_SIZES = ["1", "1.15", "1.3"] as const;
+// the settings menu's pages, in order
+const PAGES = { general: "menu_general", custom: "menu_custom", docs: "menu_docs", telemetry: "menu_telemetry", license: "menu_license" } as const;
+type Page = keyof typeof PAGES;
 
 /** Reads text aloud with the computer's own voices (on the device). The voice follows the text's script. */
 function speak(text: string) {
@@ -103,6 +106,32 @@ function Speaker({ text, label }: { text: string; label: string }) {
     </button>
   );
 }
+
+// line icons on a 24 grid, drawn like the mic and speaker
+const ICONS = {
+  general: "M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6",
+  custom: "M4 7V4h16v3M9 20h6M12 4v16",
+  docs: "M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5",
+  telemetry: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
+  license: "M12 3v18M7 21h10M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z",
+  globe: "M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18",
+  pointer: "M9 9l5 12 1.8-5.2L21 14zM7.2 2.2L8 5.1M5.1 8l-2.9-.8M14 4.1L12 6M6 12l-1.9 2",
+  user: "M12 12a4 4 0 1 0 0-8a4 4 0 1 0 0 8M4 21a8 8 0 0 1 16 0",
+  chip: "M7 7h10v10H7zM10 10h4v4h-4zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3",
+  speaker: "M4 9.5h3.5L12 5.5v13l-4.5-4H4zM15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11",
+  folder: "M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+  trash: "M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 10v6M14 10v6",
+  plus: "M12 5v14M5 12h14",
+  bolt: "M13 2L4 14h7l-1 8 9-12h-7z",
+  heart: "M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z",
+} as const;
+function Icon({ name }: { name: keyof typeof ICONS }) {
+  return <svg className="icon" viewBox="0 0 24 24" aria-hidden><path d={ICONS[name]} /></svg>;
+}
+
+const TIERS = ["light", "standard", "strong"] as const;
+type Improve = { on: boolean; reports: { file: string; guide: string; date: string; found: number; not_seen: number; missed: number; text: string }[] };
+type Models = { tier: (typeof TIERS)[number]; running: boolean; tiers: { id: string; text: string; vision: string; installed: boolean }[] };
 
 function Palm({ leaving = false }: { leaving?: boolean }) {
   return (
@@ -132,6 +161,8 @@ export default function Panel() {
 
   const t = (k: Key, vars: Record<string, string | number> = {}) =>
     Object.entries(vars).reduce((s, [a, b]) => s.replace(`{${a}}`, String(b)), strings[lang][k] ?? strings.en[k]);
+  // "passport and Emirates ID", in the panel's language
+  const docs = (types: Doc[]) => new Intl.ListFormat(lang, { type: "conjunction" }).format(types.map((d) => t(`doc_${d}`)));
 
   useEffect(() => {
     api<Guide[]>("/guides").then(setGuides).catch((e) => setError(String(e.message)));
@@ -150,6 +181,8 @@ export default function Panel() {
   const [phase, setPhase] = useState<"boot" | "leaving" | "ready">("boot");
   const [isOpen, setOpen] = useState(false);
   const [sheet, setSheet] = useState(false);
+  const [page, setPage] = useState<Page | null>(null);
+  useEffect(() => void (!sheet && setPage(null)), [sheet]); // the menu opens on its list
   const [contentH, setContentH] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -299,6 +332,7 @@ export default function Panel() {
 
   const act = async (path: "/fill" | "/confirm", fieldId: string) => {
     const wrote = path === "/fill";
+    setNote(null);
     setBusy(true);
     if (wrote) {
       setOpen(false);
@@ -325,20 +359,27 @@ export default function Panel() {
     setError(null);
     const poll = setInterval(() => api<{ done: number; total: number }>("/vault/progress").then(setProgress).catch(() => {}), 700);
     try {
-      const names = new Set<string>();
+      const got: { person: string | null; type: Doc }[] = [];
       const skipped: string[] = [];
       let aiOn = true;
       for (const path of paths) {
-        const r = await api<{ people: string[]; skipped: string[]; ai: boolean }>("/vault/import", { path });
-        r.people.forEach((n) => names.add(n));
+        const r = await api<{ read: typeof got; skipped: string[]; ai: boolean }>("/vault/import", { path });
+        got.push(...r.read);
         skipped.push(...r.skipped);
         aiOn &&= r.ai;
       }
-      const notes = [names.size ? t("people_found", { names: [...names].join(", ") }) : t("nothing_found")];
+      // one line per person: "Read Priya's passport and Emirates ID."
+      const byPerson = new Map<string | null, Set<Doc>>();
+      for (const d of got) byPerson.set(d.person, (byPerson.get(d.person) ?? new Set()).add(d.type));
+      const notes = [...byPerson].map(([name, types]) =>
+        name ? t("read_for", { name, docs: docs([...types]) }) : t("read_nobody", { docs: docs([...types]) }));
+      if (!got.length && !skipped.length) notes.push(t("read_nothing_new"));
       if (skipped.length) notes.push(t("skipped", { files: skipped.join(", ") }));
-      if (!aiOn) notes.push(t("no_ai"));
+      if (!aiOn && got.length) notes.push(t("no_ai"));
       setNote(notes.join(" "));
+      say({ role: "assistant", text: notes.join(" ") });
       setPeople(await api<Person[]>("/people"));
+      void loadHeld();
       if (reading) await read();
     } catch (e) {
       fail(e);
@@ -350,8 +391,51 @@ export default function Panel() {
     }
   };
 
+  // which size of local models to run; a slow wait offers a lighter one
+  const [models, setModels] = useState<Models | null>(null);
+  const loadModels = () => api<Models>("/models").then(setModels).catch(() => {});
+  useEffect(() => void ((page === "general" || !models) && loadModels()), [page]);
+  const chosen = models?.tiers.find((x) => x.id === models.tier);
+  const pull = chosen ? `ollama pull ${chosen.text} && ollama pull ${chosen.vision}` : "";
+  const [slow, setSlow] = useState(false);
+  useEffect(() => {
+    setSlow(false);
+    if (!thinking && !readingDocs) return;
+    const id = setTimeout(() => setSlow(true), thinking ? 12000 : 30000);
+    return () => clearTimeout(id);
+  }, [thinking, readingDocs]);
+  const tooSlow = slow && models?.tier !== "light" && (
+    <button className="link slow" onClick={() => (setSheet(true), setPage("general"))}><Icon name="bolt" />{t("too_slow")}</button>
+  );
+
+  // "Help improve Sahl": off unless turned on; reports stay on this computer until the person shares one
+  const [improve, setImprove] = useState<Improve | null>(null);
+  const [copiedReport, setCopiedReport] = useState("");
+  useEffect(() => void (page === "telemetry" && api<Improve>("/improve").then(setImprove).catch(() => {})), [page]);
+
+  const [held, setHeld] = useState<Held | null>(null);
+  const loadHeld = () => api<Held>("/vault/summary").then(setHeld).catch(() => {});
+  useEffect(() => void (page === "docs" && loadHeld()), [page]);
+
+  // the island floats above every window, so a system dialog (picker, confirm) would open under it:
+  // fold it out of the way while one is up, then bring it back
+  const dialogUp = useRef(false);
+  const dialog = async <T,>(show: () => Promise<T>) => {
+    dialogUp.current = true;
+    setOpen(false);
+    await new Promise((r) => setTimeout(r, FOLD_MS));
+    try {
+      return await show();
+    } finally {
+      dialogUp.current = false;
+      setOpen(true);
+    }
+  };
+
   const addDoc = async () => {
-    const picked = await open({ multiple: true, filters: [{ name: "Document", extensions: ["pdf", "png", "jpg", "jpeg"] }] });
+    // documents and folders together on macOS; elsewhere the plugin's file picker (folders can be dropped)
+    const picked = await dialog(async () => (await invoke<string[] | null>("pick_documents").catch(() => null)) ??
+      (await open({ multiple: true, filters: [{ name: "Document", extensions: ["pdf", "png", "jpg", "jpeg"] }] })));
     if (picked?.length) await importPaths(picked);
   };
 
@@ -371,7 +455,7 @@ export default function Panel() {
   }, []);
 
   const changeLibrary = async () => {
-    const dir = await open({ directory: true, multiple: false });
+    const dir = await dialog(() => open({ directory: true, multiple: false }));
     if (!dir) return;
     setBusy(true);
     setReadingDocs(true);
@@ -380,6 +464,7 @@ export default function Panel() {
       setLibrary(r.path);
       setPeople(await api<Person[]>("/people"));
       setNote(r.people.length ? t("people_found", { names: r.people.join(", ") }) : t("nothing_found"));
+      void loadHeld();
     } catch (e) {
       fail(e);
     } finally {
@@ -389,10 +474,11 @@ export default function Panel() {
   };
 
   const forget = async () => {
-    if (!(await ask(t("forget_ask"), { kind: "warning" }))) return;
+    if (!(await dialog(() => ask(t("forget_ask"), { kind: "warning" })))) return;
     await api("/vault/forget", {}).catch(fail);
     setNote(null);
     setPeople([]);
+    void loadHeld();
     if (reading) await read();
   };
 
@@ -402,7 +488,7 @@ export default function Panel() {
   const guideName = guides?.find((g) => g.id === guide)?.service[lang];
 
   // --- open on hover, fold back into the notch a moment after the pointer leaves ---
-  const keep = busy || thinking || sheet || readingDocs || dropping || !!field || focused;
+  const keep = busy || thinking || readingDocs || dropping || !!field || focused;
   const keepRef = useRef(keep);
   keepRef.current = keep;
   const hovered = useRef(false);
@@ -416,7 +502,7 @@ export default function Panel() {
   useEffect(() => {
     const un = listen<boolean>("hover", (e) => {
       hovered.current = e.payload;
-      if (e.payload) clearTimeout(fold.current), setOpen(true);
+      if (e.payload && !dialogUp.current) clearTimeout(fold.current), setOpen(true);
       else foldSoon(500);
     });
     return () => void un.then((f) => f());
@@ -455,80 +541,157 @@ export default function Panel() {
             {sheet ? (
               <div className="sheet">
                 {/* the title shares its row with the close button, so nothing runs under it */}
-                <h2 className="sheet-title">{t("settings")}</h2>
-
-                <section className="group" aria-label={t("display")}>
-                  <div className="row stacked">
-                    <span>{t("language")}</span>
-                    <div className="seg" role="radiogroup" aria-label={t("language")}>
-                      {LANGS.map((l) => (
-                        <button key={l.id} role="radio" aria-checked={lang === l.id} lang={l.id}
-                          onClick={() => (setLang(l.id), save("lang", l.id))}>
-                          {l.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>{t("text_size")}</span>
-                    <div className="seg compact" role="radiogroup" aria-label={t("text_size")}>
-                      {TEXT_SIZES.map((z, i) => (
-                        <button key={z} role="radio" aria-checked={textSize === z} aria-label={`${t("text_size")} ${i + 1}`}
-                          onClick={() => (setTextSize(z), save("text", z))} style={{ fontSize: `${12 + i * 3}px` }}>A</button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <span>{t("read_aloud")}</span>
-                    <button role="switch" className="switch" aria-checked={readAloud === "on"} aria-label={t("read_aloud")}
-                      onClick={() => { const v = readAloud === "on" ? "off" : "on"; setReadAloud(v); save("speak", v); }}>
-                      <i />
-                    </button>
-                  </div>
-                </section>
-
-                <section className="group" aria-label={t("fill_mode")}>
-                  <div className="row stacked">
-                    <span>{t("fill_mode")}</span>
-                    <div className="seg" role="radiogroup" aria-label={t("fill_mode")}>
-                      {(["show", "fill"] as const).map((m) => (
-                        <button key={m} role="radio" aria-checked={mode === m} onClick={() => (setMode(m), save("mode", m))}>
-                          {t(m === "show" ? "show_only" : "confirm_fill")}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  {people.length > 1 && (
-                    <div className="row stacked">
-                      <span>{t("filling_for")}</span>
-                      <Dropdown value={reading?.person ?? person} label={t("filling_for")} placeholder={t("choose_person")}
-                        options={people.map((p) => ({ value: p.id, label: p.name }))}
-                        onChange={(v) => (setPerson(v), save("person", v))} />
-                    </div>
-                  )}
-                </section>
-
-                <section className="group" aria-label={t("documents")}>
-                  <div className="row">
-                    <span>{t("documents")}</span>
-                    <button className="ghost" disabled={busy || !guides} onClick={addDoc}>{t("add_doc")}</button>
-                  </div>
-                  {library && (
+                <h2 className="sheet-title">
+                  {page && <button className="back" aria-label={t("back")} onClick={() => setPage(null)}>‹</button>}
+                  {t(page ? PAGES[page] : "settings")}
+                </h2>
+                {!page ? (
+                  <nav className="group" aria-label={t("settings")}>
+                    {(Object.keys(PAGES) as Page[]).map((id) => (
+                      <button key={id} className="row nav" onClick={() => setPage(id)}>
+                        <span className={`tile ${id}`}><Icon name={id} /></span>
+                        <span>{t(PAGES[id])}</span><span className="chevron" aria-hidden />
+                      </button>
+                    ))}
+                  </nav>
+                ) : page === "general" ? (
+                  <>
+                    <section className="group" aria-label={t("menu_general")}>
+                      <div className="row stacked">
+                        <span className="label"><Icon name="globe" />{t("language")}</span>
+                        <div className="seg" role="radiogroup" aria-label={t("language")}>
+                          {LANGS.map((l) => (
+                            <button key={l.id} role="radio" aria-checked={lang === l.id} lang={l.id}
+                              onClick={() => (setLang(l.id), save("lang", l.id))}>
+                              {l.name}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
+                    <section className="group" aria-label={t("fill_mode")}>
+                      <div className="row stacked">
+                        <span className="label"><Icon name="pointer" />{t("fill_mode")}</span>
+                        <div className="seg" role="radiogroup" aria-label={t("fill_mode")}>
+                          {(["show", "fill"] as const).map((m) => (
+                            <button key={m} role="radio" aria-checked={mode === m} onClick={() => (setMode(m), save("mode", m))}>
+                              {t(m === "show" ? "show_only" : "confirm_fill")}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="row stacked">
+                        <span className="label"><Icon name="chip" />{t("model")}</span>
+                        <Dropdown value={models?.tier ?? "standard"} label={t("model")} placeholder={t("tier_standard")}
+                          options={TIERS.map((id) => ({ value: id, label: t(`tier_${id}`) }))}
+                          onChange={(v) => void api<Models>("/models", { tier: v }).then(setModels).catch(fail)} />
+                        {models && !models.running && <p className="fine">{t("model_off")}</p>}
+                        {models?.running && chosen && !chosen.installed && (
+                          <div className="pull">
+                            <p className="fine">{t("not_installed")}</p>
+                            <div className="value">
+                              <code dir="ltr">{pull}</code>
+                              <button className="ghost" onClick={() => (navigator.clipboard.writeText(pull), setCopied(true))}>
+                                {copied ? t("copied") : t("copy")}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      {people.length > 1 && (
+                        <div className="row stacked">
+                          <span className="label"><Icon name="user" />{t("filling_for")}</span>
+                          <Dropdown value={reading?.person ?? person} label={t("filling_for")} placeholder={t("choose_person")}
+                            options={people.map((p) => ({ value: p.id, label: p.name }))}
+                            onChange={(v) => (setPerson(v), save("person", v))} />
+                        </div>
+                      )}
+                    </section>
+                  </>
+                ) : page === "custom" ? (
+                  <section className="group" aria-label={t("menu_custom")}>
                     <div className="row">
-                      <span className="path" dir="ltr" title={library}>{prettyPath(library)}</span>
-                      <button className="ghost" disabled={busy || !guides} onClick={changeLibrary}>{t("change")}</button>
+                      <span className="label"><Icon name="custom" />{t("text_size")}</span>
+                      <div className="seg compact" role="radiogroup" aria-label={t("text_size")}>
+                        {TEXT_SIZES.map((z, i) => (
+                          <button key={z} role="radio" aria-checked={textSize === z} aria-label={`${t("text_size")} ${i + 1}`}
+                            onClick={() => (setTextSize(z), save("text", z))} style={{ fontSize: `${12 + i * 3}px` }}>A</button>
+                        ))}
+                      </div>
                     </div>
-                  )}
-                  <button className="row danger-row" disabled={busy || !guides} onClick={forget}>{t("forget")}</button>
-                </section>
-
-                {note && <p className="quiet">{note}</p>}
+                    <div className="row">
+                      <span className="label"><Icon name="speaker" />{t("read_aloud")}</span>
+                      <button role="switch" className="switch" aria-checked={readAloud === "on"} aria-label={t("read_aloud")}
+                        onClick={() => { const v = readAloud === "on" ? "off" : "on"; setReadAloud(v); save("speak", v); }}>
+                        <i />
+                      </button>
+                    </div>
+                  </section>
+                ) : page === "docs" ? (
+                  <>
+                    <section className="group" aria-label={t("documents")}>
+                      <div className="row">
+                        <span className="label"><Icon name="docs" />{t("documents")}</span>
+                        <button className="ghost" disabled={busy || !guides} onClick={addDoc}>{t("add_doc")}</button>
+                      </div>
+                      {/* what Sahl knows: whose documents, and which kinds; never the values */}
+                      {held?.people.map((p) => (
+                        <div className="row" key={p.id}>
+                          <span className="label" dir="auto"><Icon name="user" />{p.name}</span>
+                          <span className="held">{docs(Object.keys(p.docs) as Doc[])}</span>
+                        </div>
+                      ))}
+                      {!!held?.unmatched && <div className="row"><span className="held">{t("unmatched", { n: held.unmatched })}</span></div>}
+                      {held && !held.people.length && !held.unmatched && <div className="row"><span className="held">{t("no_docs")}</span></div>}
+                      {library && (
+                        <div className="row">
+                          <span className="label"><Icon name="folder" /><span className="path" dir="ltr" title={library}>{prettyPath(library)}</span></span>
+                          <button className="ghost" disabled={busy || !guides} onClick={changeLibrary}>{t("change")}</button>
+                        </div>
+                      )}
+                      <button className="row danger-row" disabled={busy || !guides} onClick={forget}><Icon name="trash" />{t("forget")}</button>
+                    </section>
+                    {note && <p className="quiet">{note}</p>}
+                  </>
+                ) : page === "telemetry" ? (
+                  <>
+                    <p className="page-text">{t("telemetry_body")}</p>
+                    <section className="group" aria-label={t("improve")}>
+                      <div className="row">
+                        <span className="label"><Icon name="heart" />{t("improve")}</span>
+                        <button role="switch" className="switch" aria-checked={!!improve?.on} aria-label={t("improve")} disabled={!improve}
+                          onClick={() => void api<Improve>("/improve", { on: !improve!.on }).then(setImprove).catch(fail)}>
+                          <i />
+                        </button>
+                      </div>
+                      <div className="row"><p className="fine">{t("improve_body")}</p></div>
+                      {improve?.on && improve.reports.slice(0, 3).map((r) => (
+                        <div className="row stacked" key={r.file}>
+                          <span className="label"><Icon name="docs" />{guides?.find((g) => g.id === r.guide)?.service[lang] ?? r.guide} · {r.date}</span>
+                          <p className="fine">{t("report_counts", { found: r.found, missed: r.missed, not_seen: r.not_seen })}</p>
+                          <button className="ghost" onClick={() => (navigator.clipboard.writeText(r.text), setCopiedReport(r.file))}>
+                            {copiedReport === r.file ? t("copied") : t("copy_report")}
+                          </button>
+                        </div>
+                      ))}
+                      {improve?.on && !improve.reports.length && <div className="row"><span className="held">{t("no_reports")}</span></div>}
+                      {improve?.on && (
+                        <button className="row nav" onClick={() => void api("/improve/reveal", {}).catch(fail)}>
+                          <span className="label"><Icon name="folder" />{t("open_folder")}</span><span className="chevron" aria-hidden />
+                        </button>
+                      )}
+                    </section>
+                  </>
+                ) : (
+                  <p className="page-text">{t("license_body")}</p>
+                )}
                 <p className="fine">{t("local")} · {t("never_submits")}</p>
               </div>
             ) : readingDocs ? (
               <div className="busy" role="status" aria-live="polite">
                 <Palm />
                 <p>{progress?.total ? t("importing", { done: progress.done, total: progress.total }) : " "}</p>
+                {tooSlow}
               </div>
             ) : !guide ? (
               <div className="ask">
@@ -591,7 +754,7 @@ export default function Panel() {
                       <img className="avatar" src="/palm-bold.png" alt="" />
                       <div className="said">
                         {thinking ? (
-                          <span className="typing" role="status" aria-label={t("thinking")}><i /><i /><i /></span>
+                          <><span className="typing" role="status" aria-label={t("thinking")}><i /><i /><i /></span>{tooSlow}</>
                         ) : (
                           <p className="error" role="alert">{error && (error in strings.en ? t(error as Key) : error)}</p>
                         )}
@@ -605,6 +768,9 @@ export default function Panel() {
                   </div>
                 )}
                 <form className="composer" onSubmit={(e) => (e.preventDefault(), void send(text))}>
+                  <button className="mic add" type="button" aria-label={t("add_doc")} title={t("add_doc")} disabled={busy} onClick={addDoc}>
+                    <Icon name="plus" />
+                  </button>
                   {/* empty, it follows the panel (right to left in Arabic and Urdu); typed, it follows the text */}
                   <input ref={inputRef} value={text} placeholder={t("placeholder")} dir={text ? "auto" : undefined} aria-label={t("ask_form")}
                     onChange={(e) => setText(e.target.value)}
@@ -632,6 +798,7 @@ export default function Panel() {
                   </div>
                 )}
 
+                {note && <p className="quiet" role="status">{note}</p>}
                 {field && (reading!.person || people.length < 2) ? (
                   <section className="card" aria-live="polite">
                     <div className="eyebrow">{t("next_box")} · {t("step", { n: index, total: reading!.fields.length })}</div>
@@ -658,7 +825,14 @@ export default function Panel() {
                         {!field.vault.verified && <p className="warn">{t("unverified")}</p>}
                       </>
                     ) : (
-                      <p className="quiet">{field.input === "text" ? t("not_in_vault") : t("you_choose")}</p>
+                      field.needs ? (
+                        <div className="missing">
+                          <p className="quiet">{t("needs_doc", { doc: t(`doc_${field.needs}`) })}</p>
+                          <button className="ghost" disabled={busy} onClick={addDoc}>{t("add_doc")}</button>
+                        </div>
+                      ) : (
+                        <p className="quiet">{field.input === "text" ? t("not_in_vault") : t("you_choose")}</p>
+                      )
                     )}
                     <div className="actions">
                       {canFill ? (

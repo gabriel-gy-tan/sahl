@@ -20,10 +20,11 @@ Rules and context for any coding agent (and human) working on Sahl.
   - `ocr.py`: screenshots of every monitor (`mss`) and Indra OCR. PDFs render in a child process because pdfium can crash.
   - `match.py`: matches OCR lines to a guide's label aliases (rapidfuzz) and finds the input box below.
   - `vault.py`: reads documents (passport MRZ, Emirates ID, printed text, then local AI only if needed), groups them into people, stores readings in SQLite. Only check-digit- or page-confirmed values are "verified", and only verified values are typed.
-  - `ai.py`: local vision model via Ollama (`qwen3-vl:8b-instruct`). Its answers are proposals, never trusted alone.
-  - `intent.py`: "what form do you want to work on?" A guide name typed plainly matches at once; otherwise a small local text model (`qwen3:1.7b`) picks a guide id, which is only kept if it is a real guide. The person still confirms it.
+  - `ai.py`: local vision model via Ollama (`qwen3-vl:8b-instruct` by default; `TIERS` holds the lighter and stronger pairs that Settings → General → AI model switches between). Its answers are proposals, never trusted alone.
+  - `intent.py`: "what form do you want to work on?" A guide name typed plainly matches at once; otherwise a small local text model (`qwen3:1.7b` by default) picks a guide id, which is only kept if it is a real guide. The person still confirms it.
   - `library.py`: the Sahl documents folder, synced every 30 s.
   - `fill.py`: clicks and types with `pynput`.
+  - `report.py`: "Help improve Sahl", off by default. When on, each form gets a report in `SAHL_HOME/reports`: the labels Sahl matched (only text that matched a guide alias), box positions as screen fractions, and which boxes it never saw or missed. Never a value. It sends nothing; the person copies or attaches a report themselves.
 - **`guides/`**: one JSON per form: field aliases (EN/AR), which vault key fills it, help text in en/ar/ur/ml, and an `about` sentence (what the form is for) that the form picker reads.
 - **`demo/`**: an invented portal page and invented sample documents.
 
@@ -37,6 +38,7 @@ The Windows code paths are in place and the app builds and launches; a live run 
 | `app/src-tauri/src/lib.rs` `find_notch`/`island` | no camera notch: a 190×8 tab at the top centre of the primary monitor; one `SetWindowPos` for size and position; still to check it stays above the taskbar and doesn't jump when it opens. Moving it to the screen whose top the pointer reaches is in TODO |
 | `app/src-tauri/src/lib.rs` `SHORTCUT` | `Ctrl+Alt+Space`, because Alt+Space opens the window menu |
 | `app/src-tauri/src/lib.rs` `dictate` | presses Win+H for Voice Typing |
+| `app/src-tauri/src/lib.rs` `pick_documents` | returns `None`, so the panel opens the plugin's file picker: files only (on macOS one picker takes files and folders); folders can still be dropped on the island |
 | `sidecar/sahl/vault.py` `home()` | `%APPDATA%\Sahl` (`SAHL_HOME` still overrides it) |
 | `sidecar/sahl/library.py` `forget()` | `send2trash`, so files go to the Recycle Bin |
 | `sidecar/sahl/ocr.py` | `mss` reports physical pixels; `screenshots()` divides each monitor by its DPI scale |

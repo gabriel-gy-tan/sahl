@@ -12,7 +12,6 @@ from rapidfuzz import fuzz
 
 from . import ai
 
-MODEL = os.environ.get("SAHL_INTENT_MODEL", "qwen3:1.7b")
 GENERIC = "any-form"  # used when Sahl has no guide for the form; never offered as a match
 
 PICK = """You help a UAE resident find the government form they want to fill in.
@@ -72,7 +71,7 @@ def pick(text: str, guides: dict) -> dict:
         return {"kind": "match", "guide": hit, "name": ""}
     lines = "\n".join(f"{i}: {' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for i, g in known.items())
     out = ai.chat({
-        "model": MODEL,
+        "model": ai.text_model(),
         "stream": False,
         "think": True,  # a short think is what tells "medical for my visa" apart from a new service
         "format": {
@@ -113,7 +112,7 @@ def reply(turns: list[dict], guides: dict) -> str:
     """Sahl's words back, or "" when the model isn't running."""
     lines = "\n".join(f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for g in catalogue(guides).values())
     out = ai.chat({
-        "model": MODEL,
+        "model": ai.text_model(),
         "stream": False,
         "think": False,  # plain conversation; the offer is decided by pick()
         "format": {"type": "object", "properties": {"reply": {"type": "string"}}, "required": ["reply"]},
@@ -141,4 +140,4 @@ def talk(history: list[dict], guides: dict) -> dict:
 
 def warm():
     """Loads the model in the background so the first question is quick."""
-    threading.Thread(target=ai.chat, args=({"model": MODEL, "messages": [], "keep_alive": "30m"}, 60, 1), daemon=True).start()
+    threading.Thread(target=ai.chat, args=({"model": ai.text_model(), "messages": [], "keep_alive": "30m"}, 60, 1), daemon=True).start()

@@ -10,9 +10,13 @@ export type Field = {
   input: "text" | "date" | "select";
   help: Record<Lang, string>;
   vault: { value: string; verified: boolean; source: string; crop: string | null } | null;
+  needs: Doc | null; // the document to add when vault is null
   confirmed: boolean;
 };
 export type Person = { id: string; name: string };
+export type Doc = "passport" | "eid" | "other";
+/** What Sahl holds, by person and document type: counts, never values. */
+export type Held = { people: { id: string; name: string; docs: Partial<Record<Doc, number>> }[]; unmatched: number };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
 export type Guide = { id: string; service: Record<Lang, string> };
 export type Reply = { reply: string; kind: "match" | "new" | "unsure"; guide: string | null; name: string };

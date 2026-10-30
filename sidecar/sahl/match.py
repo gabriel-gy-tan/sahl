@@ -167,5 +167,6 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
         if fi not in hits:
             continue
         label = lines[hits[fi]][1]
-        out.append({"id": f["id"], "label_box": to_pt(label), "input_box": to_pt(_input_box(gray, label, f["box"]))})
+        out.append({"id": f["id"], "seen": lines[hits[fi]][0], "label_box": to_pt(label),
+                    "input_box": to_pt(_input_box(gray, label, f["box"]))})
     return out

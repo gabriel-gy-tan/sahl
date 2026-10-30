@@ -14,7 +14,38 @@ import numpy as np
 from PIL import Image
 
 OLLAMA = os.environ.get("SAHL_OLLAMA", "http://127.0.0.1:11434")
-MODEL = os.environ.get("SAHL_MODEL", "qwen3-vl:8b-instruct")  # instruct: answers directly, no hidden reasoning
+# The person picks how big a pair of local models to run: (text model for the form picker, vision model for documents).
+# Lighter is faster on a small computer; stronger needs a lot of memory. instruct: answers directly, no hidden reasoning.
+TIERS = {
+    "light": ("qwen3:0.6b", "qwen3-vl:4b-instruct"),
+    "standard": ("qwen3:1.7b", "qwen3-vl:8b-instruct"),
+    "strong": ("qwen3:8b", "qwen3-vl:30b-a3b-instruct"),
+}
+
+
+def _tier_file():
+    from . import vault  # vault imports this module
+    return vault.home() / "models.json"
+
+
+def tier() -> str:
+    try:
+        t = json.loads(_tier_file().read_text(encoding="utf-8"))["tier"]
+    except (OSError, ValueError, KeyError):
+        return "standard"
+    return t if t in TIERS else "standard"
+
+
+def set_tier(t: str):
+    _tier_file().write_text(json.dumps({"tier": t}), encoding="utf-8")
+
+
+def text_model() -> str:
+    return os.environ.get("SAHL_INTENT_MODEL") or TIERS[tier()][0]
+
+
+def vision_model() -> str:
+    return os.environ.get("SAHL_MODEL") or TIERS[tier()][1]
 
 FIELDS = ["doc_type", "full_name", "nationality", "date_of_birth", "passport_number", "emirates_id_number", "expiry_date"]
 SCHEMA = {
@@ -36,12 +67,18 @@ Return JSON only. Copy text exactly as printed in the human-readable part of the
 Use "" for anything not on this page. Do not guess."""
 
 
-def available(model: str = MODEL) -> bool:
+def installed() -> list[str]:
+    """The models Ollama has on this computer; [] when it isn't running."""
     try:
         with urllib.request.urlopen(OLLAMA + "/api/tags", timeout=2) as r:
-            return any(m["name"].startswith(model) for m in json.load(r)["models"])
+            return [m["name"] for m in json.load(r)["models"]]
     except (urllib.error.URLError, OSError, KeyError, ValueError):
-        return False
+        return []
+
+
+def available(model: str | None = None) -> bool:
+    model = model or vision_model()
+    return any(n.startswith(model) for n in installed())
 
 
 def chat(body: dict, timeout: float, tries: int = 2) -> dict | None:
@@ -63,7 +100,7 @@ def read_page(gray: np.ndarray) -> dict | None:
     buf = BytesIO()
     img.save(buf, "PNG")
     body = {
-        "model": MODEL,
+        "model": vision_model(),
         "stream": False,
         "think": False,
         "format": SCHEMA,

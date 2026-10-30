@@ -18,7 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
-from . import ai, fill, intent, library, match, ocr, vault
+from . import ai, fill, intent, library, match, ocr, report, vault
 
 GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] / "guides"))
 
@@ -32,6 +32,14 @@ class Read(BaseModel):
     person: str | None = None  # whose documents fill this form; the only person if there is just one
     exclude: list[tuple[float, float, float, float]] = []  # screen boxes in points to blank, e.g. Sahl's own panel
     restart: bool = False  # the Read form button: start this form from the first box again
+
+
+class Improve(BaseModel):
+    on: bool
+
+
+class Tier(BaseModel):
+    tier: Literal[tuple(ai.TIERS)]
 
 
 class FieldRef(BaseModel):
@@ -63,6 +71,12 @@ def _matches(seen: str, want: str) -> bool:
     if score >= 90 or (len(want) <= 12 and score >= 85) or (len(want) <= 6 and score >= 80):
         return True
     return len(seen) >= 4 and fuzz.partial_ratio(seen, want) >= 92
+
+
+def _needs(vault_key) -> str | None:
+    """The document a field's value comes from first ("passport" or "eid"), to ask for when it's missing."""
+    first = (vault_key if isinstance(vault_key, str) else (vault_key or [""])[0]).split(".")[0]
+    return first if first in ("passport", "eid") else None
 
 
 def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> FastAPI:
@@ -115,10 +129,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         for m in best:
             f = spec[m["id"]]
             fields.append({**m, "label": f["aliases"][0], "input": f["input"], "help": f["help"], "vault": vault.get(f["vault_key"], person),
-                           "confirmed": m["id"] in state["confirmed"]})
+                           "needs": _needs(f["vault_key"]), "confirmed": m["id"] in state["confirmed"]})
         state["fields"] = {f["id"]: f for f in fields}
         state["monitor"] = monitor
         state["scale"] = best_scale
+        report.record_read(g, fields, monitor)
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
         return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
 
@@ -153,6 +168,8 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         landed = _landed(f["input_box"], v["value"])
         if landed:  # only move on when the box visibly shows what was typed
             state["confirmed"].add(body.field_id)
+        else:
+            report.record_miss(state["guide"][0], body.field_id)
         return {"ok": True, "landed": landed}
 
     def _landed(box, value) -> bool:
@@ -184,14 +201,20 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         if p.is_file() and p.suffix.lower() not in vault.DOCUMENTS:
             raise HTTPException(422, "Sahl reads PDF, PNG and JPG files")
         lib = library.folder()
+        before = vault.documents()  # before the copy, so a background read of it still counts as this import's
         if not p.resolve().is_relative_to(lib.resolve()):
             library.add(p)
-        return _sync()
+        return _sync(before)
 
-    def _sync():
+    def _sync(before=None):
+        """read: the documents this sync read, as {person (their name, or None), type}, for the panel to say so."""
+        before = vault.documents() if before is None else before
         found, skipped = vault.sync(library.folder())
         names = {x["id"]: x["name"] for x in vault.people()}
-        return {"people": [names[str(i)] for i in found if str(i) in names], "skipped": skipped, "ai": ai.available()}
+        read = [{"person": names.get(pid), "type": doc} for path, (m, pid, doc) in vault.documents().items()
+                if before.get(path, (None,))[0] != m]
+        return {"people": [names[str(i)] for i in found if str(i) in names], "read": read, "skipped": skipped,
+                "ai": ai.available()}
 
     @app.post("/vault/sync", dependencies=[Depends(auth)])
     def vault_sync():
@@ -212,6 +235,43 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
     @app.get("/vault/progress", dependencies=[Depends(auth)])
     def vault_progress():
         return vault.PROGRESS
+
+    @app.get("/models", dependencies=[Depends(auth)])
+    def get_models():
+        """The model sizes to choose from, and whether this computer has each pair downloaded."""
+        have = ai.installed()
+        on = lambda m: any(n.startswith(m) for n in have)
+        return {"tier": ai.tier(), "running": bool(have), "tiers": [
+            {"id": i, "text": t, "vision": v, "installed": on(t) and on(v)} for i, (t, v) in ai.TIERS.items()]}
+
+    @app.post("/models", dependencies=[Depends(auth)])
+    def set_models(body: Tier):
+        ai.set_tier(body.tier)
+        intent.warm()  # load the new text model now, so the next question isn't slow
+        return get_models()
+
+    @app.get("/improve", dependencies=[Depends(auth)])
+    def get_improve():
+        return {"on": report.enabled(), "folder": str(report._dir()), "reports": report.listing()}
+
+    @app.post("/improve", dependencies=[Depends(auth)])
+    def set_improve(body: Improve):
+        report.set_enabled(body.on)
+        return get_improve()
+
+    @app.post("/improve/reveal", dependencies=[Depends(auth)])
+    def reveal_reports():
+        """Opens the reports folder in Finder / File Explorer, for the person to look at or attach."""
+        folder = str(report._dir())
+        if sys.platform == "win32":
+            os.startfile(folder)
+        else:
+            subprocess.run(["open" if sys.platform == "darwin" else "xdg-open", folder], check=False)
+        return {"ok": True}
+
+    @app.get("/vault/summary", dependencies=[Depends(auth)])
+    def vault_summary():
+        return vault.summary()
 
     @app.get("/people", dependencies=[Depends(auth)])
     def list_people():
