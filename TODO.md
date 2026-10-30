@@ -14,10 +14,10 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Fold the island out of the way while Sahl clicks and types into the form
 - [ ] Confirm short values such as surnames after filling, even when OCR is imperfect
 - [ ] Dropdowns and date pickers: auto-pick verified values, with a manual list fallback (`feat/dropdowns`)
+- [ ] Platform-specific screen/typing error copy (`fix/windows-error-copy`)
 
 ## Next
 
-- [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)

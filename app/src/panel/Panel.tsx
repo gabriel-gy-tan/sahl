@@ -16,8 +16,9 @@ const LANGS: { id: Lang; name: string }[] = [
   { id: "ml", name: "മലയാളം" },
 ];
 const RTL = new Set<Lang>(["ar", "ur"]);
+const MAC = navigator.userAgent.includes("Mac");
 // the read-the-form shortcut (SHORTCUT in lib.rs): Alt+Space is the window menu on Windows
-const KEY = navigator.userAgent.includes("Mac") ? "⌥ Space" : "Ctrl Alt Space";
+const KEY = MAC ? "⌥ Space" : "Ctrl Alt Space";
 const GENERIC = "any-form"; // the guide for forms Sahl has no guide for
 const WIDTH = 600; // the island when open, at normal text size
 const EAR = 12; // the concave corners that join the island to the top of the screen
@@ -143,9 +144,10 @@ export default function Panel() {
   const fail = (e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
     if (e instanceof ApiError && e.status === 0) return setError("restarted");
-    setError(e instanceof ApiError && e.status === 409
-      ? msg.startsWith("typing") ? "err_type" : msg.startsWith("list") ? "err_list" : "err_screen"
-      : msg);
+    if (!(e instanceof ApiError && e.status === 409)) return setError(msg);
+    setError(msg.startsWith("typing") ? (MAC ? "err_type" : "err_type_win")
+      : msg.startsWith("list") ? "err_list"
+      : MAC ? "err_screen" : "err_screen_win");
   };
 
   // --- the island: boot palm, then open / folded into the notch ---
