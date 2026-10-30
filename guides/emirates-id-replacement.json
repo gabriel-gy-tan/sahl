@@ -1,0 +1,38 @@
+{
+  "id": "emirates-id-replacement",
+  "service": {
+    "en": "Emirates ID replacement",
+    "ar": "بدل فاقد أو تالف للهوية الإماراتية",
+    "ur": "گم یا خراب ایمریٹس آئی ڈی کی تبدیلی",
+    "ml": "എമിറേറ്റ്സ് ഐഡി മാറ്റിവാങ്ങൽ"
+  },
+  "about": "Get a replacement for a lost or damaged Emirates ID card.",
+  "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5b",
+  "checked": "2026-10-30",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID replacement. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The new card keeps the validity of the lost or damaged one",
+      "The head of the family, a legal representative, a guardian or the person themselves if of legal age can apply"
+    ],
+    "documents": [
+      "Passport",
+      "A recent personal photo that meets ICAO standards",
+      "Proof of UAE residence"
+    ],
+    "fees": [
+      "300 AED for the replacement",
+      "100 AED smart service fee",
+      "Urgent service is 150 AED, in person at a service centre only"
+    ],
+    "timing": [
+      "About 5 days",
+      "Anyone over 15 gives fingerprints and a signature at an ICP service centre"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

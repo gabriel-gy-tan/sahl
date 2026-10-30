@@ -1,0 +1,43 @@
+{
+  "id": "residence-permit-issue",
+  "service": {
+    "en": "Residence permit, new",
+    "ar": "إصدار إقامة جديدة",
+    "ur": "نئی رہائشی اجازت نامہ",
+    "ml": "പുതിയ റസിഡൻസ് പെർമിറ്റ്"
+  },
+  "about": "Apply for a new UAE residence permit, linked to an Emirates ID application.",
+  "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e64",
+  "checked": "2026-10-30",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. New residence permit. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "What is needed depends on the reason: study, retirement, property ownership, family of a resident, family of a UAE or GCC national, investor, or employment",
+      "The passport must be valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "A personal photo",
+      "Valid health insurance",
+      "A water or electricity bill",
+      "Family: attested marriage contract, children's birth certificates, proof of kinship, and proof of income and housing",
+      "Employment: medical report, employment contract, and the work permit",
+      "Student: approval from the education authority and an enrolment certificate"
+    ],
+    "fees": [
+      "100 AED application fee",
+      "100 AED per year of residence",
+      "100 AED smart service fee",
+      "50 AED a day for overstaying"
+    ],
+    "timing": [
+      "About 2 days",
+      "The person must be in the UAE for at most 60 days from entry to finish the steps"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

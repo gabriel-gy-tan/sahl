@@ -32,8 +32,9 @@ The forms you have a guide for, as names | what it is for:
 
 Their last message is in {language}: reply in {language}, in one to three short, kind sentences. Plain words only: no lists,
 no JSON, no web addresses.
-- Explain a form only with what is written above. You don't know fees, required documents, deadlines, places or
-  rules: when asked, say you aren't sure and that the official government website has it. Never guess them.
+- Explain a form only with what is written above. Fees, documents, deadlines and rules are only what is written under a
+  form's "Needs"; for anything not written there, say you aren't sure and that the official government website has it.
+  Never guess them.
 - Never ask for their personal details: Sahl reads those from their own documents later.
 - When they want one of the forms above, say Sahl can help them fill it in.
 You can't log in, pay or submit anything for them."""
@@ -41,6 +42,11 @@ You can't log in, pay or submit anything for them."""
 
 def catalogue(guides: dict) -> dict:
     return {i: g for i, g in guides.items() if i != GENERIC}
+
+
+def _needs(g: dict) -> str:
+    """The guide's requirements as one line each, from the official page it was read from."""
+    return "\n".join(f"  Needs, {k}: " + "; ".join(v) for k, v in g.get("requirements", {}).items())
 
 
 def _names(g: dict) -> list[str]:
@@ -110,7 +116,8 @@ def _language(text: str) -> str:
 
 def reply(turns: list[dict], guides: dict) -> str:
     """Sahl's words back, or "" when the model isn't running."""
-    lines = "\n".join(f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for g in catalogue(guides).values())
+    lines = "\n".join(f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}\n{_needs(g)}".rstrip()
+                      for g in catalogue(guides).values())
     out = ai.chat({
         "model": ai.text_model(),
         "stream": False,

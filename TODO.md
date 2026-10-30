@@ -7,6 +7,8 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Documents and settings: + in the text box, a picker for files and folders, "Read Priya's passport" in the conversation, a nudge for a missing document, what Sahl holds per person, settings in pages with icons, AI model size, opt-in "Help improve Sahl" reports (`feat/documents-flow`)
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 
+- [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
+
 ## Next
 
 - [ ] Windows: run the app and check the overlay, the shortcut and filling in Edge/Chrome, and a picker that takes files and folders together
