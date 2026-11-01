@@ -3,7 +3,19 @@ import sys
 import time
 
 
+def _allowed():
+    """macOS drops synthetic clicks and keys without a word unless the app has Accessibility permission."""
+    if sys.platform != "darwin":
+        return
+    import ctypes
+    lib = ctypes.cdll.LoadLibrary("/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices")
+    lib.AXIsProcessTrusted.restype = ctypes.c_bool
+    if not lib.AXIsProcessTrusted():
+        raise PermissionError("Accessibility permission is off")
+
+
 def type_into(box, value: str):
+    _allowed()
     from pynput.keyboard import Controller as Keys, Key
     from pynput.mouse import Button, Controller as Mouse
 
@@ -28,6 +40,7 @@ def type_into(box, value: str):
 
 def pick_from(box, text: str):
     """Chooses an option in a dropdown by typing its start. Tab, never Enter, commits it."""
+    _allowed()
     from pynput.keyboard import Controller as Keys, Key
     from pynput.mouse import Button, Controller as Mouse
 
