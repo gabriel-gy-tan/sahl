@@ -198,12 +198,16 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             if sys.platform == "win32":
                 box = tuple(round(v * state["scale"]) for v in box)
             text, seen = _part_texts(part["kind"], value)
-            try:
-                picker(box, text)
-            except Exception as e:
-                raise HTTPException(409, f"typing failed: {e}")
-            time.sleep(0.3)
-            landed = any(_landed(part["box"], s) for s in seen) and landed
+            for _ in range(2):  # the first pick can lose its keys while the browser comes to the front
+                try:
+                    picker(box, text)
+                except Exception as e:
+                    raise HTTPException(409, f"typing failed: {e}")
+                time.sleep(0.3)
+                ok = any(_landed(part["box"], s) for s in seen)
+                if ok:
+                    break
+            landed = ok and landed
         if landed:
             state["confirmed"].add(field_id)
         else:
