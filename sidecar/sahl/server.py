@@ -204,7 +204,8 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
                 except Exception as e:
                     raise HTTPException(409, f"typing failed: {e}")
                 time.sleep(0.3)
-                ok = any(_landed(part["box"], s) for s in seen)
+                shown = _shown([p["box"] for p in f["parts"]])[f["parts"].index(part)]
+                ok = any(_matches(shown, s) for s in seen)
                 if ok:
                     break
             landed = ok and landed
@@ -213,6 +214,20 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         else:
             report.record_miss(state["guide"][0], field_id)
         return {"ok": True, "landed": landed}
+
+    def _shown(boxes):
+        """What each of a date's dropdowns shows now. OCR misses a few digits in a tight crop of one box, so it reads
+        one strip around all of them, with room to see them in context, and shares the words out by box."""
+        for gray, scale, mon in screen():
+            if tuple(mon) != tuple(state["monitor"]):
+                continue
+            pts = [tuple((v - mon[i % 2]) * scale for i, v in enumerate(b)) for b in boxes]
+            pad = int(40 * scale)
+            left, top = max(0, int(min(p[0] for p in pts)) - pad), max(0, int(min(p[1] for p in pts)) - pad)
+            crop = gray[top:int(max(p[3] for p in pts)) + pad, left:int(max(p[2] for p in pts)) + pad]
+            if crop.size:
+                return match._inside([(p[0] - left, p[1] - top, p[2] - left, p[3] - top) for p in pts], ocr.lines(crop))
+        return [""] * len(boxes)
 
     def _landed(box, value) -> bool:
         """Re-reads one box from the screen and checks it now shows the value."""
