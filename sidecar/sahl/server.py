@@ -98,7 +98,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
     @app.post("/chat", dependencies=[Depends(auth)])
     def chat(body: Chat):
         """Sahl's next message in the "what form?" conversation, maybe offering a guide."""
-        return intent.talk([t.model_dump() for t in body.messages], guides)
+        return intent.talk([t.model_dump() for t in body.messages], guides, vault.summary())
 
     @app.post("/read", dependencies=[Depends(auth)])
     def read(body: Read):

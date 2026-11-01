@@ -99,3 +99,11 @@ def test_the_model_size_is_chosen_and_kept(model, tmp_path, monkeypatch):
     assert c.post("/models", json={"tier": "light"}).json()["tier"] == "light"
     assert ai.text_model() == "qwen3:0.6b" and ai.vision_model() == "qwen3-vl:4b-instruct"
     assert c.post("/models", json={"tier": "huge"}).status_code == 422
+
+
+def test_the_reply_is_told_which_documents_are_held_but_no_values(model):
+    model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="You have a passport.")
+    held = {"people": [{"id": "1", "name": "Priya", "docs": {"passport": 1, "emirates_id": 2}}], "unmatched": 1}
+    intent.talk(me("What documents of mine do you have?"), GUIDES, held)
+    system = model["talk"]["messages"][0]["content"]
+    assert "Priya: 1 passport, 2 emirates id" in system and "1 not matched to anyone" in system
