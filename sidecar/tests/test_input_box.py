@@ -70,3 +70,19 @@ def test_finds_day_month_year_dropdowns_in_a_row():
     joined = [lines[0], ("Year Day Month", (70, 120, 600, 150))]  # OCR often reads boxes in a row as one line
     assert [p["kind"] for p in date_parts(row, joined)] == ["y", "d", "m"]
     assert [p["kind"] for p in date_parts(row, [lines[0]])] == ["d", "m", "y"]  # no placeholders: the guide's order
+
+
+def test_label_and_dropdowns_read_as_one_ocr_line():
+    """OCR reads "Date Of Birth Month v Day v Year v", a label inline with its dropdowns, as a single line."""
+    from sahl.match import match
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((80, 60), "Date Of Birth", fill=0, font=FONT)
+    for left, right in ((304, 430), (441, 531), (541, 647)):
+        draw.rectangle((left, 56, right, 100), outline=0, width=2)
+    guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
+    lines = [("Date Of Birth Month - Day- Year -", (80, 56, 650, 100))]
+    hit, = match(lines, guide, np.array(image))
+    assert hit["id"] == "dob" and hit["seen"] == "Date Of Birth"
+    assert [p["kind"] for p in hit["parts"]] == ["m", "d", "y"]
+    assert [p["box"][0] for p in hit["parts"]] == [304, 441, 541]

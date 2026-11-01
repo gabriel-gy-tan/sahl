@@ -133,7 +133,7 @@ def _rects(gray, bg, region, min_len, h):
     found = []
     for i, (top, tx0, tx1) in enumerate(lines):
         for bottom, bx0, bx1 in lines[i + 1:]:
-            if h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 6 and abs(tx1 - bx1) <= 6:
+            if 0.8 * h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 6 and abs(tx1 - bx1) <= 6:
                 if not any(abs(r[0] - tx0) <= 6 and abs(r[1] - top) <= 6 for r in found):  # the same box, from its other border rows
                     found.append((tx0, top, tx1, bottom))
     return found
@@ -223,11 +223,33 @@ def _input_box(gray, label, hint):
     return min(found, key=lambda item: item[1][0])[1][1]
 
 
+PLACEHOLDERS = re.compile(r"(?:\s+(?:month|day|year|mm|dd|yyyy|yy)\b[\s\-–—vV∨⌄ˇ▾▼>]*)+$", re.I)
+
+
+def _labels(lines, gray):
+    """The lines as labels: OCR reads a label with the date dropdowns beside it ("Date of birth Month v Day v Year v")
+    as one line, so cut it back to the label and its box to where the first dropdown's border starts."""
+    out = []
+    for text, box in lines:
+        m = PLACEHOLDERS.search(text)
+        if gray is None or not m or not text[:m.start()].strip():
+            out.append((text, box))
+            continue
+        x0, y0, x1, y1 = box
+        h = max(int(y1 - y0), 8)
+        rects = _rects(gray, _bg(gray, box), (int(x0), int(x1) + h, max(0, int(y0 - 2 * h)), min(gray.shape[0], int(y1 + 2 * h))), max(1.5 * h, 24), h)
+        lefts = [r[0] for r in rects if r[0] > x0 + 2 * h]
+        cut = min(lefts) - h // 2 - 8 if lefts else x0 + (x1 - x0) * m.start() / len(text) * 0.8
+        out.append((text[:m.start()].strip(), (x0, y0, cut, y1)))
+    return out
+
+
 def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     """Guide fields visible on screen, in guide order, with boxes in screen points."""
+    labels = _labels(lines, gray)
     pairs = sorted(
         ((_score(text, f["aliases"]), fi, li)
-         for fi, f in enumerate(guide["fields"]) for li, (text, _) in enumerate(lines)),
+         for fi, f in enumerate(guide["fields"]) for li, (text, _) in enumerate(labels)),
         reverse=True)
     used_f, used_l, hits = set(), set(), {}
     for score, fi, li in pairs:
@@ -242,8 +264,8 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     for fi, f in enumerate(guide["fields"]):
         if fi not in hits:
             continue
-        label = lines[hits[fi]][1]
-        hit = {"id": f["id"], "seen": lines[hits[fi]][0], "label_box": to_pt(label),
+        label = labels[hits[fi]][1]
+        hit = {"id": f["id"], "seen": labels[hits[fi]][0], "label_box": to_pt(label),
                "input_box": to_pt(_input_box(gray, label, f["box"]))}
         row = _row(gray, label) if f["input"] == "date-parts" and gray is not None else None
         if row:
