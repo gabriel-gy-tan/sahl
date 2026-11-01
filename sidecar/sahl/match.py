@@ -197,6 +197,8 @@ def date_parts(rects, lines, order="dmy"):
         kinds.append("y" if words & {"year", "yyyy", "yy"} or any(re.fullmatch(r"\d{4}", w) for w in words)
                      else "m" if words & {"month", "mm"} or words & months
                      else "d" if words & {"day", "dd"} else None)
+    if kinds.count(None) == 1 and len(set(kinds) - {None}) == 2:  # a filled-in date: "21" shows no kind, but it is what is left
+        kinds[kinds.index(None)] = next(k for k in "dmy" if k not in kinds)
     if sorted(kinds, key=str) != ["d", "m", "y"]:
         kinds = list(order)
     return [{"kind": k, "box": r} for k, r in zip(kinds, rects)]
@@ -226,12 +228,19 @@ def _input_box(gray, label, hint):
 PLACEHOLDERS = re.compile(r"(?:[\W_]+(?:month|day|year|mm|dd|yyyy|yy)\b)+[\W_vV]*$", re.I)  # OCR puts "-", "|" or "v" for a dropdown's arrow
 
 
-def _labels(lines, gray):
+VALUES = re.compile(r"(?:[\W_]+(?:%s|\d{1,4}))+[\W_]*$" % "|".join(
+    [m.casefold() for m in calendar.month_name[1:]] + [m.casefold() for m in calendar.month_abbr[1:]]), re.I)
+
+
+def _labels(lines, gray, dates=()):
     """The lines as labels: OCR reads a label with the date dropdowns beside it ("Date of birth Month v Day v Year v")
     as one line, so cut it back to the label and its box to where the first dropdown's border starts."""
     out, tails = [], []
     for text, box in lines:
         m = PLACEHOLDERS.search(text)
+        v = VALUES.search(text)  # a filled-in date ("Date of birth Mar 21 2009"), only when what is left is a date label
+        if not m and v and dates and _score(text[:v.start()], dates) >= THRESHOLD:
+            m = v
         if gray is None or not m or not text[:m.start()].strip():
             out.append((text, box))
             tails.append((text, box))
@@ -248,7 +257,7 @@ def _labels(lines, gray):
 
 def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     """Guide fields visible on screen, in guide order, with boxes in screen points."""
-    labels, tails = _labels(lines, gray)
+    labels, tails = _labels(lines, gray, [a for f in guide["fields"] if f["input"] == "date-parts" for a in f["aliases"]])
     pairs = sorted(
         ((_score(text, f["aliases"]), fi, li)
          for fi, f in enumerate(guide["fields"]) for li, (text, _) in enumerate(labels)),

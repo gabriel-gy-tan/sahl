@@ -81,8 +81,14 @@ def test_label_and_dropdowns_read_as_one_ocr_line():
     for left, right in ((304, 430), (441, 531), (541, 647)):
         draw.rectangle((left, 56, right, 100), outline=0, width=2)
     guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
-    for read in ("Date Of Birth Month - Day- Year -", "Date Of Birth Month- |Day-|Year -"):
+    for read in ("Date Of Birth Month - Day- Year -", "Date Of Birth Month- |Day-|Year -", "Date Of Birth Mar 21 2009"):
         hit, = match([(read, (80, 56, 650, 100))], guide, np.array(image))
         assert hit["id"] == "dob" and hit["seen"] == "Date Of Birth"
         assert [p["kind"] for p in hit["parts"]] == ["m", "d", "y"]
         assert [p["box"][0] for p in hit["parts"]] == [304, 441, 541]
+
+
+def test_a_numbered_label_is_not_cut_back_like_a_date():
+    from sahl.match import _labels
+    lines = [("Address line 2", (80, 56, 300, 100))]
+    assert _labels(lines, np.full((300, 900), 255, np.uint8), ["Date of birth"])[0] == lines
