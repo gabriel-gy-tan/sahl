@@ -130,12 +130,15 @@ def _right(gray, label):
 def _rects(gray, bg, region, min_len, h):
     """Bordered boxes in a region: pairs of border lines with the same left and right ends (a rounded corner shifts them a few px)."""
     lines = _lines(gray, bg, region[0], region[1], region[2], region[3], min_len)
-    found = []
+    pairs = []
     for i, (top, tx0, tx1) in enumerate(lines):
         for bottom, bx0, bx1 in lines[i + 1:]:
             if 0.8 * h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 6 and abs(tx1 - bx1) <= 6:
-                if not any(abs(r[0] - tx0) <= 6 and abs(r[1] - top) <= 6 for r in found):  # the same box, from its other border rows
-                    found.append((tx0, top, tx1, bottom))
+                pairs.append((tx0, top, tx1, bottom))
+    found = []
+    for r in sorted(pairs, key=lambda r: (r[2] - r[0]) * (r[3] - r[1])):  # tightest first: a neighbour's border can pair with this box's to make a taller one
+        if not any(abs(f[0] - r[0]) <= 6 and abs(f[1] - r[1]) <= 6 for f in found):  # the same box, from its other border rows
+            found.append(r)
     return found
 
 
@@ -171,7 +174,8 @@ def _inside(rects, lines):
     for text, (a, b, c, d) in lines:
         crossed = sorted((i for i, r in enumerate(rects) if r[1] <= (b + d) / 2 <= r[3] and r[0] <= c and a <= r[2]),
                          key=lambda i: rects[i][0])
-        words = re.findall(r"\w+", text)  # OCR also puts "-", "|" or "v" where a dropdown's arrow is
+        spans = [m.span() for m in re.finditer(r"\w+", text)]  # OCR also puts "-", "|" or "v" where a dropdown's arrow is
+        words = [text[i:j] for i, j in spans]
         if len(crossed) == 1:
             texts[crossed[0]] += words
         elif crossed:
@@ -180,11 +184,9 @@ def _inside(rects, lines):
                 for i, w in zip(crossed, kept):
                     texts[i].append(w)
             else:
-                at = 0
-                for w in words:
-                    x = a + (c - a) * (at + len(w) / 2) / len(text)
-                    at += len(w) + 1
-                    texts[next((i for i in crossed if rects[i][0] <= x <= rects[i][2]), crossed[0])].append(w)
+                for w, (i, j) in zip(words, spans):
+                    x = a + (c - a) * (i + j) / 2 / len(text)
+                    texts[next((k for k in crossed if rects[k][0] <= x <= rects[k][2]), crossed[0])].append(w)
     return [" ".join(t) for t in texts]
 
 

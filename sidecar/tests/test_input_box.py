@@ -92,3 +92,16 @@ def test_a_numbered_label_is_not_cut_back_like_a_date():
     from sahl.match import _labels
     lines = [("Address line 2", (80, 56, 300, 100))]
     assert _labels(lines, np.full((300, 900), 255, np.uint8), ["Date of birth"])[0] == lines
+
+
+def test_a_row_of_dropdowns_between_two_text_boxes_is_not_mistaken_for_one_tall_box():
+    """The bottom of the box above and the top of the box below pair into a phantom box that hides the real ones."""
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((60, 120), "Date Of Birth", fill=0, font=FONT)
+    label = draw.textbbox((60, 120), "Date Of Birth", font=FONT)
+    draw.rectangle((300, 60, 800, 100), outline=0, width=2)    # a text box above
+    for left, right in ((300, 420), (428, 530), (538, 650)):   # the dropdowns, a few px apart
+        draw.rectangle((left, 112, right, 150), outline=0, width=2)
+    draw.rectangle((300, 160, 800, 200), outline=0, width=2)   # a text box below
+    assert [r[0] for r in _row(np.array(image), label)] == [300, 428, 538]
