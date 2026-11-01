@@ -65,6 +65,14 @@ def _guess(label, hint):
     return (x0, y1 + 0.5 * h, x0 + 20 * h, y1 + 3.2 * h) if hint != "right" else (x1 + h, y0 - h, x1 + 21 * h, y1 + h)
 
 
+def _tight(rects):
+    """Candidates (score, box) without any box that holds another candidate: the border above or below a neighbouring
+    input pairs with this one's to make a taller phantom, which can score better than the real box."""
+    area = lambda b: (b[2] - b[0]) * (b[3] - b[1])
+    inside = lambda a, b: area(a) < area(b) and a[0] >= b[0] - 6 and a[1] >= b[1] - 6 and a[2] <= b[2] + 6 and a[3] <= b[3] + 6
+    return [r for r in rects if not any(inside(o[1], r[1]) for o in rects)]
+
+
 def _below(gray, label):
     """A bordered input, then an underline, directly below a label. Returns (score, box) or None."""
     x0, y0, x1, y1 = (int(v) for v in label)
@@ -86,7 +94,7 @@ def _below(gray, label):
             score = (top - y1) / h + 0.2 * abs(left - x0) / h - 0.01 * (right - left) / h
             rects.append((score, (left, top, right, bottom)))
     if rects:
-        return min(rects)
+        return min(_tight(rects))
     for y, left, right in lines:  # an underline, with no box top or bottom
         if right - left < 4 * h or left > x1 + 4 * h or not 0.8 * h <= y - y1 <= 6 * h:
             continue
@@ -118,7 +126,7 @@ def _right(gray, label):
             score = abs(left - (x1 + h)) / h + 0.3 * abs((top + bottom) / 2 - (y0 + y1) / 2) / h
             rects.append((score, (left, top, right, bottom)))
     if rects:
-        return min(rects)
+        return min(_tight(rects))
     for y, left, right in lines:
         if left < x1 + h // 2 or right - left < 4 * h:
             continue
@@ -139,7 +147,8 @@ def _rects(gray, bg, region, min_len, h):
     for r in sorted(pairs, key=lambda r: (r[2] - r[0]) * (r[3] - r[1])):  # tightest first: a neighbour's border can pair with this box's to make a taller one
         if not any(abs(f[0] - r[0]) <= 6 and abs(f[1] - r[1]) <= 6 for f in found):  # the same box, from its other border rows
             found.append(r)
-    inside = lambda a, b: a != b and a[0] >= b[0] - 6 and a[1] >= b[1] - 6 and a[2] <= b[2] + 6 and a[3] <= b[3] + 6
+    area = lambda b: (b[2] - b[0]) * (b[3] - b[1])
+    inside = lambda a, b: area(a) < area(b) and a[0] >= b[0] - 6 and a[1] >= b[1] - 6 and a[2] <= b[2] + 6 and a[3] <= b[3] + 6
     return [r for r in found if not any(inside(f, r) for f in found)]  # a box that holds another is a phantom made of its neighbours' borders
 
 

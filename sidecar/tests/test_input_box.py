@@ -105,3 +105,13 @@ def test_a_row_of_dropdowns_between_two_text_boxes_is_not_mistaken_for_one_tall_
         draw.rectangle((left, 112, right, 150), outline=0, width=2)
     draw.rectangle((300, 160, 800, 200), outline=0, width=2)   # a text box below
     assert [r[0] for r in _row(np.array(image), label)] == [300, 428, 538]
+
+
+def test_a_candidate_that_holds_another_is_dropped_but_near_twins_stay():
+    """On RoboForm the box above's bottom border paired with this box's bottom border, a taller phantom that won on
+    a one-pixel tie; the real box lies inside it."""
+    from sahl.match import _tight
+    phantom, real = (0.1, (423, 525, 593, 562)), (0.2, (424, 531, 592, 562))
+    assert _tight([phantom, real]) == [real]
+    twin = (0.3, (425, 531, 593, 562))
+    assert _tight([real, twin]) == [real, twin]
