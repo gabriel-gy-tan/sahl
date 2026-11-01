@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from sahl.match import _input_box
+from sahl.match import _input_box, _row, date_parts
 
 ROOT = Path(__file__).resolve().parents[2]
 FONT = ImageFont.load_default(24)
@@ -53,3 +53,18 @@ def test_finds_underlined_box_to_the_right_of_label():
 def test_any_form_lets_the_layout_choose_the_side():
     guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
     assert {f["box"] for f in guide["fields"]} == {"auto"}
+
+
+def test_finds_day_month_year_dropdowns_in_a_row():
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((60, 50), "Date of birth", fill=0, font=FONT)
+    label = draw.textbbox((60, 50), "Date of birth", font=FONT)
+    lines = [("Date of birth", label)]
+    for x, shown in ((60, "Year"), (260, "Day"), (460, "Month")):  # a year-first form
+        draw.rectangle((x, 110, x + 160, 160), outline=0, width=2)
+        lines.append((shown, (x + 10, 120, x + 80, 150)))
+    row = _row(np.array(image), label)
+    assert [r[0] for r in row] == [60, 260, 460]
+    assert [p["kind"] for p in date_parts(row, lines)] == ["y", "d", "m"]
+    assert [p["kind"] for p in date_parts(row, [lines[0]])] == ["d", "m", "y"]  # no placeholders: the guide's order

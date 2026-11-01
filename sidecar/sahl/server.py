@@ -2,6 +2,7 @@
 
 Run: SAHL_TOKEN=... python -m sahl.server   (prints SAHL_PORT=<n> once it is listening)
 """
+import calendar
 import json
 import os
 import secrets
@@ -79,7 +80,18 @@ def _needs(vault_key) -> str | None:
     return first if first in ("passport", "eid") else None
 
 
-def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> FastAPI:
+def _part_texts(kind, value):
+    """What a dropdown may show for one part of a DD/MM/YYYY date: what to type, then what to look for on screen."""
+    d, m, y = value.split("/")
+    if kind == "y":
+        return y, [y]
+    if kind == "d":
+        return d, [d, str(int(d))]
+    name = calendar.month_name[int(m)]
+    return name, [name[:3], m, str(int(m))]
+
+
+def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=fill.pick_from) -> FastAPI:
     app = FastAPI()
     # the Tauri webview's origins in dev and in a built app
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
@@ -158,10 +170,12 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
     def do_fill(body: FieldRef):
         f = _field(body.field_id)
         v = f["vault"]
-        if f["input"] != "text":
-            raise HTTPException(422, "Sahl only types into plain text boxes")
+        if f["input"] not in ("text", "date-parts"):
+            raise HTTPException(422, "Sahl only fills text boxes and dates")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
+        if f.get("parts"):  # three dropdowns; a date in one box is typed like any text
+            return _fill_date(f, v["value"], body.field_id)
         box = f["input_box"]  # screen points
         if sys.platform == "win32":  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
             box = tuple(round(v * state["scale"]) for v in box)
@@ -175,6 +189,25 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
             state["confirmed"].add(body.field_id)
         else:
             report.record_miss(state["guide"][0], body.field_id)
+        return {"ok": True, "landed": landed}
+
+    def _fill_date(f, value, field_id):
+        landed = True
+        for part in f["parts"]:
+            box = part["box"]
+            if sys.platform == "win32":
+                box = tuple(round(v * state["scale"]) for v in box)
+            text, seen = _part_texts(part["kind"], value)
+            try:
+                picker(box, text)
+            except Exception as e:
+                raise HTTPException(409, f"typing failed: {e}")
+            time.sleep(0.3)
+            landed = any(_landed(part["box"], s) for s in seen) and landed
+        if landed:
+            state["confirmed"].add(field_id)
+        else:
+            report.record_miss(state["guide"][0], field_id)
         return {"ok": True, "landed": landed}
 
     def _landed(box, value) -> bool:

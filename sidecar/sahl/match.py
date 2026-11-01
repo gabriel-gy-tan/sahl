@@ -1,4 +1,5 @@
 """Finds each guide field's label among the OCR lines, then the input box that belongs to it."""
+import calendar
 import re
 import unicodedata
 
@@ -45,7 +46,7 @@ def _lines(gray, bg, x0, x1, y0, y1, min_len):
     # a 2 px border is two rows; keep one
     kept = []
     for line in sorted(out):
-        if kept and line[0] - kept[-1][0] <= 1 and abs(line[1] - kept[-1][1]) <= 2 and abs(line[2] - kept[-1][2]) <= 2:
+        if any(line[0] - k[0] <= 1 and abs(line[1] - k[1]) <= 2 and abs(line[2] - k[2]) <= 2 for k in kept[-8:]):
             continue
         kept.append(line)
     return kept
@@ -126,6 +127,42 @@ def _right(gray, label):
     return None
 
 
+def _row(gray, label, count=3):
+    """`count` side-by-side bordered boxes (a date's day, month and year) beside or below a label, left to right."""
+    x0, y0, x1, y1 = (int(v) for v in label)
+    h = max(y1 - y0, 8)
+    H, W = gray.shape
+    bg = _bg(gray, label)
+    best = None
+    for side, region in (("below", (x0 - h, W, y1 + 0.2 * h, y1 + 10 * h)),
+                         ("right", (x1 + h // 2, x1 + 60 * h, y0 - 2 * h, y1 + 3 * h))):
+        lines = _lines(gray, bg, region[0], min(W, region[1]), max(0, region[2]), min(H, region[3]), max(2 * h, 24))
+        rects = [(tx0, top, tx1, bottom) for i, (top, tx0, tx1) in enumerate(lines) for bottom, bx0, bx1 in lines[i + 1:]
+                 if h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 3 and abs(tx1 - bx1) <= 3]
+        for row_top in {r[1] for r in rects}:
+            row = sorted(r for r in rects if abs(r[1] - row_top) <= 3)[:count]
+            if len(row) < count:
+                continue
+            score = (row[0][1] - y1) / h if side == "below" else abs(row[0][0] - (x1 + h)) / h
+            if best is None or score < best[0]:
+                best = (score, row)
+    return best[1] if best else None
+
+
+def date_parts(rects, lines, order="dmy"):
+    """Which box is the day, month and year: from the placeholder each shows ("Month", "DD", "YYYY"), else the guide's order."""
+    months = {m.casefold() for m in calendar.month_name[1:]} | {m.casefold() for m in calendar.month_abbr[1:]}
+    kinds = []
+    for x0, y0, x1, y1 in rects:
+        shown = _norm(" ".join(t for t, (a, b, c, d) in lines if x0 <= (a + c) / 2 <= x1 and y0 <= (b + d) / 2 <= y1))
+        kinds.append("y" if shown in ("year", "yyyy", "yy") or re.fullmatch(r"\d{4}", shown)
+                     else "m" if shown in ("month", "mm") or shown in months
+                     else "d" if shown in ("day", "dd") else None)
+    if sorted(kinds, key=str) != ["d", "m", "y"]:
+        kinds = list(order)
+    return [{"kind": k, "box": r} for k, r in zip(kinds, rects)]
+
+
 def _input_box(gray, label, hint):
     """The input rectangle next to a label, found from its border lines in the screenshot.
 
@@ -167,8 +204,14 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
         if fi not in hits:
             continue
         label = lines[hits[fi]][1]
-        out.append({"id": f["id"], "seen": lines[hits[fi]][0], "label_box": to_pt(label),
-                    "input_box": to_pt(_input_box(gray, label, f["box"]))})
+        hit = {"id": f["id"], "seen": lines[hits[fi]][0], "label_box": to_pt(label),
+               "input_box": to_pt(_input_box(gray, label, f["box"]))}
+        row = _row(gray, label) if f["input"] == "date-parts" and gray is not None else None
+        if row:
+            parts = date_parts(row, lines, f.get("parts", "dmy"))
+            hit["parts"] = [{"kind": p["kind"], "box": to_pt(p["box"])} for p in parts]
+            hit["input_box"] = to_pt((min(r[0] for r in row), min(r[1] for r in row), max(r[2] for r in row), max(r[3] for r in row)))
+        out.append(hit)
     return out
 
 

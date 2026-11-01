@@ -24,3 +24,26 @@ def type_into(box, value: str):
     for ch in value:
         keys.type(ch)
         time.sleep(0.01)
+
+
+def pick_from(box, text: str):
+    """Chooses an option in a dropdown by typing its start. Tab, never Enter, commits it."""
+    from pynput.keyboard import Controller as Keys, Key
+    from pynput.mouse import Button, Controller as Mouse
+
+    x0, y0, x1, y1 = box
+    mouse, keys = Mouse(), Keys()
+    mouse.position = ((x0 + x1) / 2, (y0 + y1) / 2)
+    time.sleep(0.12)
+    mouse.click(Button.left)  # brings a background browser forward, or opens the list if it was already in front
+    time.sleep(0.3)
+    keys.tap(Key.esc)  # closes the list either way, so the next click opens it exactly once
+    time.sleep(0.15)
+    mouse.click(Button.left)
+    time.sleep(0.3)
+    for ch in text:
+        keys.type(ch)
+        time.sleep(0.05)
+    time.sleep(0.1)
+    keys.tap(Key.tab)
+    time.sleep(0.2)
