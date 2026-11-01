@@ -81,8 +81,8 @@ def test_label_and_dropdowns_read_as_one_ocr_line():
     for left, right in ((304, 430), (441, 531), (541, 647)):
         draw.rectangle((left, 56, right, 100), outline=0, width=2)
     guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
-    lines = [("Date Of Birth Month - Day- Year -", (80, 56, 650, 100))]
-    hit, = match(lines, guide, np.array(image))
-    assert hit["id"] == "dob" and hit["seen"] == "Date Of Birth"
-    assert [p["kind"] for p in hit["parts"]] == ["m", "d", "y"]
-    assert [p["box"][0] for p in hit["parts"]] == [304, 441, 541]
+    for read in ("Date Of Birth Month - Day- Year -", "Date Of Birth Month- |Day-|Year -"):
+        hit, = match([(read, (80, 56, 650, 100))], guide, np.array(image))
+        assert hit["id"] == "dob" and hit["seen"] == "Date Of Birth"
+        assert [p["kind"] for p in hit["parts"]] == ["m", "d", "y"]
+        assert [p["box"][0] for p in hit["parts"]] == [304, 441, 541]

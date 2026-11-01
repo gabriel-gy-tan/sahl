@@ -171,7 +171,7 @@ def _inside(rects, lines):
     for text, (a, b, c, d) in lines:
         crossed = sorted((i for i, r in enumerate(rects) if r[1] <= (b + d) / 2 <= r[3] and r[0] <= c and a <= r[2]),
                          key=lambda i: rects[i][0])
-        words = text.split()
+        words = re.findall(r"\w+", text)  # OCR also puts "-", "|" or "v" where a dropdown's arrow is
         if len(crossed) == 1:
             texts[crossed[0]] += words
         elif crossed:
@@ -223,17 +223,18 @@ def _input_box(gray, label, hint):
     return min(found, key=lambda item: item[1][0])[1][1]
 
 
-PLACEHOLDERS = re.compile(r"(?:\s+(?:month|day|year|mm|dd|yyyy|yy)\b[\s\-–—vV∨⌄ˇ▾▼>]*)+$", re.I)
+PLACEHOLDERS = re.compile(r"(?:[\W_]+(?:month|day|year|mm|dd|yyyy|yy)\b)+[\W_vV]*$", re.I)  # OCR puts "-", "|" or "v" for a dropdown's arrow
 
 
 def _labels(lines, gray):
     """The lines as labels: OCR reads a label with the date dropdowns beside it ("Date of birth Month v Day v Year v")
     as one line, so cut it back to the label and its box to where the first dropdown's border starts."""
-    out = []
+    out, tails = [], []
     for text, box in lines:
         m = PLACEHOLDERS.search(text)
         if gray is None or not m or not text[:m.start()].strip():
             out.append((text, box))
+            tails.append((text, box))
             continue
         x0, y0, x1, y1 = box
         h = max(int(y1 - y0), 8)
@@ -241,12 +242,13 @@ def _labels(lines, gray):
         lefts = [r[0] for r in rects if r[0] > x0 + 2 * h]
         cut = min(lefts) - h // 2 - 8 if lefts else x0 + (x1 - x0) * m.start() / len(text) * 0.8
         out.append((text[:m.start()].strip(), (x0, y0, cut, y1)))
-    return out
+        tails.append((text[m.start():].strip(), (cut, y0, x1, y1)))  # what the dropdowns show, apart from the label
+    return out, tails
 
 
 def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     """Guide fields visible on screen, in guide order, with boxes in screen points."""
-    labels = _labels(lines, gray)
+    labels, tails = _labels(lines, gray)
     pairs = sorted(
         ((_score(text, f["aliases"]), fi, li)
          for fi, f in enumerate(guide["fields"]) for li, (text, _) in enumerate(labels)),
@@ -269,7 +271,7 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
                "input_box": to_pt(_input_box(gray, label, f["box"]))}
         row = _row(gray, label) if f["input"] == "date-parts" and gray is not None else None
         if row:
-            parts = date_parts(row, lines, f.get("parts", "dmy"))
+            parts = date_parts(row, tails, f.get("parts", "dmy"))
             hit["parts"] = [{"kind": p["kind"], "box": to_pt(p["box"])} for p in parts]
             hit["input_box"] = to_pt((min(r[0] for r in row), min(r[1] for r in row), max(r[2] for r in row), max(r[3] for r in row)))
         out.append(hit)
