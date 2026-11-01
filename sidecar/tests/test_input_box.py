@@ -67,4 +67,6 @@ def test_finds_day_month_year_dropdowns_in_a_row():
     row = _row(np.array(image), label)
     assert [r[0] for r in row] == [60, 260, 460]
     assert [p["kind"] for p in date_parts(row, lines)] == ["y", "d", "m"]
+    joined = [lines[0], ("Year Day Month", (70, 120, 600, 150))]  # OCR often reads boxes in a row as one line
+    assert [p["kind"] for p in date_parts(row, joined)] == ["y", "d", "m"]
     assert [p["kind"] for p in date_parts(row, [lines[0]])] == ["d", "m", "y"]  # no placeholders: the guide's order

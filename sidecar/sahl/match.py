@@ -46,7 +46,7 @@ def _lines(gray, bg, x0, x1, y0, y1, min_len):
     # a 2 px border is two rows; keep one
     kept = []
     for line in sorted(out):
-        if any(line[0] - k[0] <= 1 and abs(line[1] - k[1]) <= 2 and abs(line[2] - k[2]) <= 2 for k in kept[-8:]):
+        if any(line[0] - k[0] <= 1 and abs(line[1] - k[1]) <= 6 and abs(line[2] - k[2]) <= 6 for k in kept[-8:]):
             continue
         kept.append(line)
     return kept
@@ -127,37 +127,76 @@ def _right(gray, label):
     return None
 
 
+def _rects(gray, bg, region, min_len, h):
+    """Bordered boxes in a region: pairs of border lines with the same left and right ends (a rounded corner shifts them a few px)."""
+    lines = _lines(gray, bg, region[0], region[1], region[2], region[3], min_len)
+    found = []
+    for i, (top, tx0, tx1) in enumerate(lines):
+        for bottom, bx0, bx1 in lines[i + 1:]:
+            if h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 6 and abs(tx1 - bx1) <= 6:
+                if not any(abs(r[0] - tx0) <= 6 and abs(r[1] - top) <= 6 for r in found):  # the same box, from its other border rows
+                    found.append((tx0, top, tx1, bottom))
+    return found
+
+
 def _row(gray, label, count=3):
-    """`count` side-by-side bordered boxes (a date's day, month and year) beside or below a label, left to right."""
+    """`count` bordered boxes in reading order beside or below a label: a date's day, month and year, which a narrow
+    form may wrap onto a second line."""
     x0, y0, x1, y1 = (int(v) for v in label)
     h = max(y1 - y0, 8)
     H, W = gray.shape
     bg = _bg(gray, label)
     best = None
-    for side, region in (("below", (x0 - h, W, y1 + 0.2 * h, y1 + 10 * h)),
-                         ("right", (x1 + h // 2, x1 + 60 * h, y0 - 2 * h, y1 + 3 * h))):
-        lines = _lines(gray, bg, region[0], min(W, region[1]), max(0, region[2]), min(H, region[3]), max(2 * h, 24))
-        rects = [(tx0, top, tx1, bottom) for i, (top, tx0, tx1) in enumerate(lines) for bottom, bx0, bx1 in lines[i + 1:]
-                 if h <= bottom - top <= 5 * h and abs(tx0 - bx0) <= 3 and abs(tx1 - bx1) <= 3]
-        for row_top in {r[1] for r in rects}:
-            row = sorted(r for r in rects if abs(r[1] - row_top) <= 3)[:count]
-            if len(row) < count:
+    for side, region in (("below", (max(0, x0 - h), W, y1 + 0.2 * h, y1 + 10 * h)),
+                         ("right", (x1 + h // 2, min(W, x1 + 60 * h), max(0, y0 - 2 * h), y1 + 6 * h))):
+        rects = sorted((r for r in _rects(gray, bg, (region[0], region[1], max(0, int(region[2])), min(H, int(region[3]))), max(1.5 * h, 24), h)
+                        if r[0] > region[0] + 6),  # a box cut off by the region's edge is part of a wider one
+                       key=lambda r: (r[1], r[0]))
+        for first in rects:
+            line = sorted(r for r in rects if abs(r[1] - first[1]) <= h)  # its row
+            wrapped = sorted(r for r in rects if first[1] + h < r[1] <= first[1] + 4 * h and r[0] >= first[0] - 6)
+            row = (line + wrapped)[:count] if line[0] == first or len(line) < count else line[:count]
+            if len(row) < count or row[0] != first and first[0] > row[0][0]:
                 continue
-            score = (row[0][1] - y1) / h if side == "below" else abs(row[0][0] - (x1 + h)) / h
+            score = (first[1] - y1) / h + 0.2 * abs(first[0] - x0) / h if side == "below" else abs(first[0] - (x1 + h)) / h + 0.3 * abs(first[1] - y0) / h
             if best is None or score < best[0]:
                 best = (score, row)
     return best[1] if best else None
+
+
+def _inside(rects, lines):
+    """The text shown in each box. OCR joins neighbouring boxes into one line ("Month Day v"), so when a line crosses
+    several boxes its words go to them in order (one-letter junk like a chevron dropped), else by character position."""
+    texts = [[] for _ in rects]
+    for text, (a, b, c, d) in lines:
+        crossed = sorted((i for i, r in enumerate(rects) if r[1] <= (b + d) / 2 <= r[3] and r[0] <= c and a <= r[2]),
+                         key=lambda i: rects[i][0])
+        words = text.split()
+        if len(crossed) == 1:
+            texts[crossed[0]] += words
+        elif crossed:
+            kept = [w for w in words if len(w) > 1] if len([w for w in words if len(w) > 1]) == len(crossed) else words
+            if len(kept) == len(crossed):
+                for i, w in zip(crossed, kept):
+                    texts[i].append(w)
+            else:
+                at = 0
+                for w in words:
+                    x = a + (c - a) * (at + len(w) / 2) / len(text)
+                    at += len(w) + 1
+                    texts[next((i for i in crossed if rects[i][0] <= x <= rects[i][2]), crossed[0])].append(w)
+    return [" ".join(t) for t in texts]
 
 
 def date_parts(rects, lines, order="dmy"):
     """Which box is the day, month and year: from the placeholder each shows ("Month", "DD", "YYYY"), else the guide's order."""
     months = {m.casefold() for m in calendar.month_name[1:]} | {m.casefold() for m in calendar.month_abbr[1:]}
     kinds = []
-    for x0, y0, x1, y1 in rects:
-        shown = _norm(" ".join(t for t, (a, b, c, d) in lines if x0 <= (a + c) / 2 <= x1 and y0 <= (b + d) / 2 <= y1))
-        kinds.append("y" if shown in ("year", "yyyy", "yy") or re.fullmatch(r"\d{4}", shown)
-                     else "m" if shown in ("month", "mm") or shown in months
-                     else "d" if shown in ("day", "dd") else None)
+    for shown in _inside(rects, lines):
+        words = set(_norm(shown).split())
+        kinds.append("y" if words & {"year", "yyyy", "yy"} or any(re.fullmatch(r"\d{4}", w) for w in words)
+                     else "m" if words & {"month", "mm"} or words & months
+                     else "d" if words & {"day", "dd"} else None)
     if sorted(kinds, key=str) != ["d", "m", "y"]:
         kinds = list(order)
     return [{"kind": k, "box": r} for k, r in zip(kinds, rects)]
