@@ -92,6 +92,7 @@ def test_the_model_size_is_chosen_and_kept(model, tmp_path, monkeypatch):
     monkeypatch.setenv("SAHL_LIBRARY", str(tmp_path / "library"))
     monkeypatch.delenv("SAHL_INTENT_MODEL", raising=False)
     monkeypatch.setattr(ai, "installed", lambda: ["qwen3:0.6b", "qwen3-vl:4b-instruct"])
+    monkeypatch.setattr(ai, "prepare", lambda: None)  # would start Ollama and download models
     c = TestClient(server.create_app("t0k", screen=lambda: [], typer=lambda *a: None), headers={"x-sahl-token": "t0k"})
     m = c.get("/models").json()
     assert m["tier"] == "standard" and {t["id"]: t["installed"] for t in m["tiers"]} == {
@@ -101,6 +102,17 @@ def test_the_model_size_is_chosen_and_kept(model, tmp_path, monkeypatch):
     assert c.post("/models", json={"tier": "huge"}).status_code == 422
 
 
+def test_missing_models_are_downloaded_after_starting_ollama(monkeypatch):
+    pulled, have = [], []
+    monkeypatch.setattr(ai, "start", lambda: True)
+    monkeypatch.setattr(ai, "installed", lambda: have)
+    monkeypatch.setattr(ai, "_pull", lambda m: (pulled.append(m), have.append(m)))
+    monkeypatch.setattr(ai, "chat", lambda *a, **k: None)
+    monkeypatch.setattr(ai.threading, "Thread", lambda target, daemon: type("T", (), {"start": staticmethod(target)}))
+    ai.prepare()
+    assert pulled == [ai.text_model(), ai.vision_model()]
+    ai.prepare()  # now both are there
+    assert pulled == [ai.text_model(), ai.vision_model()]
 def test_the_reply_is_told_which_documents_are_held_but_no_values(model):
     model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="You have a passport.")
     held = {"people": [{"id": "1", "name": "Priya", "docs": {"passport": 1, "emirates_id": 2}}], "unmatched": 1}

@@ -246,13 +246,13 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into) -> Fast
         """The model sizes to choose from, and whether this computer has each pair downloaded."""
         have = ai.installed()
         on = lambda m: any(n.startswith(m) for n in have)
-        return {"tier": ai.tier(), "running": bool(have), "tiers": [
+        return {"tier": ai.tier(), "running": ai.running(), "ollama": ai.binary() is not None, "pulling": ai.PULL, "tiers": [
             {"id": i, "text": t, "vision": v, "installed": on(t) and on(v)} for i, (t, v) in ai.TIERS.items()]}
 
     @app.post("/models", dependencies=[Depends(auth)])
     def set_models(body: Tier):
         ai.set_tier(body.tier)
-        intent.warm()  # load the new text model now, so the next question isn't slow
+        ai.prepare()  # download and load the new models now, so the next question isn't slow
         return get_models()
 
     @app.get("/improve", dependencies=[Depends(auth)])
@@ -303,7 +303,7 @@ def main():
     print(f"SAHL_PORT={sock.getsockname()[1]}", flush=True)
     if "SAHL_TOKEN" not in os.environ:
         print(f"SAHL_TOKEN={token}", flush=True)
-    intent.warm()
+    ai.prepare()
     ocr.engine()  # load the model before the first read
     library.watch()  # read new documents in the background
     uvicorn.Server(uvicorn.Config(create_app(token), log_level="warning")).run(sockets=[sock])

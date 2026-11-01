@@ -6,6 +6,11 @@ the document number formats before anything is marked verified.
 import base64
 import json
 import os
+import shutil
+import subprocess
+import sys
+import threading
+import time
 import urllib.error
 import urllib.request
 from io import BytesIO
@@ -74,6 +79,77 @@ def installed() -> list[str]:
             return [m["name"] for m in json.load(r)["models"]]
     except (urllib.error.URLError, OSError, KeyError, ValueError):
         return []
+
+
+def running() -> bool:
+    try:
+        urllib.request.urlopen(OLLAMA + "/api/tags", timeout=2).close()
+        return True
+    except (urllib.error.URLError, OSError):
+        return False
+
+
+def binary() -> str | None:
+    """Where Ollama is installed, or None. The desktop apps don't always put it on PATH."""
+    for path in (shutil.which("ollama"), "/opt/homebrew/bin/ollama", "/usr/local/bin/ollama",
+                 "/Applications/Ollama.app/Contents/Resources/ollama",
+                 os.path.expandvars(r"%LOCALAPPDATA%\Programs\Ollama\ollama.exe")):
+        if path and os.path.isfile(path):
+            return path
+    return None
+
+
+def start() -> bool:
+    """Starts `ollama serve` when it isn't answering. False when Ollama isn't installed or doesn't come up."""
+    if running():
+        return True
+    exe = binary()
+    if not exe:
+        return False
+    flags = {"creationflags": 0x08000000} if sys.platform == "win32" else {"start_new_session": True}  # no console; outlive us
+    subprocess.Popen([exe, "serve"], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **flags)
+    for _ in range(30):
+        if running():
+            return True
+        time.sleep(0.5)
+    return False
+
+
+PULL = {"model": None, "done": 0, "total": 0, "error": False}  # the download in progress, for the panel
+_pulling = threading.Lock()
+
+
+def _pull(model: str):
+    PULL.update(model=model, done=0, total=0, error=False)
+    req = urllib.request.Request(OLLAMA + "/api/pull", json.dumps({"model": model}).encode(), {"content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:  # streams one JSON line per progress step
+            for line in r:
+                step = json.loads(line)
+                if step.get("error"):
+                    raise ValueError(step["error"])
+                if step.get("total"):
+                    PULL.update(done=step.get("completed", 0), total=step["total"])
+    except (urllib.error.URLError, OSError, ValueError):
+        PULL["error"] = True
+        return
+    PULL["model"] = None
+
+
+def prepare():
+    """In the background: start Ollama if needed, download the chosen models if missing, then load the text model."""
+    def work():
+        if not _pulling.acquire(blocking=False):
+            return
+        try:
+            if start():
+                for m in (text_model(), vision_model()):
+                    if not any(n.startswith(m) for n in installed()):
+                        _pull(m)
+                chat({"model": text_model(), "messages": [], "keep_alive": "30m"}, 60, 1)  # load it, so the first question is quick
+        finally:
+            _pulling.release()
+    threading.Thread(target=work, daemon=True).start()
 
 
 def available(model: str | None = None) -> bool:
