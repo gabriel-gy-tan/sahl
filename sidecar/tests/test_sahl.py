@@ -396,4 +396,4 @@ def test_date_in_three_dropdowns_is_picked_part_by_part(fake_ai, monkeypatch):
     assert [p["kind"] for p in dob["parts"]] == ["y", "d", "m"]
     r = c.post("/fill", json={"field_id": "dob"}).json()
     assert r["landed"] is True
-    assert picked ==["1985", "14", "March"]
+    assert picked == ["1985", "14", "Mar"]

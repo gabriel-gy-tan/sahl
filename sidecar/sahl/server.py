@@ -87,8 +87,8 @@ def _part_texts(kind, value):
         return y, [y]
     if kind == "d":
         return d, [d, str(int(d))]
-    name = calendar.month_name[int(m)]
-    return name, [name[:3], m, str(int(m))]
+    short = calendar.month_abbr[int(m)]  # "Mar" selects both "Mar" and "March" as type-ahead; the full name stops matching after "Mar" on abbreviated lists
+    return short, [short, m, str(int(m))]
 
 
 def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=fill.pick_from) -> FastAPI:
