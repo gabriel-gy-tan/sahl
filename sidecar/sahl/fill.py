@@ -39,7 +39,7 @@ def type_into(box, value: str):
 
 
 def pick_from(box, text: str):
-    """Chooses an option in a dropdown by typing its start. Tab, never Enter, commits it."""
+    """Chooses an option in a dropdown by typing its start into the closed, focused select. Tab moves on; never Enter."""
     _allowed()
     from pynput.keyboard import Controller as Keys, Key
     from pynput.mouse import Button, Controller as Mouse
@@ -54,6 +54,8 @@ def pick_from(box, text: str):
     time.sleep(0.15)
     mouse.click(Button.left)
     time.sleep(0.3)
+    keys.tap(Key.esc)  # an open list only highlights what you type; a closed, focused one selects it
+    time.sleep(0.15)
     for ch in text:
         keys.type(ch)
         time.sleep(0.05)
