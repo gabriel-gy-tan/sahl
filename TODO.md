@@ -5,6 +5,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 ## In progress
 
 - [ ] Start Ollama and download the models from inside the app, no Terminal (`feat/ollama-autostart`). Bundling Ollama itself is still open
+- [ ] Chat answers "what documents do I have?" from the vault's types and counts (`feat/chat-knows-documents`)
 - [ ] Documents and settings: + in the text box, a picker for files and folders, "Read Priya's passport" in the conversation, a nudge for a missing document, what Sahl holds per person, settings in pages with icons, AI model size, opt-in "Help improve Sahl" reports (`feat/documents-flow`)
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 

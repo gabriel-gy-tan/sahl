@@ -33,10 +33,16 @@ Their last message is in {language}: reply in {language}, in one to three short,
 no JSON, no web addresses.
 - Explain a form only with what is written above. Fees, documents, deadlines and rules are only what is written under a
   form's "Needs"; for anything not written there, say you aren't sure and that the official government website has it.
+- Questions about their own documents ("what documents do I have?") are answered from "Documents Sahl holds" below:
+  say which kinds of document, and for whom if there is more than one person, but never read out numbers or other values.
+  If it says none, tell them they can add documents with the + button.
   Never guess them.
 - Never ask for their personal details: Sahl reads those from their own documents later.
 - When they want one of the forms above, say Sahl can help them fill it in.
-You can't log in, pay or submit anything for them."""
+You can't log in, pay or submit anything for them.
+
+Documents Sahl holds (counts only):
+{held}"""
 
 
 def catalogue(guides: dict) -> dict:
@@ -113,7 +119,16 @@ def _language(text: str) -> str:
     return "English"
 
 
-def reply(turns: list[dict], guides: dict) -> str:
+def _held(summary: dict | None) -> str:
+    """What the vault holds as one line per person, from vault.summary(): types and counts, never values."""
+    rows = [f"{p['name']}: " + (", ".join(f"{n} {doc.replace('_', ' ')}" for doc, n in p["docs"].items()) or "nothing")
+            for p in (summary or {}).get("people", [])]
+    if (summary or {}).get("unmatched"):
+        rows.append(f"{summary['unmatched']} not matched to anyone")
+    return "\n".join(rows) or "none yet"
+
+
+def reply(turns: list[dict], guides: dict, held: dict | None = None) -> str:
     """Sahl's words back, or "" when the model isn't running."""
     lines = "\n".join(f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}\n{_needs(g)}".rstrip()
                       for g in catalogue(guides).values())
@@ -124,12 +139,12 @@ def reply(turns: list[dict], guides: dict) -> str:
         "format": {"type": "object", "properties": {"reply": {"type": "string"}}, "required": ["reply"]},
         "keep_alive": "30m",
         "options": {"temperature": 0.3, "num_predict": 200},
-        "messages": [{"role": "system", "content": TALK.format(catalogue=lines, language=_language(turns[-1]["content"]))}, *turns],
+        "messages": [{"role": "system", "content": TALK.format(catalogue=lines, held=_held(held), language=_language(turns[-1]["content"]))}, *turns],
     }, timeout=30, tries=1)
     return str(out.get("reply", "")).strip()[:600] if isinstance(out, dict) else ""
 
 
-def talk(history: list[dict], guides: dict) -> dict:
+def talk(history: list[dict], guides: dict, held: dict | None = None) -> dict:
     """Sahl's next message. history is [{role: user|assistant, text}], oldest first, ending with the person's message.
 
     Returns {reply, kind, guide, name}: kind "match" offers guide, "new" means they want a form Sahl has no guide for
@@ -140,6 +155,6 @@ def talk(history: list[dict], guides: dict) -> dict:
     if not last:
         return {"reply": "", "kind": "unsure", "guide": None, "name": ""}
     with ThreadPoolExecutor(2) as pool:  # Ollama answers both at once when it can, so the wait is one call, not two
-        offer, words = pool.submit(pick, last, guides), pool.submit(reply, turns, guides)
+        offer, words = pool.submit(pick, last, guides), pool.submit(reply, turns, guides, held)
         return {"reply": words.result(), **offer.result()}
 

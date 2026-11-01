@@ -113,3 +113,9 @@ def test_missing_models_are_downloaded_after_starting_ollama(monkeypatch):
     assert pulled == [ai.text_model(), ai.vision_model()]
     ai.prepare()  # now both are there
     assert pulled == [ai.text_model(), ai.vision_model()]
+def test_the_reply_is_told_which_documents_are_held_but_no_values(model):
+    model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="You have a passport.")
+    held = {"people": [{"id": "1", "name": "Priya", "docs": {"passport": 1, "emirates_id": 2}}], "unmatched": 1}
+    intent.talk(me("What documents of mine do you have?"), GUIDES, held)
+    system = model["talk"]["messages"][0]["content"]
+    assert "Priya: 1 passport, 2 emirates id" in system and "1 not matched to anyone" in system
