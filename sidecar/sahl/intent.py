@@ -5,7 +5,6 @@ A 1.7B model does each well and both badly at once. The offer is checked against
 still chooses it.
 """
 import os
-import threading
 from concurrent.futures import ThreadPoolExecutor
 
 from rapidfuzz import fuzz
@@ -144,7 +143,3 @@ def talk(history: list[dict], guides: dict) -> dict:
         offer, words = pool.submit(pick, last, guides), pool.submit(reply, turns, guides)
         return {"reply": words.result(), **offer.result()}
 
-
-def warm():
-    """Loads the model in the background so the first question is quick."""
-    threading.Thread(target=ai.chat, args=({"model": ai.text_model(), "messages": [], "keep_alive": "30m"}, 60, 1), daemon=True).start()

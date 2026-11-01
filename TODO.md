@@ -4,6 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
+- [ ] Start Ollama and download the models from inside the app, no Terminal (`feat/ollama-autostart`). Bundling Ollama itself is still open
 - [ ] Documents and settings: + in the text box, a picker for files and folders, "Read Priya's passport" in the conversation, a nudge for a missing document, what Sahl holds per person, settings in pages with icons, AI model size, opt-in "Help improve Sahl" reports (`feat/documents-flow`)
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 
@@ -17,7 +18,6 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
 - [ ] Dropdowns and date pickers (show-only today)
-- [ ] Start Ollama automatically, or tell the user clearly when it isn't running
 - [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
 - [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)

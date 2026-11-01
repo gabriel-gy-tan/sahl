@@ -131,7 +131,7 @@ function Icon({ name }: { name: keyof typeof ICONS }) {
 
 const TIERS = ["light", "standard", "strong"] as const;
 type Improve = { on: boolean; reports: { file: string; guide: string; date: string; found: number; not_seen: number; missed: number; text: string }[] };
-type Models = { tier: (typeof TIERS)[number]; running: boolean; tiers: { id: string; text: string; vision: string; installed: boolean }[] };
+type Models = { tier: (typeof TIERS)[number]; running: boolean; ollama: boolean; pulling: { model: string | null; done: number; total: number; error: boolean }; tiers: { id: string; text: string; vision: string; installed: boolean }[] };
 
 function Palm({ leaving = false }: { leaving?: boolean }) {
   return (
@@ -396,7 +396,13 @@ export default function Panel() {
   const loadModels = () => api<Models>("/models").then(setModels).catch(() => {});
   useEffect(() => void ((page === "general" || !models) && loadModels()), [page]);
   const chosen = models?.tiers.find((x) => x.id === models.tier);
-  const pull = chosen ? `ollama pull ${chosen.text} && ollama pull ${chosen.vision}` : "";
+  // Sahl starts Ollama and downloads the models itself; keep looking while that happens
+  const preparing = !!models && (!models.running || (!!chosen && !chosen.installed));
+  useEffect(() => {
+    if (!preparing || !models?.ollama) return;
+    const id = setInterval(loadModels, 3000);
+    return () => clearInterval(id);
+  }, [preparing, models?.ollama]);
   const [slow, setSlow] = useState(false);
   useEffect(() => {
     setSlow(false);
@@ -585,17 +591,13 @@ export default function Panel() {
                         <Dropdown value={models?.tier ?? "standard"} label={t("model")} placeholder={t("tier_standard")}
                           options={TIERS.map((id) => ({ value: id, label: t(`tier_${id}`) }))}
                           onChange={(v) => void api<Models>("/models", { tier: v }).then(setModels).catch(fail)} />
-                        {models && !models.running && <p className="fine">{t("model_off")}</p>}
+                        {models && !models.ollama && <p className="fine">{t("no_ollama")}</p>}
+                        {models?.ollama && !models.running && <p className="fine">{t("model_off")}</p>}
                         {models?.running && chosen && !chosen.installed && (
-                          <div className="pull">
-                            <p className="fine">{t("not_installed")}</p>
-                            <div className="value">
-                              <code dir="ltr">{pull}</code>
-                              <button className="ghost" onClick={() => (navigator.clipboard.writeText(pull), setCopied(true))}>
-                                {copied ? t("copied") : t("copy")}
-                              </button>
-                            </div>
-                          </div>
+                          <p className="fine">
+                            {t("not_installed")}
+                            {models.pulling.total > 0 && ` ${Math.round((100 * models.pulling.done) / models.pulling.total)}%`}
+                          </p>
                         )}
                       </div>
                       {people.length > 1 && (

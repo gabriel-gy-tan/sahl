@@ -93,15 +93,16 @@
     "tier_light": "Lighter · faster on smaller computers",
     "tier_standard": "Standard",
     "tier_strong": "Stronger · needs 32 GB of memory",
-    "model_off": "The local AI (Ollama) isn't running.",
-    "not_installed": "Not on this computer yet. To download it, paste this in Terminal:",
+    "model_off": "Starting the local AI (Ollama)…",
+    "not_installed": "Downloading it now. This takes a few minutes, only once.",
     "too_slow": "Taking too long? Try a lighter model",
     "improve": "Help improve Sahl",
     "improve_body": "Off unless you turn it on. After each form, Sahl saves a short report on this computer: which boxes it found, missed or never saw, with the form's labels and where its boxes are. Never your details. Nothing is sent: you choose whether to share a report.",
     "report_counts": "{found} found · {missed} missed · {not_seen} not seen",
     "copy_report": "Copy for a GitHub issue",
     "open_folder": "Open the reports folder",
-    "no_reports": "No reports yet. One appears after Sahl reads a form."
+    "no_reports": "No reports yet. One appears after Sahl reads a form.",
+    "no_ollama": "Sahl needs Ollama, the free app that runs the AI on this computer. Install it from ollama.com, then reopen Sahl."
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -196,15 +197,16 @@
     "tier_light": "أخف · أسرع على الحواسيب الأصغر",
     "tier_standard": "عادي",
     "tier_strong": "أقوى · يحتاج 32 غيغابايت من الذاكرة",
-    "model_off": "الذكاء الاصطناعي المحلي (Ollama) لا يعمل.",
-    "not_installed": "غير موجود على هذا الحاسوب بعد. لتنزيله، الصق هذا في الطرفية:",
+    "model_off": "جارٍ تشغيل الذكاء الاصطناعي المحلي (Ollama)…",
+    "not_installed": "جارٍ التنزيل الآن. يستغرق بضع دقائق، مرة واحدة فقط.",
     "too_slow": "يستغرق وقتًا طويلًا؟ جرّب نموذجًا أخف",
     "improve": "ساعد في تحسين سهل",
     "improve_body": "مُطفأ ما لم تشغّله. بعد كل نموذج يحفظ سهل تقريرًا قصيرًا على هذا الحاسوب: الخانات التي وجدها أو أخطأها أو لم يرها، مع عناوين النموذج وأماكن خاناته. لا بياناتك أبدًا. لا يُرسل شيء: أنت تختار إن كنت تشارك التقرير.",
     "report_counts": "{found} وُجدت · {missed} أُخطئت · {not_seen} لم تُرَ",
     "copy_report": "انسخ لبلاغ على GitHub",
     "open_folder": "افتح مجلد التقارير",
-    "no_reports": "لا توجد تقارير بعد. يظهر تقرير بعد أن يقرأ سهل نموذجًا."
+    "no_reports": "لا توجد تقارير بعد. يظهر تقرير بعد أن يقرأ سهل نموذجًا.",
+    "no_ollama": "يحتاج Sahl إلى Ollama، التطبيق المجاني الذي يشغّل الذكاء الاصطناعي على هذا الحاسوب. ثبّته من ollama.com ثم أعد فتح Sahl."
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -299,15 +301,16 @@
     "tier_light": "ہلکا · چھوٹے کمپیوٹرز پر تیز",
     "tier_standard": "معیاری",
     "tier_strong": "طاقتور · 32 GB میموری درکار",
-    "model_off": "مقامی AI (Ollama) نہیں چل رہا۔",
-    "not_installed": "ابھی اس کمپیوٹر پر نہیں۔ ڈاؤن لوڈ کرنے کے لیے یہ ٹرمینل میں چسپاں کریں:",
+    "model_off": "مقامی AI (Ollama) شروع ہو رہا ہے…",
+    "not_installed": "اب ڈاؤن لوڈ ہو رہا ہے۔ چند منٹ لگتے ہیں، صرف ایک بار۔",
     "too_slow": "بہت دیر لگ رہی ہے؟ ہلکا ماڈل آزمائیں",
     "improve": "سہل کو بہتر بنانے میں مدد کریں",
     "improve_body": "جب تک آپ آن نہ کریں، بند ہے۔ ہر فارم کے بعد سہل اس کمپیوٹر پر ایک مختصر رپورٹ محفوظ کرتا ہے: کون سے خانے ملے، چوک گئے یا نظر نہیں آئے، فارم کے لیبلز اور خانوں کی جگہ کے ساتھ۔ آپ کی تفصیلات کبھی نہیں۔ کچھ نہیں بھیجا جاتا: رپورٹ شیئر کرنا آپ کا فیصلہ ہے۔",
     "report_counts": "{found} ملے · {missed} چوکے · {not_seen} نظر نہیں آئے",
     "copy_report": "GitHub ایشو کے لیے کاپی کریں",
     "open_folder": "رپورٹس کا فولڈر کھولیں",
-    "no_reports": "ابھی کوئی رپورٹ نہیں۔ سہل کے فارم پڑھنے کے بعد ایک رپورٹ آئے گی۔"
+    "no_reports": "ابھی کوئی رپورٹ نہیں۔ سہل کے فارم پڑھنے کے بعد ایک رپورٹ آئے گی۔",
+    "no_ollama": "Sahl کو Ollama چاہیے، وہ مفت ایپ جو اس کمپیوٹر پر AI چلاتی ہے۔ ollama.com سے انسٹال کریں، پھر Sahl دوبارہ کھولیں۔"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -402,14 +405,15 @@
     "tier_light": "ലഘു · ചെറിയ കമ്പ്യൂട്ടറുകളിൽ വേഗം",
     "tier_standard": "സാധാരണ",
     "tier_strong": "ശക്തം · 32 GB മെമ്മറി വേണം",
-    "model_off": "ലോക്കൽ AI (Ollama) പ്രവർത്തിക്കുന്നില്ല.",
-    "not_installed": "ഈ കമ്പ്യൂട്ടറിൽ ഇതുവരെ ഇല്ല. ഡൗൺലോഡ് ചെയ്യാൻ ഇത് Terminal-ൽ ഒട്ടിക്കുക:",
+    "model_off": "ലോക്കൽ AI (Ollama) ആരംഭിക്കുന്നു…",
+    "not_installed": "ഇപ്പോൾ ഡൗൺലോഡ് ചെയ്യുന്നു. കുറച്ച് മിനിറ്റ് എടുക്കും, ഒരിക്കൽ മാത്രം.",
     "too_slow": "വൈകുന്നുണ്ടോ? ലഘുവായ മോഡൽ പരീക്ഷിക്കുക",
     "improve": "സഹലിനെ മെച്ചപ്പെടുത്താൻ സഹായിക്കുക",
     "improve_body": "നിങ്ങൾ ഓണാക്കുന്നതുവരെ ഓഫാണ്. ഓരോ ഫോമിനും ശേഷം സഹൽ ഈ കമ്പ്യൂട്ടറിൽ ഒരു ചെറിയ റിപ്പോർട്ട് സൂക്ഷിക്കും: ഏത് ബോക്സുകൾ കണ്ടെത്തി, തെറ്റി, കണ്ടില്ല എന്നതും ഫോമിലെ ലേബലുകളും ബോക്സുകളുടെ സ്ഥാനവും. നിങ്ങളുടെ വിവരങ്ങൾ ഒരിക്കലും ഇല്ല. ഒന്നും അയയ്ക്കില്ല: റിപ്പോർട്ട് പങ്കിടണോ എന്ന് നിങ്ങൾ തീരുമാനിക്കും.",
     "report_counts": "{found} കണ്ടെത്തി · {missed} തെറ്റി · {not_seen} കണ്ടില്ല",
     "copy_report": "GitHub issue-നായി പകർത്തുക",
     "open_folder": "റിപ്പോർട്ട് ഫോൾഡർ തുറക്കുക",
-    "no_reports": "ഇതുവരെ റിപ്പോർട്ടുകളില്ല. സഹൽ ഒരു ഫോം വായിച്ചശേഷം ഒന്ന് വരും."
+    "no_reports": "ഇതുവരെ റിപ്പോർട്ടുകളില്ല. സഹൽ ഒരു ഫോം വായിച്ചശേഷം ഒന്ന് വരും.",
+    "no_ollama": "Sahl-ന് Ollama വേണം, ഈ കമ്പ്യൂട്ടറിൽ AI പ്രവർത്തിപ്പിക്കുന്ന സൗജന്യ ആപ്പ്. ollama.com-ൽ നിന്ന് ഇൻസ്റ്റാൾ ചെയ്ത് Sahl വീണ്ടും തുറക്കുക."
   }
 }
