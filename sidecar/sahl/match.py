@@ -139,7 +139,8 @@ def _rects(gray, bg, region, min_len, h):
     for r in sorted(pairs, key=lambda r: (r[2] - r[0]) * (r[3] - r[1])):  # tightest first: a neighbour's border can pair with this box's to make a taller one
         if not any(abs(f[0] - r[0]) <= 6 and abs(f[1] - r[1]) <= 6 for f in found):  # the same box, from its other border rows
             found.append(r)
-    return found
+    inside = lambda a, b: a != b and a[0] >= b[0] - 6 and a[1] >= b[1] - 6 and a[2] <= b[2] + 6 and a[3] <= b[3] + 6
+    return [r for r in found if not any(inside(f, r) for f in found)]  # a box that holds another is a phantom made of its neighbours' borders
 
 
 def _row(gray, label, count=3):
