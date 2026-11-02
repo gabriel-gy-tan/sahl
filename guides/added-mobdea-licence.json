@@ -1,0 +1,30 @@
+{
+  "id": "added-mobdea-licence",
+  "service": {
+    "en": "Abu Dhabi Mobdea Licence",
+    "ar": "رخصة مبدعة في أبوظبي",
+    "ur": "ابوظہبی مبدیا لائسنس",
+    "ml": "അബുദാബി മൊബ്ദിയ ലൈസൻസ്"
+  },
+  "about": "Home-based creative business licence for Emirati women.",
+  "authority": "ADDED",
+  "aliases": [
+    "Mobdea licence",
+    "Mobdea home business",
+    "رخصة مبدعة",
+    "رخصة مبدعة للمواطنات"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For female UAE citizens choosing from 44 mostly creative activities, with no physical headquarters needed"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

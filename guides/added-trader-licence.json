@@ -1,0 +1,30 @@
+{
+  "id": "added-trader-licence",
+  "service": {
+    "en": "Abu Dhabi Trader Licence",
+    "ar": "رخصة التاجر في أبوظبي",
+    "ur": "ابوظہبی ٹریڈر لائسنس",
+    "ml": "അബുദാബി ട്രേഡർ ലൈസൻസ്"
+  },
+  "about": "Business licence for citizens and residents in certain commercial activities.",
+  "authority": "ADDED",
+  "aliases": [
+    "Trader licence",
+    "Commercial trader licence",
+    "رخصة تاجر",
+    "الرخصة التجارية للتاجر"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For UAE citizens and residents carrying out specific commercial activities"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

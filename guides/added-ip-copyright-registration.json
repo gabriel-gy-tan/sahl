@@ -1,0 +1,36 @@
+{
+  "id": "added-ip-copyright-registration",
+  "service": {
+    "en": "Copyright registration (UAE)",
+    "ar": "تسجيل حق المؤلف",
+    "ur": "کاپی رائٹ رجسٹریشن",
+    "ml": "പകർപ്പവകാശ രജിസ്ട്രേഷൻ"
+  },
+  "about": "Guidance for registering copyright in a work in the UAE.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register copyright",
+    "Copyright application UAE",
+    "تسجيل حقوق المؤلف",
+    "حماية حق المؤلف"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/registration-guidance/register-copyright",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP (Abu Dhabi IP) guidance page on the checked date. AD.iP gives guidance and the filing is made with the Ministry of Economy, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Protection starts when the work is created, so registration is optional",
+      "Covers works such as books, music, paintings, photographs, software and architectural designs"
+    ],
+    "documents": [
+      "Individuals: copy of the author's Emirates ID, both sides",
+      "Groups of authors, companies and government bodies: a letter of authorisation",
+      "Legal persons: power of attorney from the author or company"
+    ],
+    "channels": [
+      "Ministry of Economy website",
+      "AD.iP: 800555, Baniyas Towers, Abu Dhabi, Mon-Thu 8 am to 3 pm, Fri 8 am to 11:30 am"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "added-ip-service-provider-registration",
+  "service": {
+    "en": "IP service provider registration",
+    "ar": "تسجيل مزود خدمات الملكية الفكرية",
+    "ur": "آئی پی سروس پرووائیڈر رجسٹریشن",
+    "ml": "ഐപി സേവനദാതാവ് രജിസ്ട്രേഷൻ"
+  },
+  "about": "List a firm or expert in the AD.iP directory of intellectual property service providers.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register as IP service provider",
+    "IP directory listing",
+    "تسجيل مزود خدمات ملكية فكرية",
+    "إدراج في دليل الملكية الفكرية"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/ip-service-providers/service-provider-registration",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP service provider registration page on the checked date. The form is a public two-step web form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For IP law firms, law firms, consultancies, agencies, corporations, public bodies and associations",
+      "Each listed expert chooses a qualification, such as advocate, patent attorney, trademark attorney or IP consultant, and a jurisdiction"
+    ],
+    "documents": [
+      "Optional logo and team photos, up to 0.5 MB each in common image formats",
+      "Licence number, certifications, references and a description of up to 150 words"
+    ],
+    "fees": [
+      "The page lists no fee"
+    ],
+    "timing": [
+      "The team replies after submission; no time is stated"
+    ],
+    "channels": [
+      "Online two-step form on the AD.iP page",
+      "AD.iP: 800555"
+    ]
+  },
+  "fields": []
+}

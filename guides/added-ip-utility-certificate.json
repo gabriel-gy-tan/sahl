@@ -1,0 +1,45 @@
+{
+  "id": "added-ip-utility-certificate",
+  "service": {
+    "en": "Utility certificate registration (UAE)",
+    "ar": "تسجيل شهادة نموذج المنفعة",
+    "ur": "یوٹیلیٹی سرٹیفکیٹ رجسٹریشن",
+    "ml": "യൂട്ടിലിറ്റി സർട്ടിഫിക്കറ്റ് രജിസ്ട്രേഷൻ"
+  },
+  "about": "Guidance for registering a utility certificate in the UAE.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register utility certificate",
+    "Utility model UAE",
+    "شهادة المنفعة",
+    "تسجيل نموذج منفعة"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/registration-guidance/register-utility-certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP (Abu Dhabi IP) guidance page on the checked date. AD.iP gives guidance and the filing is made with the Ministry of Economy, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The invention must be new; the page says the bar is lower than for patents",
+      "A prior art search is recommended first"
+    ],
+    "documents": [
+      "Abstract, claims, description and drawings in Arabic and English",
+      "Assignment and certified copy of the priority application",
+      "Emirates ID copy, memorandum of association and trade licence",
+      "Power of attorney for individuals and companies registered outside the UAE",
+      "PCT documents and sequence listing where they apply"
+    ],
+    "fees": [
+      "Filing fees are paid at submission; amounts are not stated on the page"
+    ],
+    "timing": [
+      "Grant usually takes 6 to 12 months"
+    ],
+    "channels": [
+      "Ministry of Economy online portal",
+      "A patent attorney or registered agent is recommended; AD.iP lists providers",
+      "AD.iP: 800555, Baniyas Towers, Abu Dhabi, Mon-Thu 8 am to 3 pm, Fri 8 am to 11:30 am"
+    ]
+  },
+  "fields": []
+}

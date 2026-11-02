@@ -1,0 +1,42 @@
+{
+  "id": "added-ip-patent-registration",
+  "service": {
+    "en": "Patent registration (UAE)",
+    "ar": "تسجيل براءة اختراع",
+    "ur": "پیٹنٹ رجسٹریشن",
+    "ml": "പേറ്റന്റ് രജിസ്ട്രേഷൻ"
+  },
+  "about": "Guidance for registering a patent in the UAE through the Ministry of Economy.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register a patent",
+    "Patent application UAE",
+    "تسجيل براءة اختراع",
+    "طلب براءة اختراع"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/registration-guidance/register-patent",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP (Abu Dhabi IP) guidance page on the checked date. AD.iP gives guidance and the filing is made with the Ministry of Economy, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The invention must be technical, new, involve an inventive step, and be useful and industrially applicable"
+    ],
+    "documents": [
+      "Abstract, claims, description and drawings in Arabic and English",
+      "Assignment and certified copy of the priority application",
+      "Trade licence and memorandum of association (companies only)",
+      "Emirates ID copy",
+      "Power of attorney for residents or companies registered outside the UAE",
+      "PCT documents and sequence listing where they apply"
+    ],
+    "timing": [
+      "Grant usually takes 2 to 6 years"
+    ],
+    "channels": [
+      "Ministry of Economy online portal",
+      "A patent attorney or registered agent is recommended; AD.iP lists providers",
+      "AD.iP: 800555, Baniyas Towers, Abu Dhabi, Mon-Thu 8 am to 3 pm, Fri 8 am to 11:30 am"
+    ]
+  },
+  "fields": []
+}

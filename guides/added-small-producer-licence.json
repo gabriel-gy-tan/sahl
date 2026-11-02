@@ -1,0 +1,30 @@
+{
+  "id": "added-small-producer-licence",
+  "service": {
+    "en": "Abu Dhabi Small Producers Licence",
+    "ar": "رخصة صغار المنتجين في أبوظبي",
+    "ur": "ابوظہبی چھوٹے پروڈیوسرز لائسنس",
+    "ml": "അബുദാബി ചെറുകിട ഉൽപാദക ലൈസൻസ്"
+  },
+  "about": "Licence for Emirati owners of private farms offering farm services.",
+  "authority": "ADDED",
+  "aliases": [
+    "Small producers licence",
+    "Farm services licence",
+    "رخصة صغار المنتجين",
+    "رخصة المزارع الصغيرة"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For citizens who own private farms offering agricultural and animal husbandry services in certain areas"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}
