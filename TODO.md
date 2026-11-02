@@ -4,6 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
+- [ ] Dropdown dates (issue #9): day, month and year boxes found as a row and picked one by one, boxes sized from their own borders (`fix/dropdown-date-parts`). Checked on RoboForm's test form; still to check on a real UAE portal
 - [ ] Start Ollama and download the models from inside the app, no Terminal (`feat/ollama-autostart`). Bundling Ollama itself is still open
 - [ ] Chat answers "what documents do I have?" from the vault's types and counts (`feat/chat-knows-documents`)
 - [ ] Documents and settings: + in the text box, a picker for files and folders, "Read Priya's passport" in the conversation, a nudge for a missing document, what Sahl holds per person, settings in pages with icons, AI model size, opt-in "Help improve Sahl" reports (`feat/documents-flow`)
@@ -18,7 +19,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
-- [ ] Dropdowns and date pickers (show-only today)
+- [ ] Other dropdowns and date pickers (show-only today)
 - [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
 - [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)

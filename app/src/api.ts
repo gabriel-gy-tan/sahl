@@ -7,7 +7,7 @@ export type Field = {
   label: string;
   label_box: Box;
   input_box: Box;
-  input: "text" | "date" | "select";
+  input: "text" | "date" | "select" | "date-parts";
   help: Record<Lang, string>;
   vault: { value: string; verified: boolean; source: string; crop: string | null } | null;
   needs: Doc | null; // the document to add when vault is null

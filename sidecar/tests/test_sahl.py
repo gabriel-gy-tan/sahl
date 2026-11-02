@@ -367,3 +367,33 @@ def test_a_failed_ai_reading_is_tried_again(client, tmp_path, monkeypatch):
     monkeypatch.setattr(ai, "read_page", working)
     monkeypatch.setattr(ai, "available", lambda: True)
     assert client.post("/vault/sync").json()["people"] == ["Priya Anil Menon"]  # read again, not left as empty
+
+
+def test_date_in_three_dropdowns_is_picked_part_by_part(fake_ai, monkeypatch):
+    monkeypatch.setattr(server, "_matches", lambda seen, want: True)  # OCR of two bare digits is too flaky to assert on
+    picked, page = [], np.full((700, 1400), 255, np.uint8)
+    img = Image.fromarray(page)
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.load_default(26)
+    draw.text((100, 100), "Date of birth", fill=0, font=font)
+    for x, shown in ((100, "Year"), (350, "Day"), (600, "Month")):  # year first, so order must come from the page
+        draw.rectangle((x, 160, x + 200, 220), outline=0, width=2)
+        draw.text((x + 12, 176), shown, fill=0, font=font)
+    page[:] = np.array(img)
+
+    def picker(box, text):
+        picked.append(text)
+        i = Image.fromarray(page)
+        d = ImageDraw.Draw(i)
+        d.rectangle((box[0] + 4, box[1] + 4, box[2] - 4, box[3] - 4), fill=255)
+        d.text((box[0] + 12, box[1] + 14), text, fill=0, font=font)
+        page[:] = np.array(i)
+
+    app = server.create_app("t0k", screen=lambda: [(page, 1.0, (0, 0, 1400, 700))], picker=picker)
+    c = TestClient(app, headers={"x-sahl-token": "t0k"})
+    c.post("/vault/import", json={"path": str(ROOT / "demo/samples/passport.png")})
+    dob = next(f for f in c.post("/read", json={"guide": "any-form"}).json()["fields"] if f["id"] == "dob")
+    assert [p["kind"] for p in dob["parts"]] == ["y", "d", "m"]
+    r = c.post("/fill", json={"field_id": "dob"}).json()
+    assert r["landed"] is True
+    assert picked == ["1985", "14", "Mar"]

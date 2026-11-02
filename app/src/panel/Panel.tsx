@@ -490,7 +490,7 @@ export default function Panel() {
 
   const field = reading?.fields.find((f) => f.id === reading.next) ?? null;
   const index = field ? reading!.fields.indexOf(field) + 1 : 0;
-  const canFill = mode === "fill" && field?.input === "text" && field.vault?.verified;
+  const canFill = mode === "fill" && (field?.input === "text" || field?.input === "date-parts") && field.vault?.verified;
   const guideName = guides?.find((g) => g.id === guide)?.service[lang];
 
   // --- open on hover, fold back into the notch a moment after the pointer leaves ---
@@ -833,7 +833,7 @@ export default function Panel() {
                           <button className="ghost" disabled={busy} onClick={addDoc}>{t("add_doc")}</button>
                         </div>
                       ) : (
-                        <p className="quiet">{field.input === "text" ? t("not_in_vault") : t("you_choose")}</p>
+                        <p className="quiet">{field.input === "text" || field.input === "date-parts" ? t("not_in_vault") : t("you_choose")}</p>
                       )
                     )}
                     <div className="actions">

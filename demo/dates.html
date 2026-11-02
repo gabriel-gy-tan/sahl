@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Sahl demo: date dropdowns</title>
+<style>
+  body { font: 18px system-ui; margin: 60px; }
+  label { display: block; margin: 28px 0 8px; }
+  select { font-size: 18px; padding: 10px; width: 170px; margin-right: 16px; }
+</style>
+<label>Date of birth</label>
+<select><option>Day</option><script>for (let i = 1; i <= 31; i++) document.write(`<option>${i}</option>`)</script></select>
+<select><option>Month</option><script>for (let m = 0; m < 12; m++) document.write(`<option>${new Date(2000, m).toLocaleString("en", { month: "long" })}</option>`)</script></select>
+<select><option>Year</option><script>for (let y = 2010; y >= 1930; y--) document.write(`<option>${y}</option>`)</script></select>
+<label>Passport expiry date</label>
+<select><option>Year</option><script>for (let y = 2026; y <= 2040; y++) document.write(`<option>${y}</option>`)</script></select>
+<select><option>Month</option><script>for (let m = 0; m < 12; m++) document.write(`<option>${new Date(2000, m).toLocaleString("en", { month: "long" })}</option>`)</script></select>
+<select><option>Day</option><script>for (let i = 1; i <= 31; i++) document.write(`<option>${i}</option>`)</script></select>
