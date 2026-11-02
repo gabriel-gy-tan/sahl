@@ -1,0 +1,47 @@
+{
+  "id": "moccae-import-live-animals-birds",
+  "service": {
+    "en": "Import permit for live animals and birds",
+    "ar": "تصريح استيراد الحيوانات والطيور الحية",
+    "ur": "زندہ جانوروں اور پرندوں کی درآمد کا اجازت نامہ",
+    "ml": "ജീവനുള്ള മൃഗങ്ങളെയും പക്ഷികളെയും ഇറക്കുമതി ചെയ്യാനുള്ള പെർമിറ്റ്"
+  },
+  "about": "Get approval to bring live animals or birds into the UAE.",
+  "authority": "MOCCAE",
+  "aliases": [
+    "Import pet UAE",
+    "Animal import permit",
+    "Bird import permit",
+    "استيراد الحيوانات",
+    "تصريح استيراد طيور"
+  ],
+  "source": "https://www.moccae.gov.ae/en/services/import-permit-animals-birds",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOCCAE service page on the checked date. MOCCAE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Import permit for live animals and birds. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The permit is valid 90 days and the shipment is inspected on arrival",
+      "Animals must be identified by a microchip, ring or ear tag, with some exceptions",
+      "Shipping must be direct from the exporting country unless the ministry approves a transit",
+      "The importing facility needs a licence for animal care activities"
+    ],
+    "documents": [
+      "Import permit: no documents required",
+      "Release: attested veterinary health certificate from the exporting country",
+      "Certificate of origin for commercial consignments",
+      "Customs declaration",
+      "Laboratory certificate where the exporting country requires one"
+    ],
+    "fees": [
+      "AED 100 for the import permit",
+      "AED 10 per sheep or goat released, AED 20 per cow, buffalo or camel",
+      "AED 1 per ornamental bird with a minimum of AED 200 per consignment"
+    ],
+    "channels": [
+      "MOCCAE digital services after registering",
+      "Quarantine centres at ports and airports",
+      "Call 800 3050"
+    ]
+  },
+  "fields": []
+}

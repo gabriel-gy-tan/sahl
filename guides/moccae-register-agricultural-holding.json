@@ -1,0 +1,46 @@
+{
+  "id": "moccae-register-agricultural-holding",
+  "service": {
+    "en": "Register an agricultural holding",
+    "ar": "تسجيل حيازة زراعية",
+    "ur": "زرعی ملکیت کی رجسٹریشن",
+    "ml": "കാർഷിക ഹോൾഡിംഗ് രജിസ്ട്രേഷൻ"
+  },
+  "about": "Record a UAE national's farm in the ministry system to use its farmer services.",
+  "authority": "MOCCAE",
+  "aliases": [
+    "Farm registration",
+    "Agricultural card",
+    "Farmer card",
+    "تسجيل مزرعة",
+    "البطاقة الزراعية"
+  ],
+  "source": "https://www.moccae.gov.ae/en/services/issuance-of-agricultural-card",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOCCAE service page on the checked date. MOCCAE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Register an agricultural holding. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Holder must be a UAE national, and a lessee must also be a UAE national",
+      "The farm must be fenced and have an irrigation water source"
+    ],
+    "documents": [
+      "Copy of ID card",
+      "Copy of farm ownership",
+      "Land chart showing the area",
+      "Lessee: lease contract from the owner",
+      "Heirs: court inheritance document and power of attorney from all heirs"
+    ],
+    "fees": [
+      "No fees"
+    ],
+    "timing": [
+      "2 working days, after an inspection visit"
+    ],
+    "channels": [
+      "MOCCAE website after registering",
+      "Agricultural and veterinary extension centres",
+      "Call 800 3050"
+    ]
+  },
+  "fields": []
+}
