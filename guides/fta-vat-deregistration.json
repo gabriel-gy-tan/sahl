@@ -1,0 +1,45 @@
+{
+  "id": "fta-vat-deregistration",
+  "service": {
+    "en": "VAT deregistration",
+    "ar": "إلغاء التسجيل في ضريبة القيمة المضافة",
+    "ur": "ویلیو ایڈڈ ٹیکس رجسٹریشن کی منسوخی",
+    "ml": "വാറ്റ് രജിസ്ട്രേഷൻ റദ്ദാക്കൽ"
+  },
+  "about": "Cancel a VAT registration when the business closes, is sold or falls below the thresholds.",
+  "authority": "FTA",
+  "aliases": [
+    "Cancel VAT registration",
+    "Deregister VAT",
+    "VAT de-registration",
+    "إلغاء التسجيل الضريبي",
+    "إلغاء رقم التسجيل الضريبي"
+  ],
+  "source": "https://tax.gov.ae/en/services/vat.deregistration.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official FTA service page on the checked date. FTA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. VAT deregistration. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to any person registered for VAT",
+      "Apply from the same EmaraTax account used to register",
+      "Where deregistration is mandatory, apply within 30 business days of the obligation arising"
+    ],
+    "documents": [
+      "Depends on the reason, for example licence cancellation certificate, sale contract, amended licence or signed declarations",
+      "Completed financial turnover template (taxable supplies and expenses)",
+      "PDF, Excel, Docs, JPG or PNG, up to 5 MB per file"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "About 45 minutes to apply",
+      "FTA processes in 30 business days",
+      "Final VAT return and payment due within 28 days of the effective date"
+    ],
+    "channels": [
+      "EmaraTax platform, sign in with UAE PASS"
+    ]
+  },
+  "fields": []
+}

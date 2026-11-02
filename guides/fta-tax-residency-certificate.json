@@ -1,0 +1,52 @@
+{
+  "id": "fta-tax-residency-certificate",
+  "service": {
+    "en": "Tax residency certificate",
+    "ar": "شهادة الإقامة الضريبية",
+    "ur": "ٹیکس رہائش کا سرٹیفکیٹ",
+    "ml": "നികുതി റെസിഡൻസി സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a certificate proving you or your company is a UAE tax resident, or a commercial activity certificate.",
+  "authority": "FTA",
+  "aliases": [
+    "TRC",
+    "Tax residence certificate",
+    "Certificate of tax residency UAE",
+    "شهادة التسجيل الضريبي",
+    "شهادة الإقامة الضريبية"
+  ],
+  "source": "https://tax.gov.ae/en/services/issuance.of.tax.certificates.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official FTA service page on the checked date. FTA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Tax residency certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant must be a UAE tax resident under UAE law or under a double taxation agreement",
+      "Companies must have been established for at least 12 months",
+      "Branches of foreign companies and offshore companies are not eligible",
+      "A certificate cannot cover a future period or more than 12 months"
+    ],
+    "documents": [
+      "Individuals: Emirates ID and passport with an official entry and exit report, plus proof depending on days spent in the UAE",
+      "Companies: valid licence and lease, certificate of incorporation, memorandum of association, signatory's Emirates ID and passport with proof of authority",
+      "Treaty certificates: passport is always required",
+      "Commercial activity certificate: active VAT TRN and a request letter"
+    ],
+    "fees": [
+      "AED 50 for submission on every application",
+      "AED 1,000 for an individual without a corporate tax TRN",
+      "AED 1,750 for a company without a corporate tax TRN",
+      "AED 500 for a corporate tax registrant",
+      "AED 250 for each hard copy"
+    ],
+    "timing": [
+      "About 10 minutes to apply",
+      "FTA decides within 10 business days of a complete application",
+      "Hard copy in 5 business days after payment"
+    ],
+    "channels": [
+      "trc.tax.gov.ae, sign in with UAE PASS",
+      "Hard copies are couriered to a UAE address only"
+    ]
+  },
+  "fields": []
+}

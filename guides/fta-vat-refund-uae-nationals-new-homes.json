@@ -1,0 +1,51 @@
+{
+  "id": "fta-vat-refund-uae-nationals-new-homes",
+  "service": {
+    "en": "VAT refund for UAE nationals building a new home",
+    "ar": "استرداد ضريبة القيمة المضافة للمواطنين عند بناء مسكن جديد",
+    "ur": "اماراتی شہریوں کے لیے نئے گھر کی تعمیر پر ویلیو ایڈڈ ٹیکس کی واپسی",
+    "ml": "പുതിയ വീട് നിർമ്മിക്കുന്ന സ്വദേശികൾക്കുള്ള വാറ്റ് റീഫണ്ട്"
+  },
+  "about": "Claim back the VAT paid on building a new family home as a UAE national.",
+  "authority": "FTA",
+  "aliases": [
+    "VAT refund homebuilders",
+    "Refund VAT on new house",
+    "Maskan VAT refund",
+    "استرداد ضريبة بناء المسكن",
+    "استرداد الضريبة للمواطنين"
+  ],
+  "source": "https://tax.gov.ae/en/services/vat.refund.for.uae.nationals.homebuilders.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official FTA service page on the checked date. FTA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. VAT refund for UAE nationals building a new home. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant must be a UAE national",
+      "The building must be newly built and used only as the applicant's or family's home",
+      "Apply within 12 months of completion or occupancy",
+      "One application per residence, unless claiming retention payments or later additions with a new completion certificate"
+    ],
+    "documents": [
+      "Copy of Emirates ID",
+      "Family sequence number if applying for someone else",
+      "Copy of the property completion certificate",
+      "Bank letter with IBAN if the refund goes to an international account",
+      "Notarised power of attorney or court authorisation, if applicable",
+      "Later on, the FTA may email for plans, permit, contracts, bill of quantities and tax invoices with payment proof"
+    ],
+    "fees": [
+      "Free service"
+    ],
+    "timing": [
+      "About 15 minutes to apply on EmaraTax, about 3 minutes on the Maskan app",
+      "FTA processes a complete application in 25 working days",
+      "Retention payment claims within 6 months of payment"
+    ],
+    "channels": [
+      "EmaraTax platform or app",
+      "Maskan app",
+      "Reply by email to the verification entity if more documents are asked for"
+    ]
+  },
+  "fields": []
+}
