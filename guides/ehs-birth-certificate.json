@@ -1,0 +1,43 @@
+{
+  "id": "ehs-birth-certificate",
+  "service": {
+    "en": "Birth certificate issue",
+    "ar": "إصدار شهادة ميلاد",
+    "ur": "پیدائش کا سرٹیفکیٹ جاری کرنا",
+    "ml": "ജനന സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "Get the birth certificate of a child born in the UAE.",
+  "authority": "EHS",
+  "aliases": [
+    "Birth certificate",
+    "Baby birth certificate",
+    "Mabrouk Ma Yak",
+    "شهادة ميلاد",
+    "استخراج شهادة ميلاد"
+  ],
+  "source": "https://www.ehs.gov.ae/en/services/services-directory/issue-of-a-birth-certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official EHS service page on the checked date. EHS fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Birth certificate issue. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant must be a parent or hold a special power of attorney"
+    ],
+    "documents": [
+      "Valid Emirates ID of the parents"
+    ],
+    "fees": [
+      "AED 65 for the certificate",
+      "AED 20.75 for delivery if requested"
+    ],
+    "timing": [
+      "Immediate for a digitally attested certificate",
+      "24 hours if delivery is chosen"
+    ],
+    "channels": [
+      "EHS website or app",
+      "Birth and Death Portal",
+      "Service delivery centres"
+    ]
+  },
+  "fields": []
+}

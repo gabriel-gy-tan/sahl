@@ -1,0 +1,44 @@
+{
+  "id": "ehs-lost-birth-certificate-replacement",
+  "service": {
+    "en": "Replacement for a lost birth certificate",
+    "ar": "بدل فاقد لشهادة الميلاد",
+    "ur": "گم شدہ پیدائش سرٹیفکیٹ کا متبادل",
+    "ml": "നഷ്ടപ്പെട്ട ജനന സർട്ടിഫിക്കറ്റിന് പകരം"
+  },
+  "about": "Get a replacement copy of a lost birth certificate.",
+  "authority": "EHS",
+  "aliases": [
+    "Duplicate birth certificate",
+    "Lost birth certificate",
+    "بدل فاقد شهادة ميلاد",
+    "نسخة شهادة ميلاد"
+  ],
+  "source": "https://www.ehs.gov.ae/en/services/services-directory/issue-of-a-replacement-for-lost-birth-certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official EHS service page on the checked date. EHS fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Replacement for a lost birth certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A parent, or someone with a special power of attorney",
+      "Or the person concerned, aged 18 or over"
+    ],
+    "documents": [
+      "Valid Emirates ID of the parents",
+      "Notification (QAID) number and birth date entered during the application"
+    ],
+    "fees": [
+      "AED 65 per certificate"
+    ],
+    "timing": [
+      "24 hours",
+      "Service hours Monday to Thursday 7:30 to 15:30, Friday 7:30 to 12:00"
+    ],
+    "channels": [
+      "Birth and Death Portal with UAE PASS",
+      "EHS website or app",
+      "Service delivery centres",
+      "Call 800 8877"
+    ]
+  },
+  "fields": []
+}
