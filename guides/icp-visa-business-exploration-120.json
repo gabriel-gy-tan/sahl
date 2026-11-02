@@ -1,0 +1,49 @@
+{
+  "id": "icp-visa-business-exploration-120",
+  "service": {
+    "en": "Business exploration visa, 120 days",
+    "ar": "تأشيرة استكشاف فرص تأسيس الأعمال 120 يوما",
+    "ur": "کاروباری مواقع تلاش ویزا، 120 دن",
+    "ml": "ബിസിനസ് സാധ്യത പരിശോധിക്കാനുള്ള വിസ, 120 ദിവസം"
+  },
+  "about": "Get a single-entry visa to explore setting up a business in the UAE for 120 days, without a UAE host.",
+  "authority": "ICP",
+  "aliases": [
+    "Business exploration visa 120 days",
+    "Explore business opportunities visa",
+    "تأشيرة استكشاف الأعمال 120 يوم"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bc368c587a0011cb16c5",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Business exploration visa, 120 days. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Entry visa is valid 60 days from issue; enter within that time or it is cancelled",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months",
+      "Financial guarantee is refundable after the visa is cancelled following departure with no residency violations",
+      "The page does not say whether this visa can be extended"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Initial approval from the relevant authority for establishing a business",
+      "Stamped bank statement covering at least 6 months",
+      "Bachelor's degree or equivalent recognised qualification",
+      "Copy of personal ID for applicants from Afghanistan, Iran or Iraq"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Financial guarantee 1,000 AED and deposit 20 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

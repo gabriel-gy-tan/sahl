@@ -1,0 +1,45 @@
+{
+  "id": "icp-visa-blue-residency-6-months",
+  "service": {
+    "en": "6-month visa to complete Blue Residence",
+    "ar": "تأشيرة 6 أشهر لإكمال إجراءات الإقامة الزرقاء",
+    "ur": "نیلی رہائش مکمل کرنے کا 6 ماہ کا ویزا",
+    "ml": "ബ്ലൂ റെസിഡൻസി നടപടികൾ പൂർത്തിയാക്കാനുള്ള 6 മാസ വിസ"
+  },
+  "about": "Get a 6-month multiple-entry visa to finish the Blue Residence procedures.",
+  "authority": "ICP",
+  "aliases": [
+    "Blue residency 6 month visa",
+    "Blue visa complete procedures",
+    "تأشيرة الإقامة الزرقاء 6 أشهر"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e351925ae59b00117383f1",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. 6-month visa to complete Blue Residence. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents or visitors in the targeted categories",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months",
+      "The page does not say whether it can be extended"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Papers proving eligibility for Blue Residence"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 1,000 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

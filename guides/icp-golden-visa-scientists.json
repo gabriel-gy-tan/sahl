@@ -1,0 +1,45 @@
+{
+  "id": "icp-golden-visa-scientists",
+  "service": {
+    "en": "Golden Residence visa for scientists and specialists",
+    "ar": "تأشيرة الإقامة الذهبية للعلماء والمتخصصين",
+    "ur": "سائنس دانوں اور ماہرین کے لیے گولڈن ریزیڈنسی ویزا",
+    "ml": "ശാസ്ത്രജ്ഞർക്കും വിദഗ്ധർക്കുമുള്ള ഗോൾഡൻ റെസിഡൻസ് വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as a scientist or specialist.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa scientists",
+    "Golden residency specialists",
+    "الإقامة الذهبية للعلماء",
+    "تأشيرة ذهبية للمتخصصين"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bbb38c587a0011cb16b9",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Golden Residence visa for scientists and specialists. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Other papers only if ICP cannot fetch them from government records"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

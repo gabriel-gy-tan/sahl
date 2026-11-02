@@ -1,0 +1,44 @@
+{
+  "id": "icp-visa-oman-residents",
+  "service": {
+    "en": "Multiple-entry visa for Oman residents visiting border areas",
+    "ar": "تأشيرة متعددة الدخول لمقيمي سلطنة عمان لزيارة المناطق الحدودية",
+    "ur": "سرحدی علاقوں میں آنے والے عمان کے رہائشیوں کے لیے متعدد داخلے کا ویزا",
+    "ml": "അതിർത്തി പ്രദേശങ്ങൾ സന്ദർശിക്കുന്ന ഒമാൻ നിവാസികൾക്കുള്ള വിസ"
+  },
+  "about": "Get a 60-day multiple-entry visa if you live in Oman and often visit UAE border areas.",
+  "authority": "ICP",
+  "aliases": [
+    "Oman resident visa",
+    "Border area visa Oman",
+    "تأشيرة مقيم عماني",
+    "تأشيرة المناطق الحدودية"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bcbb8c587a0011cb16d1",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Multiple-entry visa for Oman residents visiting border areas. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents of the Sultanate of Oman who often visit neighbouring UAE border areas",
+      "Passport valid for at least 6 months",
+      "Valid 60 days before entry; stay up to 60 days from entry"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "To-whom-it-may-concern certificate from the Omani authorities"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Visit visa issuance 600 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

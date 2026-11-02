@@ -1,0 +1,50 @@
+{
+  "id": "icp-family-data-issue",
+  "service": {
+    "en": "Issue family data (citizens)",
+    "ar": "إصدار بيانات الأسرة للمواطنين",
+    "ur": "شہریوں کے لیے خاندانی ڈیٹا کا اجراء",
+    "ml": "പൗരന്മാർക്കുള്ള കുടുംബ വിവര രജിസ്ട്രേഷൻ"
+  },
+  "about": "Create a new family record for a UAE citizen, for example after a first marriage.",
+  "authority": "ICP",
+  "aliases": [
+    "Issue family record",
+    "New family book",
+    "Register marriage family data",
+    "إصدار بيانات أسرة",
+    "إصدار خانة جديدة",
+    "تسجيل زواج"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e76",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Issue family data (citizens). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For UAE citizens: first-time marriage, a divorced or widowed woman, or an unmarried person aged 30 or over",
+      "A marriage contract issued abroad must be translated into Arabic and attested by the UAE embassy and Ministry of Foreign Affairs",
+      "A citizen spouse in the armed forces or a similar body needs a no-objection letter to marry a foreign spouse",
+      "A widow gets a new record only if no children are registered under the late husband's record",
+      "Complete any changes ICP asks for if the application is returned"
+    ],
+    "documents": [
+      "Personal photo and marriage certificate when both spouses are citizens",
+      "If one spouse is not a citizen: both birth certificates, latest education certificates and a to-whom-it-may-concern letter from both employers",
+      "A marriage continuity certificate when the contract was issued abroad or is over a year old",
+      "Sharia court status declaration for a divorced woman, a widow, an unmarried person aged 30 or over, or an unemployed husband"
+    ],
+    "fees": [
+      "Statistical statement request 25 AED",
+      "Application fee for issuing family data 50 AED"
+    ],
+    "timing": [
+      "About 2 days",
+      "Smart services run 24/7; service centres keep their working hours"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

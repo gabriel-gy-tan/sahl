@@ -1,0 +1,47 @@
+{
+  "id": "icp-golden-residency-guide",
+  "service": {
+    "en": "Golden Residence guide",
+    "ar": "دليل الإقامة الذهبية",
+    "ur": "گولڈن ریزیڈنسی گائیڈ",
+    "ml": "ഗോൾഡൻ റെസിഡൻസി ഗൈഡ"
+  },
+  "about": "See who qualifies for the 10-year Golden Residence and what it allows.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa",
+    "Golden residency",
+    "10 year residency",
+    "الإقامة الذهبية",
+    "التأشيرة الذهبية"
+  ],
+  "source": "https://icp.gov.ae/en/services/uae-golden-residency/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Golden Residence guide. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "10-year residence that renews automatically, with no sponsor needed",
+      "Investors in public investments: 2,000,000 AED deposit, company capital or partnership share, or a business paying at least 250,000 AED a year in federal taxes",
+      "Real estate investors: property worth at least 2,000,000 AED, which may be bank-financed, or off-plan units from an approved developer",
+      "Entrepreneurs: an SME with at least 1,000,000 AED yearly revenue, an approved idea, or earlier ventures sold for at least 7,000,000 AED",
+      "Skilled professionals: valid work permit, a bachelor's degree and a salary of at least 30,000 AED a month in the top two occupation levels",
+      "Outstanding students, exceptional talents and humanitarian pioneers also qualify under set criteria",
+      "Health insurance is needed in the investor, entrepreneur and specialist categories"
+    ],
+    "documents": [
+      "Document lists differ by category; the guide page does not list them"
+    ],
+    "fees": [
+      "The guide page states no fees; see the Golden Residence visa services for amounts"
+    ],
+    "timing": [
+      "The guide page gives no timing"
+    ],
+    "channels": [
+      "ICP eligibility checker on the website",
+      "ICP Smart Services platform (sign in required)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

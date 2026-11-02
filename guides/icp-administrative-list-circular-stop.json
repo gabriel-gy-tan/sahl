@@ -1,0 +1,44 @@
+{
+  "id": "icp-administrative-list-circular-stop",
+  "service": {
+    "en": "Stop a circular on a sponsored person",
+    "ar": "إيقاف التعميم على مكفول في القائمة الإدارية",
+    "ur": "زیر کفالت شخص پر سرکلر روکنا",
+    "ml": "സ്പോൺസർ ചെയ്യപ്പെട്ടയാളുടെ സർക്കുലർ നിർത്തൽ"
+  },
+  "about": "Remove a sponsored person from ICP's administrative list.",
+  "authority": "ICP",
+  "aliases": [
+    "Cancel circular",
+    "Lift ban sponsored",
+    "Remove from administrative list",
+    "إيقاف تعميم",
+    "رفع المنع"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e83",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Stop a circular on a sponsored person. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Provide the service requirements",
+      "Complete any changes ICP asks for if the application is returned"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Request to stop the search",
+      "Letter from the body that submitted the circular"
+    ],
+    "fees": [
+      "Individual file: application 100 AED, smart service fee 100 AED and lifting the ban 1,000 AED",
+      "Company file: application 100 AED, smart service fee 100 AED and lifting the ban 2,000 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

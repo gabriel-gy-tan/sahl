@@ -1,0 +1,46 @@
+{
+  "id": "icp-visa-gcc-companions",
+  "service": {
+    "en": "Visa for companions of GCC citizens",
+    "ar": "تأشيرة مرافقي مواطني دول الخليج",
+    "ur": "خلیجی شہریوں کے ساتھیوں کے لیے ویزا",
+    "ml": "ഗൾഫ് പൗരന്മാരുടെ സഹയാത്രികർക്കുള്ള വിസ"
+  },
+  "about": "Get a 60-day visa for a companion of a GCC citizen who is hosting them.",
+  "authority": "ICP",
+  "aliases": [
+    "GCC citizen companion visa",
+    "Visa for domestic worker of GCC citizen",
+    "تأشيرة مرافق مواطن خليجي"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e352af5ae59b00117383f8",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Visa for companions of GCC citizens. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The host must be a GCC national and must be present when the companion arrives at an entry point",
+      "The GCC residence of the beneficiary must be valid for at least 1 year",
+      "Passport valid for at least 6 months",
+      "Saudi and Omani citizens do not pay the issuance fee"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Valid GCC residence permit with the companion's sponsor file",
+      "Proof of identity of the GCC citizen"
+    ],
+    "fees": [
+      "Application 50 AED",
+      "Issuance 100 AED, waived for Saudi and Omani citizens",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}
