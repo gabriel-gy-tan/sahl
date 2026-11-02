@@ -1,0 +1,42 @@
+{
+  "id": "tamm-parking-resident-permit-renew",
+  "service": {
+    "en": "Renew residents parking permit",
+    "ar": "تجديد تصريح مواقف السكان",
+    "ur": "رہائشی پارکنگ پرمٹ کی تجدید",
+    "ml": "റെസിഡന്റ്സ് പാർക്കിംഗ് പെർമിറ്റ് പുതുക്കൽ"
+  },
+  "about": "Renew the residential parking permit for a homeowner, tenant or close relatives living in the same home.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew Mawaqif residents permit",
+    "Resident parking renewal",
+    "تجديد موقف سكني",
+    "تجديد تصريح مواقف"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ApplyforRenewalofResidentsParkingPermit",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Homeowner or tenant",
+      "First or second-degree relatives living in the same residence"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Vehicle licence",
+      "Electricity bill"
+    ],
+    "fees": [
+      "AED 800 for the first vehicle",
+      "AED 1,200 for the second vehicle"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

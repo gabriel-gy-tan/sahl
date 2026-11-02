@@ -1,0 +1,40 @@
+{
+  "id": "tamm-marine-craft-licence-renew-technical-amendment",
+  "service": {
+    "en": "Renew a water sport marine craft licence with technical amendment",
+    "ar": "تجديد رخصة مركبة بحرية للرياضات المائية مع تعديل فني",
+    "ur": "تکنیکی ترمیم کے ساتھ واٹر اسپورٹ کرافٹ لائسنس کی تجدید",
+    "ml": "സാങ്കേതിക ഭേദഗതിയോടെ വാട്ടർ സ്പോർട്ട് ക്രാഫ്റ്റ് ലൈസൻസ് പുതുക്കൽ"
+  },
+  "about": "Renew a water sport craft licence and change its technical specification at the same time.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew jet ski with modification",
+    "Marine craft renewal and amendment",
+    "تجديد مع تعديل فني",
+    "تجديد رخصة مركبة بحرية وتعديلها"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/RenewWatersportMarineCraftLicensewithTechnicalAmendment",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A valid no objection certificate for the amendment must be available at renewal"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Trade licence",
+      "Insurance certificate"
+    ],
+    "fees": [
+      "AED 300 for the on-site inspection visit"
+    ],
+    "timing": [
+      "About 30 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

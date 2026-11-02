@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-licence-replace-lost-damaged",
+  "service": {
+    "en": "Replace a lost or damaged water sport marine craft licence",
+    "ar": "استبدال رخصة مركبة بحرية للرياضات المائية مفقودة أو تالفة",
+    "ur": "گم یا خراب واٹر اسپورٹ کرافٹ لائسنس کی تبدیلی",
+    "ml": "നഷ്ടപ്പെട്ടതോ കേടായതോ ആയ വാട്ടർ സ്പോർട്ട് ക്രാഫ്റ്റ് ലൈസൻസ് മാറ്റൽ"
+  },
+  "about": "Get a replacement for a lost or damaged water sport craft licence card.",
+  "authority": "TAMM",
+  "aliases": [
+    "Lost jet ski licence",
+    "Damaged marine craft licence",
+    "بدل فاقد رخصة مركبة بحرية",
+    "بدل تالف رخصة دراجة مائية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/IssueReplacementforLostorDamagedWaterSportMarineCraftLicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 100 for the replacement"
+    ],
+    "timing": [
+      "About 1 day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

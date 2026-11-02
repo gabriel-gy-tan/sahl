@@ -1,0 +1,38 @@
+{
+  "id": "tamm-land-purchase-request-external-areas",
+  "service": {
+    "en": "Register a request to purchase land in external areas",
+    "ar": "تسجيل طلب شراء أرض في المناطق الخارجية",
+    "ur": "بیرونی علاقوں میں زمین خریدنے کی درخواست کا اندراج",
+    "ml": "ബാഹ്യ പ്രദേശങ്ങളിൽ ഭൂമി വാങ്ങാനുള്ള അപേക്ഷ രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register a request to buy land in external areas, subject to the approved eligibility rules.",
+  "authority": "TAMM",
+  "aliases": [
+    "Buy land outside city",
+    "External area land purchase",
+    "طلب شراء أرض",
+    "شراء أرض في المناطق الخارجية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/lands/RequesttoPurchaseLandinExternalAreas",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Subject to the approved eligibility criteria and requirements"
+    ],
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-fines-pay",
+  "service": {
+    "en": "Pay water sport marine craft fines",
+    "ar": "سداد مخالفات المركبات البحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ سمندری کرافٹ کے جرمانوں کی ادائیگی",
+    "ml": "വാട്ടർ സ്പോർട്ട് മറൈൻ ക്രാഫ്റ്റ് പിഴകൾ അടയ്ക്കൽ"
+  },
+  "about": "Pay fines issued to users of recreational marine craft such as jet skis.",
+  "authority": "TAMM",
+  "aliases": [
+    "Jet ski fines",
+    "Marine violation payment",
+    "مخالفات الدراجات المائية",
+    "دفع غرامات مركبة بحرية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/PayWaterSportMarineCraftsFines",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs beyond the fines"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

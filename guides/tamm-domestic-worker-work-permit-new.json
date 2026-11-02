@@ -1,0 +1,42 @@
+{
+  "id": "tamm-domestic-worker-work-permit-new",
+  "service": {
+    "en": "Issue a new work permit for a domestic worker",
+    "ar": "إصدار تصريح عمل جديد لعامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے لیے نئے ورک پرمٹ کا اجرا",
+    "ml": "ഗാർഹിക തൊഴിലാളിക്ക് പുതിയ വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "An employer asks to bring in a new domestic worker from inside or outside the country.",
+  "authority": "TAMM",
+  "aliases": [
+    "New maid visa",
+    "Hire domestic helper",
+    "تصريح عمل خادمة جديد",
+    "استقدام عاملة منزلية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/IssuenewworkPermitforDomesticWorker",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant is the employer"
+    ],
+    "documents": [
+      "Bank statement",
+      "Emirates ID",
+      "Marriage contract"
+    ],
+    "fees": [
+      "AED 215 for citizen, GCC, resident or diplomatic sponsors",
+      "AED 265 for investor sponsors",
+      "AED 105 worker insurance, paid through a separate insurance gateway"
+    ],
+    "timing": [
+      "About 2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

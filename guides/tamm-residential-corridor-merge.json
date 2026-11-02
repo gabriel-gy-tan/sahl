@@ -1,0 +1,36 @@
+{
+  "id": "tamm-residential-corridor-merge",
+  "service": {
+    "en": "Merge the corridor between residential lands",
+    "ar": "دمج الممر بين الأراضي السكنية",
+    "ur": "رہائشی زمینوں کے درمیان راہداری کا انضمام",
+    "ml": "റെസിഡൻഷ്യൽ ഭൂമികൾക്കിടയിലെ ഇടനാഴി ലയിപ്പിക്കൽ"
+  },
+  "about": "Ask to merge the corridor between private residential lands and public housing, ending in a stamped site plan.",
+  "authority": "TAMM",
+  "aliases": [
+    "Merge passage between plots",
+    "Corridor merge",
+    "دمج ممر بين الأراضي",
+    "ضم ممر بين قسائم سكنية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoMergetheCorridorbetweenResidentialLands",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Location map showing site boundaries and dimensions",
+      "Supporting documents, if needed"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 20 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

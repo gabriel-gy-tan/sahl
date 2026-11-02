@@ -1,0 +1,36 @@
+{
+  "id": "tamm-property-mortgage-redemption",
+  "service": {
+    "en": "Property mortgage redemption",
+    "ar": "فك رهن عقار",
+    "ur": "جائیداد کے رہن کی واپسی",
+    "ml": "വസ്തു പണയമോചനം"
+  },
+  "about": "Redeem a mortgage on a property that is outside real estate development areas.",
+  "authority": "TAMM",
+  "aliases": [
+    "Release property mortgage",
+    "Mortgage release",
+    "فك الرهن العقاري",
+    "إلغاء رهن"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequestPropertyMortgageRedemptionOutsideRealEstateDevelopmentAreas",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Mortgage release certificate"
+    ],
+    "fees": [
+      "AED 900 per unit for the redemption request",
+      "AED 55 electronic administrative services allowance"
+    ],
+    "timing": [
+      "About 8 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

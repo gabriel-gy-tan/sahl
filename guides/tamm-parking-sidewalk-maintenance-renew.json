@@ -1,0 +1,35 @@
+{
+  "id": "tamm-parking-sidewalk-maintenance-renew",
+  "service": {
+    "en": "Renew permit to use sidewalks for maintenance",
+    "ar": "تجديد تصريح استخدام الأرصفة لأغراض الصيانة",
+    "ur": "دیکھ بھال کے لیے فٹ پاتھ استعمال کے پرمٹ کی تجدید",
+    "ml": "അറ്റകുറ്റപ്പണികൾക്കായി നടപ്പാത ഉപയോഗിക്കാനുള്ള പെർമിറ്റ് പുതുക്കൽ"
+  },
+  "about": "Renew a permit to reserve part of a road sidewalk for maintenance work near building facades.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sidewalk maintenance permit renewal",
+    "Facade maintenance sidewalk",
+    "تجديد تصريح رصيف للصيانة",
+    "تصريح استخدام الرصيف"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/RenewUtiliseSidewalksforMaintenancePurposes",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Official letter"
+    ],
+    "fees": [
+      "AED 200 for the renewal request"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

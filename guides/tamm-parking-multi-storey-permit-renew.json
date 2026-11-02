@@ -1,0 +1,37 @@
+{
+  "id": "tamm-parking-multi-storey-permit-renew",
+  "service": {
+    "en": "Renew a multi-storey parking permit",
+    "ar": "تجديد تصريح مواقف المباني المتعددة الطوابق",
+    "ur": "کثیر منزلہ پارکنگ پرمٹ کی تجدید",
+    "ml": "ബഹുനില പാർക്കിംഗ് പെർമിറ്റ് പുതുക്കൽ"
+  },
+  "about": "Renew a permit to use multi-storey parking facilities.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew parking building permit",
+    "Multi-storey parking renewal",
+    "تجديد اشتراك مواقف",
+    "تجديد تصريح مواقف المباني"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/RenewMultiStoryParking",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 1,369 for 3 months",
+      "AED 2,738 for 6 months",
+      "AED 5,475 for 12 months"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

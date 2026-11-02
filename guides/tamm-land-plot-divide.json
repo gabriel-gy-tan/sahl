@@ -1,0 +1,36 @@
+{
+  "id": "tamm-land-plot-divide",
+  "service": {
+    "en": "Divide a land plot",
+    "ar": "تقسيم قطعة أرض",
+    "ur": "زمین کے پلاٹ کی تقسیم",
+    "ml": "ഭൂമി പ്ലോട്ട് വിഭജിക്കൽ"
+  },
+  "about": "Divide an approved land parcel into two or more plots and receive a stamped general site plan.",
+  "authority": "TAMM",
+  "aliases": [
+    "Plot subdivision",
+    "Split land plot",
+    "تجزئة أرض",
+    "تقسيم قسيمة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoDivideaLandPlot",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Power of attorney",
+      "Official letter"
+    ],
+    "fees": [
+      "AED 1,800 for the request"
+    ],
+    "timing": [
+      "About 5 days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

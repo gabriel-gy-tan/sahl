@@ -1,0 +1,37 @@
+{
+  "id": "tamm-ranch-lease-renewal-register",
+  "service": {
+    "en": "Register a ranch lease renewal",
+    "ar": "تسجيل تجديد عقد إيجار عزبة",
+    "ur": "فارم لیز کی تجدید کا اندراج",
+    "ml": "റാഞ്ച് പാട്ടം പുതുക്കൽ രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register the renewal of a ranch lease contract in the land system.",
+  "authority": "TAMM",
+  "aliases": [
+    "Ranch lease renewal",
+    "Farm lease renewal registration",
+    "تجديد إيجار عزبة",
+    "تسجيل تجديد عقد عزبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/lands/RequesttoRegisteraRanchLeaseRenewal",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 500 for issuing the contract",
+      "AED 0.25 per square metre per year rent for fully serviced ranches",
+      "AED 0.15 per square metre per year rent for ranches without all services"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "tamm-parking-resident-permit-modify",
+  "service": {
+    "en": "Modify residents parking permit data",
+    "ar": "تعديل بيانات تصريح مواقف السكان",
+    "ur": "رہائشی پارکنگ پرمٹ کی معلومات میں ترمیم",
+    "ml": "റെസിഡന്റ്സ് പാർക്കിംഗ് പെർമിറ്റ് വിവരങ്ങൾ തിരുത്തൽ"
+  },
+  "about": "Change details such as the vehicle or residence on an existing residents parking permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Amend resident parking permit",
+    "Mawaqif permit change",
+    "تعديل تصريح موقف سكني",
+    "تغيير بيانات تصريح مواقف"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ModifyResidentsParkingPermit",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "tamm-parking-reservation-charity-renew",
+  "service": {
+    "en": "Renew parking reservation permit for charity campaigns",
+    "ar": "تجديد تصريح حجز مواقف للحملات الخيرية",
+    "ur": "خیراتی مہمات کے لیے پارکنگ ریزرویشن پرمٹ کی تجدید",
+    "ml": "ജീവകാരുണ്യ കാമ്പയിനുകൾക്കുള്ള പാർക്കിംഗ് റിസർവേഷൻ പെർമിറ്റ് പുതുക്കൽ"
+  },
+  "about": "Renew a permit to reserve parking spaces used during charity campaigns.",
+  "authority": "TAMM",
+  "aliases": [
+    "Charity campaign parking permit",
+    "Renew charity parking",
+    "تجديد حجز مواقف حملة خيرية",
+    "تصريح مواقف الحملات الخيرية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ApplyforRenewPermittoReserveParkingforCharityCampaigns",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Official letter"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

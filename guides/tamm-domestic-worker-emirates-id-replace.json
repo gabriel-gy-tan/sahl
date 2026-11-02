@@ -1,0 +1,36 @@
+{
+  "id": "tamm-domestic-worker-emirates-id-replace",
+  "service": {
+    "en": "Replace Emirates ID for a domestic worker",
+    "ar": "استبدال الهوية الإماراتية لعامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے ایمریٹس آئی ڈی کی تبدیلی",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ എമിറേറ്റ്സ് ഐഡി മാറ്റിവാങ്ങൽ"
+  },
+  "about": "Replace a domestic worker's Emirates ID card that was lost or damaged.",
+  "authority": "TAMM",
+  "aliases": [
+    "Lost domestic worker Emirates ID",
+    "Maid Emirates ID replacement",
+    "بدل فاقد هوية عاملة منزلية",
+    "استبدال بطاقة هوية خادمة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/ReplaceEmiratesIDfortheDomesticWorker",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Personal photo",
+      "Passport"
+    ],
+    "fees": [
+      "AED 300 for card issuance"
+    ],
+    "timing": [
+      "About 5 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

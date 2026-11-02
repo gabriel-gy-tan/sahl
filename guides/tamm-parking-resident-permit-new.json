@@ -1,0 +1,42 @@
+{
+  "id": "tamm-parking-resident-permit-new",
+  "service": {
+    "en": "Issue a residents parking permit",
+    "ar": "إصدار تصريح مواقف للسكان",
+    "ur": "رہائشی پارکنگ پرمٹ کا اجرا",
+    "ml": "റെസിഡന്റ്സ് പാർക്കിംഗ് പെർമിറ്റ് നൽകൽ"
+  },
+  "about": "Get a residential parking permit as a homeowner, tenant or close relative living in the same home.",
+  "authority": "TAMM",
+  "aliases": [
+    "New Mawaqif residents permit",
+    "Resident parking permit",
+    "تصريح موقف سكني جديد",
+    "تصريح مواقف للسكان"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ApplyforNewResidentsParkingPermit",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Homeowner or tenant",
+      "First or second-degree relatives living in the same residence"
+    ],
+    "documents": [
+      "Vehicle ownership",
+      "Tenancy contract",
+      "Electricity bill"
+    ],
+    "fees": [
+      "AED 800 for the first vehicle",
+      "AED 1,200 for the second vehicle"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}
