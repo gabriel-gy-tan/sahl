@@ -1,0 +1,36 @@
+{
+  "id": "doh-mobile-health-app-registration",
+  "service": {
+    "en": "Registration of a company providing healthcare by mobile app",
+    "ar": "تسجيل شركة تقدم خدمات صحية عبر التطبيقات",
+    "ur": "موبائل ایپ سے صحت خدمات دینے والی کمپنی کی رجسٹریشن",
+    "ml": "മൊബൈൽ ആപ്പ് വഴി ആരോഗ്യ സേവനം നൽകുന്ന കമ്പനിയുടെ രജിസ്ട്രേഷൻ"
+  },
+  "about": "Register a company with the Department of Health to offer health services through a mobile app.",
+  "authority": "DOH",
+  "aliases": [
+    "Healthcare mobile app accreditation",
+    "Health app registration",
+    "تسجيل تطبيقات الخدمات الصحية",
+    "اعتماد التطبيقات الصحية"
+  ],
+  "source": "https://www.doh.gov.ae/en/eservices/mobile-apps-accreditation",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi page on the checked date. The request is sent by email, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "DED licence or ADGM licence",
+      "Scope of service",
+      "Declaration",
+      "Technical registration form"
+    ],
+    "timing": [
+      "Reviewed by the Facility Licensing division, then approved by the information security team, then listed on the DOH website"
+    ],
+    "channels": [
+      "Email the request with the documents to hfld@doh.gov.ae"
+    ]
+  },
+  "fields": []
+}

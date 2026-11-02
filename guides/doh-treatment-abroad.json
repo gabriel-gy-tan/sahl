@@ -1,0 +1,40 @@
+{
+  "id": "doh-treatment-abroad",
+  "service": {
+    "en": "Treatment abroad request",
+    "ar": "طلب العلاج في الخارج",
+    "ur": "بیرون ملک علاج کی درخواست",
+    "ml": "വിദേശ ചികിത്സയ്ക്കുള്ള അപേക്ഷ"
+  },
+  "about": "Ask the Department of Health to approve medical treatment abroad for a patient.",
+  "authority": "DOH",
+  "aliases": [
+    "Request treatment abroad",
+    "International patient care",
+    "طلب علاج بالخارج",
+    "العلاج في الخارج"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A patient may have up to 2 official escorts aged 18 or over",
+      "An escort must be a UAE national, or a relative up to the third degree if not",
+      "Escorts need international health insurance before tickets are issued, except Thiqa 1 holders"
+    ],
+    "documents": [
+      "Medical report not older than 3 months",
+      "Copy of the patient's passport",
+      "Copy of the patient's ID"
+    ],
+    "timing": [
+      "Approval time depends on the medical evaluation and any extra requirements of the centre"
+    ],
+    "channels": [
+      "TAMM website or app, or a TAMM service centre",
+      "International Patient Care Centre: tel 02 4493333, WhatsApp 02 4193399"
+    ]
+  },
+  "fields": []
+}
