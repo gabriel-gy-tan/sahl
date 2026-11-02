@@ -1,0 +1,41 @@
+{
+  "id": "mofa-twajudi",
+  "service": {
+    "en": "Twajudi registration for UAE travellers",
+    "ar": "توجدي",
+    "ur": "توجدی رجسٹریشن",
+    "ml": "തവാജുദി രജിസ്ട്രേഷൻ"
+  },
+  "about": "Register a UAE national's trip abroad with MOFA so the ministry can reach them in an emergency.",
+  "authority": "MOFA",
+  "aliases": [
+    "Twajudi",
+    "Register travel abroad",
+    "Emirati traveller registration",
+    "توجدي",
+    "تسجيل المسافرين"
+  ],
+  "source": "https://www.mofa.gov.ae/en/Services/Twajudi",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOFA service page on the checked date. MOFA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Twajudi registration for UAE travellers. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE nationals only"
+    ],
+    "documents": [
+      "No documents required"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "Immediate, available 24/7"
+    ],
+    "channels": [
+      "MOFA website or UAE MOFA app, sign in with UAE PASS",
+      "SMS confirms a successful application",
+      "Call 800 44444"
+    ]
+  },
+  "fields": []
+}

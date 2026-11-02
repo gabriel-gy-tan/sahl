@@ -1,0 +1,44 @@
+{
+  "id": "mofa-to-whom-it-may-concern",
+  "service": {
+    "en": "To Whom It May Concern certificate for UAE nationals",
+    "ar": "شهادة لمن يهمه الأمر للمواطنين",
+    "ur": "اماراتی شہریوں کے لیے متعلقہ حکام کے نام سرٹیفکیٹ",
+    "ml": "സ്വദേശികൾക്കുള്ള ടു ഹൂം ഇറ്റ് മേ കൺസേൺ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a certificate for a marriage, medical or study matter abroad, issued to a UAE national.",
+  "authority": "MOFA",
+  "aliases": [
+    "MOFA certificate",
+    "To whom it may concern",
+    "شهادة لمن يهمه الأمر",
+    "شهادة زواج للمواطنين"
+  ],
+  "source": "https://www.mofa.gov.ae/en/Services/To-Whom-It-May-Concern",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOFA service page on the checked date. MOFA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. To Whom It May Concern certificate for UAE nationals. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant must be a UAE national",
+      "The application must be complete with all documents attached"
+    ],
+    "documents": [
+      "Marriage: applicant's passport copy and spouse's passport or ID copy",
+      "Medical: applicant and patient passport copies, sponsorship note, medical report attested by the UAE mission and MOFA abroad with certified translation",
+      "Study: applicant's passport copy, scholarship note and school letter attested by the UAE mission and MOFA abroad with certified translation"
+    ],
+    "fees": [
+      "Certificate issuance is free",
+      "AED 300 total for attestation by MOFA and the UAE mission"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "MOFA website or UAE MoFA app, sign in with UAE PASS",
+      "Certificate is emailed to the address on UAE PASS",
+      "Call 800 44444"
+    ]
+  },
+  "fields": []
+}
