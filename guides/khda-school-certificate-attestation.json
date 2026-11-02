@@ -1,0 +1,40 @@
+{
+  "id": "khda-school-certificate-attestation",
+  "service": {
+    "en": "Attest a school certificate",
+    "ar": "تصديق شهادة مدرسية",
+    "ur": "اسکول سرٹیفکیٹ کی تصدیق",
+    "ml": "സ്കൂൾ സർട്ടിഫിക്കറ്റ് അറ്റസ്റ്റേഷൻ"
+  },
+  "about": "Get an electronic attestation of a certificate or grade card from a Dubai private school.",
+  "authority": "KHDA",
+  "aliases": [
+    "Attest school certificate",
+    "KHDA attestation",
+    "تصديق شهادة المدرسة",
+    "تصديق كشف الدرجات"
+  ],
+  "source": "https://web.khda.gov.ae/en/Services/Student-Related-Services/Attestation-of-School-Certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official KHDA service page on the checked date. KHDA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The student must be registered in the KHDA system"
+    ],
+    "documents": [
+      "School certificate",
+      "Transcript"
+    ],
+    "fees": [
+      "AED 120 in total: AED 100 application and AED 20 Knowledge and Innovation"
+    ],
+    "timing": [
+      "3 working days"
+    ],
+    "channels": [
+      "Dubai Now app",
+      "KHDA portal"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "khda-educational-advisor",
+  "service": {
+    "en": "Educational consultation for parents",
+    "ar": "الاستشارة التعليمية لأولياء الأمور",
+    "ur": "والدین کے لیے تعلیمی مشاورت",
+    "ml": "രക്ഷിതാക്കൾക്കുള്ള വിദ്യാഭ്യാസ കൺസൾട്ടേഷൻ"
+  },
+  "about": "Ask the KHDA chatbot about schools, or book a one-to-one consultation if you are an Emirati parent.",
+  "authority": "KHDA",
+  "aliases": [
+    "Girnas",
+    "Choose a school Dubai",
+    "School advice",
+    "جرناس",
+    "استشارة تعليمية"
+  ],
+  "source": "https://web.khda.gov.ae/en/Services/Student-Related-Services/Parent-Educational-Consultation-Service",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official KHDA service page on the checked date. KHDA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "All parents in Dubai can use the chatbot",
+      "Face-to-face or online consultations are for Emirati parents only"
+    ],
+    "documents": [
+      "None for the chatbot",
+      "Emirates ID and the child's school details to book a consultation"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "Chatbot answers are instant",
+      "Consultations follow the booked appointment"
+    ],
+    "channels": [
+      "KHDA portal"
+    ]
+  },
+  "fields": []
+}
