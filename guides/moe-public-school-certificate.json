@@ -1,0 +1,43 @@
+{
+  "id": "moe-public-school-certificate",
+  "service": {
+    "en": "Public school certificate issuance and attestation",
+    "ar": "إصدار واعتماد شهادة مدرسية للتعليم الحكومي",
+    "ur": "سرکاری اسکول سرٹیفکیٹ کا اجراء اور تصدیق",
+    "ml": "സർക്കാർ സ്കൂൾ സർട്ടിഫിക്കറ്റ് നൽകലും അറ്റസ്റ്റേഷനും"
+  },
+  "about": "Get a new or replacement school certificate for a public school student, Grades 1 to 12.",
+  "authority": "MOE",
+  "aliases": [
+    "Replacement school certificate",
+    "Lost school certificate",
+    "Public school certificate",
+    "شهادة مدرسية بدل فاقد",
+    "اعتماد شهادة مدرسية"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/Issuance-and-Attestation-of-School-Certificate-Public-Education.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Public school certificate issuance and attestation. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Covers public school students in all cycles for use inside the UAE",
+      "Paper originals (up to 3 copies) are for Grade 12 only, for use abroad after MOFA attestation"
+    ],
+    "documents": [
+      "No documents required"
+    ],
+    "fees": [
+      "AED 15 for the certificate",
+      "AED 15 delivery if a paper copy is requested",
+      "Optional MOFA attestation AED 150 plus AED 150 for the embassy"
+    ],
+    "timing": [
+      "3 working days"
+    ],
+    "channels": [
+      "MOE website or smart app, sign in with UAE PASS",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}
