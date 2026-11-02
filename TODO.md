@@ -11,10 +11,11 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 
 - [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
-- [ ] More UAE service guides from TAMM, ICP, MOHRE and MOHAP public pages (`uae-form-data`): shortlist the guides before the small model reads them, a schema test for every guide, then 189 guides of service info (`fields: []`) from TAMM, ICP, MOHRE and MOHAP public pages; fees dated 2026-11-02, translations and 2022-era MOHRE pages still to re-check. Form picker: rare words decide the form, questions are answered not chosen, a search box from the start, and ⌥Space with no form asks which form is on screen
+- [ ] More UAE service guides (`uae-form-data`): 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH, ADDED, DMT, FTA, MOFA, MOE, MOJ, EHS and more, all `fields: []` except 5 forms with printed labels; the form picker ranks by rare words, answers questions, and has a search box; the form screen shows what a service needs. Fees dated 2026-11-02/03; 94 TAMM guides not re-dated; translations unreviewed
 
 ## Next
 
+- [ ] Not reachable from the build machine, still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA, Dubai Courts, MOI, Customs; embassies, free zones, utilities and telecom, transport, finance, Sharjah and the northern emirates
 - [ ] Fill `fields` for the busiest services from "Help improve Sahl" reports on real portals (labels sit behind UAE PASS sign-in)
 
 - [ ] Windows: run the app and check the overlay, the shortcut and filling in Edge/Chrome, and a picker that takes files and folders together
