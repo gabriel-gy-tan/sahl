@@ -1,0 +1,35 @@
+{
+  "id": "adek-nursery-owner-change",
+  "service": {
+    "en": "Nursery owner change",
+    "ar": "تعديل مالك الحضانة",
+    "ur": "نرسری کے مالک کی تبدیلی",
+    "ml": "നഴ്സറി ഉടമയെ മാറ്റൽ"
+  },
+  "about": "Change the registered owner of a licensed nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "Amend nursery owner",
+    "Change nursery owner",
+    "تغيير مالك الحضانة",
+    "تعديل بيانات مالك الحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The new owner's details must first be updated with the Department of Economic Development"
+    ],
+    "documents": [
+      "New owner information as updated in DED"
+    ],
+    "fees": [
+      "Service fees apply and are paid after approval; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System, requested through the coordinator"
+    ]
+  },
+  "fields": []
+}

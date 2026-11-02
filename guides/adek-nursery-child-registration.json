@@ -1,0 +1,42 @@
+{
+  "id": "adek-nursery-child-registration",
+  "service": {
+    "en": "Child registration at a nursery",
+    "ar": "تسجيل طفل في حضانة",
+    "ur": "نرسری میں بچے کا اندراج",
+    "ml": "നഴ്സറിയിൽ കുട്ടിയെ ചേർക്കൽ"
+  },
+  "about": "Register a child at a licensed nursery in Abu Dhabi.",
+  "authority": "ADEK",
+  "aliases": [
+    "Nursery registration",
+    "Enrol child in nursery",
+    "تسجيل في الحضانة",
+    "تسجيل طفل في الحضانة"
+  ],
+  "source": "https://adek.gov.ae/en/Education-System/Nurseries/Registration-Requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK nursery registration requirements page on the checked date. Registration is done directly at the nursery, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The child must be no older than 4 years"
+    ],
+    "documents": [
+      "Registration form with the child's name, nationality, date of birth, enrolment date, home address and phone numbers",
+      "Copy of the child's Emirates ID",
+      "Copy of the child's birth certificate",
+      "Any other documents the nursery asks for",
+      "The original Emirates ID must be shown at registration"
+    ],
+    "fees": [
+      "Each nursery sets its own fees within the law; fee increases need ADEK approval"
+    ],
+    "timing": [
+      "Registration follows the nursery's own admission process, with no step at ADEK"
+    ],
+    "channels": [
+      "Register directly at the nursery"
+    ]
+  },
+  "fields": []
+}

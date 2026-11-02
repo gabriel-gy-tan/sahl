@@ -1,0 +1,38 @@
+{
+  "id": "adek-inschool-specialist-permit",
+  "service": {
+    "en": "In-school specialist permit",
+    "ar": "ترخيص أخصائي داخل المدرسة",
+    "ur": "اسکول کے اندر ماہر کا اجازت نامہ",
+    "ml": "സ്കൂളിനുള്ളിലെ സ്പെഷ്യലിസ്റ്റ് പെർമിറ്റ്"
+  },
+  "about": "Permit for a rehabilitation centre specialist to work with students inside a school.",
+  "authority": "ADEK",
+  "aliases": [
+    "Permit for in-school specialist services",
+    "In-school specialist services",
+    "ترخيص أخصائي داخل المدرسة",
+    "تصريح خدمات الأخصائي في المدارس"
+  ],
+  "source": "https://www.adek.gov.ae/en/Request-to-Issue-a-Permit-for-InSchool-Specialist-Services",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK service page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The rehabilitation centre must hold a valid licence from its own government authority",
+      "The specialist must be a registered employee of the centre with a valid medical licence approved by that authority"
+    ],
+    "documents": [
+      "Photo of the specialist",
+      "CV of the specialist"
+    ],
+    "fees": [
+      "Free of charge"
+    ],
+    "channels": [
+      "Online through the in-school specialist portal (inschoolspecialist.adek.gov.ae)",
+      "Support through the TAMM platform"
+    ]
+  },
+  "fields": []
+}
