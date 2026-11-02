@@ -1,0 +1,37 @@
+{
+  "id": "dmt-people-of-determination-services",
+  "service": {
+    "en": "Transport services for people of determination",
+    "ar": "خدمات النقل لأصحاب الهمم",
+    "ur": "معذور افراد کے لیے ٹرانسپورٹ خدمات",
+    "ml": "ദിവ്യാംഗർക്കുള്ള ഗതാഗത സേവനങ്ങൾ"
+  },
+  "about": "Toll exemption, bus travel and taxi discount for people of determination.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "People of determination transport",
+    "Disability taxi discount",
+    "خدمات أصحاب الهمم",
+    "خصم التاكسي لأصحاب الهمم"
+  ],
+  "source": "https://admobility.gov.ae/en/people-of-determination",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Darb toll exemption covers one vehicle in the person's name or a first degree relative's name",
+      "Public buses need a Hafilat smart card",
+      "Taxi: 50% off the fare for people of determination, the elderly and the disabled"
+    ],
+    "documents": [
+      "Exemption request for the toll",
+      "Hafilat smart card for buses",
+      "Discount card for taxis"
+    ],
+    "channels": [
+      "Taxi discount card through the Ministry of Community Development",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

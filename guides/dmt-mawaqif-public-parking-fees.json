@@ -1,0 +1,33 @@
+{
+  "id": "dmt-mawaqif-public-parking-fees",
+  "service": {
+    "en": "Mawaqif public parking fees",
+    "ar": "رسوم المواقف العامة (مواقف)",
+    "ur": "مواقف عوامی پارکنگ فیس",
+    "ml": "മവാഖിഫ് പൊതു പാർക്കിംഗ് ഫീസ്"
+  },
+  "about": "Hourly and daily fees for Mawaqif public parking in Abu Dhabi.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Parking fees Abu Dhabi",
+    "Premium and standard parking",
+    "رسوم مواقف أبوظبي",
+    "تعرفة المواقف"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-public-parking-types",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This is a fee page rather than a form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 3 per hour for premium (white and turquoise) spaces, 4 hours maximum",
+      "AED 2 per hour, or AED 15 for the whole day, for standard (black and turquoise) spaces, 24 hours maximum"
+    ],
+    "timing": [
+      "Charged 8:00 am to 12:00 midnight; free on Sundays and public holidays"
+    ],
+    "channels": [
+      "Cash, Darb app, rechargeable card, phone payment or Mawaqif payment machines"
+    ]
+  },
+  "fields": []
+}
