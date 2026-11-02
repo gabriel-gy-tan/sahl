@@ -1,0 +1,46 @@
+{
+  "id": "dha-overseas-treatment-request",
+  "service": {
+    "en": "Request overseas treatment",
+    "ar": "طلب العلاج في الخارج",
+    "ur": "بیرون ملک علاج کی درخواست",
+    "ml": "വിദേശ ചികിത്സയ്ക്കുള്ള അപേക്ഷ"
+  },
+  "about": "Ask DHA to approve medical treatment abroad through the Shefaa system.",
+  "authority": "DHA",
+  "aliases": [
+    "Treatment abroad",
+    "Shefaa overseas treatment",
+    "Medical treatment outside UAE",
+    "العلاج بالخارج",
+    "نظام شفاء"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/7e805e90-ca2a-11e9-0722-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The passport must be issued from Dubai",
+      "Treatment must not be available locally",
+      "The medical report must be no more than 30 days old"
+    ],
+    "documents": [
+      "Insurance card copy",
+      "Passport copy",
+      "Emirates ID copy",
+      "Updated medical report"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "10 working days",
+      "The service is open 24/7"
+    ],
+    "channels": [
+      "DHA website",
+      "Dubai Now app"
+    ]
+  },
+  "fields": []
+}

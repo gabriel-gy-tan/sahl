@@ -1,0 +1,42 @@
+{
+  "id": "dha-professional-registration-renewal",
+  "service": {
+    "en": "Renew healthcare professional registration",
+    "ar": "تجديد تسجيل مهني صحي",
+    "ur": "ہیلتھ کیئر پروفیشنل رجسٹریشن کی تجدید",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണൽ രജിസ്ട്രേഷൻ പുതുക്കൽ"
+  },
+  "about": "Renew your DHA professional registration for another year.",
+  "authority": "DHA",
+  "aliases": [
+    "Renew DHA registration",
+    "Medical registry renewal",
+    "تجديد التسجيل المهني",
+    "تجديد تسجيل الطبيب"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/b894ffbd-c4b4-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Renew within three months of the expiry date",
+      "Registration must not be expired, you must not be revoked or blacklisted and you must have no unpaid fines"
+    ],
+    "documents": [
+      "Valid passport copy, if not already on file",
+      "Verification result of required documents",
+      "Good Standing Certificate valid within six months",
+      "Two-year logbook for surgical specialties"
+    ],
+    "fees": [
+      "AED 200 for all professional categories"
+    ],
+    "timing": [
+      "5 working days"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

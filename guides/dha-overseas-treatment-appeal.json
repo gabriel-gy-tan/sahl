@@ -1,0 +1,39 @@
+{
+  "id": "dha-overseas-treatment-appeal",
+  "service": {
+    "en": "Appeal an overseas treatment decision",
+    "ar": "الاعتراض على رفض العلاج في الخارج",
+    "ur": "بیرون ملک علاج کے فیصلے کے خلاف اپیل",
+    "ml": "വിദേശ ചികിത്സ തീരുമാനത്തിനെതിരെ അപ്പീൽ"
+  },
+  "about": "Ask the committee to reconsider a rejected overseas treatment request.",
+  "authority": "DHA",
+  "aliases": [
+    "Overseas treatment appeal",
+    "Appeal treatment abroad rejection",
+    "تظلم العلاج بالخارج",
+    "إعادة النظر في طلب العلاج بالخارج"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/95eafa00-f971-11ef-1c1d-0a0027000004",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "File within 30 days of the first application"
+    ],
+    "documents": [
+      "A new medical report, if there is one"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "10 working days after the appeal is submitted",
+      "The service is open 24/7"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

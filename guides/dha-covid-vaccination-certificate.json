@@ -1,0 +1,39 @@
+{
+  "id": "dha-covid-vaccination-certificate",
+  "service": {
+    "en": "COVID-19 vaccination certificate",
+    "ar": "شهادة التطعيم ضد كوفيد-19",
+    "ur": "کووڈ 19 ویکسینیشن سرٹیفکیٹ",
+    "ml": "കോവിഡ്-19 വാക്സിനേഷൻ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get an official record of your COVID-19 vaccinations.",
+  "authority": "DHA",
+  "aliases": [
+    "COVID vaccine certificate",
+    "COVID-19 vaccination record",
+    "شهادة تطعيم كورونا",
+    "شهادة لقاح كوفيد"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/6e1f9060-ac9d-11ef-1c1d-0a0027000004",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Your vaccination records must exist in your HASANA file"
+    ],
+    "documents": [
+      "No documents needed beyond the MRN, Emirates ID or passport number used to find your record"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "Instant",
+      "The service is open 24/7"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

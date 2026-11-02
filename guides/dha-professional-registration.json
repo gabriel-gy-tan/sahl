@@ -1,0 +1,46 @@
+{
+  "id": "dha-professional-registration",
+  "service": {
+    "en": "Healthcare professional registration",
+    "ar": "تسجيل مهني صحي",
+    "ur": "ہیلتھ کیئر پروفیشنل رجسٹریشن",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണൽ രജിസ്ട്രേഷൻ"
+  },
+  "about": "Register with DHA as a healthcare professional so a facility can later activate your licence.",
+  "authority": "DHA",
+  "aliases": [
+    "DHA registration",
+    "Dubai Medical Registry",
+    "Doctor registration Dubai",
+    "تسجيل مهني صحي",
+    "السجل الطبي في دبي"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/b894ffba-c4b4-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "You must not be blacklisted",
+      "You must pass the related assessment within 3 attempts across the authorities",
+      "You must first receive the primary source verification result for your documents"
+    ],
+    "documents": [
+      "Recent passport-size photo",
+      "Valid passport copy",
+      "Good Standing Certificate valid within six months",
+      "Two-year logbook for surgical specialties",
+      "Verification result of your qualifications and experience, and an assessment result if required"
+    ],
+    "fees": [
+      "AED 200 for all professional categories"
+    ],
+    "timing": [
+      "5 working days",
+      "Registration is valid for one year"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

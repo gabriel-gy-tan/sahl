@@ -1,0 +1,45 @@
+{
+  "id": "dha-death-certificate",
+  "service": {
+    "en": "Death notification and certificate",
+    "ar": "إشعار وشهادة الوفاة",
+    "ur": "موت کی اطلاع اور سرٹیفکیٹ",
+    "ml": "മരണ അറിയിപ്പും സർട്ടിഫിക്കറ്റും"
+  },
+  "about": "Get a death notification or certificate, or a copy or replacement, for a death outside a hospital.",
+  "authority": "DHA",
+  "aliases": [
+    "Death certificate Dubai",
+    "Death certificate copy",
+    "Lost death certificate",
+    "شهادة وفاة دبي",
+    "استخراج شهادة وفاة"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/822fc9c8-368d-11ea-0723-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The deceased's relatives up to the fourth degree, their legal representative, or the person named in the police letter can apply"
+    ],
+    "documents": [
+      "Emirates ID or family book for a citizen, Emirates ID or passport for an expatriate (the deceased)",
+      "No-objection letter from Dubai Police for issuing the certificate",
+      "Dubai Police forensic report when the death was outside a healthcare facility",
+      "Copy of the recipient's Emirates ID",
+      "For a copy, a copy of the death certificate; for a replacement, a Dubai Police lost-certificate letter"
+    ],
+    "fees": [
+      "Free for a new certificate",
+      "AED 70 for each copy or replacement"
+    ],
+    "timing": [
+      "About 30 minutes",
+      "New issue available 24 hours a day; replacements 7:30 AM to 3:30 PM"
+    ],
+    "channels": [
+      "DHA service centre"
+    ]
+  },
+  "fields": []
+}

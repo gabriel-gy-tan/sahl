@@ -1,0 +1,45 @@
+{
+  "id": "dha-fellowship-programme",
+  "service": {
+    "en": "Fellowship programme enrolment",
+    "ar": "التسجيل في برنامج الزمالة",
+    "ur": "فیلوشپ پروگرام میں داخلہ",
+    "ml": "ഫെല്ലോഷിപ്പ് പ്രോഗ്രാം എൻറോൾമെന്റ്"
+  },
+  "about": "Enrol in the Dubai fellowship training for doctors with a general specialty board certificate.",
+  "authority": "DHA",
+  "aliases": [
+    "DHA fellowship",
+    "Subspecialty training Dubai",
+    "برنامج الزمالة",
+    "التخصص الدقيق"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/8429175f-bfc8-11e8-0720-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For doctors who finished residency and hold a general specialty board certificate",
+      "Registration opens only when the programme announces it"
+    ],
+    "documents": [
+      "Passport, and Emirates ID and residence permit if applicable",
+      "Board or residency completion certificate",
+      "English test result from the last 2 years if applicable",
+      "Two recommendation letters dated within a year",
+      "CV, valid professional licence and internship certificate",
+      "Degree and transcript with notarised English translation if needed"
+    ],
+    "fees": [
+      "AED 620 in total, made up of registration, review, Knowledge and Innovation fees",
+      "Fees are non-refundable"
+    ],
+    "timing": [
+      "2 months after registration closes and all requirements are complete"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}
