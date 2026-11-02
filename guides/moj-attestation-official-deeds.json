@@ -1,0 +1,44 @@
+{
+  "id": "moj-attestation-official-deeds",
+  "service": {
+    "en": "Attestation of official deeds",
+    "ar": "تصديق المحررات الرسمية",
+    "ur": "سرکاری دستاویزات کی تصدیق",
+    "ml": "ഔദ്യോഗിക രേഖകളുടെ അറ്റസ്റ്റേഷൻ"
+  },
+  "about": "Have the Ministry of Justice attest an official deed already attested by a government authority.",
+  "authority": "MOJ",
+  "aliases": [
+    "Attest deed",
+    "MOJ attestation",
+    "eAttestation",
+    "تصديق محررات",
+    "تصديق وزارة العدل"
+  ],
+  "source": "https://www.moj.gov.ae/en/services/services-categories/notary-public-and-authentication/attestation-of-offiical-deeds-a0d81e74.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOJ service page on the checked date. MOJ fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The page prints the fee without a currency, AED assumed. Attestation of official deeds. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Service is for individuals",
+      "Someone acting for the document holder needs a power of attorney"
+    ],
+    "documents": [
+      "The deed, already attested by the competent government authority",
+      "Power of attorney, if acting for the holder",
+      "Clear PDF scan"
+    ],
+    "fees": [
+      "AED 50",
+      "Unpaid applications are cancelled after 14 days"
+    ],
+    "timing": [
+      "1 day"
+    ],
+    "channels": [
+      "eAttestation portal, register with UAE PASS first",
+      "Attested document received electronically"
+    ]
+  },
+  "fields": []
+}
