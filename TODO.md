@@ -11,8 +11,11 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
 
 - [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
+- [ ] More UAE service guides from TAMM, ICP, MOHRE and MOHAP public pages (`uae-form-data`): shortlist the guides before the small model reads them, a schema test for every guide, then 189 guides of service info (`fields: []`) from TAMM, ICP, MOHRE and MOHAP public pages; fees dated 2026-11-02, translations and 2022-era MOHRE pages still to re-check
 
 ## Next
+
+- [ ] Fill `fields` for the busiest services from "Help improve Sahl" reports on real portals (labels sit behind UAE PASS sign-in)
 
 - [ ] Windows: run the app and check the overlay, the shortcut and filling in Edge/Chrome, and a picker that takes files and folders together
 - [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)

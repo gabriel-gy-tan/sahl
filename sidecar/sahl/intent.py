@@ -58,12 +58,27 @@ def _names(g: dict) -> list[str]:
     return [s.split("·")[0].strip() for s in g["service"].values()]  # "Residency medical fitness · booking" -> head
 
 
+def _shortlist(text: str, guides: dict, n: int = 8) -> dict:
+    """The n guides closest to the text, so the small model never reads the whole catalogue.
+
+    # ponytail: fuzzy match on names, aliases and about; swap for local embeddings if recall is poor on real questions.
+    """
+    t = text.casefold()
+
+    def score(g: dict) -> float:
+        words = [*_names(g), *g.get("aliases", []), g.get("about", "")]
+        return max((max(fuzz.token_set_ratio(w.casefold(), t), fuzz.partial_ratio(w.casefold(), t)) for w in words if w), default=0)
+    return dict(sorted(guides.items(), key=lambda kv: -score(kv[1]))[:n])
+
+
 def _instant(text: str, guides: dict) -> str | None:
     """A guide whose name is plainly in the text, with no model call."""
     t = text.casefold()
+    if len(t) < 8:  # "hi" or "help" would sit inside any long alias
+        return None
     best, score = None, 0.0
     for i, g in guides.items():
-        for n in _names(g):
+        for n in [*_names(g), *g.get("aliases", [])]:
             if len(n) < 5:
                 continue
             s = fuzz.partial_ratio(n.casefold(), t)
@@ -80,7 +95,8 @@ def pick(text: str, guides: dict) -> dict:
         return {"kind": "unsure", "guide": None, "name": ""}
     if hit := _instant(text, known):
         return {"kind": "match", "guide": hit, "name": ""}
-    lines = "\n".join(f"{i}: {' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for i, g in known.items())
+    near = _shortlist(text, known)
+    lines = "\n".join(f"{i}: {' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for i, g in near.items())
     out = ai.chat({
         "model": ai.text_model(),
         "stream": False,
@@ -88,7 +104,7 @@ def pick(text: str, guides: dict) -> dict:
         "format": {
             "type": "object",
             "properties": {"kind": {"type": "string", "enum": ["match", "new", "unsure"]},
-                           "guide": {"type": "string", "enum": [*known, ""]},
+                           "guide": {"type": "string", "enum": [*near, ""]},
                            "name": {"type": "string"}},
             "required": ["kind", "guide", "name"],
         },
@@ -99,7 +115,7 @@ def pick(text: str, guides: dict) -> dict:
     if not isinstance(out, dict):
         return {"kind": "unsure", "guide": None, "name": ""}
     kind, guide, name = out.get("kind"), out.get("guide"), str(out.get("name", "")).strip()[:60]
-    if kind == "match" and guide in known:  # the model's id is only trusted if it is a real guide
+    if kind == "match" and guide in near:  # the model's id is only trusted if it is a real guide
         return {"kind": "match", "guide": guide, "name": ""}
     # small models sometimes call a vague "help" a new service and name it after a known guide
     if (kind == "new" and name and fuzz.token_set_ratio(name.casefold(), text.casefold()) >= 60
@@ -131,7 +147,7 @@ def _held(summary: dict | None) -> str:
 def reply(turns: list[dict], guides: dict, held: dict | None = None) -> str:
     """Sahl's words back, or "" when the model isn't running."""
     lines = "\n".join(f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}\n{_needs(g)}".rstrip()
-                      for g in catalogue(guides).values())
+                      for g in _shortlist(turns[-1]["content"], catalogue(guides)).values())
     out = ai.chat({
         "model": ai.text_model(),
         "stream": False,

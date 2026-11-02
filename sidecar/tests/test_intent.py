@@ -63,14 +63,14 @@ def test_the_reply_is_asked_for_in_their_language(model):
 def test_a_made_up_or_generic_guide_is_not_trusted(model):
     for bad in ("driving-licence-renewal", "any-form"):
         model.update(pick={"kind": "match", "guide": bad, "name": ""}, reply="Sure.")
-        r = intent.talk(me("renew my driving licence"), GUIDES)
+        r = intent.talk(me("get a falconry passport"), GUIDES)
         assert (r["kind"], r["guide"]) == ("unsure", None)
 
 
 def test_a_form_sahl_has_no_guide_for(model):
-    model.update(pick={"kind": "new", "guide": "", "name": "Driving licence renewal"}, reply="I don't have that one.")
-    r = intent.talk(me("renew my driving licence"), GUIDES)
-    assert (r["kind"], r["name"]) == ("new", "Driving licence renewal")
+    model.update(pick={"kind": "new", "guide": "", "name": "Falconry passport"}, reply="I don't have that one.")
+    r = intent.talk(me("get a falconry passport"), GUIDES)
+    assert (r["kind"], r["name"]) == ("new", "Falconry passport")
 
 
 def test_no_model_running_gives_no_reply(model):
@@ -119,3 +119,15 @@ def test_the_reply_is_told_which_documents_are_held_but_no_values(model):
     intent.talk(me("What documents of mine do you have?"), GUIDES, held)
     system = model["talk"]["messages"][0]["content"]
     assert "Priya: 1 passport, 2 emirates id" in system and "1 not matched to anyone" in system
+
+
+def test_the_model_only_sees_the_closest_guides(model, monkeypatch):
+    many = {f"g{i}": {"id": f"g{i}", "service": {"en": f"Service number {i} xyzzy{i}"}, "about": f"thing {i}"} for i in range(50)}
+    many["tl"] = {"id": "tl", "service": {"en": "Trade licence renewal"}, "about": "Renew a company trade licence."}
+    text = "licence for my company"
+    assert "tl" in intent._shortlist(text, many)
+    seen = []
+    monkeypatch.setattr(intent.ai, "chat", lambda body, **kw: seen.append(body))
+    intent.pick(text, many)
+    enum = seen[0]["format"]["properties"]["guide"]["enum"]
+    assert len(enum) <= 9 and "tl" in enum
