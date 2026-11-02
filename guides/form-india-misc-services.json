@@ -1,0 +1,212 @@
+{
+  "id": "form-india-misc-services",
+  "service": {
+    "en": "Indian passports · miscellaneous services",
+    "ar": "جوازات السفر الهندية · خدمات متنوعة",
+    "ur": "ہندوستانی پاسپورٹ · متفرق خدمات",
+    "ml": "ഇന്ത്യൻ പാസ്പോർട്ട് · വിവിധ സേവനങ്ങൾ"
+  },
+  "about": "The form (E.A.(P)-2) Indian missions use for police clearance certificates and other services on an Indian passport.",
+  "authority": "Embassy of India",
+  "aliases": [
+    "Application form for miscellaneous services on Indian passports",
+    "Police clearance certificate form",
+    "PCC application",
+    "E.A.(P)-2"
+  ],
+  "source": "https://www.indianembassymonrovia.gov.in/pdf/MISCELLANEOUS_FORM_ONe.pdf",
+  "checked": "2026-11-03",
+  "note": "Labels read from the Embassy of India Monrovia copy of the form; the Abu Dhabi embassy copy may differ slightly. Translations not reviewed by native speakers.",
+  "fields": [
+    {
+      "id": "full_name",
+      "vault_key": [
+        "passport.name",
+        "eid.name",
+        "other.name"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "1. Full Name",
+        "Full Name",
+        "Full name"
+      ],
+      "help": {
+        "en": "Your full name exactly as printed in your passport.",
+        "ar": "اسمك الكامل كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پورا نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ മുഴുവൻ പേര്."
+      }
+    },
+    {
+      "id": "driving_licence",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "2. Applicant's Car Driving License No. Date & Place of Issue",
+        "Car Driving License No.",
+        "Driving licence number"
+      ],
+      "help": {
+        "en": "Your car driving licence number, with date and place of issue, if the service needs it.",
+        "ar": "رقم رخصة القيادة وتاريخ ومكان إصدارها إن لزم.",
+        "ur": "Your car driving licence number, with date and place of issue, if the service needs it.",
+        "ml": "Your car driving licence number, with date and place of issue, if the service needs it."
+      }
+    },
+    {
+      "id": "residential_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "3. Residential Address",
+        "Residential Address",
+        "Address in India",
+        "Address in Country of Domicile"
+      ],
+      "help": {
+        "en": "Your address in India and where you live now, with phone numbers.",
+        "ar": "عنوانك في الهند وعنوان إقامتك الحالي مع أرقام الهاتف.",
+        "ur": "Your address in India and where you live now, with phone numbers.",
+        "ml": "Your address in India and where you live now, with phone numbers."
+      }
+    },
+    {
+      "id": "profession_business",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "4. Profession and Business Address",
+        "Profession and Business Address"
+      ],
+      "help": {
+        "en": "Your job and your work address, with phone and e-mail.",
+        "ar": "مهنتك وعنوان عملك مع الهاتف والبريد الإلكتروني.",
+        "ur": "Your job and your work address, with phone and e-mail.",
+        "ml": "Your job and your work address, with phone and e-mail."
+      }
+    },
+    {
+      "id": "registered_with_mission",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "5. Is applicant registered with the Indian Mission/Post?",
+        "Is applicant registered with the Indian Mission/Post?"
+      ],
+      "help": {
+        "en": "Say whether you are registered with the Indian mission or belong to an Indian organisation.",
+        "ar": "اذكر هل أنت مسجل لدى البعثة الهندية أو عضو في منظمة هندية.",
+        "ur": "Say whether you are registered with the Indian mission or belong to an Indian organisation.",
+        "ml": "Say whether you are registered with the Indian mission or belong to an Indian organisation."
+      }
+    },
+    {
+      "id": "father_name",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "6. (i). Name of Father",
+        "Name of Father",
+        "Father's name"
+      ],
+      "help": {
+        "en": "Your father's full name.",
+        "ar": "اسم والدك الكامل.",
+        "ur": "Your father's full name.",
+        "ml": "Your father's full name."
+      }
+    },
+    {
+      "id": "mother_name",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(ii). Name of Mother",
+        "Name of Mother",
+        "Mother's name"
+      ],
+      "help": {
+        "en": "Your mother's full name.",
+        "ar": "اسم والدتك الكامل.",
+        "ur": "Your mother's full name.",
+        "ml": "Your mother's full name."
+      }
+    },
+    {
+      "id": "spouse_name",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(iii). Name of Spouse & Nationality",
+        "Name of Spouse & Nationality",
+        "Spouse's name"
+      ],
+      "help": {
+        "en": "Your spouse's name and nationality, if married.",
+        "ar": "اسم زوجك أو زوجتك وجنسيته إن كنت متزوجا.",
+        "ur": "Your spouse's name and nationality, if married.",
+        "ml": "Your spouse's name and nationality, if married."
+      }
+    },
+    {
+      "id": "passport_expiry",
+      "vault_key": [
+        "passport.expiry"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "7. Current Passport Valid until",
+        "Current Passport Valid until",
+        "Valid until"
+      ],
+      "help": {
+        "en": "The date your passport expires, as printed in it.",
+        "ar": "تاريخ انتهاء صلاحية جواز السفر كما هو مكتوب فيه.",
+        "ur": "آپ کے پاسپورٹ کی میعاد ختم ہونے کی تاریخ، جیسی اس میں چھپی ہے۔",
+        "ml": "പാസ്പോർട്ട് കാലഹരണപ്പെടുന്ന തീയതി, അതിൽ അച്ചടിച്ചതുപോലെ."
+      }
+    },
+    {
+      "id": "passport_issue",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Place of its issue Date of Issue",
+        "Place of its issue",
+        "Date of Issue"
+      ],
+      "help": {
+        "en": "Where and when your current passport was issued.",
+        "ar": "مكان وتاريخ إصدار جوازك الحالي.",
+        "ur": "Where and when your current passport was issued.",
+        "ml": "Where and when your current passport was issued."
+      }
+    },
+    {
+      "id": "place_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Place Date"
+      ],
+      "help": {
+        "en": "Where you sign and today's date.",
+        "ar": "مكان التوقيع وتاريخ اليوم.",
+        "ur": "Where you sign and today's date.",
+        "ml": "Where you sign and today's date."
+      }
+    }
+  ]
+}
