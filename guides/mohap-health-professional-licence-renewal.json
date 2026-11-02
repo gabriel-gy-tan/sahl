@@ -1,0 +1,46 @@
+{
+  "id": "mohap-health-professional-licence-renewal",
+  "service": {
+    "en": "Renewal of a health professional licence",
+    "ar": "تجديد ترخيص مهني صحي",
+    "ur": "صحت پیشہ ور کے لائسنس کی تجدید",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണൽ ലൈസൻസ് പുതുക്കൽ"
+  },
+  "about": "Renew the licence of a doctor, nurse, technician or pharmacist.",
+  "authority": "MOHAP",
+  "aliases": [
+    "Renew doctor licence",
+    "Renew nurse licence",
+    "تجديد رخصة طبيب",
+    "تجديد ترخيص ممارسة"
+  ],
+  "source": "https://mohap.gov.ae/en/w/renewal-of-health-professional-license",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHAP service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Holds an active or expired licence with the applying facility",
+      "CME in the same specialty",
+      "Doctors aged 60 or over need a physical and mental fitness report",
+      "Clean UAE track record and a facility with a valid licence",
+      "Government facility licences renew automatically at expiry"
+    ],
+    "documents": [
+      "CME documents",
+      "Insurance against medical errors",
+      "Physical and mental report for doctors aged 60 or over"
+    ],
+    "fees": [
+      "Application fee 100 AED (private and semi-government facilities)",
+      "Private facilities: 3,000 AED doctors, 1,000 AED nurses, technicians and pharmacists"
+    ],
+    "timing": [
+      "Done in 1 working day"
+    ],
+    "channels": [
+      "MOHAP website",
+      "MOHAP smart app"
+    ]
+  },
+  "fields": []
+}
