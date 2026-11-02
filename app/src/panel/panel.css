@@ -207,6 +207,21 @@ input::placeholder { color: #5d5d63; }
 .dropdown-list button:hover, .dropdown-list button:focus-visible { background: #2c2c2e; outline: none; }
 .dropdown-list button[aria-selected="true"] { color: var(--accent); }
 .dropdown-list button.quiet { color: var(--muted); }
+/* form search: type to narrow, the list scrolls inside the island */
+.search input.dropdown-button { cursor: text; font: inherit; color: var(--ink); outline: none; }
+.search input.dropdown-button:focus { border-color: var(--accent); }
+.search .dropdown-list { max-height: calc(260px * var(--text)); overflow-y: auto; }
+.search .dropdown-list button[aria-selected="true"] { color: inherit; background: #2c2c2e; }
+.search .dropdown-list .fine { padding: 8px 12px; }
+.ask.look { gap: 12px; }
+.ask.look h1 { text-align: center; }
+.ask.look > .link { align-self: center; }
+.suggestions button.pick { color: var(--ink); border-color: var(--accent); }
+/* what the chosen service is and needs, before the person starts on the form */
+.brief { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 14px; background: var(--field); border: 1px solid var(--line); }
+.brief h3 { margin: 0 0 4px; font-size: calc(12px * var(--text)); font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.brief ul { margin: 0; padding-inline-start: 18px; display: flex; flex-direction: column; gap: 3px; }
+.brief p { margin: 0; }
 .stack { display: flex; flex-direction: column; gap: 8px; }
 .stack > span { font-size: calc(12.5px * var(--text)); color: var(--muted); }
 .form-name { font-weight: 600; }

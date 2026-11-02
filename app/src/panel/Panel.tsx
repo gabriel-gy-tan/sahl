@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent as KeyEvent } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
 import { emitTo, listen } from "@tauri-apps/api/event";
@@ -50,9 +50,10 @@ function greeting(): Key {
   return h < 5 || h >= 22 ? "greet_late" : h < 12 ? "greet_morning" : h < 17 ? "greet_afternoon" : "greet_evening";
 }
 
-/** One message in the "what form?" conversation. Sahl's messages may carry an offer: a guide, a form it has no guide for
- * ("new"), the list to choose from ("pick"), or "interpret" (on to the generic guide). */
-type Said = { role: "user" | "assistant"; text: string; kind?: Reply["kind"] | "pick" | "interpret"; guide?: string | null; name?: string };
+/** One message in the "what form?" conversation. Sahl's messages may carry an offer: guides ("match", or "about" after
+ * answering a question), a form it has no guide for ("new"), the form search ("pick" when Sahl wasn't sure, "search" when
+ * they asked for it), or "interpret" (on to the generic guide). */
+type Said = { role: "user" | "assistant"; text: string; kind?: Reply["kind"] | "pick" | "search" | "interpret"; options?: string[]; name?: string };
 
 type Option = { value: string; label: string; quiet?: boolean }; // quiet: a way out, like "Other"
 
@@ -81,6 +82,51 @@ function Dropdown({ value, options, placeholder, label, onChange }: {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/** Find a form by typing: the sidecar ranks the guides as each word comes, the best first; Enter takes the highlighted one. */
+function FormSearch({ guides, lang, placeholder, empty, other, onPick, onCancel }: {
+  guides: Guide[]; lang: Lang; placeholder: string; empty: string; other: string;
+  onPick: (id: string) => void; onCancel?: () => void;
+}) {
+  const [q, setQ] = useState("");
+  const [ids, setIds] = useState<string[] | null>(null);
+  const [at, setAt] = useState(0);
+  useEffect(() => {
+    const id = setTimeout(() => api<string[]>(`/guides/search?q=${encodeURIComponent(q)}`).then((r) => (setIds(r), setAt(0))).catch(() => {}),
+      q ? 120 : 0);
+    return () => clearTimeout(id);
+  }, [q]);
+  const label = (id: string) => guides.find((g) => g.id === id)?.service[lang] ?? id;
+  const rows = [...(ids ?? []), GENERIC]; // "Other" always last: Sahl reads a form it has no guide for as it goes
+  const key = (e: KeyEvent) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setAt((a) => (a + (e.key === "ArrowDown" ? 1 : rows.length - 1)) % rows.length);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      onPick(rows[at]);
+    } else if (e.key === "Escape" && onCancel) {
+      e.stopPropagation();
+      onCancel();
+    }
+  };
+  return (
+    <div className="dropdown open search">
+      <input className="dropdown-button" autoFocus value={q} placeholder={placeholder} dir={q ? "auto" : undefined}
+        role="combobox" aria-expanded aria-controls="form-results" aria-activedescendant={`form-${at}`} aria-label={placeholder}
+        onChange={(e) => setQ(e.target.value)} onKeyDown={key} />
+      <div className="dropdown-list" id="form-results" role="listbox" aria-label={placeholder}>
+        {ids && !ids.length && <p className="fine">{empty}</p>}
+        {rows.map((id, i) => (
+          <button type="button" role="option" id={`form-${i}`} key={id} aria-selected={i === at} tabIndex={-1}
+            className={id === GENERIC ? "quiet" : undefined} onMouseEnter={() => setAt(i)} onClick={() => onPick(id)}>
+            {id === GENERIC ? other : label(id)}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -232,7 +278,7 @@ export default function Panel() {
   const [thread, setThread] = useState<Said[]>([]);
   const [thinking, setThinking] = useState(false);
   const [formName, setFormName] = useState(""); // for a form Sahl has no guide for, in their words
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(false); // typing in the island (the composer or a form search) keeps it open
   const [hello, setHello] = useState<Key>(greeting);
   const inputRef = useRef<HTMLInputElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
@@ -258,7 +304,7 @@ export default function Panel() {
       // the greeting goes first so the model knows what it asked
       const messages = [{ role: "assistant", text: `${t(hello)} ${t("ask_form")}` }, ...next.map((m) => ({ role: m.role, text: m.text }))];
       const r = await api<Reply>("/chat", { messages });
-      say({ role: "assistant", text: r.reply, kind: r.reply || r.kind !== "unsure" ? r.kind : "pick", guide: r.guide, name: r.name });
+      say({ role: "assistant", text: r.reply, kind: r.reply || r.kind !== "unsure" ? r.kind : "pick", options: r.options, name: r.name });
     } catch (e) {
       fail(e);
     } finally {
@@ -272,8 +318,10 @@ export default function Panel() {
       const form = g.service[lang].split("·")[0].trim();
       return [t("suggest_fill", { form }), t("suggest_about", { form })];
     }),
-  ].slice(0, 3);
+  ].slice(0, 2); // beside "Choose from my forms"
   const other = () => say({ role: "assistant", text: t("interpret"), kind: "interpret" });
+  const searchForms = () => say({ role: "assistant", text: t("which_form"), kind: "search" });
+  const picked = (id: string) => (id === GENERIC ? other() : choose(id));
   useEffect(() => {
     const last = thread[thread.length - 1];
     if (last?.kind !== "interpret") return;
@@ -325,10 +373,21 @@ export default function Panel() {
     }
   }, [guide, person]);
 
+  // ⌥Space before a form is chosen: ask which form is on screen, then read it as soon as they pick one
+  const [lookAt, setLookAt] = useState(false);
+  const readWhenChosen = useRef(false);
   useEffect(() => {
-    const un = listen("read", () => (setOpen(true), void read(true)));
+    const un = listen("read", () => {
+      setOpen(true);
+      setSheet(false);
+      if (guide) void read(true);
+      else setLookAt(true);
+    });
     return () => void un.then((f) => f());
-  }, [read]);
+  }, [read, guide]);
+  useEffect(() => {
+    if (guide && readWhenChosen.current) (readWhenChosen.current = false), void read(true);
+  }, [guide, read]);
 
   const act = async (path: "/fill" | "/confirm", fieldId: string) => {
     const wrote = path === "/fill";
@@ -491,7 +550,8 @@ export default function Panel() {
   const field = reading?.fields.find((f) => f.id === reading.next) ?? null;
   const index = field ? reading!.fields.indexOf(field) + 1 : 0;
   const canFill = mode === "fill" && (field?.input === "text" || field?.input === "date-parts") && field.vault?.verified;
-  const guideName = guides?.find((g) => g.id === guide)?.service[lang];
+  const current = guides?.find((g) => g.id === guide);
+  const guideName = current?.service[lang];
 
   // --- open on hover, fold back into the notch a moment after the pointer leaves ---
   const keep = busy || thinking || readingDocs || dropping || !!field || focused;
@@ -695,8 +755,16 @@ export default function Panel() {
                 <p>{progress?.total ? t("importing", { done: progress.done, total: progress.total }) : " "}</p>
                 {tooSlow}
               </div>
+            ) : !guide && lookAt ? (
+              <div className="ask look" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
+                <h1>{t("look_at")}</h1>
+                <FormSearch guides={known} lang={lang} placeholder={t("search_forms")} empty={t("no_forms_match")} other={t("other")}
+                  onPick={(id) => { setLookAt(false); readWhenChosen.current = true; picked(id); }}
+                  onCancel={() => setLookAt(false)} />
+                <button className="link" onClick={() => setLookAt(false)}>{t("back")}</button>
+              </div>
             ) : !guide ? (
-              <div className="ask">
+              <div className="ask" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
                 <div className="thread" ref={threadRef} aria-live="polite">
                   {thread.length ? (
                     <div className="msg bot hello">
@@ -723,26 +791,25 @@ export default function Panel() {
                           {m.kind === "pick" ? <p>{t("not_sure")}</p> : m.kind === "new" ? <p>{t("interpret")}</p> : (
                             <p dir="auto">{m.text || (m.kind === "match" ? t("sounds_like") : "")}</p>
                           )}
-                          {last && m.kind === "match" && m.guide && (
-                            <button className="choice" onClick={() => choose(m.guide!)}>
-                              <span>{guideLabel(m.guide)}</span><span aria-hidden>→</span>
+                          {last && (m.kind === "match" || m.kind === "about") && m.options?.filter(guideLabel).map((id) => (
+                            <button className="choice" key={id} onClick={() => choose(id)}>
+                              <span>{guideLabel(id)}</span><span aria-hidden>→</span>
                             </button>
-                          )}
+                          ))}
                           {last && m.kind === "new" && (
                             <button className="choice" onClick={() => choose(GENERIC, m.name)}>
                               <span dir="auto">{m.name}</span><span aria-hidden>→</span>
                             </button>
                           )}
-                          {last && m.kind === "pick" && (
-                            <Dropdown value="" label={t("not_sure")} placeholder={t("choose_form")}
-                              options={[...known.map((g) => ({ value: g.id, label: g.service[lang] })), { value: GENERIC, label: t("other"), quiet: true }]}
-                              onChange={(v) => (v === GENERIC ? other() : choose(v))} />
+                          {last && (m.kind === "pick" || m.kind === "search") && (
+                            <FormSearch guides={known} lang={lang} placeholder={t("search_forms")} empty={t("no_forms_match")} other={t("other")}
+                              onPick={picked} />
                           )}
-                          {last && (m.kind === "unsure" || m.kind === "match") && (
+                          {last && (m.kind === "unsure" || m.kind === "match" || m.kind === "about") && (
                             <div className="note">
                               <div className="line">
                                 {m.text && <Speaker text={m.text} label={t("listen")} />}
-                                <button className="link" onClick={() => say({ role: "assistant", text: t("not_sure"), kind: "pick" })}>{t("pick_form")}</button>
+                                <button className="link" onClick={searchForms}>{t("pick_form")}</button>
                               </div>
                               {m.text && <p className="fine">{t("may_be_wrong")}</p>}
                             </div>
@@ -766,6 +833,7 @@ export default function Panel() {
                 </div>
                 {!thread.length && !thinking && (
                   <div className="suggestions">
+                    <button type="button" className="pick" onClick={searchForms}>{t("pick_form")}</button>
                     {suggestions.map((q) => <button key={q} type="button" dir="auto" onClick={() => send(q)}>{q}</button>)}
                   </div>
                 )}
@@ -775,8 +843,7 @@ export default function Panel() {
                   </button>
                   {/* empty, it follows the panel (right to left in Arabic and Urdu); typed, it follows the text */}
                   <input ref={inputRef} value={text} placeholder={t("placeholder")} dir={text ? "auto" : undefined} aria-label={t("ask_form")}
-                    onChange={(e) => setText(e.target.value)}
-                    onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} />
+                    onChange={(e) => setText(e.target.value)} />
                   <button className="mic" type="button" aria-label={t("dictate")} title={t("dictate")}
                     onClick={() => (inputRef.current?.focus(), void invoke("dictate").catch(() => {}))}>
                     <svg viewBox="0 0 24 24" aria-hidden><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" /></svg>
@@ -847,6 +914,19 @@ export default function Panel() {
                   </section>
                 ) : (
                   <>
+                    {!reading && current?.about && guide !== GENERIC && (
+                      // what the service is and what to have ready, before they start on the form
+                      <section className="brief" aria-label={t("before_you_start")}>
+                        <p dir="auto">{current.about}</p>
+                        {(["documents", "fees", "timing", "eligibility"] as const).filter((k) => current.requirements[k]?.length).map((k) => (
+                          <div key={k}>
+                            <h3>{t(`need_${k}`)}</h3>
+                            <ul dir="auto">{current.requirements[k]!.map((x) => <li key={x}>{x}</li>)}</ul>
+                          </div>
+                        ))}
+                        {current.checked && <p className="fine">{t("from_official", { date: current.checked })}</p>}
+                      </section>
+                    )}
                     {reading && !error && <p className="quiet">{reading.fields.length ? t("all_done") : t("no_form")}</p>}
                     <button className="primary" disabled={busy} onClick={() => void read(true)}>
                       {busy ? t("reading") : t("read")} <kbd>{KEY}</kbd>

@@ -7,6 +7,15 @@
     "ml": "റസിഡൻസ് പെർമിറ്റ് പുതുക്കൽ"
   },
   "about": "Renew a UAE residence permit, linked to an Emirates ID application.",
+  "authority": "ICP",
+  "aliases": [
+    "Residency renewal",
+    "Renew residence visa",
+    "Visa renewal",
+    "Renew my residency",
+    "تجديد الإقامة",
+    "تجديد التأشيرة"
+  ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e66",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Residence permit renewal. Translations not reviewed by native speakers.",
