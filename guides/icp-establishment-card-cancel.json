@@ -1,0 +1,44 @@
+{
+  "id": "icp-establishment-card-cancel",
+  "service": {
+    "en": "Establishment card cancellation",
+    "ar": "إلغاء بطاقة منشأة",
+    "ur": "ادارے کا کارڈ منسوخ کرنا",
+    "ml": "സ്ഥാപന കാർഡ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel the ICP establishment card of a company or government entity.",
+  "authority": "ICP",
+  "aliases": [
+    "Cancel establishment card",
+    "Cancel company card",
+    "إلغاء بطاقة الشركة",
+    "إلغاء بطاقة منشأة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e6f",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Commercial licence must be cancelled first",
+      "All fines paid and workers cleared",
+      "Open to government bodies, private companies and free zone companies"
+    ],
+    "documents": [
+      "Trade licence",
+      "Copy of the cancelled commercial licence for private companies"
+    ],
+    "fees": [
+      "Card cancellation 50 AED",
+      "System subscription cancellation 50 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,48 @@
+{
+  "id": "icp-new-emirates-id",
+  "service": {
+    "en": "New Emirates ID issuance",
+    "ar": "إصدار هوية إماراتية جديدة",
+    "ur": "نیا ایمریٹس آئی ڈی جاری کرنا",
+    "ml": "പുതിയ എമിറേറ്റ്സ് ഐഡി നൽകൽ"
+  },
+  "about": "Get an Emirates ID card for the first time.",
+  "authority": "ICP",
+  "aliases": [
+    "First Emirates ID",
+    "Issue new identity card",
+    "إصدار بطاقة هوية جديدة",
+    "هوية إماراتية لأول مرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e5a",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to UAE citizens, residents and GCC citizens",
+      "The applicant, a family head, a legal representative or a guardian can apply",
+      "Passport valid for at least 3 months for categories that need it",
+      "Anyone aged 15 or over gives fingerprints and a signature at a service centre"
+    ],
+    "documents": [
+      "A personal photo that meets ICAO standards",
+      "Passport where the category needs it",
+      "Proof for the category, such as a GCC ID, student, job, business licence, property or kinship papers"
+    ],
+    "fees": [
+      "Citizens: 100 AED for a 5-year card under 21, 200 AED for a 10-year card at 21 or over",
+      "Residents: 100 AED per year of residence",
+      "Smart service fee 100 AED",
+      "Urgent service 150 AED, at service centres only"
+    ],
+    "timing": [
+      "About 5 days",
+      "Card is 5 years under 21 and 10 years over 21 for citizens"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

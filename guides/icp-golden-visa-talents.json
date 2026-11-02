@@ -1,0 +1,46 @@
+{
+  "id": "icp-golden-visa-talents",
+  "service": {
+    "en": "Residence visa for individuals with specialised talents",
+    "ar": "تأشيرة إقامة لأصحاب المواهب المتخصصة",
+    "ur": "مخصوص صلاحیتوں کے حامل افراد کے لیے رہائشی ویزا",
+    "ml": "പ്രത്യേക കഴിവുള്ളവർക്കുള്ള റെസിഡൻസ് വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as a person with a specialised talent.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa talent",
+    "Golden residency artists athletes",
+    "الإقامة الذهبية للمواهب",
+    "تأشيرة المواهب"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e34f2a5ae59b00117383dc",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Needs a recommendation or approval from the relevant authority: culture, economy, sports, digital technology or other government bodies depending on the talent",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Recommendation or approval for the talent category"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

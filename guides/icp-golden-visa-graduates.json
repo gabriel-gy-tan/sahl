@@ -1,0 +1,45 @@
+{
+  "id": "icp-golden-visa-graduates",
+  "service": {
+    "en": "Golden Residence visa for graduates of accredited universities abroad",
+    "ar": "تأشيرة الإقامة الذهبية لخريجي الجامعات المعتمدة خارج الدولة",
+    "ur": "بیرون ملک تسلیم شدہ جامعات کے فارغ التحصیل کے لیے گولڈن ویزا",
+    "ml": "വിദേശ അംഗീകൃത സർവകലാശാല ബിരുദധാരികൾക്കുള്ള ഗോൾഡൻ വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as a graduate of an accredited university outside the UAE.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa graduates",
+    "Golden residency for graduates",
+    "الإقامة الذهبية للخريجين",
+    "تأشيرة ذهبية خريجين"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bb848c587a0011cb16b5",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Graduate of an accredited university outside the UAE",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Bachelor's, Master's or doctorate degree from an accredited university"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

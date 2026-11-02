@@ -1,0 +1,39 @@
+{
+  "id": "icp-delay-fee-exemption",
+  "service": {
+    "en": "Request for exemption from delay fees",
+    "ar": "طلب الإعفاء من غرامات التأخير",
+    "ur": "تاخیری فیس سے استثنا کی درخواست",
+    "ml": "കാലതാമസ ഫീസ് ഇളവ് അപേക്ഷ"
+  },
+  "about": "Ask ICP to waive Emirates ID late fees in cases covered by approved exemption rules.",
+  "authority": "ICP",
+  "aliases": [
+    "Waive ID late fine",
+    "Exemption from ID fines",
+    "إعفاء من غرامة تأخير الهوية",
+    "إعفاء من الغرامات"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e5f",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Must be filed together with an ID renewal or new issuance request",
+      "Covers cases such as an ID that expired after deportation or while the passport was held for a court case, with proof from the authority",
+      "Open to UAE citizens, residents and GCC citizens"
+    ],
+    "documents": [
+      "Supporting proof for the exemption reason"
+    ],
+    "timing": [
+      "About 2 days",
+      "ICP replies by accepting, rejecting or asking for changes"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

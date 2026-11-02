@@ -1,0 +1,49 @@
+{
+  "id": "icp-port-entry-permit",
+  "service": {
+    "en": "Entry permit at ports (land, sea, air)",
+    "ar": "تصريح دخول من المنافذ",
+    "ur": "بندرگاہوں سے داخلے کا اجازت نامہ",
+    "ml": "തുറമുഖങ്ങളിൽ നിന്നുള്ള പ്രവേശന പെർമിറ്റ്"
+  },
+  "about": "Get an entry visa on arrival, such as a transit, seafarer, emergency or GCC resident visa.",
+  "authority": "ICP",
+  "aliases": [
+    "Transit visa",
+    "96-hour transit visa",
+    "Visa on arrival",
+    "تأشيرة ترانزيت",
+    "تأشيرة عند الوصول"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e69",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "96-hour transit visa at air and sea ports; 48-hour at sea ports; both need a valid passport and onward ticket",
+      "Seafarer single-entry visa is valid 7 days",
+      "Emergency visa for medical disembarking or long flight disruption is free",
+      "GCC residents need a residence of at least one year in an authorised category"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Onward travel ticket for transit",
+      "Seafarer card for seafarers",
+      "GCC residence for GCC residents"
+    ],
+    "fees": [
+      "96-hour transit: 50 AED application, 50 AED issue, 100 AED smart service",
+      "48-hour transit: 50 AED issue, 100 AED smart service",
+      "GCC resident: 100 AED application, 100 AED issue, 100 AED smart service",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

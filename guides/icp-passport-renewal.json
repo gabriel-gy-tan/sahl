@@ -1,0 +1,43 @@
+{
+  "id": "icp-passport-renewal",
+  "service": {
+    "en": "UAE passport renewal",
+    "ar": "تجديد جواز السفر",
+    "ur": "اماراتی پاسپورٹ کی تجدید",
+    "ml": "യുഎഇ പാസ്പോർട്ട് പുതുക്കൽ"
+  },
+  "about": "Renew a citizen's passport that has expired or has a year or less left.",
+  "authority": "ICP",
+  "aliases": [
+    "Renew passport",
+    "Passport renewal UAE citizen",
+    "تجديد جواز سفر مواطن",
+    "تجديد الجواز"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e7a",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE citizens living in the UAE; citizens abroad use the separate abroad service",
+      "Passport expired or valid for one year or less",
+      "Fingerprints and signature at a service centre if required"
+    ],
+    "documents": [
+      "Recent personal photo different from the one in the current passport, meeting ICAO standards"
+    ],
+    "fees": [
+      "Application 10 AED",
+      "5-year passport 40 AED, 10-year passport 90 AED",
+      "Delivery 15 AED"
+    ],
+    "timing": [
+      "About 2 days",
+      "Valid 10 years at 21 or over, 5 years under 21"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "icp-passport-replace-details",
+  "service": {
+    "en": "Passport replacement for changed details or full pages",
+    "ar": "استبدال جواز السفر لتغيّر البيانات أو امتلاء الصفحات",
+    "ur": "تبدیل شدہ تفصیلات یا بھرے صفحات پر پاسپورٹ کی تبدیلی",
+    "ml": "വിവരം മാറിയതിനോ പേജ് നിറഞ്ഞതിനോ പാസ്പോർട്ട് മാറ്റൽ"
+  },
+  "about": "Replace a UAE passport because personal details changed or it has no free pages.",
+  "authority": "ICP",
+  "aliases": [
+    "Passport full pages",
+    "Passport photo update child",
+    "استبدال جواز سفر",
+    "جواز سفر ممتلئ الصفحات"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e7b",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE citizens only",
+      "Photo change for changed looks is for applicants under 5",
+      "For full pages, show the passport to the Identity and Foreigners Affairs directorate in your emirate"
+    ],
+    "documents": [
+      "Personal photo"
+    ],
+    "fees": [
+      "Application 10 AED",
+      "Replacement issuance 40 AED",
+      "Delivery 15 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

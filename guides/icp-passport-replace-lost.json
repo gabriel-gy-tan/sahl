@@ -1,0 +1,42 @@
+{
+  "id": "icp-passport-replace-lost",
+  "service": {
+    "en": "Replacement of lost or damaged passport",
+    "ar": "استبدال جواز سفر مفقود أو تالف",
+    "ur": "گم شدہ یا خراب پاسپورٹ کی تبدیلی",
+    "ml": "നഷ്ടപ്പെട്ട/കേടായ പാസ്പോർട്ട് മാറ്റിവാങ്ങൽ"
+  },
+  "about": "Get a replacement UAE passport when yours is lost or damaged.",
+  "authority": "ICP",
+  "aliases": [
+    "Lost passport",
+    "Damaged passport",
+    "Replace passport",
+    "جواز سفر مفقود",
+    "بدل فاقد جواز سفر"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e7c",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE citizens only",
+      "For damage, upload a clear image of the damaged area"
+    ],
+    "documents": [
+      "Personal photo that meets ICAO standards"
+    ],
+    "fees": [
+      "Replacement 300 AED",
+      "Delivery 15 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

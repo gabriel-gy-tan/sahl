@@ -1,0 +1,45 @@
+{
+  "id": "icp-visa-amend",
+  "service": {
+    "en": "Amendment of visa data",
+    "ar": "تعديل بيانات التأشيرة",
+    "ur": "ویزا ڈیٹا میں ترمیم",
+    "ml": "വിസ വിവരങ്ങൾ തിരുത്തൽ"
+  },
+  "about": "Change details on an entry permit ICP has already issued.",
+  "authority": "ICP",
+  "aliases": [
+    "Amend entry permit",
+    "Correct visa details",
+    "تعديل تأشيرة",
+    "تعديل بيانات تصريح الدخول"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e61",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Passport valid for more than 6 months",
+      "Applied for by the visitor or the issuing entity such as a tourism firm, hospital, employer or university"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Letter stating the amendment",
+      "Employment certificate for free zones",
+      "Amended entry permit for the private sector"
+    ],
+    "fees": [
+      "Application fee 50 AED",
+      "Smart application fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}
