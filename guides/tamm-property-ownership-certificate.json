@@ -15,12 +15,12 @@
     "شهادة ملكية عقار"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequestforPropertyOwnershipCertificate",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
-      "Power of attorney",
-      "Commercial licence"
+      "Power of attorney, if applicable",
+      "Commercial licence, if applicable"
     ],
     "fees": [
       "AED 50 certificate fee",

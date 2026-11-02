@@ -12,10 +12,13 @@
     "Al Ghad nursery",
     "Nursery seat reservation",
     "حضانة الغد",
-    "حجز مقعد حضانة"
+    "حجز مقعد حضانة",
+    "Al Ghad nurseries",
+    "Nursery for Emirati child",
+    "التسجيل في حضانات الغد"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/EnrollInALGADNurseries",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
@@ -23,10 +26,10 @@
     ],
     "documents": [
       "Proof of address",
-      "Court decision",
-      "People of Determination card",
-      "Work certificate",
-      "Martyrs Families Office to-whom-it-may-concern certificate",
+      "Court decision, if applicable",
+      "People of Determination card, if applicable",
+      "Work certificate, if applicable",
+      "Martyrs Families Office to-whom-it-may-concern certificate, if applicable",
       "Documents supporting the case"
     ],
     "fees": [

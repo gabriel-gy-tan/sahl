@@ -16,7 +16,7 @@
     "استخراج رخصة تجارية"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/RequestforIssuingEconomicLicenceTAMMLicence",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
@@ -24,10 +24,11 @@
       "Approved lease contract"
     ],
     "fees": [
-      "790 AED organisational entities fee",
+      "790 AED organisational entities fee, plus 100 AED for each activity after the sixth",
       "315 AED establishment card fee",
       "10 AED economic register fee and 10 AED licence issuance fee",
-      "Chamber membership from 150 AED (craft) to 2,000 AED (professional); 1,650 AED for commercial, tourism, agriculture, livestock and fisheries",
+      "Chamber membership: 150 AED craft, 2,000 AED professional, 1,650 AED commercial, tourism, agriculture, livestock and fisheries",
+      "Sole proprietorship establishment: 50 AED",
       "Companies also pay 50 AED notarisation, 1,500 AED social contribution and 2,500 AED Ministry of Economy fee"
     ],
     "timing": [

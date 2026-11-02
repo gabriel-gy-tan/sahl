@@ -16,7 +16,7 @@
     "رخصة مستقل"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/RequestforIssuingEconomicLicenceFreelancerLicence",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
@@ -30,11 +30,12 @@
       "Professional certificates"
     ],
     "fees": [
-      "790 AED organisational entities fee",
+      "790 AED organisational entities fee, plus 100 AED for each activity after the sixth",
       "10 AED economic register fee",
       "315 AED establishment card fee",
       "300 AED Abu Dhabi Chamber membership fee",
-      "10 AED commercial licence issuance fee"
+      "10 AED commercial licence issuance fee",
+      "No sole proprietorship establishment fee"
     ],
     "timing": [
       "10 working days",

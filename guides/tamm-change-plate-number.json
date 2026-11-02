@@ -15,7 +15,7 @@
     "تبديل رقم المركبة"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/plates/requestforvehiclenumberchange",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
@@ -24,7 +24,8 @@
     "fees": [
       "35 AED per short plate",
       "45 AED per long plate",
-      "500 AED per sport plate"
+      "500 AED per sport plate",
+      "200 AED per identity plate"
     ],
     "timing": [
       "2 working days"

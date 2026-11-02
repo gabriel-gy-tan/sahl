@@ -13,10 +13,11 @@
     "Vehicle ownership transfer",
     "Transfer car to buyer",
     "نقل ملكية سيارة",
-    "بيع مركبة"
+    "بيع مركبة",
+    "Sell car transfer ownership"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requesttotransfervehicleownership",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
@@ -24,10 +25,15 @@
       "Copy of the official power of attorney"
     ],
     "fees": [
-      "350 AED for private or public light vehicles",
-      "400 AED private and 650 AED public for vehicles over 3 and up to 12 tonnes",
-      "800 AED private and 1,000 AED public for vehicles over 12 tonnes",
-      "Motorcycles 200 AED private, 400 AED public; buses, trailers and machinery have their own rates on the page"
+      "Light vehicle: 350 AED, private or public",
+      "Over 3 and up to 12 tonnes: 400 AED private, 650 AED public",
+      "Over 12 tonnes: 800 AED private, 1,000 AED public",
+      "Light machinery: 500 AED private, 700 AED public",
+      "Heavy machinery: 800 AED private, 1,000 AED public",
+      "Trailer or semi-trailer: 120 AED private, 220 AED public",
+      "Bus of 14 to 26 passengers: 300 AED private, 400 AED public",
+      "Bus of more than 26 passengers: 600 AED private (no public rate listed)",
+      "Motorcycle: 200 AED private, 400 AED public"
     ],
     "timing": [
       "About 1 hour",

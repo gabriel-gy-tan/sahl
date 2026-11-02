@@ -12,15 +12,16 @@
     "Lost passport citizen",
     "Damaged passport",
     "جواز سفر مفقود",
-    "بدل فاقد جواز"
+    "بدل فاقد جواز",
+    "Update passport photo",
+    "بدل فاقد جواز سفر"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/IssueReplacementofLostDamagedPassport",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
-      "Personal photo",
-      "A photo showing the damage, if the passport is damaged"
+      "Personal photo"
     ],
     "fees": [
       "AED 300 request fee"

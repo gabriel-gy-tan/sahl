@@ -12,10 +12,13 @@
     "Join SEHHI",
     "SEHHI program",
     "برنامج صحي",
-    "التسجيل في صحي"
+    "التسجيل في صحي",
+    "Register in SEHHI",
+    "SEHHI registration",
+    "الانضمام إلى برنامج صحي"
   ],
   "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Family-Health/JoinSEHHIProgram",
-  "checked": "2026-11-02",
+  "checked": "2026-11-03",
   "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "documents": [
