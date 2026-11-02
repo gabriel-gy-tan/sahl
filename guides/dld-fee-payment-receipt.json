@@ -1,0 +1,32 @@
+{
+  "id": "dld-fee-payment-receipt",
+  "service": {
+    "en": "Fee payment receipt",
+    "ar": "إيصال دفع الرسوم",
+    "ur": "فیس کی ادائیگی کی رسید",
+    "ml": "ഫീസ് അടച്ച രസീത്"
+  },
+  "about": "Get a receipt for fees paid on an earlier property procedure such as a sale or mortgage.",
+  "authority": "DLD",
+  "aliases": [
+    "Receipt for DLD fees",
+    "Fees receipt",
+    "إيصال رسوم"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/fee-payment-receipt-overview/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Fee payment receipt. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Owners must have a verified email address to get receipts from an owned property"
+    ],
+    "timing": [
+      "Instant"
+    ],
+    "channels": [
+      "Dubai REST app",
+      "DLD website"
+    ]
+  },
+  "fields": []
+}

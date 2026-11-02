@@ -1,0 +1,41 @@
+{
+  "id": "dld-property-valuation",
+  "service": {
+    "en": "Property valuation certificate",
+    "ar": "شهادة تقييم عقار",
+    "ur": "جائیداد کی قدر کا سرٹیفکیٹ",
+    "ml": "സ്വത്ത് മൂല്യനിർണയ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request an official valuation of land, a unit, a villa or a building in Dubai.",
+  "authority": "DLD",
+  "aliases": [
+    "Property valuation",
+    "Property evaluation",
+    "تقييم عقار",
+    "شهادة تقييم"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/property-valuation/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Property valuation certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Property evaluation request form",
+      "Owner letter and a copy of a valid passport or Emirates ID",
+      "Municipality or planning map valid for one year",
+      "Recent photos of the property"
+    ],
+    "fees": [
+      "AED 2,000 for vacant commercial or industrial land",
+      "AED 4,000 for a villa with its land",
+      "AED 10,000 for land for a major project or phase",
+      "AED 15,000 for a hotel building with its land",
+      "AED 10 knowledge fee and AED 10 innovation fee"
+    ],
+    "channels": [
+      "a Real Estate Services Trustee Centre",
+      "Dubai REST app",
+      "Dubai Now"
+    ]
+  },
+  "fields": []
+}

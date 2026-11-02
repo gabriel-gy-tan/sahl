@@ -1,0 +1,46 @@
+{
+  "id": "dld-property-gift-registration",
+  "service": {
+    "en": "Register a gifted property",
+    "ar": "تسجيل هبة عقار",
+    "ur": "جائیداد کے ہبہ کی رجسٹریشن",
+    "ml": "സമ്മാനമായി ലഭിച്ച സ്വത്ത് രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Transfer a property in Dubai as a gift, in full or in part, and register it.",
+  "authority": "DLD",
+  "aliases": [
+    "Gift of property",
+    "Property gift transfer",
+    "تسجيل هبة",
+    "هبة عقارية"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/property-gift-registration/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register a gifted property. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The receiver must be a first-degree relative (mother, father, spouse or child) or a company",
+      "The property must not be restricted or granted land",
+      "A power of attorney is needed if someone acts for the parties"
+    ],
+    "documents": [
+      "Marriage or birth certificate to prove the relationship, translated and attested abroad",
+      "Proof of kinship from the person's embassy in the UAE",
+      "Emirates ID, or a passport copy for non-resident foreigners",
+      "UAE citizens: marriage contract or family book"
+    ],
+    "fees": [
+      "0.125% of the valuation, with a minimum of AED 2,000",
+      "AED 250 for the title deed certificate",
+      "AED 10 knowledge fee and AED 10 innovation fee",
+      "AED 4,000 plus VAT service partner fee if the value is AED 2,000,000 or more, otherwise AED 2,000 plus VAT"
+    ],
+    "timing": [
+      "20 minutes"
+    ],
+    "channels": [
+      "a Real Estate Trustee Centre"
+    ]
+  },
+  "fields": []
+}

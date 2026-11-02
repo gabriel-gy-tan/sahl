@@ -1,0 +1,45 @@
+{
+  "id": "dld-property-map-request",
+  "service": {
+    "en": "Property map request",
+    "ar": "طلب خريطة عقار",
+    "ur": "جائیداد کا نقشہ حاصل کرنا",
+    "ml": "സ്വത്ത് മാപ്പ് അഭ്യർത്ഥന"
+  },
+  "about": "Owners can request a map of a registered land plot, unit, villa or building.",
+  "authority": "DLD",
+  "aliases": [
+    "Property map",
+    "Villa map",
+    "Apartment map",
+    "خريطة عقار"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/property-map-request/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Property map request. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For property owners"
+    ],
+    "documents": [
+      "Letter from the owner, or from the company if a representative applies and the owner is not present"
+    ],
+    "fees": [
+      "AED 250 for an apartment or villa map",
+      "AED 225 for a land map unified with Dubai Municipality",
+      "AED 100 for a plot outside Dubai Municipality",
+      "AED 3,000 for common areas",
+      "AED 10 knowledge fee and AED 10 innovation fee per drawing"
+    ],
+    "timing": [
+      "12 minutes",
+      "Up to 24 hours when the land map is shared with Dubai Municipality"
+    ],
+    "channels": [
+      "DLD website",
+      "Dubai REST app",
+      "a trustee service centre"
+    ]
+  },
+  "fields": []
+}

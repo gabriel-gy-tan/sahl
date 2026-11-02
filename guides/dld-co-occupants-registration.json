@@ -1,0 +1,36 @@
+{
+  "id": "dld-co-occupants-registration",
+  "service": {
+    "en": "Register co-occupants of a rented home",
+    "ar": "تسجيل المقيمين المشاركين في السكن",
+    "ur": "کرایہ کے مکان کے ساتھ رہنے والوں کی رجسٹریشن",
+    "ml": "വാടക വീട്ടിലെ താമസക്കാരെ രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Record the people living in a rented property in Dubai.",
+  "authority": "DLD",
+  "aliases": [
+    "Add occupants to Ejari",
+    "Ejari occupants",
+    "تسجيل شاغلين"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/steps-to-manage-co-occupants-overview/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register co-occupants of a rented home. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For citizens and residents",
+      "Entering personal details of occupants is optional"
+    ],
+    "documents": [
+      "Identity details of the occupants"
+    ],
+    "timing": [
+      "Immediate"
+    ],
+    "channels": [
+      "Ejari system on the DLD website",
+      "Dubai REST app"
+    ]
+  },
+  "fields": []
+}

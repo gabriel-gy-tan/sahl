@@ -1,0 +1,30 @@
+{
+  "id": "dld-title-deed-verification",
+  "service": {
+    "en": "Verify a title deed",
+    "ar": "التحقق من سند الملكية",
+    "ur": "ملکیت کی دستاویز کی تصدیق",
+    "ml": "ടൈറ്റിൽ ഡീഡ് പരിശോധിക്കൽ"
+  },
+  "about": "Check that a title deed or certificate of title issued by the Dubai Land Department is valid.",
+  "authority": "DLD",
+  "aliases": [
+    "Check title deed",
+    "Title deed check",
+    "التحقق من الملكية",
+    "التحقق من سند"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/title-deed-verification-overview/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Verify a title deed. Translations not reviewed by native speakers.",
+  "requirements": {
+    "timing": [
+      "Immediate"
+    ],
+    "channels": [
+      "DLD website",
+      "Dubai REST app"
+    ]
+  },
+  "fields": []
+}
