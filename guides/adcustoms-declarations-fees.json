@@ -1,0 +1,34 @@
+{
+  "id": "adcustoms-declarations-fees",
+  "service": {
+    "en": "Customs declaration fees",
+    "ar": "رسوم البيانات الجمركية",
+    "ur": "کسٹمز ڈیکلریشن فیس",
+    "ml": "കസ്റ്റംസ് ഡിക്ലറേഷൻ ഫീസ്"
+  },
+  "about": "Fees for import, export, transit and other customs declarations.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "Import declaration fee",
+    "Export declaration fee",
+    "رسوم البيان الجمركي",
+    "رسوم الاستيراد والتصدير"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 70 for an import declaration with dutiable goods",
+      "AED 80 for an import declaration with exempt goods",
+      "AED 100 for an export or temporary export declaration",
+      "AED 50 for a transit declaration",
+      "AED 25 for amending a declaration",
+      "AED 25 for cancelling a declaration"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

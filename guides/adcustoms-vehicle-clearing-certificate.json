@@ -1,0 +1,29 @@
+{
+  "id": "adcustoms-vehicle-clearing-certificate",
+  "service": {
+    "en": "Vehicle clearing certificate",
+    "ar": "شهادة تخليص مركبة",
+    "ur": "گاڑی کلیئرنگ سرٹیفکیٹ",
+    "ml": "വാഹന ക്ലിയറിങ് സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Customs certificate for clearing a vehicle.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "VCC customs",
+    "Vehicle customs clearance",
+    "شهادة جمركية للمركبة",
+    "تخليص مركبة"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 30 for a vehicle clearing certificate"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

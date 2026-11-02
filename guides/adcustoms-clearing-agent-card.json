@@ -1,0 +1,30 @@
+{
+  "id": "adcustoms-clearing-agent-card",
+  "service": {
+    "en": "Clearing agent card",
+    "ar": "بطاقة مخلص جمركي",
+    "ur": "کلیئرنگ ایجنٹ کارڈ",
+    "ml": "ക്ലിയറിങ് ഏജന്റ് കാർഡ്"
+  },
+  "about": "Annual card for a customs clearing agent or representative.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "Customs agent card",
+    "Customs representative card",
+    "بطاقة مندوب جمركي",
+    "بطاقة المخلص"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 150 for the annual clearing agent card",
+      "AED 50 per month for renewing a representative card, with a AED 50 late penalty"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}
