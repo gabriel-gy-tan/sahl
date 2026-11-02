@@ -1,0 +1,38 @@
+{
+  "id": "tamm-reserve-plate-number",
+  "service": {
+    "en": "Reserve a vehicle plate number",
+    "ar": "حجز رقم لوحة مركبة",
+    "ur": "گاڑی کی نمبر پلیٹ کی بکنگ",
+    "ml": "വാഹന നമ്പർ പ്ലേറ്റ് റിസർവ് ചെയ്യൽ"
+  },
+  "about": "Reserve a vehicle plate number for a period.",
+  "authority": "TAMM",
+  "aliases": [
+    "Plate number reservation",
+    "Book number plate",
+    "حجز لوحة",
+    "حجز رقم مميز"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/plates/requestforvehicleplatenumberreservation",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "500 AED for 3 months",
+      "1,000 AED for 6 months",
+      "2,000 AED for 1 year"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

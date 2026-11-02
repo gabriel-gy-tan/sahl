@@ -1,0 +1,36 @@
+{
+  "id": "tamm-add-category-to-driving-licence",
+  "service": {
+    "en": "Add a new category to the driving licence",
+    "ar": "إضافة فئة جديدة إلى رخصة القيادة",
+    "ur": "ڈرائیونگ لائسنس میں نئی کیٹیگری شامل کرنا",
+    "ml": "ഡ്രൈവിംഗ് ലൈസൻസിൽ പുതിയ വിഭാഗം ചേർക്കൽ"
+  },
+  "about": "Add a category such as motorcycle or heavy vehicle to an existing driving licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Add motorcycle category",
+    "Heavy vehicle licence category",
+    "إضافة فئة رخصة",
+    "إضافة فئة دراجة نارية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/RequesttoAddNewCategorytotheDrivingLicense",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "200 AED request fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

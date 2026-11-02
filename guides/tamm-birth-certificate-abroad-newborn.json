@@ -1,0 +1,39 @@
+{
+  "id": "tamm-birth-certificate-abroad-newborn",
+  "service": {
+    "en": "Digital birth certificate for a baby born abroad",
+    "ar": "إصدار شهادة ميلاد رقمية لمولود في الخارج",
+    "ur": "بیرون ملک پیدا ہونے والے بچے کا ڈیجیٹل برتھ سرٹیفکیٹ",
+    "ml": "വിദേശത്ത് ജനിച്ച കുഞ്ഞിന്റെ ഡിജിറ്റൽ ജനന സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Apply for a digital birth certificate for a newborn born outside the UAE.",
+  "authority": "TAMM",
+  "aliases": [
+    "Birth certificate abroad",
+    "Overseas birth registration",
+    "شهادة ميلاد مولود بالخارج",
+    "تسجيل مولود خارج الدولة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/Issue%20an%20Abroad%20Newborn%20Digital%20Birth%20Certificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Birth certificate issued outside the UAE",
+      "Emirates ID",
+      "Marriage contract",
+      "Parents' passports"
+    ],
+    "fees": [
+      "AED 50 certificate issuance fee"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

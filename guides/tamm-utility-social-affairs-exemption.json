@@ -1,0 +1,39 @@
+{
+  "id": "tamm-utility-social-affairs-exemption",
+  "service": {
+    "en": "Register for social affairs utility exemptions",
+    "ar": "التسجيل في إعفاءات الشؤون الاجتماعية للمرافق",
+    "ur": "سماجی امور کی چھوٹ کے لیے رجسٹریشن",
+    "ml": "സാമൂഹിക കാര്യ ഇളവുകൾക്കുള്ള രജിസ്ട്രേഷൻ"
+  },
+  "about": "People under a social assistance agreement register to receive utility bill exemptions.",
+  "authority": "TAMM",
+  "aliases": [
+    "Utility exemption",
+    "Social assistance electricity",
+    "إعفاء الشؤون الاجتماعية",
+    "إعفاء فواتير"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/RegisteringinSocialAffairsExemptions-taqa",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Customer must be listed under a social assistance agreement issued by the Ministry of Community Empowerment"
+    ],
+    "documents": [
+      "Social Affairs letter from the Ministry of Community Empowerment",
+      "Emirates ID",
+      "Power of attorney, if applying through an agent"
+    ],
+    "timing": [
+      "3 working days",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app) or another available channel",
+      "Provided by TAQA Distribution"
+    ]
+  },
+  "fields": []
+}

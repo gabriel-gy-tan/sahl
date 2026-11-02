@@ -1,0 +1,42 @@
+{
+  "id": "tamm-death-certificate-additional-copy",
+  "service": {
+    "en": "Replacement or additional death certificate",
+    "ar": "استخراج بدل فاقد أو نسخة إضافية من شهادة الوفاة",
+    "ur": "ڈیتھ سرٹیفکیٹ کی بدل یا اضافی کاپی",
+    "ml": "മരണ സർട്ടിഫിക്കറ്റിന്റെ പകർപ്പ് / പകരം"
+  },
+  "about": "A relative or authorised person requests a replacement or extra copy of a death certificate.",
+  "authority": "TAMM",
+  "aliases": [
+    "Death certificate copy",
+    "Lost death certificate",
+    "نسخة شهادة وفاة",
+    "بدل فاقد شهادة وفاة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DeceasedInheritance/Deceased/DeathCertificateReplacementoranAdditionalCopy",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A relative of the deceased or an authorised person"
+    ],
+    "documents": [
+      "Deceased's Emirates ID and passport",
+      "Applicant's passport",
+      "Authorisation letter"
+    ],
+    "fees": [
+      "AED 300 Ministry of Foreign Affairs attestation",
+      "AED 50 per copy from the second copy onward"
+    ],
+    "timing": [
+      "About 10 minutes"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

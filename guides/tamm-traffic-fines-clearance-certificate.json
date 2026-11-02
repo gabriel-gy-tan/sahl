@@ -1,0 +1,38 @@
+{
+  "id": "tamm-traffic-fines-clearance-certificate",
+  "service": {
+    "en": "Issue a traffic fines clearance certificate",
+    "ar": "إصدار شهادة براءة ذمة من المخالفات المرورية",
+    "ur": "ٹریفک جرمانوں کا کلیئرنس سرٹیفکیٹ",
+    "ml": "ട്രാഫിക് പിഴ ക്ലിയറൻസ് സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "Get a certificate showing there are no outstanding traffic fines.",
+  "authority": "TAMM",
+  "aliases": [
+    "Traffic clearance certificate",
+    "No fines certificate",
+    "شهادة عدم وجود مخالفات",
+    "براءة ذمة مرورية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/fines-violations/requesttoissueatrafficviolationsclearancecertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Driving licence",
+      "Vehicle registration"
+    ],
+    "fees": [
+      "100 AED issuance fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Abu Dhabi Police service centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,36 @@
+{
+  "id": "tamm-darb-close-toll-account",
+  "service": {
+    "en": "Close the Darb toll account",
+    "ar": "إغلاق حساب التعرفة المرورية درب",
+    "ur": "درب ٹول اکاؤنٹ بند کرنا",
+    "ml": "ദർബ് ടോൾ അക്കൗണ്ട് അവസാനിപ്പിക്കൽ"
+  },
+  "about": "Close a Darb toll account completely.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel Darb account",
+    "Close toll gate account",
+    "إغلاق حساب درب",
+    "إلغاء حساب التعرفة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/darb/RequesttoCloseTollGateAccount",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "Up to 45 working days",
+      "Any balance left in the wallet is paid back"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

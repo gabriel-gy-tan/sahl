@@ -1,0 +1,43 @@
+{
+  "id": "tamm-newlywed-rental-assistance",
+  "service": {
+    "en": "Rental assistance for newlyweds",
+    "ar": "المساعدة الإيجارية للمتزوجين حديثاً",
+    "ur": "نئے شادی شدہ جوڑوں کے لیے کرایہ امداد",
+    "ml": "നവദമ്പതികൾക്കുള്ള വാടക സഹായം"
+  },
+  "about": "Newlywed citizens apply for rental assistance of up to AED 75,000, renewed each year for up to four years.",
+  "authority": "TAMM",
+  "aliases": [
+    "Medeem rental support",
+    "Newlywed housing",
+    "إيجار المتزوجين",
+    "مساعدة سكن للمتزوجين"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/SupportCommunityEnvironment/Family-Enablement/RentalAssistanceServiceforNewlyMarriedCouples",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Newlywed citizens meeting Medeem's terms and conditions"
+    ],
+    "documents": [
+      "Salary certificate",
+      "Six months of personal bank statements",
+      "For unemployed applicants: letters on registration status with Abu Dhabi pension and with the General Pension and Social Security Authority",
+      "Certificate that neither spouse receives an employer rental allowance"
+    ],
+    "fees": [
+      "No fees"
+    ],
+    "timing": [
+      "About 20 working days",
+      "Renewed annually, up to four years"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Abu Dhabi Housing Authority"
+    ]
+  },
+  "fields": []
+}

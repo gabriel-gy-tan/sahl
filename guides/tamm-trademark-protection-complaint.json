@@ -1,0 +1,36 @@
+{
+  "id": "tamm-trademark-protection-complaint",
+  "service": {
+    "en": "Trademark protection complaint",
+    "ar": "حماية العلامة التجارية",
+    "ur": "ٹریڈ مارک تحفظ کی شکایت",
+    "ml": "ട്രേഡ്മാർക്ക് സംരക്ഷണ പരാതി"
+  },
+  "about": "Report an Abu Dhabi establishment for fraud or selling counterfeit goods that harm a trademark owner.",
+  "authority": "TAMM",
+  "aliases": [
+    "Counterfeit complaint",
+    "Trademark complaint",
+    "شكوى علامة تجارية",
+    "شكوى غش تجاري"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/requestforaddressingcomplaintconsumer",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Trademark certification"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "5 working days",
+      "You get a reference number for the case"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

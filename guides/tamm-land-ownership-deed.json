@@ -1,0 +1,34 @@
+{
+  "id": "tamm-land-ownership-deed",
+  "service": {
+    "en": "Land ownership deed",
+    "ar": "سند ملكية أرض",
+    "ur": "زمین کی ملکیت کا سند",
+    "ml": "ഭൂമി ഉടമസ്ഥാവകാശ ആധാരം"
+  },
+  "about": "Request a deed that proves ownership of land.",
+  "authority": "TAMM",
+  "aliases": [
+    "Title deed",
+    "Land title",
+    "سند ملكية",
+    "وثيقة ملكية أرض"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/Contracts-and-Consultations/requestforownershipdeed",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "timing": [
+      "1 working day",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

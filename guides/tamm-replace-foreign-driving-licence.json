@@ -1,0 +1,41 @@
+{
+  "id": "tamm-replace-foreign-driving-licence",
+  "service": {
+    "en": "Replace a driving licence issued by another country",
+    "ar": "استبدال رخصة قيادة صادرة من دولة أخرى",
+    "ur": "دوسرے ملک کے جاری کردہ ڈرائیونگ لائسنس کی تبدیلی",
+    "ml": "മറ്റൊരു രാജ്യം നൽകിയ ഡ്രൈവിംഗ് ലൈസൻസ് മാറ്റൽ"
+  },
+  "about": "Swap a foreign or Gulf driving licence from listed countries for a UAE licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Convert foreign licence",
+    "Exchange driving licence",
+    "Gulf licence replacement",
+    "استبدال رخصة أجنبية",
+    "تحويل رخصة قيادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/requesttoreplaceadrivinglicenceissuedfromanothercountry",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The licence comes from one of the specific countries the service accepts, or is a Gulf licence"
+    ],
+    "documents": [
+      "Emirates ID (original)",
+      "The foreign licence (original)"
+    ],
+    "fees": [
+      "600 AED"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

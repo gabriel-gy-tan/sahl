@@ -1,0 +1,35 @@
+{
+  "id": "tamm-municipal-violation-pay-appeal",
+  "service": {
+    "en": "Pay or appeal a municipal violation",
+    "ar": "سداد مخالفة بلدية أو الاعتراض عليها",
+    "ur": "میونسپل خلاف ورزی کی ادائیگی یا اپیل",
+    "ml": "മുനിസിപ്പൽ നിയമലംഘനം അടയ്ക്കൽ / അപ്പീൽ"
+  },
+  "about": "Settle a municipal fine online, or file an appeal against it.",
+  "authority": "TAMM",
+  "aliases": [
+    "Municipality fine",
+    "Appeal municipal fine",
+    "مخالفة بلدية",
+    "اعتراض على مخالفة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/PayMunicipalViolations",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Evidence supporting the appeal",
+      "Supporting evidence for removing the violation, when asking for payment"
+    ],
+    "timing": [
+      "Up to 15 working days",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

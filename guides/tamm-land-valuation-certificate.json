@@ -1,0 +1,41 @@
+{
+  "id": "tamm-land-valuation-certificate",
+  "service": {
+    "en": "Land valuation certificate",
+    "ar": "شهادة تقييم أرض",
+    "ur": "زمین کی ویلیویشن سرٹیفکیٹ",
+    "ml": "ഭൂമി മൂല്യനിർണ്ണയ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a certificate stating the approximate value of land, any restrictions on it, or how it was acquired.",
+  "authority": "TAMM",
+  "aliases": [
+    "Property valuation certificate",
+    "Land value letter",
+    "شهادة تقييم",
+    "تقييم عقار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/Contracts-and-Consultations/RequestaValuationCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Certificate of proof of income",
+      "Clear photos of all sides of the building",
+      "Site plan",
+      "Other supporting documents"
+    ],
+    "fees": [
+      "AED 900 residential or agricultural",
+      "AED 2,700 investment",
+      "AED 4,500 commercial"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

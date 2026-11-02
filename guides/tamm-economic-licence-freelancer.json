@@ -1,0 +1,48 @@
+{
+  "id": "tamm-economic-licence-freelancer",
+  "service": {
+    "en": "Issue an economic licence: Freelancer licence",
+    "ar": "إصدار رخصة اقتصادية: رخصة العمل الحر",
+    "ur": "اقتصادی لائسنس کا اجرا: فری لانسر لائسنس",
+    "ml": "സാമ്പത്തിക ലൈസൻസ് നൽകൽ: ഫ്രീലാൻസർ ലൈസൻസ്"
+  },
+  "about": "Let an individual work independently in approved freelance, consultancy or expertise-based activities.",
+  "authority": "TAMM",
+  "aliases": [
+    "Freelance licence",
+    "Freelancer permit",
+    "Self-employed licence",
+    "رخصة عمل حر",
+    "رخصة مستقل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/RequestforIssuingEconomicLicenceFreelancerLicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Individuals choosing activities from the approved list",
+      "Must meet the minimum legal age",
+      "Not for setting up a full commercial company"
+    ],
+    "documents": [
+      "Attested academic qualification or record from the issuing body",
+      "Experience certificates",
+      "Professional certificates"
+    ],
+    "fees": [
+      "790 AED organisational entities fee",
+      "10 AED economic register fee",
+      "315 AED establishment card fee",
+      "300 AED Abu Dhabi Chamber membership fee",
+      "10 AED commercial licence issuance fee"
+    ],
+    "timing": [
+      "10 working days",
+      "Other entities may need to approve too"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

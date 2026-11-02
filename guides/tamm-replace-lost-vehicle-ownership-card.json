@@ -1,0 +1,36 @@
+{
+  "id": "tamm-replace-lost-vehicle-ownership-card",
+  "service": {
+    "en": "Replace a lost vehicle ownership card",
+    "ar": "بدل فاقد لبطاقة ملكية المركبة",
+    "ur": "گم شدہ گاڑی کی ملکیت کارڈ کی تبدیلی",
+    "ml": "നഷ്ടപ്പെട്ട വാഹന ഉടമസ്ഥാവകാശ കാർഡ് മാറ്റി വാങ്ങൽ"
+  },
+  "about": "Get a replacement for a lost vehicle ownership card.",
+  "authority": "TAMM",
+  "aliases": [
+    "Lost mulkiya",
+    "Replace lost vehicle registration card",
+    "بدل فاقد رخصة مركبة",
+    "فقدان ملكية المركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requestforreplacementoflostvehiclelicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID"
+    ],
+    "fees": [
+      "300 AED request fee"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

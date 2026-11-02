@@ -1,0 +1,37 @@
+{
+  "id": "tamm-utility-critical-medical-registration",
+  "service": {
+    "en": "Register a critical medical condition for utilities",
+    "ar": "تسجيل حالة طبية حرجة للمرافق",
+    "ur": "اہم طبی حالت کی یوٹیلیٹی رجسٹریشن",
+    "ml": "ഗുരുതര രോഗാവസ്ഥ രജിസ്ട്രേഷൻ (യൂട്ടിലിറ്റി)"
+  },
+  "about": "Register a person with a critical medical condition so electricity and water to the home are not disconnected.",
+  "authority": "TAMM",
+  "aliases": [
+    "Medical condition electricity",
+    "Prevent power cut",
+    "حالة طبية حرجة",
+    "عدم قطع الكهرباء"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/CriticalMedicalConditionsRegistration-taqa",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Medical report approved by the Department of Health",
+      "Undertaking letter to renew the report every 12 months and pay account dues",
+      "Emirates ID",
+      "Proof of first or second-degree kinship"
+    ],
+    "timing": [
+      "2 working days",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app) or another available channel",
+      "Provided by TAQA Distribution"
+    ]
+  },
+  "fields": []
+}

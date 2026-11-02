@@ -1,0 +1,37 @@
+{
+  "id": "tamm-book-driving-test",
+  "service": {
+    "en": "Book a driving test date",
+    "ar": "حجز موعد اختبار القيادة",
+    "ur": "ڈرائیونگ ٹیسٹ کی تاریخ بک کرنا",
+    "ml": "ഡ്രൈവിംഗ് ടെസ്റ്റ് തീയതി ബുക്ക് ചെയ്യൽ"
+  },
+  "about": "Book a date for the driving test and get the training vehicle permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Driving test appointment",
+    "Book road test",
+    "حجز اختبار قيادة",
+    "موعد فحص السياقة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requestadrivingtestdate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID"
+    ],
+    "fees": [
+      "100 AED for a light vehicle or motorcycle",
+      "200 AED for heavy vehicle, bus or mechanical equipment"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

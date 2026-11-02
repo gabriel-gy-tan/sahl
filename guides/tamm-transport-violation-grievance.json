@@ -1,0 +1,39 @@
+{
+  "id": "tamm-transport-violation-grievance",
+  "service": {
+    "en": "Grievance for transport violations",
+    "ar": "التظلم من المخالفات النقلية",
+    "ur": "ٹرانسپورٹ خلاف ورزیوں کے خلاف شکایت",
+    "ml": "ഗതാഗത നിയമലംഘനങ്ങൾക്കെതിരായ പരാതി"
+  },
+  "about": "Object to a violation issued by the Integrated Transport Centre.",
+  "authority": "TAMM",
+  "aliases": [
+    "Appeal transport fine",
+    "Object to violation",
+    "تظلم مخالفة",
+    "اعتراض على مخالفة نقل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/fines-violations/RequestaGrievanceforTransportViolations",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Apply within 60 days of the violation date"
+    ],
+    "documents": [
+      "Supporting documents for the grievance (optional)"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "7 working days",
+      "You are told whether the grievance is accepted or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

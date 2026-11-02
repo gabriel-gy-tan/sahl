@@ -1,0 +1,41 @@
+{
+  "id": "tamm-renew-driving-licence",
+  "service": {
+    "en": "Renew driving licence",
+    "ar": "تجديد رخصة القيادة",
+    "ur": "ڈرائیونگ لائسنس کی تجدید",
+    "ml": "ഡ്രൈവിംഗ് ലൈസൻസ് പുതുക്കൽ"
+  },
+  "about": "Renew a driving licence that has expired or is within six months of expiring.",
+  "authority": "TAMM",
+  "aliases": [
+    "Driving license renewal",
+    "Renew license",
+    "تجديد رخصة سياقة",
+    "تجديد الرخصة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/requestforrenewalofdrivinglicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The licence is expired or has 6 months or less before it expires"
+    ],
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "300 AED for the renewal",
+      "100 AED if the holder is 21 or under",
+      "10 AED for each month of delay, if it applies"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

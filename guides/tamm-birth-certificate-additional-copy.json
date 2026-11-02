@@ -1,0 +1,36 @@
+{
+  "id": "tamm-birth-certificate-additional-copy",
+  "service": {
+    "en": "Additional copy of a digital birth certificate",
+    "ar": "إصدار نسخة إضافية من شهادة الميلاد الرقمية",
+    "ur": "ڈیجیٹل برتھ سرٹیفکیٹ کی اضافی کاپی",
+    "ml": "ഡിജിറ്റൽ ജനന സർട്ടിഫിക്കറ്റിന്റെ അധിക പകർപ്പ്"
+  },
+  "about": "Request an extra copy of a digital birth certificate that was already issued.",
+  "authority": "TAMM",
+  "aliases": [
+    "Birth certificate copy",
+    "Replacement birth certificate",
+    "نسخة شهادة ميلاد",
+    "بدل فاقد شهادة ميلاد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/Issue%20a%20Replacement%20or%20an%20Additional%20Copy%20of%20a%20Digital%20Birth%20Certificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "AED 50 certificate fee (English or Arabic)"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

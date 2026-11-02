@@ -1,0 +1,39 @@
+{
+  "id": "tamm-attested-sequential-study-transcript",
+  "service": {
+    "en": "Issue an attested sequential study transcript",
+    "ar": "إصدار شهادة دراسة متسلسلة مصدقة",
+    "ur": "تصدیق شدہ ترتیب وار تعلیمی ٹرانسکرپٹ",
+    "ml": "സാക്ഷ്യപ്പെടുത്തിയ തുടർച്ചയായ പഠന ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "about": "Get a certified transcript of a student's progress across years in private or partnership schools in Abu Dhabi.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sequential study certificate",
+    "Academic transcript",
+    "كشف دراسي متسلسل",
+    "شهادة تسلسل دراسي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/RequestforSequentialStudyCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Covers records from 2012 onwards"
+    ],
+    "documents": [
+      "Emirates ID"
+    ],
+    "fees": [
+      "15 AED attestation fee"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an electronic copy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

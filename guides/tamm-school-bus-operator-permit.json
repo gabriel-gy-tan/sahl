@@ -1,0 +1,35 @@
+{
+  "id": "tamm-school-bus-operator-permit",
+  "service": {
+    "en": "Issue a school bus operator permit",
+    "ar": "إصدار تصريح مشغل حافلات مدرسية",
+    "ur": "اسکول بس آپریٹر پرمٹ کا اجرا",
+    "ml": "സ്കൂൾ ബസ് ഓപ്പറേറ്റർ പെർമിറ്റ് നൽകൽ"
+  },
+  "about": "Let an operator or school get a permit to run school bus transport for students.",
+  "authority": "TAMM",
+  "aliases": [
+    "School transport permit",
+    "School bus licence",
+    "تصريح نقل مدرسي",
+    "ترخيص حافلات مدرسية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/education/educational-institutes/IssueSchoolBusOperatorPermit",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Commercial licence"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

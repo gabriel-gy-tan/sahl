@@ -1,0 +1,37 @@
+{
+  "id": "tamm-vehicle-export-certificate",
+  "service": {
+    "en": "Issue vehicle export certificate outside UAE",
+    "ar": "إصدار شهادة تصدير مركبة خارج الدولة",
+    "ur": "متحدہ عرب امارات سے باہر گاڑی برآمد کرنے کا سرٹیفکیٹ",
+    "ml": "യുഎഇക്ക് പുറത്തേക്ക് വാഹനം കയറ്റുമതി ചെയ്യാനുള്ള സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a certificate to export a vehicle out of the UAE.",
+  "authority": "TAMM",
+  "aliases": [
+    "Export car certificate",
+    "Vehicle export",
+    "شهادة تصدير مركبة",
+    "تصدير سيارة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requestforissuingacertificateofvehiclesexportingoutsideuae",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "50 AED for light vehicles, motorcycles, light machinery, vehicles over 3 and under 12 tonnes, and buses",
+      "100 AED for 12-tonne vehicles and heavy machinery"
+    ],
+    "timing": [
+      "About 1 hour"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

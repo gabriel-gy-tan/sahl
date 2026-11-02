@@ -1,0 +1,42 @@
+{
+  "id": "tamm-transfer-vehicle-ownership",
+  "service": {
+    "en": "Transfer vehicle ownership",
+    "ar": "نقل ملكية المركبة",
+    "ur": "گاڑی کی ملکیت کی منتقلی",
+    "ml": "വാഹന ഉടമസ്ഥാവകാശ കൈമാറ്റം"
+  },
+  "about": "Move a vehicle's registration from one person or company to another.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sell car transfer",
+    "Vehicle ownership transfer",
+    "Transfer car to buyer",
+    "نقل ملكية سيارة",
+    "بيع مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requesttotransfervehicleownership",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)",
+      "Copy of the official power of attorney"
+    ],
+    "fees": [
+      "350 AED for private or public light vehicles",
+      "400 AED private and 650 AED public for vehicles over 3 and up to 12 tonnes",
+      "800 AED private and 1,000 AED public for vehicles over 12 tonnes",
+      "Motorcycles 200 AED private, 400 AED public; buses, trailers and machinery have their own rates on the page"
+    ],
+    "timing": [
+      "About 1 hour",
+      "The person receiving the vehicle enters an OTP code sent to them"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

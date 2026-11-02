@@ -1,0 +1,36 @@
+{
+  "id": "tamm-vehicle-possession-cancellation-certificate",
+  "service": {
+    "en": "Issue vehicle possession cancellation certificate",
+    "ar": "إصدار شهادة إلغاء حيازة مركبة",
+    "ur": "گاڑی کی ملکیت منسوخی سرٹیفکیٹ کا اجرا",
+    "ml": "വാഹന കൈവശാവകാശ റദ്ദാക്കൽ സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "Remove a vehicle's data from the system and get a cancellation certificate, for a person or a company.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel vehicle registration",
+    "Vehicle registration cancellation",
+    "إلغاء تسجيل مركبة",
+    "إلغاء ملكية مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/RequestforVehicleRegistrationCancellation",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "200 AED request fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

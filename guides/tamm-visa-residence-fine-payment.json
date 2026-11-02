@@ -1,0 +1,38 @@
+{
+  "id": "tamm-visa-residence-fine-payment",
+  "service": {
+    "en": "Pay a visa or residence violation fine",
+    "ar": "سداد غرامة مخالفة التأشيرة أو الإقامة",
+    "ur": "ویزا یا رہائشی خلاف ورزی کا جرمانہ",
+    "ml": "വിസ / താമസ നിയമലംഘന പിഴ അടയ്ക്കൽ"
+  },
+  "about": "Settle fines for overstaying or breaching visa and residency rules.",
+  "authority": "TAMM",
+  "aliases": [
+    "Overstay fine",
+    "Pay visa fine",
+    "غرامة تخلف",
+    "غرامات الإقامة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/PaymentofVisaorResidenceViolationFine",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "AED 100 smart services fee",
+      "AED 50 application fee"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "Receipt confirms the payment"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

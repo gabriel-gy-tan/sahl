@@ -1,0 +1,36 @@
+{
+  "id": "tamm-patient-escort-certificate",
+  "service": {
+    "en": "Issue a to-whom-it-may-concern certificate for a patient and escorts",
+    "ar": "إصدار شهادة لمن يهمه الأمر للمريض والمرافقين",
+    "ur": "مریض اور ہمراہیوں کے لیے متعلقہ حکام کے نام سرٹیفکیٹ",
+    "ml": "രോഗിക്കും കൂടെയുള്ളവർക്കും ബന്ധപ്പെട്ടവർക്കുള്ള സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a to-whom-it-may-concern certificate for a patient and their official escorts.",
+  "authority": "TAMM",
+  "aliases": [
+    "Patient escort letter",
+    "International patient certificate",
+    "شهادة مرافق مريض",
+    "شهادة لمن يهمه الأمر مريض"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/international-patient-care/RequestToWhomItMayConcernCertificateforthePatientorhisherEscort",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Passport"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 24 hours",
+      "You are told if the request is approved or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

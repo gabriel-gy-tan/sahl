@@ -1,0 +1,43 @@
+{
+  "id": "tamm-family-visa-citizen",
+  "service": {
+    "en": "Family residence visa (citizen sponsor)",
+    "ar": "تأشيرة إقامة عائلية (كفيل مواطن)",
+    "ur": "فیملی رہائشی ویزا (شہری کفیل)",
+    "ml": "കുടുംബ റെസിഡൻസ് വിസ (പൗര സ്പോൺസർ)"
+  },
+  "about": "A citizen sponsor requests a residence visa for a family member.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sponsor family citizen",
+    "Family visa Emirati",
+    "تأشيرة عائلة مواطن",
+    "كفالة أسرة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssueaFamilyVisaaCitizenSponsor",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Proof of income certificate",
+      "Emirates ID",
+      "Passport",
+      "Photo",
+      "Proof of first-degree kinship"
+    ],
+    "fees": [
+      "AED 100 issuance fee",
+      "AED 100 request fee",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

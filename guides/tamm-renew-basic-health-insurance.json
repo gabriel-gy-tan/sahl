@@ -1,0 +1,42 @@
+{
+  "id": "tamm-renew-basic-health-insurance",
+  "service": {
+    "en": "Renew Abu Dhabi basic health insurance policy",
+    "ar": "تجديد وثيقة التأمين الصحي الأساسي لأبوظبي",
+    "ur": "ابوظہبی بنیادی ہیلتھ انشورنس پالیسی کی تجدید",
+    "ml": "അബുദാബി അടിസ്ഥാന ആരോഗ്യ ഇൻഷുറൻസ് പോളിസി പുതുക്കൽ"
+  },
+  "about": "Renew an individual Abu Dhabi basic health insurance policy with Daman.",
+  "authority": "TAMM",
+  "aliases": [
+    "Daman renewal",
+    "Renew health insurance",
+    "Renew Daman policy",
+    "تجديد تأمين صحي",
+    "تجديد ضمان"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Request%20to%20Renew%20Health%20Insurance%20Policy%20Daman",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Residence visa",
+      "Policyholder health insurance"
+    ],
+    "fees": [
+      "Premium listed as 750 to 19,306 AED",
+      "Late fine of 300 AED per month, if it applies"
+    ],
+    "timing": [
+      "About 24 hours",
+      "You receive the renewed policy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "a service centre"
+    ]
+  },
+  "fields": []
+}

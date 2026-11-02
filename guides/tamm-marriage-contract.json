@@ -1,0 +1,40 @@
+{
+  "id": "tamm-marriage-contract",
+  "service": {
+    "en": "Conclude a marriage contract",
+    "ar": "إبرام عقد زواج",
+    "ur": "نکاح نامہ طے کرنا",
+    "ml": "വിവാഹ കരാർ നടത്തൽ"
+  },
+  "about": "The groom applies for a marriage contract under Sharia, with the registrar at the venue in Abu Dhabi or by video call.",
+  "authority": "TAMM",
+  "aliases": [
+    "Get married Abu Dhabi",
+    "Marriage registration",
+    "عقد زواج",
+    "توثيق زواج"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/SupportCommunityEnvironment/Preparing-for-Marriage/ConcludingaMarriageContract",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates IDs of the groom, bride, her guardian (wali) and the witnesses",
+      "Passports of the groom, bride and her guardian",
+      "Medical examination report",
+      "Visit visa or UAE entry stamp for non-residents"
+    ],
+    "fees": [
+      "AED 800 attestation fee"
+    ],
+    "timing": [
+      "About 2 working days",
+      "An appointment is booked after approval"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Abu Dhabi Judicial Department"
+    ]
+  },
+  "fields": []
+}

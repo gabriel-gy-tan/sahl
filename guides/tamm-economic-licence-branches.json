@@ -1,0 +1,49 @@
+{
+  "id": "tamm-economic-licence-branches",
+  "service": {
+    "en": "Issue an economic licence: Dual licence and branches",
+    "ar": "إصدار رخصة اقتصادية: الرخصة المزدوجة والفروع",
+    "ur": "اقتصادی لائسنس کا اجرا: دوہرا لائسنس اور شاخیں",
+    "ml": "സാമ്പത്തിക ലൈസൻസ് നൽകൽ: ഡ്യുവൽ ലൈസൻസും ശാഖകളും"
+  },
+  "about": "Let an existing company open a branch or dual licence in Abu Dhabi with the parent company's legal form and activities.",
+  "authority": "TAMM",
+  "aliases": [
+    "Branch licence",
+    "Dual licence",
+    "Open company branch",
+    "رخصة فرع",
+    "رخصة مزدوجة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/RequestforIssuingEconomicLicenceBranches",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "An existing company opening a branch with the same legal form and activities as the parent"
+    ],
+    "documents": [
+      "Parent company's economic licence",
+      "Tenancy contract",
+      "Parent company's memorandum of association",
+      "Declaration and pledge",
+      "Free zone licence",
+      "No objection certificate"
+    ],
+    "fees": [
+      "790 AED for up to 6 activities",
+      "600 AED Chamber membership for branches, 2,200 AED for foreign branches",
+      "315 AED establishment card fee",
+      "10 AED economic register fee",
+      "10 AED commercial licence issuance fee"
+    ],
+    "timing": [
+      "5 working days",
+      "Other entities may need to approve too"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

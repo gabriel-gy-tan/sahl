@@ -1,0 +1,37 @@
+{
+  "id": "tamm-utility-certificate-to-whom-it-may-concern",
+  "service": {
+    "en": "Utility account certificate (to whom it may concern)",
+    "ar": "شهادة حساب مرافق (لمن يهمه الأمر)",
+    "ur": "یوٹیلیٹی اکاؤنٹ سرٹیفکیٹ (متعلقہ افراد کے نام)",
+    "ml": "യൂട്ടിലിറ്റി അക്കൗണ്ട് സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a certificate confirming you hold an active water and electricity account, with account and premises details.",
+  "authority": "TAMM",
+  "aliases": [
+    "Utility account letter",
+    "Proof of active account",
+    "شهادة لمن يهمه الأمر",
+    "شهادة حساب كهرباء"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/IssueToWhomItMayConcernCertificate-taqa",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Applicant's Emirates ID",
+      "Power of attorney and the agent's Emirates ID, if applying through an agent",
+      "For businesses: economic licence, signature authorisation, authorised signatory's Emirates ID and passport, and a request letter signed by all partners"
+    ],
+    "timing": [
+      "1 working day",
+      "No additional cost",
+      "Documents are needed only if required for the channel used"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app) or another available channel",
+      "Provided by TAQA Distribution"
+    ]
+  },
+  "fields": []
+}

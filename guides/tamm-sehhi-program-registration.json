@@ -1,0 +1,36 @@
+{
+  "id": "tamm-sehhi-program-registration",
+  "service": {
+    "en": "Register in the SEHHI programme",
+    "ar": "التسجيل في برنامج صحي",
+    "ur": "صحی پروگرام میں رجسٹریشن",
+    "ml": "സെഹി പ്രോഗ്രാമിൽ രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register in the SEHHI programme, which promotes better food choices and healthy lifestyles.",
+  "authority": "TAMM",
+  "aliases": [
+    "Join SEHHI",
+    "SEHHI program",
+    "برنامج صحي",
+    "التسجيل في صحي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Family-Health/JoinSEHHIProgram",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Company profile"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 3 days",
+      "You are told if the registration is approved or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

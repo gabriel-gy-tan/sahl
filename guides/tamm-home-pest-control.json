@@ -1,0 +1,35 @@
+{
+  "id": "tamm-home-pest-control",
+  "service": {
+    "en": "Book home pest control",
+    "ar": "حجز خدمة مكافحة الآفات المنزلية",
+    "ur": "گھر میں کیڑوں کے کنٹرول کی بکنگ",
+    "ml": "വീട്ടിലെ കീടനിയന്ത്രണ സേവനം ബുക്ക് ചെയ്യൽ"
+  },
+  "about": "Citizens and residents request public-health pest control at their home in Abu Dhabi.",
+  "authority": "TAMM",
+  "aliases": [
+    "Pest control booking",
+    "Cockroach removal",
+    "مكافحة حشرات",
+    "حجز مكافحة آفات"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/BookaHomePestControlService",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "timing": [
+      "About 8 working days",
+      "No additional cost",
+      "Includes booking a pest removal appointment"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "tamm-issue-vehicle-ownership",
+  "service": {
+    "en": "Issue vehicle ownership",
+    "ar": "إصدار ملكية المركبة",
+    "ur": "گاڑی کی ملکیت کا اجرا",
+    "ml": "വാഹന ഉടമസ്ഥാവകാശ കാർഡ് നൽകൽ"
+  },
+  "about": "Get a registration (ownership) card so a vehicle can be driven in Abu Dhabi.",
+  "authority": "TAMM",
+  "aliases": [
+    "Register new vehicle",
+    "New vehicle registration",
+    "Issue mulkiya",
+    "تسجيل مركبة جديدة",
+    "إصدار رخصة مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requesttoissueanewvehiclelicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "400 AED for private or public light vehicles",
+      "500 AED private and 750 AED public for vehicles over 3 and up to 12 tonnes",
+      "900 AED private and 1,200 AED public for vehicles over 12 tonnes",
+      "Motorcycles 200 AED private, 400 AED public; buses, trailers and machinery have their own rates on the page"
+    ],
+    "timing": [
+      "About 1 hour"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

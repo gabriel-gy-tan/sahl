@@ -1,0 +1,36 @@
+{
+  "id": "tamm-entrepreneur-support-letter",
+  "service": {
+    "en": "Issue a support letter (Khalifa Fund)",
+    "ar": "إصدار خطاب دعم (صندوق خليفة)",
+    "ur": "سپورٹ لیٹر کا اجرا (خلیفہ فنڈ)",
+    "ml": "പിന്തുണ കത്ത് നൽകൽ (ഖലീഫ ഫണ്ട്)"
+  },
+  "about": "Let an entrepreneur obtain a support letter for a government or private body from Khalifa Fund.",
+  "authority": "TAMM",
+  "aliases": [
+    "Khalifa Fund letter",
+    "Entrepreneur support letter",
+    "خطاب دعم",
+    "رسالة دعم صندوق خليفة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/Business-Support/SupportLetterRequest",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "1 working day",
+      "The letter arrives by email once approved"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

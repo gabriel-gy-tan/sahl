@@ -1,0 +1,38 @@
+{
+  "id": "tamm-citizen-passport-lost-damaged",
+  "service": {
+    "en": "Replace a lost or damaged citizen passport",
+    "ar": "استبدال جواز سفر المواطن المفقود أو التالف",
+    "ur": "گم یا خراب شہری پاسپورٹ کی تبدیلی",
+    "ml": "നഷ്ടപ്പെട്ട / കേടായ പാസ്‌പോർട്ട് മാറ്റൽ"
+  },
+  "about": "UAE citizens apply for a new passport to replace a lost or damaged one, or to update the photo.",
+  "authority": "TAMM",
+  "aliases": [
+    "Lost passport citizen",
+    "Damaged passport",
+    "جواز سفر مفقود",
+    "بدل فاقد جواز"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/IssueReplacementofLostDamagedPassport",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Personal photo",
+      "A photo showing the damage, if the passport is damaged"
+    ],
+    "fees": [
+      "AED 300 request fee"
+    ],
+    "timing": [
+      "2 working days",
+      "Passport arrives by an authorised delivery company"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

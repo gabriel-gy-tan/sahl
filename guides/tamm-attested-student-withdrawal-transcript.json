@@ -1,0 +1,39 @@
+{
+  "id": "tamm-attested-student-withdrawal-transcript",
+  "service": {
+    "en": "Issue an attested student withdrawal transcript",
+    "ar": "إصدار شهادة انسحاب طالب مصدقة",
+    "ur": "تصدیق شدہ طالب علم کے اخراج کا ٹرانسکرپٹ",
+    "ml": "സാക്ഷ്യപ്പെടുത്തിയ വിദ്യാർത്ഥി പിൻവാങ്ങൽ ട്രാൻസ്ക്രിപ്റ്റ്"
+  },
+  "about": "Get an attested transcript with the date and reason a student left a private or charter school in Abu Dhabi.",
+  "authority": "TAMM",
+  "aliases": [
+    "Study leave certificate",
+    "School leaving certificate",
+    "شهادة ترك دراسة",
+    "شهادة انسحاب طالب"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/StudyLeaveCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Covers certificates issued from 2012 onwards"
+    ],
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "15 AED attestation fee"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an electronic copy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

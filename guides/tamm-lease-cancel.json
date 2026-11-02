@@ -1,0 +1,34 @@
+{
+  "id": "tamm-lease-cancel",
+  "service": {
+    "en": "Cancel a lease contract",
+    "ar": "إلغاء عقد إيجار",
+    "ur": "کرایہ نامہ منسوخ کرنا",
+    "ml": "വാടക കരാർ റദ്ദാക്കൽ"
+  },
+  "about": "Cancel the lease on a rented unit while the contract is still valid.",
+  "authority": "TAMM",
+  "aliases": [
+    "Terminate tenancy contract",
+    "End lease early",
+    "إلغاء عقد الإيجار",
+    "فسخ عقد إيجار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoCancelaLeaseContract",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

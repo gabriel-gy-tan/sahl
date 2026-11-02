@@ -1,0 +1,43 @@
+{
+  "id": "tamm-reserve-economic-name",
+  "service": {
+    "en": "Reserve an economic name",
+    "ar": "حجز اسم اقتصادي",
+    "ur": "اقتصادی نام کی بکنگ",
+    "ml": "സാമ്പത്തിക പേര് റിസർവ് ചെയ്യൽ"
+  },
+  "about": "Reserve the business name that identifies an establishment and its trade dealings.",
+  "authority": "TAMM",
+  "aliases": [
+    "Trade name reservation",
+    "Reserve business name",
+    "Company name reservation",
+    "حجز اسم تجاري",
+    "حجز اسم منشأة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/requestforreservingeconomicname",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Economic licence",
+      "Memorandum of association",
+      "Decision of the company's authorised body approving the branch and the representative's authorisation",
+      "No-objection letter from the free zone to licence a branch",
+      "Undertaking that the company will have no other branch in Abu Dhabi",
+      "Embassy and Foreign Ministry attested certificate, translated into Arabic, with legal form, licence name, owners, capital and incorporation date"
+    ],
+    "fees": [
+      "50 AED name reservation fee",
+      "15 AED initial approval fee"
+    ],
+    "timing": [
+      "1 working day",
+      "You get an approval or rejection notice, then pay if approved"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,37 @@
+{
+  "id": "tamm-vehicle-transfer-certificate-within-uae",
+  "service": {
+    "en": "Issue vehicle transfer certificate within UAE",
+    "ar": "إصدار شهادة نقل ملف مركبة داخل الدولة",
+    "ur": "متحدہ عرب امارات کے اندر گاڑی کی منتقلی کا سرٹیفکیٹ",
+    "ml": "യുഎഇക്കുള്ളിൽ വാഹന കൈമാറ്റ സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "Get a certificate for moving a vehicle's file to another emirate within the UAE.",
+  "authority": "TAMM",
+  "aliases": [
+    "Vehicle file transfer certificate",
+    "Transfer car to another emirate",
+    "شهادة نقل مركبة",
+    "نقل ملف مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requestforissuingcertificateofvehiclefiletransferwithintheuae",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "100 AED for a light vehicle or one over 3 and under 12 tonnes",
+      "200 AED for a 12-tonne vehicle"
+    ],
+    "timing": [
+      "About 1 hour"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

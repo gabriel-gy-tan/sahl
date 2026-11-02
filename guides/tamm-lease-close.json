@@ -1,0 +1,35 @@
+{
+  "id": "tamm-lease-close",
+  "service": {
+    "en": "Close a lease contract",
+    "ar": "إغلاق عقد إيجار",
+    "ur": "کرایہ نامہ بند کرنا",
+    "ml": "വാടക കരാർ അവസാനിപ്പിക്കൽ"
+  },
+  "about": "Close the lease on a rented unit once the contract has ended.",
+  "authority": "TAMM",
+  "aliases": [
+    "Close tenancy contract",
+    "End of lease",
+    "إغلاق عقد الإيجار",
+    "إنهاء عقد إيجار منتهي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoCloseaLeaseContract",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Electricity account closure or electricity proof in the landlord's name",
+      "Keys handover document from the tenant"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}
