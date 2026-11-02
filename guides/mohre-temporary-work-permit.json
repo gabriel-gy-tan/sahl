@@ -1,0 +1,54 @@
+{
+  "id": "mohre-temporary-work-permit",
+  "service": {
+    "en": "Temporary work permit",
+    "ar": "تصريح عمل مؤقت",
+    "ur": "عارضی ورک پرمٹ",
+    "ml": "താൽക്കാലിക വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Let an employee work for a new employer for up to six months while moving between jobs.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Temporary work permit",
+    "Six-month work permit",
+    "تصريح عمل مؤقت",
+    "إصدار تصريح عمل جديد - مؤقت"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/temporary-work-permits-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee is at least 18",
+      "Job matches the establishment's licensed activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory",
+      "The current employer must approve the electronic permit form, unless the employee's labour complaint went to court",
+      "Granted once; a new application is possible after it ends"
+    ],
+    "documents": [
+      "Clear colour photo on a white background",
+      "Passport copy valid for at least 6 months",
+      "Official job offer form signed by employer and employee",
+      "Academic certificate that depends on skill level: bachelor's for levels 1-2, diploma for 3-4, high school for level 5, none for 6-9",
+      "Professional licence from the competent authority where the job needs one",
+      "Electronic permit form approved by the current employer"
+    ],
+    "fees": [
+      "Federal fee 50 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app; tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 6 months"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

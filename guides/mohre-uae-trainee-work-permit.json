@@ -1,0 +1,50 @@
+{
+  "id": "mohre-uae-trainee-work-permit",
+  "service": {
+    "en": "Work permit for UAE national trainees",
+    "ar": "تصريح عمل للمواطنين المتدربين",
+    "ur": "یو اے ای شہری تربیت یافتگان کا ورک پرمٹ",
+    "ml": "യുഎഇ പൗര ട്രെയിനികൾക്കുള്ള വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Get a work permit for a UAE national trainee at a private-sector employer.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Emirati trainee permit",
+    "National trainee work permit",
+    "تصريح عمل متدرب مواطن",
+    "تصريح عمل متدرب إماراتي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/work-permit-for-uae-national-trainees-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Trainee is at least 18 and holds no valid work permit",
+      "Contract runs up to 12 months, renewable by agreement, and states the trainee's qualifications",
+      "Job matches the establishment's activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory"
+    ],
+    "documents": [
+      "Clear colour photo on a white background",
+      "Emirates ID copy",
+      "Official job offer form signed by employer and employee",
+      "Professional licence from the competent authority where the job needs one"
+    ],
+    "fees": [
+      "Federal fee 50 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app; tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 2 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

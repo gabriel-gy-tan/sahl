@@ -1,0 +1,43 @@
+{
+  "id": "mohre-withdraw-absconding-report-worker",
+  "service": {
+    "en": "Withdraw a domestic worker absconding report (worker)",
+    "ar": "سحب بلاغ تغيب عامل خدمة منزلية (العامل)",
+    "ur": "گھریلو ملازم کی غیر حاضری رپورٹ واپس لینا (ملازم)",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ ഹാജരില്ലായ്മ റിപ്പോർട്ട് പിൻവലിക്കൽ (തൊഴിലാളി)"
+  },
+  "about": "Let a domestic worker ask to cancel an absconding report filed against them.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Worker cancels absconding report",
+    "Absconding report withdrawal by worker",
+    "سحب بلاغ تغيب من العامل",
+    "إلغاء بلاغ هروب"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/withdrawal-of-absconding-report-domestic-workers-the-domestic-worker-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "An absconding report must already exist",
+      "The worker's residence visa is needed, valid or not"
+    ],
+    "documents": [
+      "Worker's Emirates ID, both sides",
+      "Worker's passport copy"
+    ],
+    "fees": [
+      "115 AED outside Dubai; Dubai is handled by its residency directorate",
+      "Business centres may add a commission of up to 72 AED"
+    ],
+    "timing": [
+      "Done in 3 working days"
+    ],
+    "channels": [
+      "MOHRE eservices portal",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,54 @@
+{
+  "id": "mohre-uae-gcc-citizen-work-permit",
+  "service": {
+    "en": "Work permit for UAE and GCC citizens",
+    "ar": "تصريح عمل لمواطني الدولة ومواطني دول مجلس التعاون",
+    "ur": "یو اے ای اور خلیجی شہریوں کا ورک پرمٹ",
+    "ml": "യുഎഇ, ജിസിസി പൗരന്മാർക്കുള്ള വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Get a work permit for a UAE or GCC citizen joining a private-sector employer.",
+  "authority": "MOHRE",
+  "aliases": [
+    "UAE national work permit",
+    "GCC citizen work permit",
+    "تصريح عمل مواطن",
+    "تصريح عمل مواطن خليجي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/uae-nationalsgcc-citizens-work-permit-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee is at least 18",
+      "Job matches the establishment's licensed activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory",
+      "No bank guarantee, insurance or quota needed",
+      "Candidate must not hold a valid residence visa"
+    ],
+    "documents": [
+      "Clear colour photo on a white background",
+      "Emirates ID copy",
+      "Passport copy for GCC citizens",
+      "Official job offer form signed by employer and employee",
+      "Academic certificate that depends on skill level: bachelor's for levels 1-2, diploma for 3-4, high school for level 5, none for 6-9",
+      "Professional licence from the competent authority where the job needs one"
+    ],
+    "fees": [
+      "No federal fee",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 2 years"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,47 @@
+{
+  "id": "mohre-cancel-work-permit",
+  "service": {
+    "en": "Cancel a work permit and employment contract",
+    "ar": "إلغاء تصاريح العمل وعقود العمل",
+    "ur": "ورک پرمٹ اور ملازمت کا معاہدہ منسوخ کرنا",
+    "ml": "വർക്ക് പെർമിറ്റും തൊഴിൽ കരാറും റദ്ദാക്കൽ"
+  },
+  "about": "End an employee's work permit and contract when the job finishes.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Work permit cancellation",
+    "Cancel employee visa",
+    "إلغاء تصريح عمل",
+    "إلغاء عقد عمل"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/cancellation-of-work-permits-and-employment-contracts-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employer pays any fines for late issue or non-renewal of permits",
+      "Employer gives an official statement that the worker's dues are settled",
+      "Employee signs to agree and confirm receiving dues, except when overseas, deceased, ill with a contagious disease or administratively cancelled"
+    ],
+    "documents": [
+      "Ministry cancellation request form",
+      "Residence visa details if the worker is outside the country or deported",
+      "Medical fitness form marked unfit, or a death certificate, in those cases",
+      "Both parties sign for e-permits; employer alone for unused initial approvals"
+    ],
+    "fees": [
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app apart from federal charges"
+    ],
+    "timing": [
+      "Done in 2 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

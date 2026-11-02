@@ -1,0 +1,54 @@
+{
+  "id": "mohre-domestic-worker-work-permit",
+  "service": {
+    "en": "New work permit for a domestic worker",
+    "ar": "تصريح عمل جديد لعامل خدمة منزلية",
+    "ur": "گھریلو ملازم کا نیا ورک پرمٹ",
+    "ml": "ഗാർഹിക തൊഴിലാളിക്കുള്ള പുതിയ വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Get a work permit so a household can hire a domestic worker.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Domestic worker permit",
+    "Maid work permit",
+    "تصريح عمل خادمة",
+    "تصريح عمل عامل منزلي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/issuance-of-a-new-work-permit-domestic-workers-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employer's passport must be valid",
+      "Citizen employers need a valid Emirates ID; resident employers or investors need a valid residence permit",
+      "Worker must not hold a valid work permit",
+      "Worker's passport valid for at least 3 months",
+      "Worker is 18 or older, up to age 60",
+      "The worker needs an adequate insurance policy on the employer's file"
+    ],
+    "documents": [
+      "Employer's passport copy (citizens include the unified number page)",
+      "Worker's passport copy and colour photo",
+      "Employer's valid original ID",
+      "For expatriate employers: housing proof and a salary certificate or 3 months of bank statements showing at least 25,000 AED monthly family income",
+      "Marriage contract and spouse's visa for expatriate employers",
+      "Written justification if the employer already has more than five domestic workers"
+    ],
+    "fees": [
+      "Fees depend on the emirate and permit length",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 2 years for citizens, 1 year for residents"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

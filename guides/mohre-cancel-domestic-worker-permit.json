@@ -1,0 +1,46 @@
+{
+  "id": "mohre-cancel-domestic-worker-permit",
+  "service": {
+    "en": "Cancel a domestic worker's work permit",
+    "ar": "إلغاء تصريح عمل عامل خدمة منزلية",
+    "ur": "گھریلو ملازم کا ورک پرمٹ منسوخ کرنا",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ വർക്ക് പെർമിറ്റ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel the work permit of a domestic worker who is in or outside the country.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Cancel maid permit",
+    "Domestic worker permit cancellation",
+    "إلغاء تصريح خادمة",
+    "إلغاء تصريح عامل منزلي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/cancellation-of-a-domestic-workers-work-permit-inside-or-outside-of-the-country-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employer's passport and ID card must be valid",
+      "Resident employers or investors need a valid residence visa"
+    ],
+    "documents": [
+      "Employer's passport copy (citizens include the unified number page)",
+      "Employer's valid original ID",
+      "Worker's passport copy and entry permit",
+      "Resident employer's or investor's residence visa"
+    ],
+    "fees": [
+      "65 AED outside Dubai; 85.75 AED in Dubai",
+      "Business centres may add a commission of up to 72 AED"
+    ],
+    "timing": [
+      "Done in 1 working day"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

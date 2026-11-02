@@ -1,0 +1,55 @@
+{
+  "id": "mohre-recruitment-agency-licence",
+  "service": {
+    "en": "New licence for a recruitment or temporary employment agency",
+    "ar": "ترخيص جديد لوكالة توظيف مؤقت ووساطة",
+    "ur": "بھرتی یا عارضی ملازمت ایجنسی کا نیا لائسنس",
+    "ml": "റിക്രൂട്ട്മെന്റ് / താൽക്കാലിക തൊഴിൽ ഏജൻസിക്ക് പുതിയ ലൈസൻസ്"
+  },
+  "about": "Get a licence to run a recruitment, mediation or temporary employment agency.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Recruitment agency licence",
+    "Manpower agency licence",
+    "ترخيص وكالة استقدام",
+    "ترخيص وكالة توظيف"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/issuance-of-a-new-license-for-temporary-employment-and-mediation-agency-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant and relatives up to second degree must not be Ministry employees",
+      "Needs a clear business address unless electronic recruitment is allowed",
+      "Applicant must not own or partner in a firm closed for labour violations",
+      "No listed criminal convictions unless rehabilitated or a year has passed after a fine",
+      "Bank guarantee or insurance: 300,000 AED for mediation, 1,000,000 AED for temporary employment",
+      "A credit report is required"
+    ],
+    "documents": [
+      "Initial approval from the Department of Economic Development",
+      "Plan showing the location",
+      "Licensee's passport and Emirates ID copies",
+      "Valid trade licence",
+      "Signed acknowledgement of agency rules",
+      "Credit reports and police clearance",
+      "Certificate of financial solvency and property report"
+    ],
+    "fees": [
+      "Mediation 25,000 AED",
+      "Temporary employment and outsourcing 50,000 AED",
+      "Both combined 75,000 AED",
+      "Tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 10 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}
