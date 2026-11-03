@@ -3,6 +3,7 @@
   "productName": "Sahl",
   "version": "0.1.0",
   "identifier": "ae.sahl.app",
+  "mainBinaryName": "Sahl",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -33,7 +34,9 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["app", "dmg", "nsis"],
+    "macOS": { "signingIdentity": "-" },
+    "resources": { "../../guides": "guides", "sidecar": "sidecar" },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
