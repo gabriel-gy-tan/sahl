@@ -72,6 +72,17 @@ Out of scope for the first milestone: autonomous submission, payment flows, CAPT
 - Indra's weights are under a modified OpenRAIL-M licence (no competing with Datalab's API); check it fits Sahl's Apache-2.0 distribution before bundling.
 - Government content licences vary; the UAE Federal Open Data License needs attribution and no misleading representation. Keep a per-source licence and attribution record.
 
+## Building the installers
+
+The macOS `.dmg` and the Windows `.exe` are built by `.github/workflows/release.yml` (push a tag like `v0.1.0`, or run it by hand). To build the `.dmg` on a Mac yourself:
+
+```bash
+cd sidecar && .venv/bin/pip install -r requirements-build.txt && .venv/bin/python build.py
+cd ../app && npm run tauri build -- --bundles dmg
+```
+
+`build.py` packs the sidecar into one executable that Tauri bundles beside the app, with the guides as resources. The installers are not signed yet, so macOS and Windows warn on first open. Ollama is still installed separately.
+
 ## Licence
 
 Code: Apache License 2.0 (see [LICENSE](LICENSE)). The form-guide catalogue, models, and dependencies carry their own terms and will be tracked separately. Sahl is not an official government service and uses no government seals.

@@ -14,6 +14,8 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Fold the island out of the way while Sahl clicks and types into the form
 - [ ] Confirm short values such as surnames after filling, even when OCR is imperfect
 
+- [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
+
 ## Next
 
 - [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
@@ -22,7 +24,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
 - [ ] Dropdowns and date pickers (show-only today)
 - [ ] Start Ollama automatically, or tell the user clearly when it isn't running
-- [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
+- [ ] Sign and notarise the installers (Apple Developer ID, Windows certificate); bundle Ollama or fetch it on first run; Intel Mac build
 - [ ] Read each document page once instead of twice (ID check and reading both OCR it)
 - [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
 - [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)
