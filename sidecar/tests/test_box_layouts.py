@@ -30,7 +30,8 @@ def case(rng):
     ly = rng.randint(250, 400)
     lab = d.textbbox((lx, ly), text, font=font)
     h = lab[3] - lab[1]
-    bh = int(h * rng.choice([1.6, 2, 2.5, 3, 3.5])) if rng.random() > 0.1 else int(h * rng.uniform(6, 10))
+    tall = rng.random() < 0.1 and style != "underline"  # an underlined field is one line; text areas have a border or shade
+    bh = int(h * rng.uniform(6, 10)) if tall else int(h * rng.choice([1.6, 2, 2.5, 3, 3.5]))
     bw = int(h * rng.uniform(8, 40))
     if side == "below":
         gap = int(h * rng.uniform(0.3, 2.0)); x0 = lab[0] + rng.randint(-4, 4); y0 = lab[3] + gap
@@ -39,7 +40,8 @@ def case(rng):
     elif side == "right":
         gap = int(h * rng.uniform(0.6, 18)); x0 = lab[2] + gap; y0 = (lab[1] + lab[3]) // 2 - bh // 2 + rng.randint(-h // 3, h // 3)
     else:
-        gap = int(h * rng.uniform(0.6, 12)); x0 = lab[0] - gap - bw; y0 = (lab[1] + lab[3]) // 2 - bh // 2
+        gap = int(h * rng.uniform(0.6, 12)); bw = min(bw, lab[0] - gap - 20)  # the whole box on screen
+        x0 = lab[0] - gap - bw; y0 = (lab[1] + lab[3]) // 2 - bh // 2
     x0 = max(5, x0); x1 = min(W - 5, x0 + bw); y1 = y0 + bh
     radius = rng.choice([0, 0, 4, 8, 12]) if style != "underline" else 0
     fill = (page + rng.choice([-25, -18, -12])) if not dark else page + rng.choice([18, 30])
@@ -59,15 +61,19 @@ def case(rng):
         else:  # on the right, as Arabic forms do
             code = (x1 - cw, y0, x1, y1); num = (x0, y0, x1 - cw - 6, y1); bar = (code[0] - 4, y0, code[0] - 1, y1)
         d.rounded_rectangle(code, radius=radius, fill=fill, outline=line)
-        d.text((code[0] + 8, code[1] + (bh - h) // 2), "00971 - UAE", fill=ink, font=font)
+        code_text = next((t for t in ("00971 - UAE", "+971", "971") if d.textlength(t, font=font) + 16 <= cw), "")
+        d.text((code[0] + 8, code[1] + (bh - h) // 2), code_text, fill=ink, font=font)  # sites clip it to its part
         d.rectangle(bar, fill=rng.choice([120, 160]))
         d.rounded_rectangle(num, radius=radius, outline=line, width=2)
         want = num
     else:
         box(want)
-        if rng.random() < 0.5 and style != "underline":  # a value or placeholder inside the box
-            d.text((x0 + 10, y0 + max(2, (bh - h) // 2)), rng.choice(["0501234567", "INDIA", "Please select", text]),
-                   fill=rng.choice([ink, 150]) if not dark else 180, font=font)
+        if rng.random() < 0.5 and style != "underline":  # a value or placeholder inside the box, which fits it
+            shown = rng.choice(["0501234567", "INDIA", "Please select", text])
+            tb = d.textbbox((0, 0), shown, font=font)
+            if tb[3] - tb[1] + 6 <= bh and tb[2] - tb[0] + 20 <= x1 - x0:
+                d.text((x0 + 10 - tb[0], y0 + (bh - (tb[3] - tb[1])) // 2 - tb[1]), shown,
+                       fill=rng.choice([ink, 150]) if not dark else 180, font=font)
     d.text((lx, ly), text, fill=ink, font=font)
     # a neighbour stacked the way this layout stacks fields
     # forms keep a label closer to its own box than to the next field (the space between fields is the bigger one)
@@ -105,5 +111,5 @@ def test_random_layouts():
             seen[key][0] += ok
             seen[key][1] += 1
     rate = {k: a / b for k, (a, b) in seen.items()}
-    assert rate["all"] >= 0.92, rate  # 95-96% when this was written; a drop means box finding got worse
-    assert min(rate[k] for k in ("below", "right", "left", "above", "split", "tall")) >= 0.8, rate
+    assert rate["all"] >= 0.98, rate  # 99.8-99.9% when this was written; a drop means box finding got worse
+    assert min(rate[k] for k in ("below", "right", "left", "above", "split", "tall")) >= 0.95, rate

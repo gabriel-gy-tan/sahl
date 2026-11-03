@@ -15,6 +15,8 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 - [ ] Skip boxes the portal already filled (UAE PASS) when they show the right value; ICP Emirates ID renewal guide gets its real field labels, every section of the form (55 fields) (`feat/skip-filled-boxes`). Labels copied from the signed-in form; not yet tried on the live ICP page
 
+- [ ] Form picker evals in `sidecar/evals/picker.py` (needs Ollama): dev 40/40, heldout 15/15, fresh 13/15; it honours the emirate named. Misses left: "title deed" offers verification, not the ownership certificate; no KHDA school transfer guide
+
 ## Next
 
 - [ ] Not reachable from the build machine, still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA, Dubai Courts, MOI, Customs; embassies, free zones, utilities and telecom, transport, finance, Sharjah and the northern emirates

@@ -72,10 +72,11 @@ def group(rng):
             x = (tx + tw + int(h * rng.uniform(1.2, 4))) if not rtl else x + tw + gap + r + int(h * rng.uniform(1.2, 4))
         else:
             y += int(h * rng.uniform(1.6, 2.6))
-    if one_line:
-        boxes = [b for _, b in texts] + [d.textbbox((0, 0), "", font=font)]
-        u = (min(b[0] for b, _ in drawn), min(b[1] for _, b in texts), max(b[2] for _, b in texts), max(b[3] for _, b in texts))
-        lines = [("O " + " O ".join(t for t, _ in texts), u)]
+    if one_line:  # the whole row as OCR reads it: marks and words in screen order, the box around all of them
+        every = [b for b, _ in drawn] + [b for _, b in texts]
+        u = (min(b[0] for b in every), min(b[1] for _, b in texts), max(b[2] for b in every), max(b[3] for _, b in texts))
+        words = [("O " + t) if not rtl else (t + " O") for t, _ in texts]
+        lines = [(" ".join(words), u)]
     else:
         lines = texts
     return np.array(im), question, opts, drawn, lines + [("Gender", question)], dict(shape=shape, rtl=rtl, across=across, one_line=one_line, dark=dark, size=size, takes_mark=takes_mark)
@@ -98,8 +99,8 @@ def test_random_radio_groups(seed):
             seen[key][1] += 1
     rate = {k: round(a / b, 3) for k, (a, b) in seen.items()}
     print(rate)
-    assert rate["all"] >= 0.92, rate
-    assert min(rate.values()) >= 0.8, rate
+    assert rate["all"] >= 0.97, rate  # 99.2-99.4% when this was written
+    assert min(rate.values()) >= 0.9, rate
 
 
 def test_checkbox_mark_beside_its_text():

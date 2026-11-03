@@ -58,3 +58,13 @@ PDF, PNG and JPG documents work; drop a folder to read them all. On Windows the 
 
 Try it: open `demo/portal.html` in a browser, click **Add a document** and pick `demo/samples/passport.png`,
 then `emirates_id.png`, and press **⌥ Space** (macOS) or **Ctrl+Alt+Space** (Windows).
+
+## Evals
+
+The form picker against real phrasings, with Ollama running (slow, so not in pytest):
+
+```bash
+cd sidecar && .venv/bin/python -m evals.picker all
+```
+
+Box, radio-button and checkbox finding are measured on random drawn forms inside pytest (`tests/test_box_layouts.py`, `tests/test_choice_layouts.py`).

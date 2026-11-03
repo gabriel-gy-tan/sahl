@@ -65,10 +65,14 @@ def _lines(gray, bg, x0, x1, y0, y1, min_len):
 
 
 def _bg(gray, label):
+    """The colour the label sits on: the commonest shade inside its own box, between the letters. (A strip beside it
+    can be a box hugging the label, which made the real page look like ink everywhere.)"""
     x0, y0, x1, y1 = (int(v) for v in label)
-    h = max(y1 - y0, 8)
-    patch = gray[max(0, y0 - h):max(0, y0), max(0, x0 - h):min(gray.shape[1], x1 + h)]
-    return np.median(patch) if patch.size else np.median(gray)
+    patch = gray[max(0, y0):max(0, y1), max(0, x0):min(gray.shape[1], x1)]
+    if patch.size < 16:
+        h = max(y1 - y0, 8)
+        patch = gray[max(0, y0 - h):max(0, y0), max(0, x0 - h):min(gray.shape[1], x1 + h)]
+    return float(np.bincount(patch.ravel().astype(np.uint8), minlength=256).argmax()) if patch.size else float(np.median(gray))
 
 
 def _guess(label, hint):
@@ -92,8 +96,15 @@ def _real(gray, bg, rect, h):
     if _cover(gray, bg, (left + right) // 2, top, bottom) >= 0.85:  # the gap between two stacked boxes is not shaded
         return True
     lim = min(14, h)
-    has = lambda xs: any(_cover(gray, bg, x, top, bottom) >= 0.85 for x in xs)
-    return has(range(left - lim, left + 3)) and has(range(right - 3, right + lim))
+    q = min(14, (bottom - top) // 4)
+    rows = gray[top + q:bottom - q + 1]
+    if not len(rows):
+        return False
+
+    def closed(a, b):  # on (nearly) every row there is line near this end: a straight side, or the curve of a pill
+        band = np.abs(rows[:, max(0, a):max(0, b)].astype(np.int16) - bg) > INK
+        return band.size and float(band.any(axis=1).mean()) >= 0.85
+    return closed(left - lim, left + lim) and closed(right - lim, right + lim)
 
 
 def _claimed(gray, bg, rect, gap, h):
@@ -110,6 +121,35 @@ def _claimed(gray, bg, rect, gap, h):
             if b - a >= 3 * h:
                 ink[i, a:b] = False
     return int(ink.sum()) >= h
+
+
+def _aligned(left, right, x0, x1, h):
+    """Whether a box under (or over) a label lines up with it, as a label and its own box do: the label starts where
+    the box starts (or a little inside it), or ends where the box ends in right-to-left forms. A box further along is
+    another field's, with its own label beside it."""
+    return (left - 2 * h <= x0 <= left + 2 * h or right - 2 * h <= x1 <= right + 2 * h) and right > x0 and left < x1 + 2 * h
+
+
+def _joined(gray, bg, top, left, right, h):
+    """The ends of a box together with any box touching it along its top edge (the two parts of a split phone box,
+    however short the other part is): alignment with the label is judged on the whole, as the eye reads it."""
+    lim = min(14, h) + 8  # rounded corners leave a few px of page between two touching boxes' top lines
+    rows = gray[max(0, top - 1):top + 3].astype(np.int16)
+    if not len(rows):
+        return left, right
+    ink = (np.abs(rows - bg) > INK).any(axis=0)
+
+    def reach(x, step):  # follow the top edge while gaps stay shorter than a rounded corner
+        last, gap = x, 0
+        while 0 <= x + step < len(ink) and gap <= lim:
+            x += step
+            gap = 0 if ink[x] else gap + 1
+            if ink[x]:
+                last = x
+        return last
+
+    far_left, far_right = reach(left, -1), reach(right - 1, 1) + 1
+    return (far_left if left - far_left >= 2 * h else left), (far_right if far_right - right >= 2 * h else right)
 
 
 def _below(gray, label, underline=True):
@@ -130,7 +170,7 @@ def _below(gray, label, underline=True):
             if height > 15 * h:  # taller than a text area
                 break
             left, right = max(tx0, bx0), min(tx1, bx1)
-            if right - left < 3.5 * h or left > x1 + 4 * h or right < x0:
+            if right - left < 3.5 * h or not _aligned(*_joined(gray, bg, top, left, right, h), x0, x1, h):
                 continue
             if not _real(gray, bg, (left, top, right, bottom), h):
                 continue
@@ -142,7 +182,7 @@ def _below(gray, label, underline=True):
     if rects:
         return min(_tight(rects))
     for y, left, right in lines if underline else ():  # an underline, with no box top or bottom
-        if right - left < 4 * h or left > x1 + 4 * h or not 0.8 * h <= y - y1 <= 6 * h or y in edges:
+        if right - left < 4 * h or not _aligned(left, right, x0, x1, h) or not 0.8 * h <= y - y1 <= 6 * h or y in edges:
             continue
         top = max(y1 + 2, y - int(2.6 * h))
         if _claimed(gray, bg, (left, top, right, y), top - y1, h):  # gap from the label to the box's top, not the line
@@ -159,7 +199,11 @@ def _right(gray, label):
     H, W = gray.shape
     bg = _bg(gray, label)
     far = x1 + 40 * h  # the box must start within this; it may run on past it to the screen's edge
-    lines = _lines(gray, bg, x1 + h // 2, W, max(0, y0 - 10 * h), min(H, y1 + 10 * h), max(4 * h, 40))
+    start = x1 + h // 2
+    lines = _lines(gray, bg, start, W, max(0, y0 - 10 * h), min(H, y1 + 10 * h), max(4 * h, 40))
+    # a line that runs on to the left of where the search starts belongs to a box above or below the label, not beside it
+    cut = lambda y, left: left <= start + 1 and start >= 1 and abs(float(gray[y, start - 1]) - bg) > INK
+    q = (y1 - y0) // 4  # beside means on the label's own line: the box covers part of the text's height
     rects = []
     for i, (top, tx0, tx1) in enumerate(lines):
         if top > y1 + h // 2:  # the box must reach up to the label's row
@@ -171,16 +215,16 @@ def _right(gray, label):
             if height > 15 * h:
                 break
             left, right = max(tx0, bx0), min(tx1, bx1)
-            if right - left < 4 * h or left < x1 + h // 2 or left > far or bottom < y0 - h // 2:
+            if right - left < 4 * h or left < start or left > far or bottom <= y0 + q or top >= y1 - q:
                 continue
-            if not _real(gray, bg, (left, top, right, bottom), h):
+            if cut(top, left) or cut(bottom, left) or not _real(gray, bg, (left, top, right, bottom), h):
                 continue
             score = abs(left - (x1 + h)) / h + 0.3 * abs((top + bottom) / 2 - (y0 + y1) / 2) / h
             rects.append((score, (left, top, right, bottom)))
     if rects:
         return min(_tight(rects))
     for y, left, right in lines:
-        if left < x1 + h // 2 or left > far or right - left < 4 * h or not y1 - h // 2 <= y <= y1 + 3 * h:
+        if left < start or left > far or right - left < 4 * h or not y1 - h // 2 <= y <= y1 + 3 * h or cut(y, left):
             continue
         score = abs(left - (x1 + h)) / h + abs(y - (y0 + y1) / 2) / h
         return score, (left, max(y0, y - int(2.6 * h)), right, y)
@@ -218,17 +262,25 @@ def _cover(gray, bg, x, top, bottom):
 
 
 def _widen(gray, bg, box, h):
-    """Rounded corners shorten a box's straight top and bottom: move each end out to the real side."""
+    """Rounded corners shorten a box's straight top and bottom: move each end out to the real side. The side is
+    furthest out on the box's middle row, for a square corner and a pill's round end alike."""
     x0, y0, x1, y1 = (int(v) for v in box)
     lim = min(14, h)
+    mid = (y0 + y1) // 2
+    if not 0 <= mid < gray.shape[0]:
+        return box
+    top = np.abs(gray[max(0, y0 - 1):y0 + 2, x0:x0 + lim].astype(np.int16) - bg) > INK
+    if not top.any():  # an underline: no top edge, no sides to find (its middle row may cross the label's text)
+        return box
+    ink = (np.abs(gray[max(0, mid - 1):mid + 2].astype(np.int16) - bg) > INK).any(axis=0)
 
     def side(x, step):
-        if _cover(gray, bg, x, y0, y1) >= 0.6:  # a fill or the side itself: follow it out
-            while abs(x + step - start) <= lim and _cover(gray, bg, x + step, y0, y1) >= 0.6:
+        if 0 <= x < len(ink) and ink[x]:  # a fill or the side itself: follow it out
+            while 0 <= x + step < len(ink) and abs(x + step - start) <= lim and ink[x + step]:
                 x += step
             return x
         for k in range(1, lim + 1):  # a border a few px further out
-            if _cover(gray, bg, x + k * step, y0, y1) >= 0.6:
+            if 0 <= x + k * step < len(ink) and ink[x + k * step]:
                 return x + k * step
         return x
 
@@ -255,22 +307,20 @@ def _part(gray, bg, box, h):
                 if abs(inside(a + 3, b - 3) - bg) - abs(inside(rest[0] + 3, rest[2] - 3) - bg) >= 8:
                     return rest
     here = abs(inside(x0 + 3, x1 - 3) - bg)
-    best = None
-    for step in (1, -1):
-        edge = x1 if step == 1 else x0 - 1
-        for y in rows:
-            run = [r for r in _runs(np.abs(gray[y].astype(np.int16) - bg) > INK)
-                   if (step == 1 and edge <= r[0] <= edge + 8) or (step == -1 and edge - 8 <= r[1] - 1 <= edge)]
-            if not run:
+    H, W = gray.shape
+    lim = min(14, h) + 8  # rounded corners start a box's top and bottom lines a few px in from where it touches
+    lines = _lines(gray, bg, max(0, x0 - 60 * h), min(W, x1 + 60 * h), max(0, y0 - 3), min(H, y1 + 4), max(4 * h, 40))
+    tops = [l for l in lines if abs(l[0] - y0) <= 4]
+    bottoms = [l for l in lines if abs(l[0] - (y1 - 1)) <= 4 or abs(l[0] - y1) <= 4]
+    for t in tops:  # a neighbouring box with the same top and bottom that touches this one, on either side
+        for b in bottoms:
+            left, right = max(t[1], b[1]), min(t[2], b[2])
+            touches = x1 - 2 <= left <= x1 + lim or x0 - lim <= right <= x0 + 2
+            if not touches or right - left < 4 * h or not _real(gray, bg, (left, y0, right, y1), h):
                 continue
-            a, b = run[0]
-            a, b = (max(a, x1), b) if step == 1 else (a, min(b, x0))
-            if b - a < 4 * h or _cover(gray, bg, (a + b) // 2, y0, y1) > 0.6 and False:
-                continue
-            other = abs(inside(a + 6, b - 3) - bg)
-            if here - other >= 8:  # this part is shaded and the other is blank: type in the other
-                best = (a, y0, b, y1)
-            break
+            if here - abs(inside(left + 6, right - 3) - bg) >= 8:  # this part is shaded and the other is blank
+                return (left, y0, right, y1)
+    return box
     return best or box
 
 
@@ -425,47 +475,63 @@ def _rows_at(ink, centre):
 
 
 def _ticked(gray, bg, box):
-    """Whether a mark is chosen: inside its ring or square, past the line itself, there is a dot or a tick."""
+    """Whether a mark is chosen: there is a dot or a tick inside its ring or square, past the line itself. The line's
+    thickness is taken on its thinnest side (a tick can touch the line on one side), and a chosen mark has clearly
+    more ink than a bare line of that thickness."""
     x0, y0, x1, y1 = (int(v) for v in box)
-    mid = (y0 + y1) // 2
-    row = np.abs(gray[mid, x0:x1].astype(np.int16) - bg) > 30
-    line = next((i for i, v in enumerate(row) if not v), len(row))  # how thick the ring is, from its left edge
-    if line >= len(row) - 1:  # inked right across: a dot filling a small ring
+    ink = np.abs(gray[y0:y1, x0:x1].astype(np.int16) - bg) > 30
+    if ink.shape[0] < 3 or ink.shape[1] < 3:
+        return False
+    hh, w = ink.shape
+    run = lambda line: next((i for i, v in enumerate(line) if not v), len(line))
+    t = max(1, min(run(ink[hh // 2]), run(ink[hh // 2][::-1]), run(ink[:, w // 2]), run(ink[:, w // 2][::-1])))
+    if 2 * t >= min(w, hh) - 1:  # inked right across: a dot filling a small ring
         return True
-    k = line + 1
-    inner = gray[y0 + k:y1 - k, x0 + k:x1 - k]
-    return bool(inner.size) and float(np.mean(np.abs(inner.astype(np.int16) - bg) > 30)) > 0.15
+    # the middle of what is inside the line: a dot or a tick crosses it; a ring's curve near the corners does not
+    a, b = t + 1, max(t + 2, int(0.2 * (min(w, hh) - 2 * t - 2)) + t + 1)
+    core = ink[hh // 2 - (min(w, hh) // 2 - b):hh // 2 + (min(w, hh) // 2 - b) + 1,
+               w // 2 - (min(w, hh) // 2 - b):w // 2 + (min(w, hh) // 2 - b) + 1]
+    if not core.size:
+        core = ink[hh // 2:hh // 2 + 1, w // 2:w // 2 + 1]
+    return float(core.mean()) > 0.15
 
 
-def _marks_in_row(gray, box, h):
-    """Every mark along one OCR line holding several options ("O Male O Female"), left to right: compact blobs
-    about the text's height with a clear gap on both sides, which letters inside a word don't have."""
+def _words_on_screen(gray, text, box):
+    """Where each of an OCR line's words sits: the line's widest gaps, one fewer than its words, are the spaces
+    between them. None when the picture doesn't split into that many pieces."""
+    words = text.split()
     x0, y0, x1, y1 = (int(v) for v in box)
-    H, W = gray.shape
-    a, b = max(0, x0 - 4 * h), min(W, x1 + 4 * h)
-    top, bottom = max(0, int(y0 - 0.4 * h)), min(H, int(y1 + 0.4 * h))
-    bg = _bg(gray, box)
-    ink = np.abs(gray[top:bottom, a:b].astype(np.int16) - bg) > 30
-    runs = _runs(ink.any(axis=0))
-    out = []
-    for i, (c0, c1) in enumerate(runs):
-        before = c0 - runs[i - 1][1] if i else 99
-        after = runs[i + 1][0] - c1 if i + 1 < len(runs) else 99
-        rows = np.flatnonzero(ink[:, c0:c1].any(axis=1))
-        w, ht = c1 - c0, (rows[-1] + 1 - rows[0]) if len(rows) else 0
-        if ht and 0.45 * h <= w <= 2.2 * h and 0.45 * h <= ht <= 2.2 * h and 0.6 <= w / ht <= 1.6 \
-                and min(before, after) >= 0.22 * h:
-            m = (a + c0, top + rows[0], a + c1, top + rows[-1] + 1)
-            out.append((m, _ticked(gray, bg, m)))
-    return out
+    if gray is None or len(words) < 2:
+        return None
+    patch = gray[max(0, y0):y1, max(0, x0):x1]
+    if not patch.size:
+        return None
+    bg = float(np.bincount(patch.ravel().astype(np.uint8), minlength=256).argmax())
+    runs = _runs((np.abs(patch.astype(np.int16) - bg) > 30).any(axis=0))
+    if len(runs) < len(words):
+        return None
+    gaps = sorted(range(len(runs) - 1), key=lambda i: runs[i + 1][0] - runs[i][1], reverse=True)[:len(words) - 1]
+    cuts = sorted(gaps)
+    starts = [0] + [i + 1 for i in cuts]
+    ends = cuts + [len(runs) - 1]
+    return [(x0 + runs[a][0], y0, x0 + runs[b][1], y1) for a, b in zip(starts, ends)]
 
 
-def _option_box(text, box, option):
-    """Where one option's words sit inside an OCR line that holds several ("O Male O Female"): by character offset."""
+def _option_box(text, box, option, gray=None):
+    """Where one option's words sit inside an OCR line that holds several ("O Male O Female"): measured from the
+    picture when it splits into the line's words, else estimated by character offset."""
     t, o = _norm(text), _norm(option)
     m = re.search(r"(?<!\w)" + re.escape(o) + r"(?!\w)", t) if o else None  # a whole word: "male" is not in "female"
     if not m:
         return None
+    words = text.split()
+    placed = _words_on_screen(gray, text, box)
+    if placed:
+        want = o.split()
+        norm = [_norm(w) for w in words]
+        for i in range(len(norm) - len(want) + 1):
+            if norm[i:i + len(want)] == want:
+                return (placed[i][0], box[1], placed[i + len(want) - 1][2], box[3])
     at = m.start()
     x0, y0, x1, y1 = box
     per = (x1 - x0) / len(t)
@@ -490,7 +556,7 @@ def choices(lines, label, options, gray):
             if not (same_row or below):
                 continue
             for alias in opt:
-                ob = _option_box(text, box, alias)
+                ob = _option_box(text, box, alias, gray)
                 if ob:
                     d = abs(by0 - y0) + abs(bx0 - x0) / 10
                     if best is None or d < best[0]:
@@ -500,12 +566,6 @@ def choices(lines, label, options, gray):
     if gray is None:
         return [{"text": o[0], "box": b, "mark": None, "checked": False} for o, b, _ in found]
     marks = {}
-    for li in {li for _, _, li in found}:  # options sharing one OCR line: pair them with that row's marks, in order
-        mine = sorted((i for i, f in enumerate(found) if f[2] == li), key=lambda i: found[i][1][0])
-        if len(mine) > 1:
-            row = _marks_in_row(gray, lines[li][1], h)
-            if len(row) == len(mine):
-                marks.update(zip(mine, row))
     sides = {}
     for side in (-1, 1):
         sides[side] = {i: _mark(gray, b, side) for i, (_, b, _) in enumerate(found) if i not in marks}
