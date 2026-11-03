@@ -254,7 +254,9 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
             c
         } else {
             // release: the packed sidecar folder and the guides are in the app's resources
-            let dir = handle.path().resource_dir().expect("resource dir");
+            // (resource_dir() fails in this build, so work it out from the executable: Contents/Resources on macOS, beside it on Windows)
+            let exe = std::env::current_exe().expect("app path");
+            let dir = if cfg!(target_os = "macos") { exe.parent().unwrap().join("../Resources") } else { exe.parent().unwrap().to_path_buf() };
             let mut c = Command::new(dir.join("sidecar").join(if cfg!(windows) { "sahl-sidecar.exe" } else { "sahl-sidecar" }));
             c.env("SAHL_GUIDES", dir.join("guides"));
             c
