@@ -7,6 +7,14 @@
     "ml": "എമിറേറ്റ്സ് ഐഡി പുതുക്കൽ"
   },
   "about": "Renew an Emirates ID card that has expired or is close to expiring.",
+  "authority": "ICP",
+  "aliases": [
+    "Renew Emirates ID",
+    "EID renewal",
+    "Emirates ID card renewal",
+    "تجديد الهوية",
+    "تجديد بطاقة الهوية"
+  ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5d",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID renewal. Translations not reviewed by native speakers.",

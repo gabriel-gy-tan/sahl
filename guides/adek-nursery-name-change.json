@@ -1,0 +1,32 @@
+{
+  "id": "adek-nursery-name-change",
+  "service": {
+    "en": "Nursery name change",
+    "ar": "تعديل اسم الحضانة",
+    "ur": "نرسری کے نام کی تبدیلی",
+    "ml": "നഴ്സറിയുടെ പേര് മാറ്റൽ"
+  },
+  "about": "Change the registered name of a licensed nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "Amend nursery name",
+    "Rename nursery",
+    "تغيير اسم الحضانة",
+    "تعديل اسم الحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The name must be amended with the Department of Economic Development first"
+    ],
+    "fees": [
+      "Application fees apply and are paid after approval; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

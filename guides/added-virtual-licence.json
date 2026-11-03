@@ -1,0 +1,30 @@
+{
+  "id": "added-virtual-licence",
+  "service": {
+    "en": "Abu Dhabi Virtual Licence",
+    "ar": "الرخصة الافتراضية في أبوظبي",
+    "ur": "ابوظہبی ورچوئل لائسنس",
+    "ml": "അബുദാബി വെർച്വൽ ലൈസൻസ്"
+  },
+  "about": "Business licence for people living outside the UAE who want to start a business in Abu Dhabi.",
+  "authority": "ADDED",
+  "aliases": [
+    "Virtual licence",
+    "Virtual business licence",
+    "رخصة افتراضية",
+    "رخصة الأعمال الافتراضية"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For individuals living outside the country who want to start a business in Abu Dhabi"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

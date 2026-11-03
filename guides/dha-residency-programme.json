@@ -1,0 +1,47 @@
+{
+  "id": "dha-residency-programme",
+  "service": {
+    "en": "Residency programme enrolment",
+    "ar": "التسجيل في برنامج الإقامة التخصصية",
+    "ur": "ریزیڈنسی پروگرام میں داخلہ",
+    "ml": "റെസിഡൻസി പ്രോഗ്രാം എൻറോൾമെന്റ്"
+  },
+  "about": "Apply to the Dubai medical or dental residency training programme. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "DHA residency",
+    "Medical residency Dubai",
+    "Dental residency",
+    "برنامج الإقامة",
+    "التدريب التخصصي"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/84291762-bfc8-11e8-0720-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "For doctors who have completed internship",
+      "Available only during the registration period"
+    ],
+    "documents": [
+      "Recent photo, passport, Emirates ID if applicable",
+      "Degree, transcript and internship certificate",
+      "English test and EMREE results",
+      "CV, ECE report for graduates from outside the UAE, PSV report",
+      "Employer no-objection letter if employed",
+      "National Service completion or exemption for UAE males"
+    ],
+    "fees": [
+      "AED 620 in total, made up of registration and review, Knowledge and Innovation fees",
+      "Fees are non-refundable"
+    ],
+    "timing": [
+      "2 months after the registration period closes"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

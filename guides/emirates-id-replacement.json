@@ -7,6 +7,14 @@
     "ml": "എമിറേറ്റ്സ് ഐഡി മാറ്റിവാങ്ങൽ"
   },
   "about": "Get a replacement for a lost or damaged Emirates ID card.",
+  "authority": "ICP",
+  "aliases": [
+    "Lost Emirates ID",
+    "Damaged Emirates ID",
+    "Replace Emirates ID card",
+    "بدل فاقد الهوية",
+    "بدل تالف الهوية"
+  ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5b",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID replacement. Translations not reviewed by native speakers.",

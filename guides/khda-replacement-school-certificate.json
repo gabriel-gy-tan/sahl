@@ -1,0 +1,39 @@
+{
+  "id": "khda-replacement-school-certificate",
+  "service": {
+    "en": "Replacement school certificate",
+    "ar": "بدل فاقد لشهادة مدرسية",
+    "ur": "اسکول سرٹیفکیٹ کی متبادل کاپی",
+    "ml": "സ്കൂൾ സർട്ടിഫിക്കറ്റിന് പകരം"
+  },
+  "about": "Request a replacement for a lost or damaged certificate from a permanently closed Dubai private school.",
+  "authority": "KHDA",
+  "aliases": [
+    "Lost school certificate",
+    "Closed school certificate",
+    "بدل فاقد شهادة",
+    "شهادة مدرسة مغلقة"
+  ],
+  "source": "https://web.khda.gov.ae/en/Services/Student-Related-Services/Replacement-of-School-Certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official KHDA service page on the checked date. KHDA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For certificates from a permanently closed private school regulated by KHDA"
+    ],
+    "documents": [
+      "Student's Emirates ID number",
+      "Accurate details of the academic years attended"
+    ],
+    "fees": [
+      "AED 120 in total: AED 100 application and AED 20 Knowledge and Innovation"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Email to KHDA"
+    ]
+  },
+  "fields": []
+}

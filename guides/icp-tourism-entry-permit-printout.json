@@ -1,0 +1,40 @@
+{
+  "id": "icp-tourism-entry-permit-printout",
+  "service": {
+    "en": "Printout of tourism entry permit on arrival",
+    "ar": "طباعة تصريح دخول سياحي لمواطني دول محددة",
+    "ur": "مخصوص ممالک کے شہریوں کے سیاحتی داخلہ اجازت نامے کا پرنٹ",
+    "ml": "ചില രാജ്യക്കാർക്കുള്ള ടൂറിസം പ്രവേശന അനുമതിയുടെ പ്രിന്റ്"
+  },
+  "about": "Print the electronic entry permit given on arrival to citizens of certain countries.",
+  "authority": "ICP",
+  "aliases": [
+    "Visa on arrival printout",
+    "Print entry permit",
+    "طباعة تصريح دخول",
+    "طباعة تأشيرة عند الوصول"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e4bde65ae59b001173866e",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Printout of tourism entry permit on arrival. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "For nationals of certain countries who received an entry permit on arrival in the UAE"
+    ],
+    "documents": [
+      "No documents needed unless ICP cannot fetch your data from government records"
+    ],
+    "fees": [
+      "Application 20 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "The page gives no processing time"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

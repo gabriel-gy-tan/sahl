@@ -1,0 +1,34 @@
+{
+  "id": "tamm-birth-notification",
+  "service": {
+    "en": "Issue a birth notification",
+    "ar": "إصدار إشعار ولادة",
+    "ur": "پیدائش کی اطلاع جاری کرنا",
+    "ml": "ജനന അറിയിപ്പ് നൽകൽ"
+  },
+  "about": "Request a digital birth notification.",
+  "authority": "TAMM",
+  "aliases": [
+    "Birth notice",
+    "Notification of birth",
+    "إشعار ولادة",
+    "إخطار ولادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/Issue%20Birth%20Notification",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "timing": [
+      "72 hours",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

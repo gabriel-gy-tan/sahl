@@ -1,0 +1,35 @@
+{
+  "id": "tamm-off-plot-works-permit",
+  "service": {
+    "en": "Permit for agricultural and landscaping works outside the residential plot",
+    "ar": "تصريح أعمال الزراعة والتجميل خارج حدود القسيمة السكنية",
+    "ur": "رہائشی پلاٹ سے باہر زرعی اور باغبانی کے کاموں کا اجازت نامہ",
+    "ml": "റെസിഡൻഷ്യൽ പ്ലോട്ടിന് പുറത്തെ കൃഷി, ലാൻഡ്സ്കേപ്പിംഗ് ജോലികൾക്കുള്ള പെർമിറ്റ്"
+  },
+  "about": "Get a permit for planting and landscaping work on space outside a residential plot, following the Off-Plot Works Manual.",
+  "authority": "TAMM",
+  "aliases": [
+    "Off-plot works",
+    "Landscaping outside villa",
+    "أعمال خارج القسيمة",
+    "تصريح تشجير خارج المسكن"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/lands/RequestPermitforAgriculturalandLandscapingWorksOutsideResidentialAreas",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Photo of the site"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

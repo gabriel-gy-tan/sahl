@@ -1,0 +1,39 @@
+{
+  "id": "moj-marriage-permission",
+  "service": {
+    "en": "Marriage permission request",
+    "ar": "طلب إذن زواج",
+    "ur": "شادی کی اجازت کی درخواست",
+    "ml": "വിവാഹ അനുമതി അപേക്ഷ"
+  },
+  "about": "Ask the court for permission to marry where the personal status law requires it.",
+  "authority": "MOJ",
+  "aliases": [
+    "Marriage approval",
+    "Permission to marry",
+    "إذن بالزواج",
+    "طلب إذن زواج"
+  ],
+  "source": "https://www.moj.gov.ae/en/services/services-categories/notary-public-and-authentication/request-for-marriage-permission-c1058da3.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOJ service page on the checked date. MOJ fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The page prints the fee without a currency, AED assumed. Marriage permission request. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant needs legal standing to apply"
+    ],
+    "documents": [
+      "Identification of the applicant and the parties",
+      "Any documents related to the case"
+    ],
+    "fees": [
+      "AED 50"
+    ],
+    "timing": [
+      "3 days"
+    ],
+    "channels": [
+      "Online through the Unified Gate portal after registering with UAE PASS"
+    ]
+  },
+  "fields": []
+}

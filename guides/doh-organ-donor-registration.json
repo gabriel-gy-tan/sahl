@@ -1,0 +1,36 @@
+{
+  "id": "doh-organ-donor-registration",
+  "service": {
+    "en": "Organ donor registration",
+    "ar": "التسجيل في برنامج التبرع بالأعضاء",
+    "ur": "اعضا عطیہ کرنے کی رجسٹریشن",
+    "ml": "അവയവദാന രജിസ്ട്രേഷൻ"
+  },
+  "about": "Pledge to donate organs and tissue through the national Hayat programme.",
+  "authority": "DOH",
+  "aliases": [
+    "Register as organ donor",
+    "Hayat organ donation",
+    "التبرع بالأعضاء",
+    "برنامج حياة للتبرع بالأعضاء"
+  ],
+  "source": "https://www.doh.gov.ae/en/organ-donation",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi organ donation page on the checked date. Registration is a short online form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Anyone in the UAE aged over 21 can pledge, whatever their nationality"
+    ],
+    "documents": [
+      "Emirates ID number, nationality and date of birth",
+      "Choice of emirate and consent to the terms"
+    ],
+    "fees": [
+      "The page lists no fee"
+    ],
+    "channels": [
+      "Online registration through the 'Register Now' button on the DOH organ donation page"
+    ]
+  },
+  "fields": []
+}

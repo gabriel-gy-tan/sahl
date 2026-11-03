@@ -1,0 +1,31 @@
+{
+  "id": "tamm-house-number-plate",
+  "service": {
+    "en": "Install or repair house number plates",
+    "ar": "تركيب أو صيانة لوحات أرقام المنازل",
+    "ur": "گھر کی نمبر پلیٹ لگانا یا مرمت",
+    "ml": "വീട്ടുനമ്പർ പ്ലേറ്റ് സ്ഥാപിക്കൽ / നന്നാക്കൽ"
+  },
+  "about": "A homeowner requests installation or repair of house number plates.",
+  "authority": "TAMM",
+  "aliases": [
+    "House number sign",
+    "Villa number plate",
+    "لوحة رقم المنزل",
+    "تركيب رقم منزل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoInstallMailboxorResidenceIdentificationNumber",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "timing": [
+      "About 6 minutes",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

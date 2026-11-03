@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-licence-cancel",
+  "service": {
+    "en": "Cancel a water sport marine craft licence",
+    "ar": "إلغاء رخصة مركبة بحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ سمندری کرافٹ لائسنس کی منسوخی",
+    "ml": "വാട്ടർ സ്പോർട്ട് മറൈൻ ക്രാഫ്റ്റ് ലൈസൻസ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel the licence of a personal or commercial water sport craft; the sticker number can be kept for 30 days.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel jet ski licence",
+    "Deregister water sport boat",
+    "إلغاء رخصة دراجة مائية",
+    "إلغاء ترخيص مركبة بحرية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/CancelWaterSportMarineCraftLicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 100 for cancellation"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "tamm-treatment-abroad",
+  "service": {
+    "en": "Obtain treatment abroad",
+    "ar": "الحصول على العلاج بالخارج",
+    "ur": "بیرون ملک علاج کا حصول",
+    "ml": "വിദേശത്ത് ചികിത്സ നേടൽ"
+  },
+  "about": "Let Emirati patients, and children of Emirati women, who cannot get treatment in the UAE apply for care at accredited facilities abroad.",
+  "authority": "TAMM",
+  "aliases": [
+    "Treatment outside UAE",
+    "Medical treatment abroad",
+    "علاج في الخارج",
+    "العلاج بالخارج"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/international-patient-care/requestfortreatmentabroad",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Emirati patients and children of Emirati women",
+      "The treatment cannot be obtained in the UAE"
+    ],
+    "documents": [
+      "Medical report from the UAE issued within the last 3 months",
+      "Insurance card (optional)"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "20 working days",
+      "You are told if the request is approved or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

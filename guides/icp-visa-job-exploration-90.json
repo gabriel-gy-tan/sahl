@@ -1,0 +1,51 @@
+{
+  "id": "icp-visa-job-exploration-90",
+  "service": {
+    "en": "Job exploration visa, 90 days",
+    "ar": "تأشيرة البحث عن عمل 90 يوما",
+    "ur": "ملازمت تلاش ویزا، 90 دن",
+    "ml": "തൊഴിൽ അന്വേഷണ വിസ, 90 ദിവസം"
+  },
+  "about": "Get a single-entry visa to look for a job in the UAE for 90 days, without a UAE host.",
+  "authority": "ICP",
+  "aliases": [
+    "Job seeker visa 90 days",
+    "Job exploration visa",
+    "Look for a job UAE visa",
+    "تأشيرة استكشاف وظائف 90 يوم",
+    "تأشيرة باحث عن عمل"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e350ab5ae59b00117383ed",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Job exploration visa, 90 days. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Skilled worker at MOHRE levels 1 to 3, or a graduate within the last 2 years of a top-500 world university",
+      "Entry visa is valid 60 days from issue; enter within that time or it is cancelled",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months",
+      "Financial guarantee is refundable after the visa is cancelled following departure with no residency violations"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "MOHRE certificate of skilled category and level, or Ministry of Education certificate of the university's top-500 ranking",
+      "Bachelor's degree or equivalent",
+      "Copy of personal ID for applicants from Afghanistan, Iran or Iraq"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Financial guarantee 1,000 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

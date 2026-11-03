@@ -1,0 +1,32 @@
+{
+  "id": "dmt-mawaqif-villa-resident-permit",
+  "service": {
+    "en": "Mawaqif resident parking permit",
+    "ar": "تصريح موقف السكان (مواقف)",
+    "ur": "مواقف رہائشی پارکنگ پرمٹ",
+    "ml": "മവാഖിഫ് താമസക്കാരുടെ പാർക്കിംഗ് പെർമിറ്റ്"
+  },
+  "about": "Parking permit for residents of flats and villas in Abu Dhabi.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Resident parking permit",
+    "Villa parking permit",
+    "تصريح موقف سكني",
+    "تصريح مواقف الفلل"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-villa-resident-parking-permit",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Owners or tenants of the home and their first and second degree relatives living there",
+      "UAE nationals: up to 4 permits for flats; villas as set by the inspector's report",
+      "Non-UAE nationals: 2 permits, more subject to the inspector's report"
+    ],
+    "channels": [
+      "Online through TAMM (tamm.abudhabi)",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

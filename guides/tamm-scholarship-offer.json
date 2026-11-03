@@ -1,0 +1,35 @@
+{
+  "id": "tamm-scholarship-offer",
+  "service": {
+    "en": "Request a scholarship",
+    "ar": "طلب منحة دراسية",
+    "ur": "اسکالرشپ کی درخواست",
+    "ml": "സ്കോളർഷിപ്പ് അഭ്യർത്ഥന"
+  },
+  "about": "Let high-achieving grade 12 and undergraduate students review a scholarship offer and accept or reject it.",
+  "authority": "TAMM",
+  "aliases": [
+    "Scholarship offer",
+    "Accept scholarship",
+    "منحة دراسية",
+    "قبول منحة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/RequestforaScholarship",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "High-achieving twelfth grade and undergraduate students"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

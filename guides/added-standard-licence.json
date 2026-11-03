@@ -1,0 +1,30 @@
+{
+  "id": "added-standard-licence",
+  "service": {
+    "en": "Abu Dhabi Standard Licence",
+    "ar": "الرخصة القياسية في أبوظبي",
+    "ur": "ابوظہبی اسٹینڈرڈ لائسنس",
+    "ml": "അബുദാബി സ്റ്റാൻഡേർഡ് ലൈസൻസ്"
+  },
+  "about": "General business licence for any legal form of business in Abu Dhabi.",
+  "authority": "ADDED",
+  "aliases": [
+    "Standard business licence",
+    "Company licence Abu Dhabi",
+    "الرخصة القياسية",
+    "رخصة تجارية قياسية"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to any legal form of business practising in the Emirate of Abu Dhabi"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

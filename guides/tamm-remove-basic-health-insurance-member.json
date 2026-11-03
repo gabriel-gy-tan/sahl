@@ -1,0 +1,36 @@
+{
+  "id": "tamm-remove-basic-health-insurance-member",
+  "service": {
+    "en": "Remove a member from Abu Dhabi basic health insurance",
+    "ar": "إلغاء مشترك من التأمين الصحي الأساسي لأبوظبي",
+    "ur": "ابوظہبی بنیادی ہیلتھ انشورنس سے رکن ہٹانا",
+    "ml": "അബുദാബി അടിസ്ഥാന ആരോഗ്യ ഇൻഷുറൻസിൽ നിന്ന് അംഗത്തെ ഒഴിവാക്കൽ"
+  },
+  "about": "Remove a member from an individual Abu Dhabi basic health insurance policy.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel insurance member",
+    "Daman cancel member",
+    "إلغاء تأمين فرد",
+    "حذف مشترك"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Request%20for%20Member%20Cancellation%20Daman",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Death certificate",
+      "Proof of cancellation"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,36 @@
+{
+  "id": "tamm-darb-toll-registration",
+  "service": {
+    "en": "Register a vehicle in the Abu Dhabi toll system (Darb)",
+    "ar": "تسجيل مركبة في نظام التعرفة المرورية درب",
+    "ur": "ابوظہبی ٹول سسٹم (درب) میں گاڑی کی رجسٹریشن",
+    "ml": "അബുദാബി ടോൾ സംവിധാനത്തിൽ (ദർബ്) വാഹനം രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register a vehicle, from Abu Dhabi or another emirate, in the Darb toll gate system.",
+  "authority": "TAMM",
+  "aliases": [
+    "Darb registration",
+    "Abu Dhabi toll registration",
+    "Toll gate account",
+    "تسجيل درب",
+    "بوابات التعرفة المرورية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/darb/AbuDhabiTollSystemRegistration",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "100 AED"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

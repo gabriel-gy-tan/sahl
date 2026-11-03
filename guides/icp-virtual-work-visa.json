@@ -1,0 +1,46 @@
+{
+  "id": "icp-virtual-work-visa",
+  "service": {
+    "en": "Virtual work (remote worker) visa",
+    "ar": "تأشيرة العمل الافتراضي",
+    "ur": "ورچوئل ورک (ریموٹ ورکر) ویزا",
+    "ml": "വെർച്വൽ വർക്ക് (റിമോട്ട്) വിസ"
+  },
+  "about": "Get a visa to live in the UAE while working remotely for an employer abroad.",
+  "authority": "ICP",
+  "aliases": [
+    "Remote work visa",
+    "Digital nomad visa",
+    "تأشيرة العمل عن بعد",
+    "تأشيرة العمل الافتراضي"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e73fd45ae59b00117389f4",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category; you do not need to be in the UAE",
+      "Passport valid for at least 6 months",
+      "Proof of remote employment outside the UAE"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Proof of remote employment abroad",
+      "Salary certificate of USD 3,500 or equivalent"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

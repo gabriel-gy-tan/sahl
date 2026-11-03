@@ -1,0 +1,45 @@
+{
+  "id": "icp-golden-nomination",
+  "service": {
+    "en": "Golden Residence nomination application",
+    "ar": "طلب ترشيح للإقامة الذهبية",
+    "ur": "گولڈن ریزیڈنسی کے لیے نامزدگی کی درخواست",
+    "ml": "ഗോൾഡൻ റെസിഡൻസിക്കുള്ള നാമനിർദ്ദേശ അപേക്ഷ"
+  },
+  "about": "Ask ICP for pre-approval for Golden Residence if you are in a distinguished category.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden residency nomination",
+    "Golden visa pre-approval",
+    "ترشيح الإقامة الذهبية",
+    "موافقة مسبقة إقامة ذهبية"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e34fd85ae59b00117383df",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Golden Residence nomination application. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Papers proving eligibility for Golden Residence"
+    ],
+    "fees": [
+      "Application 0 AED",
+      "Issuance 0 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "icp-guarantee-refund",
+  "service": {
+    "en": "Refund of financial guarantee for approved applications",
+    "ar": "استرداد الضمان المالي للطلبات المعتمدة",
+    "ur": "منظور شدہ درخواستوں کی مالی ضمانت کی واپسی",
+    "ml": "അംഗീകരിച്ച അപേക്ഷകളുടെ സാമ്പത്തിക ഗ്യാരണ്ടി തിരികെ"
+  },
+  "about": "Get back the financial guarantee paid for an approved application.",
+  "authority": "ICP",
+  "aliases": [
+    "Visa guarantee refund",
+    "Refund of deposit",
+    "استرداد الضمان المالي",
+    "استرداد تأمين التأشيرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e73f6a5ae59b00117389ed",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Refund of financial guarantee for approved applications. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to all categories",
+      "If the guarantee is tied to a circular, the circular must be lifted first"
+    ],
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "Guarantee refund fee 25 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

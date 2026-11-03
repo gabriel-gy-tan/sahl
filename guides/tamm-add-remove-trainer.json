@@ -1,0 +1,37 @@
+{
+  "id": "tamm-add-remove-trainer",
+  "service": {
+    "en": "Add or remove a trainer",
+    "ar": "إضافة أو إزالة مدرب",
+    "ur": "ٹرینر شامل یا خارج کرنا",
+    "ml": "പരിശീലകനെ ചേർക്കുകയോ ഒഴിവാക്കുകയോ ചെയ്യൽ"
+  },
+  "about": "Get approval to add or remove a trainer at a licensed training provider.",
+  "authority": "TAMM",
+  "aliases": [
+    "Appoint trainer",
+    "Add lecturer",
+    "تعيين مدرب",
+    "إضافة محاضر"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/education/education-training/RequestApprovalforAppointingaTrainerorLecturer",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Attested academic qualification or record from the issuing body",
+      "Experience certificates"
+    ],
+    "fees": [
+      "500 AED to add a trainer"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an addition or removal letter"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

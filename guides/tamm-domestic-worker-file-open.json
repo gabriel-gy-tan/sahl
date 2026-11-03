@@ -1,0 +1,39 @@
+{
+  "id": "tamm-domestic-worker-file-open",
+  "service": {
+    "en": "Open a domestic worker sponsorship file",
+    "ar": "فتح ملف كفالة عامل خدمة منزلية",
+    "ur": "گھریلو ملازم کی کفالت فائل کھولنا",
+    "ml": "ഗാർഹിക തൊഴിലാളി സ്പോൺസർഷിപ്പ് ഫയൽ തുറക്കൽ"
+  },
+  "about": "An employer opens the file needed to bring in domestic workers.",
+  "authority": "TAMM",
+  "aliases": [
+    "Employer file maid",
+    "Open maid file",
+    "فتح ملف صاحب عمل",
+    "ملف خدم"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/OpenEmployersDomesticWorkerfile",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Marriage contract",
+      "Passport",
+      "Salary certificate"
+    ],
+    "fees": [
+      "AED 115 for citizens and GCC nationals",
+      "AED 215 for residents, investors and diplomats"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Ministry of Human Resources & Emiratisation"
+    ]
+  },
+  "fields": []
+}

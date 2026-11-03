@@ -1,0 +1,36 @@
+{
+  "id": "tamm-property-sale-purchase-register",
+  "service": {
+    "en": "Register sale and purchase of plots or units outside development areas",
+    "ar": "تسجيل بيع وشراء القسائم أو الوحدات العقارية خارج مناطق التطوير",
+    "ur": "ڈیولپمنٹ ایریاز سے باہر پلاٹس یا یونٹس کی خرید و فروخت کا اندراج",
+    "ml": "ഡെവലപ്മെന്റ് ഏരിയകൾക്ക് പുറത്തെ പ്ലോട്ട്, യൂണിറ്റ് വിൽപന രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register a full or partial sale of land or a used property unit between seller and buyer.",
+  "authority": "TAMM",
+  "aliases": [
+    "Register property sale",
+    "Title deed transfer sale",
+    "تسجيل بيع عقار",
+    "تسجيل شراء أرض"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoRegisterSaleandPurchaseofPlotsorRealEstateUnitsexcludingdevelopmentareas",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No objection certificate",
+      "Power of attorney"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 4 hours"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

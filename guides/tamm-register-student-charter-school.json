@@ -1,0 +1,40 @@
+{
+  "id": "tamm-register-student-charter-school",
+  "service": {
+    "en": "Register a student in a charter school",
+    "ar": "تسجيل طالب في مدرسة تعاقدية",
+    "ur": "چارٹر اسکول میں طالب علم کا اندراج",
+    "ml": "ചാർട്ടർ സ്കൂളിൽ വിദ്യാർത്ഥിയെ രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Let a parent apply to enrol a child in a charter school.",
+  "authority": "TAMM",
+  "aliases": [
+    "Enrol child charter school",
+    "School admission charter",
+    "تسجيل طالب في مدرسة",
+    "قبول طالب في مدرسة تشارتر"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/RequesttoRegisterStudentinCharterSchools",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Proof of residence such as house ownership, notarised lease, electricity bill or an Abu Dhabi Police or Armed Forces lease",
+      "Student ID card",
+      "Student's birth certificate",
+      "Guardian's identity card",
+      "Completed registration form",
+      "Comprehensive evaluation report and analysis report, if available"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app, through the available channels"
+    ]
+  },
+  "fields": []
+}

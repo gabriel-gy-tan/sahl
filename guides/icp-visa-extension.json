@@ -1,0 +1,46 @@
+{
+  "id": "icp-visa-extension",
+  "service": {
+    "en": "Visa extension",
+    "ar": "تمديد التأشيرة",
+    "ur": "ویزا میں توسیع",
+    "ml": "വിസ നീട്ടൽ"
+  },
+  "about": "Extend an entry permit that is eligible for extension.",
+  "authority": "ICP",
+  "aliases": [
+    "Extend visit visa",
+    "Extend tourist visa",
+    "Entry permit extension",
+    "تمديد تأشيرة زيارة",
+    "تمديد إقامة الزائر"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e62",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For visit, tourism, treatment, work mission and study permits",
+      "Visit permits for relatives or friends can extend up to 180 days in total; tourism permits up to 120 days",
+      "Border area, truck driver and 60-day visas for people abroad cannot be extended"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Papers submitted at issuance, depending on visa type"
+    ],
+    "fees": [
+      "Application fee 100 AED",
+      "Extension fee 500 AED",
+      "14-day visa extension 250 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,37 @@
+{
+  "id": "tamm-attested-pursuing-study-certificate",
+  "service": {
+    "en": "Issue an attested pursuing of study certificate",
+    "ar": "إصدار شهادة مواصلة دراسة مصدقة",
+    "ur": "تصدیق شدہ زیر تعلیم ہونے کا سرٹیفکیٹ",
+    "ml": "സാക്ഷ്യപ്പെടുത്തിയ പഠനം തുടരുന്ന സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get an attested certificate that a student is registered at a private or charter school in Abu Dhabi on the issue date.",
+  "authority": "TAMM",
+  "aliases": [
+    "Student enrolment certificate",
+    "Proof of study",
+    "To whom it may concern student",
+    "شهادة قيد طالب",
+    "شهادة مواصلة دراسة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/Requestfortowhomitmayconcerncertificatestudents",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "15 AED attestation fee"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an electronic copy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

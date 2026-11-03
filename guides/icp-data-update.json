@@ -1,0 +1,38 @@
+{
+  "id": "icp-data-update",
+  "service": {
+    "en": "Emirates ID data update",
+    "ar": "تحديث بيانات الهوية",
+    "ur": "شناختی ڈیٹا کی تازہ کاری",
+    "ml": "ഐഡി വിവരങ്ങൾ പുതുക്കൽ"
+  },
+  "about": "Update your phone number, email or address on your ICP record.",
+  "authority": "ICP",
+  "aliases": [
+    "Update mobile number",
+    "Update address",
+    "Update email",
+    "تحديث البيانات",
+    "تحديث رقم الهاتف"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e5c",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to UAE citizens, residents and GCC citizens",
+      "At least one of mobile number, address or email must change",
+      "Family members update through the sponsor's or family head's account"
+    ],
+    "documents": [
+      "No documents listed"
+    ],
+    "timing": [
+      "Data updates automatically after payment"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

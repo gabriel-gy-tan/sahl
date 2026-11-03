@@ -1,0 +1,45 @@
+{
+  "id": "dha-birth-certificate",
+  "service": {
+    "en": "Birth certificate, copy or replacement",
+    "ar": "شهادة الميلاد أو نسخة منها أو بدل فاقد",
+    "ur": "پیدائشی سرٹیفکیٹ، نقل یا گمشدہ کی جگہ نیا",
+    "ml": "ജനന സർട്ടിഫിക്കറ്റ്, പകർപ്പ് അല്ലെങ്കിൽ നഷ്ടപ്പെട്ടതിന് പകരം"
+  },
+  "about": "Get a Dubai birth certificate for a newborn, or a copy or replacement of one.",
+  "authority": "DHA",
+  "aliases": [
+    "Dubai birth certificate",
+    "Birth certificate copy",
+    "Lost birth certificate replacement",
+    "شهادة ميلاد دبي",
+    "استخراج شهادة ميلاد"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/40cd0672-c7b0-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to citizens, residents and visitors",
+      "Copies and replacements are applied for by the father or mother"
+    ],
+    "documents": [
+      "For a new certificate, originals of both parents' Emirates ID or passport",
+      "Marriage certificate, authenticated if issued abroad",
+      "Birth notification stamped by the hospital",
+      "For a replacement, both parents' ID copies and a police letter if no copy of the lost certificate exists",
+      "For a copy, a copy of the certificate and both parents' ID copies"
+    ],
+    "fees": [
+      "AED 70 for each certificate"
+    ],
+    "timing": [
+      "1 working day",
+      "The service is open 24/7"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

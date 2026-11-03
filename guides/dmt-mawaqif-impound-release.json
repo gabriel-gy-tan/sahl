@@ -1,0 +1,44 @@
+{
+  "id": "dmt-mawaqif-impound-release",
+  "service": {
+    "en": "Mawaqif impound vehicle release",
+    "ar": "استلام مركبة من مخزن مواقف",
+    "ur": "مواقف امپاؤنڈ سے گاڑی کی واپسی",
+    "ml": "മവാഖിഫ് ഇംപൗണ്ടിൽ നിന്ന് വാഹനം വിടുവിക്കൽ"
+  },
+  "about": "Collect a vehicle impounded for breaking Abu Dhabi parking law.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Release impounded car",
+    "Mawaqif impound",
+    "استرجاع مركبة محجوزة",
+    "مخزن مركبات مواقف"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-parking-impound-area",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. The release is handled in person, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Vehicle owners or their legal representatives",
+      "A first degree proof is needed if the owner's name differs from the registered name"
+    ],
+    "documents": [
+      "Owner's Emirates ID or driving licence",
+      "Vehicle ownership card",
+      "First degree proof if the name differs or a representative collects it"
+    ],
+    "fees": [
+      "AED 100 per day for the first month from the impound date",
+      "AED 500 per month for each later month",
+      "AED 500 for transport and towing"
+    ],
+    "timing": [
+      "Open 24 hours",
+      "Vehicles not freed within 6 months go to auction"
+    ],
+    "channels": [
+      "In person at the customer service centre in the impound area, Karama, Sheikh Rashid Bin Saeed Street"
+    ]
+  },
+  "fields": []
+}

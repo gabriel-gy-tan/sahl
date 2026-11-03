@@ -1,0 +1,42 @@
+{
+  "id": "tamm-residency-eid-family-government-employee",
+  "service": {
+    "en": "Residency and Emirates ID for family (government employee sponsor)",
+    "ar": "إقامة وهوية إماراتية للعائلة (كفيل موظف حكومي)",
+    "ur": "خاندان کے لیے رہائش اور ایمریٹس آئی ڈی (سرکاری ملازم کفیل)",
+    "ml": "കുടുംബത്തിന് റെസിഡൻസിയും എമിറേറ്റ്സ് ഐഡിയും (സർക്കാർ ജീവനക്കാരൻ സ്പോൺസർ)"
+  },
+  "about": "A resident sponsor working in the public sector requests a residency permit and Emirates ID for family members.",
+  "authority": "TAMM",
+  "aliases": [
+    "Family Emirates ID government",
+    "Residence and EID public sector",
+    "هوية وإقامة عائلة موظف حكومي",
+    "إقامة عائلية قطاع حكومي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssueaResidenceandFamilyEIDaResidentSponsorWorkingintheGovernmentSector",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Resident sponsor working in the public sector"
+    ],
+    "documents": [
+      "Certificate",
+      "Emirates ID",
+      "Passport"
+    ],
+    "fees": [
+      "AED 100 for card issuance",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee"
+    ],
+    "timing": [
+      "About 2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

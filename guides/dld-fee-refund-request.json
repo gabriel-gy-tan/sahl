@@ -1,0 +1,32 @@
+{
+  "id": "dld-fee-refund-request",
+  "service": {
+    "en": "Fee refund request",
+    "ar": "طلب استرداد رسوم",
+    "ur": "فیس کی واپسی کی درخواست",
+    "ml": "ഫീസ് റീഫണ്ട് അപേക്ഷ"
+  },
+  "about": "Ask for a full or partial refund of a fee paid to the Dubai Land Department.",
+  "authority": "DLD",
+  "aliases": [
+    "Refund DLD fees",
+    "استرداد الرسوم"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/fee-refund-request-overview/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Fee refund request. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Receipt voucher",
+      "Bank account details"
+    ],
+    "timing": [
+      "7 business days"
+    ],
+    "channels": [
+      "Dubai REST app",
+      "DLD website"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "tamm-health-insurance-complaint",
+  "service": {
+    "en": "File a health insurance complaint",
+    "ar": "تقديم شكوى تأمين صحي",
+    "ur": "ہیلتھ انشورنس شکایت درج کرنا",
+    "ml": "ആരോഗ്യ ഇൻഷുറൻസ് പരാതി നൽകൽ"
+  },
+  "about": "Complain about an insurer, administrator, broker or provider over refused cover or treatment, unpaid amounts or reimbursements.",
+  "authority": "TAMM",
+  "aliases": [
+    "Insurance complaint",
+    "Complaint against insurance company",
+    "شكوى على شركة تأمين",
+    "شكوى تأمين صحي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/ComplaintAgainstanInsuranceCompany",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Medical report",
+      "Documents supporting the case",
+      "Detailed treatment invoices",
+      "Outstanding payments",
+      "Audit letter",
+      "Power of attorney",
+      "Rejection letter from the insurer"
+    ],
+    "fees": [
+      "100 AED for individuals",
+      "2,000 AED for the business sector"
+    ],
+    "timing": [
+      "30 working days",
+      "You are told if the complaint is approved or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

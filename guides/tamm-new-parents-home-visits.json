@@ -1,0 +1,36 @@
+{
+  "id": "tamm-new-parents-home-visits",
+  "service": {
+    "en": "Home visiting programme for new parents",
+    "ar": "برنامج الزيارات المنزلية للوالدين الجدد",
+    "ur": "نئے والدین کے لیے ہوم وزٹ پروگرام",
+    "ml": "പുതിയ മാതാപിതാക്കൾക്കുള്ള ഹോം വിസിറ്റ് പദ്ധതി"
+  },
+  "about": "Register for home visits that support new mothers in the first 7 to 30 days after leaving hospital.",
+  "authority": "TAMM",
+  "aliases": [
+    "Postnatal home visit",
+    "New mother support",
+    "زيارات منزلية للأمهات",
+    "دعم الأم بعد الولادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/SupportCommunityEnvironment/Family-Enablement/RegisterforHomeVisitingProgramforNewParents",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Medical report approved by the Department of Health"
+    ],
+    "fees": [
+      "No fees"
+    ],
+    "timing": [
+      "About 10 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Community Development"
+    ]
+  },
+  "fields": []
+}

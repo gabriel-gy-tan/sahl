@@ -1,0 +1,35 @@
+{
+  "id": "tamm-property-management-agreement-amend",
+  "service": {
+    "en": "Amend a property management agreement",
+    "ar": "تعديل اتفاقية إدارة عقار",
+    "ur": "پراپرٹی مینجمنٹ معاہدے میں ترمیم",
+    "ml": "പ്രോപ്പർട്ടി മാനേജ്മെന്റ് കരാർ ഭേദഗതി"
+  },
+  "about": "An individual or company asks to amend a property management agreement with another party.",
+  "authority": "TAMM",
+  "aliases": [
+    "Property management contract change",
+    "Edit management agreement",
+    "تعديل عقد إدارة عقار",
+    "تعديل اتفاقية إدارة ممتلكات"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoAmendaPropertyManagementAgreement",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Power of attorney"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "adek-nursery-cctv-compliance",
+  "service": {
+    "en": "Nursery CCTV compliance certificate",
+    "ar": "شهادة الامتثال لكاميرات المراقبة في الحضانة",
+    "ur": "نرسری سی سی ٹی وی تعمیل سرٹیفکیٹ",
+    "ml": "നഴ്സറി സിസിടിവി പാലന സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Submit CCTV compliance details for a licensed nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "CCTV compliance certificate",
+    "Nursery CCTV submission",
+    "شهادة امتثال كاميرات المراقبة",
+    "تقديم امتثال كاميرات المراقبة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "CCTV provider details",
+      "Supporting documents"
+    ],
+    "timing": [
+      "Reviewed by a third party (ADMCC) with no timeframe given",
+      "Other dependent services need this one first"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery",
+      "Or declare your own CCTV provider to ADMCC"
+    ]
+  },
+  "fields": []
+}

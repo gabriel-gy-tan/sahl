@@ -1,0 +1,35 @@
+{
+  "id": "doh-flexible-health-insurance",
+  "service": {
+    "en": "Flexible health insurance policy",
+    "ar": "وثيقة التأمين الصحي المرن",
+    "ur": "لچکدار ہیلتھ انشورنس پالیسی",
+    "ml": "ഫ്ലെക്സിബിൾ ആരോഗ്യ ഇൻഷുറൻസ്"
+  },
+  "about": "Low-cost health insurance option in Abu Dhabi for investors, freelancers and private-sector workers.",
+  "authority": "DOH",
+  "aliases": [
+    "Flexible health insurance",
+    "Affordable health insurance Abu Dhabi",
+    "التأمين الصحي المرن",
+    "وثيقة التأمين المرنة"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. Applications go through the insurance company, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to investors and freelance licence owners with their families and employees, and private-sector expatriate residents earning over AED 5,000 a month",
+      "Not for people earning under AED 5,000 a month, people an insurer rejected for justified reasons, or people with government cover",
+      "The insurer assesses the applicant's health record before accepting",
+      "Cover of AED 150,000 a year, with 100% emergency cover and 20% co-pay on outside treatment and 30% on medicines"
+    ],
+    "fees": [
+      "AED 750 for the policy"
+    ],
+    "channels": [
+      "Contact a licensed health insurance company in Abu Dhabi before your current policy ends"
+    ]
+  },
+  "fields": []
+}

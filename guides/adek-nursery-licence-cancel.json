@@ -1,0 +1,32 @@
+{
+  "id": "adek-nursery-licence-cancel",
+  "service": {
+    "en": "Nursery licence cancellation",
+    "ar": "إلغاء ترخيص الحضانة",
+    "ur": "نرسری لائسنس کی منسوخی",
+    "ml": "നഴ്സറി ലൈസൻസ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel the licence of a nursery that is no longer operating.",
+  "authority": "ADEK",
+  "aliases": [
+    "Cancel nursery licence",
+    "Close nursery",
+    "إلغاء رخصة حضانة",
+    "إغلاق حضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The nursery licence must show as Active"
+    ],
+    "fees": [
+      "Cancellation fees apply and are paid after approval; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

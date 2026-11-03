@@ -1,0 +1,43 @@
+{
+  "id": "tamm-family-visa-government-sector",
+  "service": {
+    "en": "Family residence visa (government-sector resident sponsor)",
+    "ar": "تأشيرة إقامة عائلية (كفيل مقيم في القطاع الحكومي)",
+    "ur": "فیملی رہائشی ویزا (سرکاری شعبے کا کفیل)",
+    "ml": "കുടുംബ റെസിഡൻസ് വിസ (സർക്കാർ മേഖല)"
+  },
+  "about": "A resident working in the government sector requests a residence visa for a family member.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sponsor family government",
+    "Family visa government employee",
+    "تأشيرة عائلة موظف حكومي",
+    "كفالة عائلية حكومي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssueaFamilyVisaaResidentSponsorWorkingintheGovernmentSector",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Photo",
+      "Tenancy contract"
+    ],
+    "fees": [
+      "AED 100 issuance fee",
+      "AED 100 request fee",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee",
+      "AED 5,025 security deposits"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

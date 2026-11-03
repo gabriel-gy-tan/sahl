@@ -1,0 +1,37 @@
+{
+  "id": "tamm-domestic-worker-contract-cancel",
+  "service": {
+    "en": "Cancel domestic worker contract",
+    "ar": "إلغاء عقد عمل عامل خدمة منزلية",
+    "ur": "گھریلو ملازم کا معاہدہ منسوخ کرنا",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ കരാർ റദ്ദാക്കൽ"
+  },
+  "about": "An employer asks to cancel a domestic worker's work contract and residence permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel maid visa",
+    "End domestic worker contract",
+    "إلغاء إقامة خادمة",
+    "إلغاء عقد عامل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/CancellationofResidencyPermitforDomesticWorker",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID"
+    ],
+    "fees": [
+      "AED 65 to cancel the residence permit (also AED 65 for an exceptional cancellation)"
+    ],
+    "timing": [
+      "1 working day",
+      "Any fines must be paid first"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Ministry of Human Resources & Emiratisation"
+    ]
+  },
+  "fields": []
+}

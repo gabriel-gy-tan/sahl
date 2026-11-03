@@ -1,0 +1,42 @@
+{
+  "id": "dha-overseas-treatment-letters",
+  "service": {
+    "en": "Letters for overseas treatment",
+    "ar": "خطابات العلاج في الخارج",
+    "ur": "بیرون ملک علاج کے خطوط",
+    "ml": "വിദേശ ചികിത്സയ്ക്കുള്ള കത്തുകൾ"
+  },
+  "about": "Get a medical visa letter, a to-whom-it-may-concern letter or an airport transfer request for treatment abroad. For patients travelling abroad for treatment only.",
+  "authority": "DHA",
+  "aliases": [
+    "Medical visa letter",
+    "Escort visa letter",
+    "Overseas treatment letter",
+    "خطاب تأشيرة علاجية",
+    "خطاب مرافق"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/fd7da8c0-cf8d-11e9-0722-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for patients travelling abroad for treatment and their escorts; it is not a general to-whom-it-may-concern letter",
+      "Patient and escort passports must not be expired"
+    ],
+    "documents": [
+      "Escort's Emirates ID copy",
+      "Escort's passport copy"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "1 working day",
+      "The service is open 24/7"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

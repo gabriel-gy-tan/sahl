@@ -1,0 +1,43 @@
+{
+  "id": "mohre-domestic-worker-absconding-report",
+  "service": {
+    "en": "Absence report for a domestic worker",
+    "ar": "بلاغ تغيب عامل خدمة منزلية عن العمل",
+    "ur": "گھریلو ملازم کی غیر حاضری کی رپورٹ",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ ഹാജരില്ലായ്മ റിപ്പോർട്ട്"
+  },
+  "about": "Let an employer report a domestic worker who has left and cannot be found.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Absconding report maid",
+    "Domestic worker absconding",
+    "بلاغ تغيب خادمة",
+    "بلاغ هروب عامل منزلي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/absence-from-work-absconding-report-domestic-workers-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Worker has been absent more than seven days",
+      "Employer cannot find or contact the worker"
+    ],
+    "documents": [
+      "Worker's passport or employment visa, if available"
+    ],
+    "fees": [
+      "315 AED outside Dubai; Dubai is handled by its residency directorate",
+      "Business centres may add a commission of up to 72 AED"
+    ],
+    "timing": [
+      "Done in 2 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

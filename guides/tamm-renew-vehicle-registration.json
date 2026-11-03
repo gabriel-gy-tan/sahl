@@ -1,0 +1,49 @@
+{
+  "id": "tamm-renew-vehicle-registration",
+  "service": {
+    "en": "Renew vehicle registration",
+    "ar": "تجديد تسجيل المركبة",
+    "ur": "گاڑی کی رجسٹریشن کی تجدید",
+    "ml": "വാഹന രജിസ്ട്രേഷൻ പുതുക്കൽ"
+  },
+  "about": "Renew an expired vehicle registration in Abu Dhabi.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew vehicle licence",
+    "Renew car registration",
+    "Mulkiya renewal",
+    "تجديد ملكية المركبة",
+    "تجديد رخصة المركبة",
+    "Car registration renewal",
+    "تجديد ملكية مركبة",
+    "تجديد استمارة السيارة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requesttorenewvehiclelicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "Light vehicle: 350 AED, private or public",
+      "Over 3 and up to 12 tonnes: 400 AED private, 650 AED public",
+      "Over 12 tonnes: 800 AED private, 1,000 AED public",
+      "Light machinery: 500 AED private, 700 AED public",
+      "Heavy machinery: 800 AED private, 1,000 AED public",
+      "Trailer or semi-trailer: 120 AED private, 220 AED public (each year)",
+      "Bus of 14 to 26 passengers: 300 AED private, 400 AED public",
+      "Bus of more than 26 passengers: 600 AED private, 1,000 AED public",
+      "Motorcycle: 200 AED private, 400 AED public"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive the renewed registration"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

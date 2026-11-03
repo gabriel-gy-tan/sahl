@@ -1,0 +1,43 @@
+{
+  "id": "dha-good-standing-certificate",
+  "service": {
+    "en": "Good Standing Certificate",
+    "ar": "شهادة حسن السيرة والسلوك المهني",
+    "ur": "گڈ اسٹینڈنگ سرٹیفکیٹ",
+    "ml": "ഗുഡ് സ്റ്റാൻഡിംഗ് സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a Good Standing Certificate or a licence details verification as a current or past DHA professional. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "Good standing certificate",
+    "DHA licence verification",
+    "شهادة الممارس الجيد",
+    "التحقق من تفاصيل الترخيص"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/a648104a-c4b7-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "You must have no unpaid fines",
+      "Anyone who was suspended or revoked, or under investigation in the past two years, gets a Certificate of Current Status instead",
+      "Licence verification needs a past DHA licence"
+    ],
+    "documents": [
+      "For the certificate, none unless your passport copy is out of date",
+      "For licence verification, the verification form, a valid passport copy and a copy of your last DHA licence"
+    ],
+    "fees": [
+      "AED 500 for one certificate"
+    ],
+    "timing": [
+      "1 working day for the certificate",
+      "5 working days for licence verification"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

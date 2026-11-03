@@ -1,0 +1,47 @@
+{
+  "id": "tamm-al-ghad-nursery-seat",
+  "service": {
+    "en": "Register interest in a seat at Al Ghad nurseries",
+    "ar": "تسجيل الرغبة بحجز مقعد في حضانات الغد",
+    "ur": "الغد نرسریوں میں نشست کے لیے دلچسپی کا اندراج",
+    "ml": "അൽ ഗദ് നഴ്സറികളിൽ സീറ്റിനായി താൽപര്യം രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Let the parent of an Emirati child, or a child of an Emirati mother, register interest in a seat or a move between Al Ghad nurseries.",
+  "authority": "TAMM",
+  "aliases": [
+    "Al Ghad nursery",
+    "Nursery seat reservation",
+    "حضانة الغد",
+    "حجز مقعد حضانة",
+    "Al Ghad nurseries",
+    "Nursery for Emirati child",
+    "التسجيل في حضانات الغد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/EnrollInALGADNurseries",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Parent of an Emirati child or of a child of an Emirati mother"
+    ],
+    "documents": [
+      "Proof of address",
+      "Court decision, if applicable",
+      "People of Determination card, if applicable",
+      "Work certificate, if applicable",
+      "Martyrs Families Office to-whom-it-may-concern certificate, if applicable",
+      "Documents supporting the case"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "5 working days",
+      "You receive a tracking number"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

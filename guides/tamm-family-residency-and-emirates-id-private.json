@@ -1,0 +1,44 @@
+{
+  "id": "tamm-family-residency-and-emirates-id-private",
+  "service": {
+    "en": "Family residence permit and Emirates ID (private-sector sponsor)",
+    "ar": "إقامة وهوية إماراتية لأفراد الأسرة (كفيل في القطاع الخاص)",
+    "ur": "فیملی رہائش اور ایمریٹس آئی ڈی (نجی شعبے کا کفیل)",
+    "ml": "കുടുംബ താമസ പെർമിറ്റും എമിറേറ്റ്സ് ഐഡിയും (സ്വകാര്യ മേഖല)"
+  },
+  "about": "A resident working in the private sector or a free zone requests residence permits and Emirates IDs for family members.",
+  "authority": "TAMM",
+  "aliases": [
+    "Family residency and ID",
+    "Dependants Emirates ID",
+    "إقامة وهوية عائلة",
+    "هوية أفراد الأسرة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssuanceofResidenceandFamilyEIDaResidentSponsorWorkinginthePrivateSector",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Certificate",
+      "Emirates ID",
+      "Passport",
+      "Photo",
+      "Proof of first-degree kinship"
+    ],
+    "fees": [
+      "AED 100 card issuance",
+      "AED 100 smart services fee",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee"
+    ],
+    "timing": [
+      "2 working days",
+      "Card arrives through an assigned delivery company"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

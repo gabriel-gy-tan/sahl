@@ -1,0 +1,41 @@
+{
+  "id": "dha-insurance-complaint",
+  "service": {
+    "en": "Insurance complaint",
+    "ar": "شكوى على شركة تأمين صحي",
+    "ur": "انشورنس کمپنی کے خلاف شکایت",
+    "ml": "ഇൻഷുറൻസ് പരാതി"
+  },
+  "about": "Send a complaint, suggestion or compliment about a health insurer through the unified complaints system.",
+  "authority": "DHA",
+  "aliases": [
+    "Health insurance complaint",
+    "Unified complaints system",
+    "Insurance claim complaint Dubai",
+    "شكوى تأمين",
+    "نظام الشكاوى الموحد"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/bcbf2336-9616-11e8-0720-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For insured members with a visa issued from Dubai"
+    ],
+    "documents": [
+      "Application form on the Eclaim Link system"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "About 3 days",
+      "3 to 5 working days waiting time"
+    ],
+    "channels": [
+      "DHA website",
+      "Call centre"
+    ]
+  },
+  "fields": []
+}

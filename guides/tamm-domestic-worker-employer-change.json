@@ -1,0 +1,38 @@
+{
+  "id": "tamm-domestic-worker-employer-change",
+  "service": {
+    "en": "Change of employer for a domestic worker",
+    "ar": "تغيير صاحب العمل لعامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے آجر کی تبدیلی",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ തൊഴിലുടമ മാറ്റം"
+  },
+  "about": "An employer amends the status of a domestic worker already in the country by taking over as the new employer.",
+  "authority": "TAMM",
+  "aliases": [
+    "Transfer domestic worker sponsorship",
+    "Domestic worker status amendment",
+    "نقل كفالة خادمة",
+    "تعديل وضع عاملة منزلية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/DomesticWorkerStatusAmendment",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Residence visa cancellation"
+    ],
+    "fees": [
+      "AED 515 for the change of employer",
+      "Any fines on the worker must also be paid"
+    ],
+    "timing": [
+      "About 1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

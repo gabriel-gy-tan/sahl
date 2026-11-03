@@ -1,0 +1,33 @@
+{
+  "id": "doh-treatment-abroad-foreign-child-emirati-mother",
+  "service": {
+    "en": "Treatment abroad for a foreign child of an Emirati mother",
+    "ar": "طلب العلاج في الخارج لابن مواطنة غير حامل للجنسية",
+    "ur": "اماراتی ماں کے غیر ملکی بچے کے لیے بیرون ملک علاج",
+    "ml": "എമിറാത്തി അമ്മയുടെ വിദേശ പൗരത്വമുള്ള കുട്ടിക്ക് വിദേശ ചികിത്സ"
+  },
+  "about": "Treatment abroad request for a patient who is a foreign child of an Emirati mother.",
+  "authority": "DOH",
+  "aliases": [
+    "Treatment abroad child of Emirati mother",
+    "علاج أبناء المواطنات في الخارج",
+    "علاج ابن المواطنة بالخارج"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Copy of the patient's passport and residence permit",
+      "Copy of the patient's ID",
+      "Medical reports not older than 3 months",
+      "Copy of the patient's birth certificate",
+      "Copy of the mother's ID card",
+      "Optional: mother's family book and the patient's insurance card"
+    ],
+    "channels": [
+      "TAMM website or app, or a TAMM service centre"
+    ]
+  },
+  "fields": []
+}

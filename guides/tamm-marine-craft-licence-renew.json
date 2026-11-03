@@ -1,0 +1,36 @@
+{
+  "id": "tamm-marine-craft-licence-renew",
+  "service": {
+    "en": "Renew a water sport marine craft licence",
+    "ar": "تجديد رخصة مركبة بحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ سمندری کرافٹ لائسنس کی تجدید",
+    "ml": "വാട്ടർ സ്പോർട്ട് മറൈൻ ക്രാഫ്റ്റ് ലൈസൻസ് പുതുക്കൽ"
+  },
+  "about": "Renew the licence of a personal or commercial water sport craft such as jet skis, barbecue boats, amphibious boats, small electric or petrol boats and similar water sport craft.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew jet ski licence",
+    "Water sport boat renewal",
+    "تجديد رخصة دراجة مائية",
+    "تجديد ترخيص مركبة بحرية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/RenewWaterSportMarineCraftLicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Insurance certificate",
+      "Marina berth leasing contract"
+    ],
+    "fees": [
+      "AED 300 for the on-site inspection visit"
+    ],
+    "timing": [
+      "About 30 days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

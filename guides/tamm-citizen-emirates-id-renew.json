@@ -1,0 +1,37 @@
+{
+  "id": "tamm-citizen-emirates-id-renew",
+  "service": {
+    "en": "Renew Emirates ID for a citizen",
+    "ar": "تجديد الهوية الإماراتية للمواطن",
+    "ur": "شہری کے لیے ایمریٹس آئی ڈی کی تجدید",
+    "ml": "പൗരന്മാർക്കുള്ള എമിറേറ്റ്സ് ഐഡി പുതുക്കൽ"
+  },
+  "about": "Emirati citizens request renewal of their Emirates ID card.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew citizen ID",
+    "Emirati ID renewal",
+    "تجديد بطاقة هوية مواطن",
+    "تجديد هوية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/RenewanEmiratesIDforCitizens",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Photograph"
+    ],
+    "fees": [
+      "AED 100 card fee for five years, or AED 200 for ten years",
+      "AED 40 electronic service fee"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

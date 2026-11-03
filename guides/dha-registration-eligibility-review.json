@@ -1,0 +1,43 @@
+{
+  "id": "dha-registration-eligibility-review",
+  "service": {
+    "en": "Review registration eligibility",
+    "ar": "مراجعة أهلية التسجيل",
+    "ur": "رجسٹریشن کی اہلیت کا جائزہ",
+    "ml": "രജിസ്ട്രേഷൻ യോഗ്യതാ അവലോകനം"
+  },
+  "about": "Check whether you qualify for DHA professional registration and which title fits you. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "Registration eligibility",
+    "DHA self-assessment",
+    "Professional qualification requirements",
+    "أهلية التسجيل",
+    "التقييم الذاتي"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/b894ffb7-c4b4-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "You must not be blacklisted",
+      "Assessment attempts are limited to 3"
+    ],
+    "documents": [
+      "The self-assessment tool needs no documents",
+      "For the full review: photo, passport copy, qualifications, experience certificates, professional licences, Good Standing Certificates and a surgical logbook if applicable"
+    ],
+    "fees": [
+      "AED 200 for the review application"
+    ],
+    "timing": [
+      "Self-assessment is instant",
+      "Manual review takes 10 working days"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

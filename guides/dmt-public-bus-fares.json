@@ -1,0 +1,32 @@
+{
+  "id": "dmt-public-bus-fares",
+  "service": {
+    "en": "Abu Dhabi public bus fares",
+    "ar": "أجرة الحافلات العامة في أبوظبي",
+    "ur": "ابوظہبی پبلک بس کرایہ",
+    "ml": "അബുദാബി പൊതു ബസ് നിരക്ക്"
+  },
+  "about": "Fare rules for standard public bus service in Abu Dhabi, Al Ain and Al Dhafra.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Bus fare Abu Dhabi",
+    "Hafilat fares",
+    "أجرة الباص",
+    "تعرفة الحافلات"
+  ],
+  "source": "https://admobility.gov.ae/en/pb-bus-service/hafilat-public-buses-fees",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This is a fare page rather than a form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 2 to board",
+      "5 fils per km",
+      "AED 5 maximum per journey",
+      "Children aged 10 and under travel free"
+    ],
+    "timing": [
+      "No second boarding fee when transferring between public transport services, but inter-city services are not included"
+    ]
+  },
+  "fields": []
+}

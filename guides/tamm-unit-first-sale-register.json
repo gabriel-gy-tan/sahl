@@ -1,0 +1,39 @@
+{
+  "id": "tamm-unit-first-sale-register",
+  "service": {
+    "en": "Register a unit for first sale",
+    "ar": "تسجيل وحدة للبيع الأول",
+    "ur": "یونٹ کی پہلی فروخت کا اندراج",
+    "ml": "ആദ്യ വിൽപനയ്ക്കായി യൂണിറ്റ് രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register a sale of a finished unit bought directly from the developer.",
+  "authority": "TAMM",
+  "aliases": [
+    "Register off-plan purchase",
+    "Developer sale registration",
+    "تسجيل بيع أول",
+    "تسجيل شراء من المطور"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoRegisteraUnitforFirstSale",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Passport",
+      "Sale and purchase agreement",
+      "Mortgage contract"
+    ],
+    "fees": [
+      "1% for Musataha",
+      "2% of the contract value",
+      "AED 450 electronic administrative services allowance"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

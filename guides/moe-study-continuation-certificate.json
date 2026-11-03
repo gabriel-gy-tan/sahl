@@ -1,0 +1,41 @@
+{
+  "id": "moe-study-continuation-certificate",
+  "service": {
+    "en": "Study continuation certificate",
+    "ar": "شهادة استمرار دراسة",
+    "ur": "تعلیم جاری رکھنے کا سرٹیفکیٹ",
+    "ml": "പഠനം തുടരുന്നതിന്റെ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get an attested certificate that a student is still studying in a public school.",
+  "authority": "MOE",
+  "aliases": [
+    "Student continuation letter",
+    "Proof of enrolment",
+    "شهادة قيد",
+    "شهادة استمرار دراسة"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/Request-to-issue-a-study-continuity-certificate-for-a-public-school-student.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Study continuation certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For students in public schools and private schools that follow the ministry curriculum",
+      "Not available on the student portal during the summer break after the year ends"
+    ],
+    "documents": [
+      "No documents required"
+    ],
+    "fees": [
+      "AED 15"
+    ],
+    "timing": [
+      "Instant"
+    ],
+    "channels": [
+      "MOE website or smart app, sign in with UAE PASS",
+      "Certificate is sent to the email on the UAE PASS account",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "tamm-attested-report-card",
+  "service": {
+    "en": "Issue an attested report card",
+    "ar": "إصدار شهادة مدرسية مصدقة",
+    "ur": "تصدیق شدہ رپورٹ کارڈ کا اجرا",
+    "ml": "സാക്ഷ്യപ്പെടുത്തിയ റിപ്പോർട്ട് കാർഡ്"
+  },
+  "about": "Get an attested report card for one academic year at a private or charter school in Abu Dhabi, with optional Foreign Ministry attestation.",
+  "authority": "TAMM",
+  "aliases": [
+    "Attested academic certificate",
+    "School report card",
+    "Grade certificate",
+    "شهادة درجات مصدقة",
+    "كشف درجات"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/RequesttoIssueAttestedAcademicCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for report cards published from 2012 onwards"
+    ],
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "15 AED attestation fee",
+      "300 AED optional Ministry of Foreign Affairs attestation"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an electronic copy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "a service centre"
+    ]
+  },
+  "fields": []
+}

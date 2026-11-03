@@ -1,0 +1,38 @@
+{
+  "id": "tamm-property-ownership-certificate",
+  "service": {
+    "en": "Property ownership certificate",
+    "ar": "إصدار شهادة ملكية عقار",
+    "ur": "پراپرٹی ملکیت سرٹیفکیٹ",
+    "ml": "വസ്തു ഉടമസ്ഥാവകാശ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a certificate showing the details of a land plot or property you own.",
+  "authority": "TAMM",
+  "aliases": [
+    "Title deed certificate",
+    "Ownership certificate",
+    "شهادة ملكية",
+    "شهادة ملكية عقار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequestforPropertyOwnershipCertificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Power of attorney, if applicable",
+      "Commercial licence, if applicable"
+    ],
+    "fees": [
+      "AED 50 certificate fee",
+      "AED 10 electronic administrative services fee"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

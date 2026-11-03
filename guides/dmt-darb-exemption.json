@@ -1,0 +1,31 @@
+{
+  "id": "dmt-darb-exemption",
+  "service": {
+    "en": "Darb toll exemption",
+    "ar": "الإعفاء من رسوم درب",
+    "ur": "درب ٹول میں چھوٹ",
+    "ml": "ദർബ് ടോൾ ഇളവ്"
+  },
+  "about": "Ask to exempt one vehicle from Darb tolls.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Toll exemption Abu Dhabi",
+    "Darb exemption request",
+    "إعفاء درب",
+    "طلب إعفاء من الرسوم"
+  ],
+  "source": "https://admobility.gov.ae/en/darb-exemptions",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "On request, one vehicle per category for people of determination, low income families, senior citizens and retired citizens",
+      "Ambulances, civil defence, police, taxis, school buses, public buses, motorcycles and trailers are exempt without a request"
+    ],
+    "channels": [
+      "Darb online platform (darb.itc.gov.ae)",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

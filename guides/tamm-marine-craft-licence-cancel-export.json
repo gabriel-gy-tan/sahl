@@ -1,0 +1,38 @@
+{
+  "id": "tamm-marine-craft-licence-cancel-export",
+  "service": {
+    "en": "Cancel a water sport marine craft licence with export certificate",
+    "ar": "إلغاء رخصة مركبة بحرية للرياضات المائية مع شهادة تصدير",
+    "ur": "برآمدی سرٹیفکیٹ کے ساتھ واٹر اسپورٹ کرافٹ لائسنس کی منسوخی",
+    "ml": "എക്സ്പോർട്ട് സർട്ടിഫിക്കറ്റോടെ വാട്ടർ സ്പോർട്ട് ക്രാഫ്റ്റ് ലൈസൻസ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel a water sport craft licence and receive an export certificate; the sticker number can be held for 30 days.",
+  "authority": "TAMM",
+  "aliases": [
+    "Export jet ski",
+    "Marine craft export certificate",
+    "تصدير مركبة بحرية",
+    "إلغاء ترخيص مع شهادة تصدير"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/CancelWaterSportMarineCraftLicencewithExportCertificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Economic licence",
+      "Sale or transfer contract",
+      "Mortgage release certificate"
+    ],
+    "fees": [
+      "AED 100 for cancellation",
+      "AED 100 for the export certificate"
+    ],
+    "timing": [
+      "About 6 days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

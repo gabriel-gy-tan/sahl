@@ -1,0 +1,39 @@
+{
+  "id": "tamm-birth-certificate-amend",
+  "service": {
+    "en": "Amend a digital birth certificate",
+    "ar": "تعديل شهادة الميلاد الرقمية",
+    "ur": "ڈیجیٹل برتھ سرٹیفکیٹ میں ترمیم",
+    "ml": "ഡിജിറ്റൽ ജനന സർട്ടിഫിക്കറ്റ് തിരുത്തൽ"
+  },
+  "about": "Apply to correct details on a birth certificate that has already been issued.",
+  "authority": "TAMM",
+  "aliases": [
+    "Correct birth certificate",
+    "Change birth certificate data",
+    "تصحيح شهادة ميلاد",
+    "تعديل بيانات شهادة الميلاد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/Amend%20Digital%20Birth%20Certificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Copy of the issued birth certificate",
+      "Emirates ID",
+      "Passports",
+      "Supporting letters as needed: embassy, hospital, Judicial Department or Ministry of Interior"
+    ],
+    "fees": [
+      "AED 50 amended certificate fee"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

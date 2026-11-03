@@ -1,0 +1,35 @@
+{
+  "id": "tamm-utility-bill-payment",
+  "service": {
+    "en": "Pay a water and electricity bill",
+    "ar": "سداد فاتورة المياه والكهرباء",
+    "ur": "پانی اور بجلی کا بل ادا کرنا",
+    "ml": "വെള്ളം, വൈദ്യുതി ബിൽ അടയ്ക്കൽ"
+  },
+  "about": "Pay a water and electricity bill by entering the account number.",
+  "authority": "TAMM",
+  "aliases": [
+    "Pay DEWA ADDC bill",
+    "Pay utility bill Abu Dhabi",
+    "دفع فاتورة الكهرباء",
+    "فاتورة ماء وكهرباء"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/WaterandElectricityBillPayment-taqa",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "No additional cost",
+      "Receipt is issued after payment"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app) or another available channel",
+      "Provided by TAQA Distribution"
+    ]
+  },
+  "fields": []
+}

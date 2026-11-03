@@ -105,7 +105,14 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
 
     @app.get("/guides", dependencies=[Depends(auth)])
     def list_guides():
-        return [{"id": g["id"], "service": g["service"]} for g in guides.values()]
+        # what the service is and needs, from the official page, shown before the person starts on the form
+        return [{"id": g["id"], "service": g["service"], "about": g.get("about", ""), "requirements": g.get("requirements", {}),
+                 "checked": g.get("checked")} for g in guides.values()]
+
+    @app.get("/guides/search", dependencies=[Depends(auth)])
+    def search_guides(q: str = ""):
+        """The form search box: ids, best first, for what is typed so far."""
+        return intent.search(q, guides)
 
     @app.post("/chat", dependencies=[Depends(auth)])
     def chat(body: Chat):

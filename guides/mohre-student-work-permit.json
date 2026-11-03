@@ -1,0 +1,55 @@
+{
+  "id": "mohre-student-work-permit",
+  "service": {
+    "en": "Training and work permit for students",
+    "ar": "تصريح تدريب وعمل للطلبة",
+    "ur": "طلبہ کے لیے تربیت اور ورک پرمٹ",
+    "ml": "വിദ്യാർഥികൾക്കുള്ള പരിശീലന, വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Let a student aged 15 or over train or work at a registered establishment.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Student work permit",
+    "Student training permit",
+    "تصريح عمل للطلاب",
+    "تصريح تدريب طالب"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/training-and-work-permit-for-students-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Student is 15 or older and holds no valid work permit",
+      "Job is not on the juvenile prohibited list, apart from skill levels 1 and 2",
+      "Job matches the establishment's activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory"
+    ],
+    "documents": [
+      "Clear colour photo on a white background",
+      "Emirates ID copy",
+      "Proof of student status",
+      "Valid residence visa for non-national students",
+      "Guardian's written consent for students under 18",
+      "Medical certificate of fitness for the job",
+      "No-objection certificate from the school for training",
+      "Contract signed by employer and student"
+    ],
+    "fees": [
+      "Federal fee 50 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app; tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 3 months"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

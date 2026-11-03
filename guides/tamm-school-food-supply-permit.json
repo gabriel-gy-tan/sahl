@@ -1,0 +1,36 @@
+{
+  "id": "tamm-school-food-supply-permit",
+  "service": {
+    "en": "Issue a school food supply permit",
+    "ar": "إصدار تصريح توريد أغذية للمدارس",
+    "ur": "اسکول فوڈ سپلائی پرمٹ کا اجرا",
+    "ml": "സ്കൂൾ ഭക്ഷ്യ വിതരണ പെർമിറ്റ് നൽകൽ"
+  },
+  "about": "Get a permit to supply food to government or private schools or universities.",
+  "authority": "TAMM",
+  "aliases": [
+    "School catering permit",
+    "Canteen supply permit",
+    "تصريح توريد غذاء مدارس",
+    "تصريح مقصف"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/education/educational-institutes/RequesttoIssueSchoolFoodSupplyPermit",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "List of meals served at the school"
+    ],
+    "fees": [
+      "200 AED"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive the permit"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

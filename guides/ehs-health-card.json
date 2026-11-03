@@ -1,0 +1,50 @@
+{
+  "id": "ehs-health-card",
+  "service": {
+    "en": "Health card issue",
+    "ar": "إصدار بطاقة صحية",
+    "ur": "ہیلتھ کارڈ کا اجراء",
+    "ml": "ഹെൽത്ത് കാർഡ് നൽകൽ"
+  },
+  "about": "Get an EHS health card for UAE and GCC nationals, residents and visitors.",
+  "authority": "EHS",
+  "aliases": [
+    "Health card",
+    "EHS card",
+    "Medical card",
+    "البطاقة الصحية",
+    "بطاقة صحية"
+  ],
+  "source": "https://www.ehs.gov.ae/en/services/services-directory/issue-of-a-health-card",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official EHS service page on the checked date. EHS fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Health card issue. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "One card per person, linked to the Emirates ID but with its own validity",
+      "Valid 5 years for UAE and GCC nationals, 1 year for other nationalities",
+      "People of determination need medical committee approval of their report"
+    ],
+    "documents": [
+      "Valid Emirates ID",
+      "Spouses of UAE nationals: marriage certificate or continuity certificate",
+      "Children of UAE mothers: attested UAE birth certificate",
+      "Newborns up to 90 days: attested birth certificate, parents' Emirates IDs and marriage certificate"
+    ],
+    "fees": [
+      "AED 20 for UAE citizens",
+      "AED 100 for expatriate residents",
+      "AED 50 for people of determination among expatriates",
+      "AED 15 smart services share plus bank and typing centre charges"
+    ],
+    "timing": [
+      "About 5 minutes by smart service",
+      "3 working days with manual documents",
+      "8 working days for temporary card and people of determination cases"
+    ],
+    "channels": [
+      "EHS website, sign in with UAE PASS",
+      "Typing centres"
+    ]
+  },
+  "fields": []
+}

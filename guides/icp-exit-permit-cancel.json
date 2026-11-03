@@ -1,0 +1,45 @@
+{
+  "id": "icp-exit-permit-cancel",
+  "service": {
+    "en": "Exit permit cancellation",
+    "ar": "إلغاء تصريح الخروج",
+    "ur": "خروج کے اجازت نامے کی منسوخی",
+    "ml": "എക്സിറ്റ് പെർമിറ്റ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel a departure permit that was issued earlier, for residents or visitors.",
+  "authority": "ICP",
+  "aliases": [
+    "Cancel exit permit",
+    "Cancel departure permit",
+    "إلغاء إذن مغادرة",
+    "إلغاء تصريح مغادرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e7f",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Exit permit cancellation. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to residents and visitors",
+      "The person's status in the country has to be amended",
+      "A departure permit must have been issued first"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Other papers only if ICP cannot fetch them from government records"
+    ],
+    "fees": [
+      "Application 200 AED",
+      "Smart service fee 100 AED",
+      "Fine 50 AED a day from the 8th day after the permit expires or is cancelled"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

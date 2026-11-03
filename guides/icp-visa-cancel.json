@@ -1,0 +1,45 @@
+{
+  "id": "icp-visa-cancel",
+  "service": {
+    "en": "Visa cancellation",
+    "ar": "إلغاء التأشيرة",
+    "ur": "ویزا منسوخ کرنا",
+    "ml": "വിസ റദ്ദാക്കൽ"
+  },
+  "about": "Cancel an entry permit before the holder uses it.",
+  "authority": "ICP",
+  "aliases": [
+    "Cancel entry permit",
+    "Cancel visit visa",
+    "إلغاء تصريح دخول",
+    "إلغاء تأشيرة زيارة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e63",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only if the holder has not entered the UAE",
+      "Request before the visa expires",
+      "A tourist permit cannot be cancelled after entry unless tied to a status change"
+    ],
+    "documents": [
+      "Passport valid for more than 6 months",
+      "Personal photo",
+      "Free zone letter where it applies"
+    ],
+    "fees": [
+      "Cancellation 50 AED",
+      "Smart application fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

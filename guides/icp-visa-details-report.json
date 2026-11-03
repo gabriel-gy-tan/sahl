@@ -1,0 +1,42 @@
+{
+  "id": "icp-visa-details-report",
+  "service": {
+    "en": "Visa details report",
+    "ar": "تقرير بيانات التأشيرة",
+    "ur": "ویزا تفصیلات کی رپورٹ",
+    "ml": "വിസ വിവര റിപ്പോർട്ട്"
+  },
+  "about": "Print a report of your visa details and file information.",
+  "authority": "ICP",
+  "aliases": [
+    "Visa print",
+    "Print visa details",
+    "Visa report",
+    "طباعة بيانات التأشيرة",
+    "تقرير تأشيرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e353795ae59b0011738410",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Visa details report. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A visa must already have been issued for the customer",
+      "Visitor category"
+    ],
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "The page gives no processing time"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

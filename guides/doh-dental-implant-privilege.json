@@ -1,0 +1,31 @@
+{
+  "id": "doh-dental-implant-privilege",
+  "service": {
+    "en": "Dental implantology permission",
+    "ar": "إذن ممارسة زراعة الأسنان",
+    "ur": "ڈینٹل امپلانٹ کی مشق کی اجازت",
+    "ml": "ഡെന്റൽ ഇംപ്ലാന്റ് പ്രാക്ടീസ് അനുമതി"
+  },
+  "about": "Ask the Department of Health for permission for a dentist to practise dental implantology.",
+  "authority": "DOH",
+  "aliases": [
+    "Dental implant privilege",
+    "Dental implantology permit",
+    "ترخيص زراعة الأسنان",
+    "إذن زراعة الأسنان"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. The request is sent by email, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Specialist dentists need a postgraduate specialty programme with implant teaching and clinical training, or an accredited postgraduate clinical programme in implantology",
+      "General dentists need an accredited postgraduate clinical programme in implantology",
+      "The facility's own privileging committee must still grant internal privileges"
+    ],
+    "channels": [
+      "Apply to the Health Workforce Licensing and Medical Education division at hplicensing@doh.gov.ae"
+    ]
+  },
+  "fields": []
+}

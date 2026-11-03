@@ -1,0 +1,39 @@
+{
+  "id": "tamm-citizen-passport-replace-data",
+  "service": {
+    "en": "Replace a citizen passport (changed data or full pages)",
+    "ar": "استبدال جواز سفر المواطن",
+    "ur": "شہری پاسپورٹ کی تبدیلی",
+    "ml": "പൗരന്മാരുടെ പാസ്‌പോർട്ട് മാറ്റിവയ്ക്കൽ"
+  },
+  "about": "Replace a citizen's passport after a change in personal data or when its pages are full.",
+  "authority": "TAMM",
+  "aliases": [
+    "Passport full pages",
+    "Change passport details",
+    "جواز سفر ممتلئ",
+    "تغيير بيانات جواز السفر"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/ReplacementofPassport",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Personal photo"
+    ],
+    "fees": [
+      "AED 300 issuance fee",
+      "AED 10 application fee",
+      "AED 15 delivery company fee"
+    ],
+    "timing": [
+      "2 working days",
+      "For full pages, the old passport is shown to the Identity and Foreigners Affairs directorate in the applicant's emirate"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,48 @@
+{
+  "id": "icp-family-data-amend",
+  "service": {
+    "en": "Amend family data (citizens)",
+    "ar": "تعديل بيانات الأسرة للمواطنين",
+    "ur": "شہریوں کے خاندانی ڈیٹا میں ترمیم",
+    "ml": "പൗരന്മാരുടെ കുടുംബ വിവരങ്ങൾ ഭേദഗതി ചെയ്യൽ"
+  },
+  "about": "Update a citizen's family record, such as adding a wife or a newborn or recording a divorce or a death.",
+  "authority": "ICP",
+  "aliases": [
+    "Add wife to family book",
+    "Add newborn to family record",
+    "Update family book",
+    "تعديل بيانات الأسرة",
+    "إضافة مولود",
+    "إضافة زوجة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e77",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Amend family data (citizens). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For UAE citizens' family records",
+      "Adding a foreign wife needs an attested marriage certificate, plus a UAE marriage continuity certificate if the marriage is over a year old",
+      "A newborn born abroad needs a birth certificate issued by UAE authorities",
+      "An unemployed husband needs a Sharia court status declaration when adding a wife",
+      "Complete any changes ICP asks for if the application is returned"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Marriage certificate, or for a non-citizen wife her birth certificate, latest qualification and marriage contract",
+      "Marriage continuity certificate when the contract was issued abroad or is over a year old",
+      "Birth, divorce or death certificate, or a marital status certificate, depending on the change"
+    ],
+    "fees": [
+      "The page lists no fee; the amount is shown at payment"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

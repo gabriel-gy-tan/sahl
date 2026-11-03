@@ -1,0 +1,35 @@
+{
+  "id": "tamm-domestic-worker-contract-print-copy",
+  "service": {
+    "en": "Print a copy of a domestic worker's work contract",
+    "ar": "طباعة نسخة من عقد عمل عامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے ورک کنٹریکٹ کی کاپی پرنٹ کرنا",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ തൊഴിൽ കരാറിന്റെ പകർപ്പ് പ്രിന്റ് ചെയ്യൽ"
+  },
+  "about": "An employer requests a printed copy of a domestic worker's work contract.",
+  "authority": "TAMM",
+  "aliases": [
+    "Maid contract copy",
+    "Domestic worker contract print",
+    "نسخة عقد خادمة",
+    "طباعة عقد عمل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/IssueNewWorkContractforDomesticWorker",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

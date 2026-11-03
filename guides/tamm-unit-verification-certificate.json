@@ -1,0 +1,37 @@
+{
+  "id": "tamm-unit-verification-certificate",
+  "service": {
+    "en": "Residential unit verification certificate",
+    "ar": "شهادة تحقق من وحدة سكنية",
+    "ur": "رہائشی یونٹ کی تصدیقی سرٹیفکیٹ",
+    "ml": "റെസിഡൻഷ്യൽ യൂണിറ്റ് വെരിഫിക്കേഷൻ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a certificate verifying a residential unit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Unit verification",
+    "Property verification letter",
+    "شهادة تحقق وحدة",
+    "إثبات وحدة سكنية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/Contracts-and-Consultations/RequestaUnitVerificationCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "AED 90 for the certificate",
+      "AED 10 electronic administrative services fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

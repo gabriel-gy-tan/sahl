@@ -1,0 +1,39 @@
+{
+  "id": "tamm-domestic-worker-work-permit-cancel",
+  "service": {
+    "en": "Cancel a work permit for a domestic worker",
+    "ar": "إلغاء تصريح عمل لعامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے ورک پرمٹ کی منسوخی",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ വർക്ക് പെർമിറ്റ് റദ്ദാക്കൽ"
+  },
+  "about": "An employer asks to cancel the work permit (entry permit) of a domestic worker.",
+  "authority": "TAMM",
+  "aliases": [
+    "Cancel maid entry permit",
+    "Cancel domestic helper permit",
+    "إلغاء تصريح خادمة",
+    "إلغاء إذن دخول عاملة منزلية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/CancellationofworkPermitforDomesticWorker",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant is the employer"
+    ],
+    "documents": [
+      "Temporary entry permit",
+      "Passport"
+    ],
+    "fees": [
+      "AED 65 for cancelling the work permit"
+    ],
+    "timing": [
+      "About 1 day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

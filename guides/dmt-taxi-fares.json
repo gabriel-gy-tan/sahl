@@ -1,0 +1,32 @@
+{
+  "id": "dmt-taxi-fares",
+  "service": {
+    "en": "Abu Dhabi taxi fares",
+    "ar": "أجرة سيارات الأجرة في أبوظبي",
+    "ur": "ابوظہبی ٹیکسی کرایہ",
+    "ml": "അബുദാബി ടാക്സി നിരക്ക്"
+  },
+  "about": "Metered fares for Abu Dhabi silver and airport taxis.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Taxi fare Abu Dhabi",
+    "Taxi meter rates",
+    "تعرفة التاكسي",
+    "أسعار سيارات الأجرة"
+  ],
+  "source": "https://admobility.gov.ae/en/taxi-fares",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This is a fare page rather than a form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "Silver taxi: AED 5 flagfall by day, AED 5.50 by night, then AED 1.82 per km, minimum AED 12",
+      "Airport taxi: AED 20 flagfall, then AED 1.82 per km",
+      "AED 0.50 per minute of waiting",
+      "Booking fee AED 4 by day, AED 5 by night"
+    ],
+    "timing": [
+      "Day rates 6:00 am to 10:00 pm; night rates 10:00 pm to 6:00 am"
+    ]
+  },
+  "fields": []
+}

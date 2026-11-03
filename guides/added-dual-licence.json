@@ -1,0 +1,30 @@
+{
+  "id": "added-dual-licence",
+  "service": {
+    "en": "Abu Dhabi Dual Licence",
+    "ar": "الرخصة المزدوجة في أبوظبي",
+    "ur": "ابوظہبی ڈوئل لائسنس",
+    "ml": "അബുദാബി ഡ്യുവൽ ലൈസൻസ്"
+  },
+  "about": "Lets an Abu Dhabi free zone company also operate outside the free zone.",
+  "authority": "ADDED",
+  "aliases": [
+    "Dual licence",
+    "Free zone dual licence",
+    "الرخصة المزدوجة",
+    "رخصة مزدوجة للمنطقة الحرة"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For establishments registered in Abu Dhabi free zones that want to work outside them"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

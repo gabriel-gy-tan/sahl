@@ -1,0 +1,39 @@
+{
+  "id": "tamm-dmt-company-account",
+  "service": {
+    "en": "Create a company account with the Department of Municipalities and Transport",
+    "ar": "إنشاء حساب شركة لدى دائرة البلديات والنقل",
+    "ur": "محکمہ بلدیات و ٹرانسپورٹ میں کمپنی اکاؤنٹ بنانا",
+    "ml": "മുനിസിപ്പാലിറ്റീസ് ആൻഡ് ട്രാൻസ്പോർട്ട് വകുപ്പിൽ കമ്പനി അക്കൗണ്ട് തുറക്കൽ"
+  },
+  "about": "Open a company account to use the Department of Municipalities and Transport services.",
+  "authority": "TAMM",
+  "aliases": [
+    "Smart Hub company account",
+    "Open company account DMT",
+    "حساب شركة بلديات",
+    "حساب المركز الذكي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/Business-Accounts/OpenaCompanySmartHubAccount",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Declaration and pledge",
+      "Trade licence (unless issued by the Department of Economic Development)",
+      "Signature authorisation",
+      "Memorandum of association or power of attorney"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "1 working day",
+      "You get approval to open the account"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

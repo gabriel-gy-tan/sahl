@@ -1,0 +1,40 @@
+{
+  "id": "tamm-newborn-birth-certificate",
+  "service": {
+    "en": "Newborn digital birth certificate",
+    "ar": "إصدار شهادة ميلاد رقمية لمولود جديد",
+    "ur": "نوزائیدہ کا ڈیجیٹل برتھ سرٹیفکیٹ",
+    "ml": "നവജാത ശിശുവിന്റെ ഡിജിറ്റൽ ജനന സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Request a digital birth certificate for a newborn, with optional attestation for use at home or abroad.",
+  "authority": "TAMM",
+  "aliases": [
+    "Baby birth certificate Abu Dhabi",
+    "Issue birth certificate",
+    "شهادة ميلاد",
+    "شهادة ميلاد مولود"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/Request%20to%20Issue%20a%20Newborn%20Digital%20Birth%20Certificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Both parents' passports",
+      "Marriage contract"
+    ],
+    "fees": [
+      "AED 50 to issue the certificate (English or Arabic)",
+      "AED 150 optional Ministry of Foreign Affairs attestation",
+      "AED 150 optional embassy attestation"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

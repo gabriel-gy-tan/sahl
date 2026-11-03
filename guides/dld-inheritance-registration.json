@@ -1,0 +1,47 @@
+{
+  "id": "dld-inheritance-registration",
+  "service": {
+    "en": "Register inherited property",
+    "ar": "تسجيل عقار موروث",
+    "ur": "وراثت میں ملی جائیداد کی رجسٹریشن",
+    "ml": "അനന്തരാവകാശ സ്വത്ത് രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Transfer a property from a deceased owner to the heirs under a court inheritance document.",
+  "authority": "DLD",
+  "aliases": [
+    "Inheritance property transfer",
+    "Transfer property to heirs",
+    "تسجيل إرث",
+    "نقل ملكية بالإرث"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/real-estate-inheritance-registration/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register inherited property. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Any person may apply, not only an heir",
+      "Documents issued outside the UAE must be attested and, if not in Arabic, legally translated"
+    ],
+    "documents": [
+      "Inheritance certificate or declaration endorsed by the UAE courts",
+      "Emirates IDs of resident heirs, passport copies for non-resident heirs",
+      "Bank NOC for a mortgaged property",
+      "Developer NOC for a property under construction"
+    ],
+    "fees": [
+      "AED 1,000 per property for inheritance registration",
+      "AED 250 for the title deed",
+      "AED 100 to 250 for the map",
+      "AED 20 knowledge and innovation fees",
+      "AED 130 plus VAT service partner fee"
+    ],
+    "timing": [
+      "8 working hours"
+    ],
+    "channels": [
+      "DLD service centres",
+      "Real Estate Registration Trustee Centres"
+    ]
+  },
+  "fields": []
+}

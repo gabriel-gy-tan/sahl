@@ -1,0 +1,39 @@
+{
+  "id": "added-green-visa-freelancer",
+  "service": {
+    "en": "Abu Dhabi Green Visa for freelancers",
+    "ar": "التأشيرة الخضراء في أبوظبي للعاملين لحسابهم الخاص",
+    "ur": "ابوظہبی گرین ویزا فری لانسرز",
+    "ml": "അബുദാബി ഗ്രീൻ വിസ (ഫ്രീലാൻസർമാർ)"
+  },
+  "about": "Five-year residence for freelancers with a MOHRE freelance permit.",
+  "authority": "ADDED",
+  "aliases": [
+    "Freelancer green visa",
+    "Green visa self-employed",
+    "التأشيرة الخضراء للمستقلين",
+    "الإقامة الخضراء للعمل الحر"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-green-visa/for-freelancers",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Hold a freelance permit from MOHRE",
+      "Hold at least a bachelor's degree or a specialised diploma",
+      "Self-employment income of at least AED 360,000 a year for the last two years, or proof of financial solvency for the stay"
+    ],
+    "documents": [
+      "Freelance permit from MOHRE",
+      "Proof of the income or of financial solvency"
+    ],
+    "timing": [
+      "The visa lasts 5 years"
+    ],
+    "channels": [
+      "ICP website (icp.gov.ae)",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

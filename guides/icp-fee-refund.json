@@ -1,0 +1,41 @@
+{
+  "id": "icp-fee-refund",
+  "service": {
+    "en": "Refund of fees",
+    "ar": "استرداد الرسوم",
+    "ur": "فیس کی واپسی",
+    "ml": "ഫീസ് റീഫണ്ട്"
+  },
+  "about": "Ask for your issuance fees back when a service was not completed.",
+  "authority": "ICP",
+  "aliases": [
+    "ICP refund",
+    "Fee refund request",
+    "طلب استرداد رسوم",
+    "استرداد مبلغ"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e5e",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For a service that was not completed",
+      "Only issuance fees are refundable; application and smart service fees are not"
+    ],
+    "documents": [
+      "Bank certificate showing your account number and IBAN"
+    ],
+    "fees": [
+      "The refundable amount is shown on the service receipt"
+    ],
+    "timing": [
+      "About 5 days",
+      "An accepted refund is transferred to the bank account straight away"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

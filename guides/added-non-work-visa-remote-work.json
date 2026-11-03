@@ -1,0 +1,38 @@
+{
+  "id": "added-non-work-visa-remote-work",
+  "service": {
+    "en": "Abu Dhabi Remote Work Visa",
+    "ar": "تأشيرة العمل عن بُعد في أبوظبي",
+    "ur": "ابوظہبی ریموٹ ورک ویزا",
+    "ml": "അബുദാബി റിമോട്ട് വർക്ക് വിസ"
+  },
+  "about": "One-year residence for people who work remotely for an employer outside the UAE.",
+  "authority": "ADDED",
+  "aliases": [
+    "Remote work visa",
+    "Virtual work visa",
+    "تأشيرة العمل عن بعد",
+    "إقامة العمل عن بعد"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-non-work-visa/for-remote-work-visa",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Work remotely for an employer based outside the UAE",
+      "Monthly income of at least USD 3,500 or the equivalent"
+    ],
+    "documents": [
+      "Proof of employment outside the UAE",
+      "Bank statements for the last 6 months showing a deposit or income of at least USD 3,500 a month"
+    ],
+    "timing": [
+      "The visa lasts 1 year"
+    ],
+    "channels": [
+      "ICP website (icp.gov.ae)",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "tamm-issue-driving-licence",
+  "service": {
+    "en": "Issue a driving licence",
+    "ar": "إصدار رخصة قيادة",
+    "ur": "ڈرائیونگ لائسنس کا اجرا",
+    "ml": "ഡ്രൈവിംഗ് ലൈസൻസ് നൽകൽ"
+  },
+  "about": "Get your driving licence issued after you pass the driving test.",
+  "authority": "TAMM",
+  "aliases": [
+    "New driving licence",
+    "Get driving license",
+    "Driving licence issuance",
+    "استخراج رخصة قيادة",
+    "رخصة سياقة جديدة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/requestforanewdrivinglicenceissuance",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applicant has passed the driving test"
+    ],
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "300 AED for age 21 and over",
+      "100 AED under age 21"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

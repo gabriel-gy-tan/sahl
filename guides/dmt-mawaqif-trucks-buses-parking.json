@@ -1,0 +1,33 @@
+{
+  "id": "dmt-mawaqif-trucks-buses-parking",
+  "service": {
+    "en": "Mawaqif truck and bus parking (Musaffah M-18)",
+    "ar": "مواقف الشاحنات والحافلات في المصفح M-18",
+    "ur": "ٹرک اور بس پارکنگ مصفح M-18",
+    "ml": "ട്രക്ക്, ബസ് പാർക്കിംഗ് (മുസഫ M-18)"
+  },
+  "about": "Public lot for trucks, buses and heavy vehicles in Musaffah.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Truck parking Musaffah",
+    "Heavy vehicle parking",
+    "مواقف الشاحنات",
+    "مواقف المصفح"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-trucks-and-buses-parking-musaffah-m-18",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 15 for one day",
+      "AED 390 for a one-month subscription"
+    ],
+    "timing": [
+      "Open 24 hours; free on Sundays and official holidays"
+    ],
+    "channels": [
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

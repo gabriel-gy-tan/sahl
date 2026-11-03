@@ -1,0 +1,42 @@
+{
+  "id": "tamm-family-visa-investor",
+  "service": {
+    "en": "Issue a family residency visa (investor or partner sponsor)",
+    "ar": "إصدار تأشيرة إقامة عائلية (كفيل مستثمر أو شريك)",
+    "ur": "فیملی ریزیڈنسی ویزا کا اجرا (سرمایہ کار یا شراکت دار کفیل)",
+    "ml": "ഫാമിലി റെസിഡൻസി വിസ (നിക്ഷേപകൻ/പങ്കാളി സ്പോൺസർ)"
+  },
+  "about": "A resident sponsor who is an investor or partner requests a residency visa for a family member.",
+  "authority": "TAMM",
+  "aliases": [
+    "Family visa investor",
+    "Sponsor family as partner",
+    "تأشيرة عائلة مستثمر",
+    "إقامة عائلية للشريك"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssueaFamilyVisaaResidentSponsorInvestororPartner",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Resident sponsor who is an investor or partner"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Personal photo"
+    ],
+    "fees": [
+      "AED 100 e-services fee",
+      "AED 22 ICP fee",
+      "AED 100 issuance fee"
+    ],
+    "timing": [
+      "About 2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

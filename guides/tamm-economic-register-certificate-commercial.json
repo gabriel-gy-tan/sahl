@@ -1,0 +1,36 @@
+{
+  "id": "tamm-economic-register-certificate-commercial",
+  "service": {
+    "en": "Issue an economic register certificate (commercial)",
+    "ar": "إصدار شهادة السجل الاقتصادي (تجاري)",
+    "ur": "اقتصادی رجسٹر سرٹیفکیٹ کا اجرا (تجارتی)",
+    "ml": "സാമ്പത്തിക രജിസ്റ്റർ സർട്ടിഫിക്കറ്റ് (വാണിജ്യ)"
+  },
+  "about": "Get a register certificate of a trade licence showing all transactions on it.",
+  "authority": "TAMM",
+  "aliases": [
+    "Trade licence record certificate",
+    "Licence history certificate",
+    "شهادة سجل الرخصة التجارية",
+    "شهادة السجل الاقتصادي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/Request%20for%20Issuing%20Trade%20Licence%20Record%20Certificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Economic licence number"
+    ],
+    "fees": [
+      "100 AED"
+    ],
+    "timing": [
+      "About 30 minutes",
+      "You get an approval or rejection notice"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

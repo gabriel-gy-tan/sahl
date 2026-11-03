@@ -1,0 +1,47 @@
+{
+  "id": "ehs-medical-fitness-residency",
+  "service": {
+    "en": "Medical fitness examination for residency visa",
+    "ar": "الفحص الطبي للياقة لتأشيرة الإقامة",
+    "ur": "رہائشی ویزا کے لیے طبی فٹنس معائنہ",
+    "ml": "റെസിഡൻസി വിസയ്ക്കുള്ള മെഡിക്കൽ ഫിറ്റ്നസ് പരിശോധന"
+  },
+  "about": "Take the medical fitness test needed for a residence visa.",
+  "authority": "EHS",
+  "aliases": [
+    "Visa medical",
+    "Medical fitness test",
+    "Residency medical",
+    "الفحص الطبي للإقامة",
+    "فحص اللياقة الطبية"
+  ],
+  "source": "https://www.ehs.gov.ae/en/services/services-directory/examination-of-medical-fitness-for-residency-visa",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official EHS service page on the checked date. EHS fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Medical fitness examination for residency visa. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Residents aged 18 and over with a valid Emirates ID or passport"
+    ],
+    "documents": [
+      "Valid Emirates ID or valid passport",
+      "Updated passport photo"
+    ],
+    "fees": [
+      "AED 250 for employees, companies and workers",
+      "AED 350 for private drivers, nursery supervisors and domestic help",
+      "AED 300 for beauty, gym, barber and health facility workers",
+      "Centre printing fees extra"
+    ],
+    "timing": [
+      "Result in 24 hours",
+      "Arrive 20 minutes before the appointment"
+    ],
+    "channels": [
+      "EHS service delivery centres",
+      "EHS website or app",
+      "Call centre",
+      "Typing centres"
+    ]
+  },
+  "fields": []
+}

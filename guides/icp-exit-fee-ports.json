@@ -1,0 +1,41 @@
+{
+  "id": "icp-exit-fee-ports",
+  "service": {
+    "en": "Exit fee at land and sea ports",
+    "ar": "رسوم المغادرة في المنافذ البرية والبحرية",
+    "ur": "زمینی اور سمندری بندرگاہوں پر روانگی فیس",
+    "ml": "കര, കടൽ തുറമുഖങ്ങളിലെ എക്സിറ്റ് ഫീസ്"
+  },
+  "about": "Pay the fee for leaving the UAE through a land or sea port.",
+  "authority": "ICP",
+  "aliases": [
+    "Exit fee",
+    "Land border exit fee",
+    "Port exit fee",
+    "رسوم المغادرة",
+    "رسوم الخروج"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e750415ae59b0011738a0e",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Exit fee at land and sea ports. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents and visitors holding a residence file or a visa",
+      "UAE nationals, GCC citizens and people arriving on a tourist ferry are exempt"
+    ],
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "Application fee 30 AED"
+    ],
+    "timing": [
+      "The page gives no processing time"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

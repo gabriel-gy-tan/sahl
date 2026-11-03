@@ -1,0 +1,45 @@
+{
+  "id": "icp-golden-visa-public-investor",
+  "service": {
+    "en": "Residence visa for an investor in public investments",
+    "ar": "تأشيرة إقامة لمستثمر في الاستثمارات العامة",
+    "ur": "عوامی سرمایہ کاری کے سرمایہ کار کے لیے رہائشی ویزا",
+    "ml": "പൊതു നിക്ഷേപത്തിലെ നിക്ഷേപകനുള്ള റെസിഡൻസ് വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as an investor in public investments.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa investor",
+    "Investor golden residency",
+    "الإقامة الذهبية للمستثمرين",
+    "تأشيرة مستثمر"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e34ed35ae59b00117383d1",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Resident category, applying from inside the UAE",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Proof of Golden Residence eligibility"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 47 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

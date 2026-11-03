@@ -1,0 +1,39 @@
+{
+  "id": "added-non-work-visa-retirement",
+  "service": {
+    "en": "Abu Dhabi Retirement Visa",
+    "ar": "تأشيرة التقاعد في أبوظبي",
+    "ur": "ابوظہبی ریٹائرمنٹ ویزا",
+    "ml": "അബുദാബി റിട്ടയർമെന്റ് വിസ"
+  },
+  "about": "Five-year residence for retirees who meet a wealth or income test.",
+  "authority": "ADDED",
+  "aliases": [
+    "Retiree visa",
+    "Retirement residence",
+    "إقامة المتقاعدين",
+    "تأشيرة المتقاعد"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-non-work-visa/for-retirement-visa",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Meet one test: an investment of AED 1,000,000, UAE property worth at least AED 1,000,000, a deposit of at least AED 1,000,000, or a fixed annual income of at least AED 240,000",
+      "A deposit held abroad must be moved to a UAE institution within 60 days of the residence permit issue date unless it is invested in the UAE"
+    ],
+    "documents": [
+      "Bank statement showing AED 1,000,000 held for at least two years (deposit route)",
+      "Unit value certificate from DMT and a search certificate showing no seizure (property route)",
+      "Bank statement showing annual income of AED 240,000 (income route)"
+    ],
+    "timing": [
+      "The visa lasts 5 years"
+    ],
+    "channels": [
+      "ICP website (icp.gov.ae)",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

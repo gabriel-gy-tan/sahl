@@ -1,0 +1,49 @@
+{
+  "id": "mohap-health-professional-licence",
+  "service": {
+    "en": "Licensing or re-licensing of a health professional",
+    "ar": "ترخيص أو إعادة ترخيص مهني صحي",
+    "ur": "صحت پیشہ ور کا لائسنس یا دوبارہ لائسنس",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണലിന്റെ ലൈസൻസ് / പുനർലൈസൻസ്"
+  },
+  "about": "Licence a doctor, nurse or technician to work at a health facility.",
+  "authority": "MOHAP",
+  "aliases": [
+    "Doctor licence",
+    "Nurse licence",
+    "Medical licence",
+    "ترخيص طبيب",
+    "ترخيص مهنة صحية"
+  ],
+  "source": "https://mohap.gov.ae/en/w/licensing-or-re-licensing-of-health-professional",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHAP service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Valid professional evaluation with MOHAP",
+      "No practice gap over two years, or training details provided",
+      "Professional accepts the work invitation; transfers need the current facility's acceptance",
+      "Doctors aged 60 or over need a physical and mental report",
+      "Clean UAE track record and a facility with a valid licence"
+    ],
+    "documents": [
+      "Passport",
+      "Introductory statement",
+      "Insurance against medical errors",
+      "Experience certificate",
+      "Physical and mental report for doctors aged 60 or over"
+    ],
+    "fees": [
+      "Application fee 100 AED (private and semi-government facilities)",
+      "Licence fee 3,000 AED for doctors, 1,000 AED for nurses and technicians (private facilities)"
+    ],
+    "timing": [
+      "Done in 1-2 working days"
+    ],
+    "channels": [
+      "MOHAP website",
+      "MOHAP smart app"
+    ]
+  },
+  "fields": []
+}

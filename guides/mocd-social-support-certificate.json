@@ -1,0 +1,40 @@
+{
+  "id": "mocd-social-support-certificate",
+  "service": {
+    "en": "Certificate of social support status",
+    "ar": "شهادة لمن يهمه الأمر بشأن الدعم الاجتماعي",
+    "ur": "سماجی امداد کی حیثیت کا سرٹیفکیٹ",
+    "ml": "സാമൂഹിക സഹായ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a To Whom It May Concern certificate that says whether you receive social support from the ministry.",
+  "authority": "MOCD",
+  "aliases": [
+    "Social support certificate",
+    "Not receiving social support certificate",
+    "شهادة دعم اجتماعي",
+    "شهادة لمن يهمه الأمر الدعم"
+  ],
+  "source": "https://www.moce.gov.ae/en/w/issue-to-whom-it-may-concern-regarding-social-support",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOCD service page on the checked date. MOCD fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The ministry is named MOCD in this file; its site is moce.gov.ae. Certificate of social support status. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to all citizens and residents of the UAE",
+      "A personal profile must exist on the online platform"
+    ],
+    "documents": [
+      "Emirates ID"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "About 1 minute to apply, issued instantly"
+    ],
+    "channels": [
+      "MOCD website, sign in with UAE PASS",
+      "Toll free 800623"
+    ]
+  },
+  "fields": []
+}

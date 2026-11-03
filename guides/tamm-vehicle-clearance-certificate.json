@@ -1,0 +1,36 @@
+{
+  "id": "tamm-vehicle-clearance-certificate",
+  "service": {
+    "en": "Issue vehicle clearance certificate",
+    "ar": "إصدار شهادة إخلاء طرف مركبة",
+    "ur": "گاڑی کلیئرنس سرٹیفکیٹ کا اجرا",
+    "ml": "വാഹന ക്ലിയറൻസ് സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "Get a clearance certificate for a registered vehicle.",
+  "authority": "TAMM",
+  "aliases": [
+    "Vehicle clearance",
+    "Car clearance certificate",
+    "شهادة إخلاء طرف مركبة",
+    "شهادة براءة ذمة مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requestofavehicleclearancecertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "100 AED"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

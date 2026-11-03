@@ -1,0 +1,48 @@
+{
+  "id": "icp-visa-truck-driver-30",
+  "service": {
+    "en": "Truck driver visa, 30 days",
+    "ar": "تأشيرة سائق شاحنة 30 يوما",
+    "ur": "30 دن کا ٹرک ڈرائیور ویزا",
+    "ml": "30 ദിവസത്തെ ട്രക്ക് ഡ്രൈവർ വിസ"
+  },
+  "about": "Get a 30-day multiple-entry visa to enter the UAE by land as a truck driver.",
+  "authority": "ICP",
+  "aliases": [
+    "Truck driver visa 30 days",
+    "Lorry driver visa",
+    "Land entry visa truck",
+    "تأشيرة سائق شاحنة 30 يوم"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e737225ae59b00117389b7",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Truck driver visa, 30 days. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Multiple entry through land entry points",
+      "Passport valid for at least 6 months",
+      "The applicant must show they work in cargo transport in the UAE"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Health insurance covering the stay",
+      "Copy of the truck ownership document",
+      "Notarised power of attorney if the truck belongs to another sponsor",
+      "ID of the driver depending on nationality: Iraqi residence card, Pakistani, Afghan or Iranian ID"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 200 AED",
+      "Bank guarantee 2,025 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

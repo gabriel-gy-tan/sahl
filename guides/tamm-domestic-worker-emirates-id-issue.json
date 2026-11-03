@@ -1,0 +1,40 @@
+{
+  "id": "tamm-domestic-worker-emirates-id-issue",
+  "service": {
+    "en": "Issue Emirates ID for a domestic worker",
+    "ar": "إصدار الهوية الإماراتية لعامل خدمة منزلية",
+    "ur": "گھریلو ملازم کے لیے ایمریٹس آئی ڈی",
+    "ml": "ഗാർഹിക തൊഴിലാളിക്കുള്ള എമിറേറ്റ്സ് ഐഡി"
+  },
+  "about": "Issue an Emirates ID card for a domestic worker, a step needed for their residence permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Maid Emirates ID",
+    "Domestic helper ID",
+    "هوية خادمة",
+    "بطاقة هوية عامل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/IssueEmiratesIDfortheDomesticWorker",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Personal photo",
+      "Passport"
+    ],
+    "fees": [
+      "AED 100 card issuance",
+      "AED 150 request submission fee"
+    ],
+    "timing": [
+      "5 working days",
+      "The residence permit must be issued first",
+      "Card arrives by an authorised delivery company"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

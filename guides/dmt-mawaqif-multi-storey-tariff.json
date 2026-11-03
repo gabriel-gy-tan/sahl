@@ -1,0 +1,36 @@
+{
+  "id": "dmt-mawaqif-multi-storey-tariff",
+  "service": {
+    "en": "Mawaqif multi-storey parking tariff",
+    "ar": "تعرفة مواقف المباني متعددة الطوابق (مواقف)",
+    "ur": "ملٹی اسٹوری پارکنگ ٹیرف",
+    "ml": "മൾട്ടി-സ്റ്റോറി പാർക്കിംഗ് നിരക്ക്"
+  },
+  "about": "Prices for parking in Mawaqif multi-storey car parks.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Multi storey parking fees",
+    "Parking permit price",
+    "رسوم مواقف الطوابق",
+    "تعرفة المواقف متعددة الطوابق"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-multi-storey-parking-spaces-tariff",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This is a fee page rather than a form, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 2 for 1 hour",
+      "AED 15 for 1 day",
+      "AED 1,369 for 3 months",
+      "AED 2,738 for 6 months",
+      "AED 5,475 for 12 months"
+    ],
+    "timing": [
+      "Applies 24 hours a day, 7 days a week"
+    ],
+    "channels": [
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "tamm-sponsorship-file-open",
+  "service": {
+    "en": "Open a sponsorship file",
+    "ar": "فتح ملف كفالة",
+    "ur": "اسپانسرشپ فائل کھولنا",
+    "ml": "സ്പോൺസർഷിപ്പ് ഫയൽ തുറക്കൽ"
+  },
+  "about": "Open the sponsor file needed before issuing visas and residence permits for family members or domestic workers.",
+  "authority": "TAMM",
+  "aliases": [
+    "Sponsor file",
+    "Open sponsor file",
+    "فتح ملف الكفيل",
+    "ملف كفيل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/RequesttoOpenaSponsorshipFile",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Employment contract",
+      "Emirates ID",
+      "Passport",
+      "Salary certificate"
+    ],
+    "fees": [
+      "AED 150 e-services fee",
+      "AED 50 issue fee (citizen or GCC national) or AED 100 (resident)",
+      "AED 50 request fee"
+    ],
+    "timing": [
+      "2 working days",
+      "Only needed once"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

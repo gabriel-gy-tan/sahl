@@ -1,0 +1,38 @@
+{
+  "id": "tamm-renew-plate-number-reservation",
+  "service": {
+    "en": "Renew a plate number reservation",
+    "ar": "تجديد حجز رقم لوحة",
+    "ur": "نمبر پلیٹ کی بکنگ کی تجدید",
+    "ml": "നമ്പർ പ്ലേറ്റ് റിസർവേഷൻ പുതുക്കൽ"
+  },
+  "about": "Renew the reservation held on a vehicle plate number.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew number plate reservation",
+    "Extend plate reservation",
+    "تجديد حجز لوحة",
+    "تمديد حجز رقم"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/plates/requesttorenewvehicleplatenumberreservation",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "500 AED for 3 months",
+      "1,000 AED for 6 months",
+      "2,000 AED for 1 year"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

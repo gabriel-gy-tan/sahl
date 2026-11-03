@@ -1,0 +1,36 @@
+{
+  "id": "tamm-bulky-waste-removal",
+  "service": {
+    "en": "Green or bulky waste removal from homes",
+    "ar": "إزالة المخلفات الخضراء أو الضخمة من المنازل",
+    "ur": "گھروں سے سبز یا بھاری کچرا ہٹانا",
+    "ml": "വീടുകളിൽ നിന്ന് ഹരിത / വലിയ മാലിന്യം നീക്കം ചെയ്യൽ"
+  },
+  "about": "Citizens and residents ask for collection of garden waste, furniture, appliances and other large household items.",
+  "authority": "TAMM",
+  "aliases": [
+    "Furniture removal",
+    "Garden waste pickup",
+    "Tadweer bulky waste",
+    "إزالة أثاث",
+    "جمع مخلفات النخيل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequestforCollectionandTransferofLargeScaleWastesfromResidentialAreas",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Photos of the waste"
+    ],
+    "timing": [
+      "About 2 working days",
+      "No additional cost",
+      "An agreed time is arranged for putting the waste outside the house boundary"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Tadweer Group"
+    ]
+  },
+  "fields": []
+}

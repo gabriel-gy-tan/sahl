@@ -1,0 +1,36 @@
+{
+  "id": "tamm-parking-reservation-basement-extension",
+  "service": {
+    "en": "Parking reservation permit for basement extension",
+    "ar": "تصريح حجز مواقف لأعمال توسعة القبو",
+    "ur": "بیسمنٹ توسیع کے لیے پارکنگ ریزرویشن پرمٹ",
+    "ml": "ബേസ്മെന്റ് വിപുലീകരണത്തിനുള്ള പാർക്കിംഗ് റിസർവേഷൻ പെർമിറ്റ്"
+  },
+  "about": "Reserve public parking spaces while basement extension work is carried out.",
+  "authority": "TAMM",
+  "aliases": [
+    "Reserve parking for basement works",
+    "Basement extension parking",
+    "حجز مواقف لتوسعة قبو",
+    "تصريح حجز مواقف عامة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/RequestParkingReservationPermitForBasementExtension",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No Objection Certificate"
+    ],
+    "fees": [
+      "AED 200 for the request",
+      "AED 85 per day for reserved public parking"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

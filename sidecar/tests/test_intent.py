@@ -29,18 +29,48 @@ def test_a_named_guide_is_offered_without_asking_the_model_which(model):
     r = intent.talk(me("I need to book my residency medical fitness"), GUIDES)
     assert (r["kind"], r["guide"]) == ("match", "medical-fitness")
     assert intent.talk(me("الفحص الطبي للإقامة"), GUIDES)["guide"] == "medical-fitness"
-    assert model["calls"] == 2  # only the two replies
+    assert model["calls"] == 0  # a clear choice needs no model: the panel shows the form, not a model's words
+
+
+def test_a_question_is_answered_not_chosen(model):
+    model.update(reply="It costs 100 AED a year.")
+    r = intent.talk(me("How much does it cost to renew my Emirates ID?"), GUIDES)
+    assert (r["kind"], r["guide"], r["reply"]) == ("about", "emirates-id-renewal", "It costs 100 AED a year.")
+    assert "Needs, fees:" in model["talk"]["messages"][0]["content"]
+    assert intent.talk(me("Can you help me renew my Emirates ID?"), GUIDES)["kind"] == "match"  # a request, not a question
+
+
+def test_small_talk_never_names_a_form(model):
+    model.update(reply="Hello!")
+    for text in ("hi", "help", "thanks!", "a form", "what can you do?"):
+        r = intent.talk(me(text), GUIDES)
+        assert (r["kind"], r["options"]) == ("unsure", [])
+        assert "Needs," not in model["talk"]["messages"][0]["content"]  # no form's details to blend into the answer
+
+
+def test_rare_words_decide(model):
+    known = intent.catalogue(GUIDES)
+    assert intent.rank("renew my car registration", known)[0][1] == "tamm-renew-vehicle-registration"
+    assert intent.rank("tell me about renewing residency", known)[0][1] == "residence-permit-renewal"
+    assert intent._strong(intent.rank("renew my falconry passport", known)) == []  # a word no guide has keeps it open
+
+
+def test_form_search(model):
+    known = intent.catalogue(GUIDES)
+    assert intent.search("emir", known)[0] in {"emirates-id-renewal", "tamm-citizen-emirates-id-renew"}  # a word half typed
+    assert "medical-fitness" in intent.search("visa medical", known)[:3]
+    assert len(intent.search("", known)) == len(known) and intent.GENERIC not in intent.search("", GUIDES)
 
 
 def test_the_model_offers_a_guide(model):
     model.update(pick={"kind": "match", "guide": "medical-fitness", "name": ""}, reply="Sahl can help with that.")
-    assert intent.talk(me("my visa needs the blood test"), GUIDES) == {
-        "reply": "Sahl can help with that.", "kind": "match", "guide": "medical-fitness", "name": ""}
+    assert intent.talk(me("my visa needs a checkup"), GUIDES) == {
+        "reply": "Sahl can help with that.", "kind": "match", "guide": "medical-fitness", "options": ["medical-fitness"], "name": ""}
 
 
 def test_questions_get_a_reply_and_the_whole_conversation_is_sent(model):
     model.update(pick={"kind": "unsure", "guide": "", "name": ""}, reply="It's for your residence visa.")
-    history = [*me("what is the medical test for?"), {"role": "assistant", "text": "Which one?"}, *me("the visa one")]
+    history = [*me("what is the medical test for?"), {"role": "assistant", "text": "Which one?"}, *me("why?")]
     r = intent.talk(history, GUIDES)
     assert (r["kind"], r["reply"]) == ("unsure", "It's for your residence visa.")
     sent = model["talk"]["messages"]
@@ -63,18 +93,18 @@ def test_the_reply_is_asked_for_in_their_language(model):
 def test_a_made_up_or_generic_guide_is_not_trusted(model):
     for bad in ("driving-licence-renewal", "any-form"):
         model.update(pick={"kind": "match", "guide": bad, "name": ""}, reply="Sure.")
-        r = intent.talk(me("renew my driving licence"), GUIDES)
+        r = intent.talk(me("get a falconry passport"), GUIDES)
         assert (r["kind"], r["guide"]) == ("unsure", None)
 
 
 def test_a_form_sahl_has_no_guide_for(model):
-    model.update(pick={"kind": "new", "guide": "", "name": "Driving licence renewal"}, reply="I don't have that one.")
-    r = intent.talk(me("renew my driving licence"), GUIDES)
-    assert (r["kind"], r["name"]) == ("new", "Driving licence renewal")
+    model.update(pick={"kind": "new", "guide": "", "name": "Falconry passport"}, reply="I don't have that one.")
+    r = intent.talk(me("get a falconry passport"), GUIDES)
+    assert (r["kind"], r["name"]) == ("new", "Falconry passport")
 
 
 def test_no_model_running_gives_no_reply(model):
-    assert intent.talk(me("help"), GUIDES) == {"reply": "", "kind": "unsure", "guide": None, "name": ""}
+    assert intent.talk(me("help"), GUIDES) == {"reply": "", "kind": "unsure", "guide": None, "options": [], "name": ""}
     assert intent.talk([], GUIDES)["kind"] == "unsure"
 
 
@@ -83,6 +113,7 @@ def test_chat_endpoint(model, tmp_path, monkeypatch):
     monkeypatch.setenv("SAHL_LIBRARY", str(tmp_path / "library"))
     c = TestClient(server.create_app("t0k", screen=lambda: [], typer=lambda *a: None), headers={"x-sahl-token": "t0k"})
     assert c.post("/chat", json={"messages": me("medical fitness")}).json()["guide"] == "medical-fitness"
+    assert c.get("/guides/search", params={"q": "medical fitness"}).json()[0] == "medical-fitness"
     assert c.post("/chat", json={"messages": [{"role": "system", "text": "x"}]}).status_code == 422
     assert c.post("/chat", json={"messages": me("x")}, headers={"x-sahl-token": "no"}).status_code == 403
 
@@ -119,3 +150,14 @@ def test_the_reply_is_told_which_documents_are_held_but_no_values(model):
     intent.talk(me("What documents of mine do you have?"), GUIDES, held)
     system = model["talk"]["messages"][0]["content"]
     assert "Priya: 1 passport, 2 emirates id" in system and "1 not matched to anyone" in system
+
+
+def test_the_model_only_sees_the_closest_guides(model, monkeypatch):
+    many = {f"g{i}": {"id": f"g{i}", "service": {"en": f"Service number {i} xyzzy{i}"}, "about": f"thing {i}"} for i in range(50)}
+    many["tl"] = {"id": "tl", "service": {"en": "Trade licence renewal"}, "about": "Renew a company trade licence."}
+    assert intent.rank("licence for my company", many)[0][1] == "tl"
+    seen = []
+    monkeypatch.setattr(intent.ai, "chat", lambda body, **kw: seen.append(body))
+    intent.pick("licence for my falcon farm", many)  # not settled by words: the model chooses among the closest
+    enum = seen[0]["format"]["properties"]["guide"]["enum"]
+    assert len(enum) <= 9 and "tl" in enum

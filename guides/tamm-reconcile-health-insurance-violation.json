@@ -1,0 +1,37 @@
+{
+  "id": "tamm-reconcile-health-insurance-violation",
+  "service": {
+    "en": "Reconcile on a health insurance violation",
+    "ar": "التصالح في مخالفة التأمين الصحي",
+    "ur": "ہیلتھ انشورنس خلاف ورزی پر مصالحت",
+    "ml": "ആരോഗ്യ ഇൻഷുറൻസ് നിയമലംഘനത്തിൽ ഒത്തുതീർപ്പ്"
+  },
+  "about": "Settle a Department of Health violation decision under the health insurance law by paying 75% of its value.",
+  "authority": "TAMM",
+  "aliases": [
+    "Settle insurance violation",
+    "Reduce health insurance fine",
+    "تسوية مخالفة تأمين",
+    "التصالح"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/ReconcileonHealthInsuranceViolation",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Power of attorney and signature approval",
+      "Signed violation decision approving the reconciliation"
+    ],
+    "fees": [
+      "No extra costs beyond paying 75% of the current violation value"
+    ],
+    "timing": [
+      "30 working days",
+      "You receive a payment receipt"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

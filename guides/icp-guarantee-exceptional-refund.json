@@ -1,0 +1,41 @@
+{
+  "id": "icp-guarantee-exceptional-refund",
+  "service": {
+    "en": "Exceptional refund of an executed guarantee",
+    "ar": "استرداد استثنائي للضمانات المنفذة",
+    "ur": "نافذ شدہ ضمانت کی غیر معمولی واپسی",
+    "ml": "നടപ്പാക്കിയ ഗ്യാരണ്ടിയുടെ അസാധാരണ റീഫണ്ട്"
+  },
+  "about": "Get back a financial guarantee that was collected because of circumstances outside your control.",
+  "authority": "ICP",
+  "aliases": [
+    "Executed guarantee refund",
+    "Exceptional guarantee refund",
+    "استرداد ضمان منفذ",
+    "استرداد استثنائي"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e750a05ae59b0011738a1b",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Exceptional refund of an executed guarantee. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Resident category",
+      "The page gives no further terms"
+    ],
+    "documents": [
+      "Bank account verification",
+      "Attach other papers only if ICP cannot fetch them from government records"
+    ],
+    "fees": [
+      "Bank guarantee refund fee 20 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

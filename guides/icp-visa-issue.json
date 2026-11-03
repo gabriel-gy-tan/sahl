@@ -1,0 +1,53 @@
+{
+  "id": "icp-visa-issue",
+  "service": {
+    "en": "Entry permit (visa) issuance",
+    "ar": "إصدار تأشيرة دخول",
+    "ur": "داخلے کا ویزا جاری کرنا",
+    "ml": "എൻട്രി വിസ നൽകൽ"
+  },
+  "about": "Get an entry permit for a visit, tourism, treatment, study, a work mission or to complete residence procedures.",
+  "authority": "ICP",
+  "aliases": [
+    "UAE visit visa",
+    "Tourist visa",
+    "Entry permit",
+    "تأشيرة زيارة",
+    "تأشيرة سياحية",
+    "إصدار تأشيرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e60",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Applied for by a sponsor or entity: relative or friend host, tourism firm, healthcare facility, employer or university",
+      "Valid UAE health insurance and passport valid for at least 6 months",
+      "Host minimum monthly salary: 4,000 AED for first-degree relatives, 8,000 AED for second- and third-degree, 15,000 AED for friends",
+      "Enter the UAE within 60 days of issue",
+      "Visit stays of 30, 60 or 90 days, extendable up to 120 days in total"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Proof of kinship for relatives",
+      "Medical report for treatment, visit and work categories",
+      "Employer papers and good conduct certificate for work missions",
+      "Acceptance letter for study",
+      "Travel ticket where required"
+    ],
+    "fees": [
+      "Application fee 100 AED and smart service fee 100 AED",
+      "Visit visa issue 100 AED per month single entry, 200 AED per month multiple entry",
+      "Financial guarantee 1,000 AED single entry or 2,000 AED multiple entry",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

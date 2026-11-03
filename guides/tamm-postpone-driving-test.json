@@ -1,0 +1,36 @@
+{
+  "id": "tamm-postpone-driving-test",
+  "service": {
+    "en": "Postpone a driving test appointment",
+    "ar": "تأجيل موعد اختبار القيادة",
+    "ur": "ڈرائیونگ ٹیسٹ کی ملاقات ملتوی کرنا",
+    "ml": "ഡ്രൈവിംഗ് ടെസ്റ്റ് അപ്പോയിന്റ്മെന്റ് മാറ്റിവയ്ക്കൽ"
+  },
+  "about": "Ask for your current driving test appointment to be moved to a later date.",
+  "authority": "TAMM",
+  "aliases": [
+    "Delay driving test",
+    "Reschedule driving test",
+    "تأجيل اختبار القيادة",
+    "تغيير موعد الاختبار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/RequesttoPostponeDrivingTestAppointment",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive a new postponed test date"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

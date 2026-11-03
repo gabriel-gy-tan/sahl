@@ -1,0 +1,36 @@
+{
+  "id": "tamm-link-chamber-membership",
+  "service": {
+    "en": "Link Abu Dhabi Chamber membership to TAMM",
+    "ar": "ربط عضوية غرفة أبوظبي بحساب تم",
+    "ur": "ابوظہبی چیمبر کی رکنیت کو تم سے منسلک کرنا",
+    "ml": "അബുദാബി ചേംബർ അംഗത്വം തം അക്കൗണ്ടുമായി ബന്ധിപ്പിക്കൽ"
+  },
+  "about": "Link a Chamber membership to your TAMM account so you can use member-only Chamber services.",
+  "authority": "TAMM",
+  "aliases": [
+    "ADCCI membership link",
+    "Chamber membership TAMM",
+    "ربط عضوية الغرفة",
+    "غرفة أبوظبي تم"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/Business-Accounts/RequesttoLinkADCCImembershiptoTAMMaccount",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Power of attorney",
+      "Representative card"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

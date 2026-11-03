@@ -18,8 +18,13 @@ export type Doc = "passport" | "eid" | "other";
 /** What Sahl holds, by person and document type: counts, never values. */
 export type Held = { people: { id: string; name: string; docs: Partial<Record<Doc, number>> }[]; unmatched: number };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
-export type Guide = { id: string; service: Record<Lang, string> };
-export type Reply = { reply: string; kind: "match" | "new" | "unsure"; guide: string | null; name: string };
+/** requirements: lists read from the official service page (in English), dated by checked. */
+export type Guide = {
+  id: string; service: Record<Lang, string>; about: string; checked: string | null;
+  requirements: Partial<Record<"eligibility" | "documents" | "fees" | "timing" | "channels", string[]>>;
+};
+/** "match" offers options (guide is the first); "about" answers a question about them; "new" is a form Sahl has no guide for. */
+export type Reply = { reply: string; kind: "match" | "about" | "new" | "unsure"; guide: string | null; options: string[]; name: string };
 
 let base: { url: string; token: string } | null = null;
 

@@ -1,0 +1,36 @@
+{
+  "id": "doh-health-professional-licence",
+  "service": {
+    "en": "Health professional licence (Abu Dhabi)",
+    "ar": "ترخيص مزاولة المهن الصحية في أبوظبي",
+    "ur": "ابوظہبی میں طبی پیشہ ور لائسنس",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണൽ ലൈസൻസ് (അബുദാബി)"
+  },
+  "about": "Apply for or renew a licence to practise a health profession in Abu Dhabi.",
+  "authority": "DOH",
+  "aliases": [
+    "Medical professional licence",
+    "Doctor licence Abu Dhabi",
+    "ترخيص طبيب أبوظبي",
+    "رخصة مزاولة المهنة الصحية"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Qualification and experience rules are set out in the unified Professional Qualification Requirements (PQR)"
+    ],
+    "documents": [
+      "Documents uploaded for primary-source verification by Dataflow, then further documents for the licensing department"
+    ],
+    "timing": [
+      "Applicants who meet the conditions are approved to enter the exam stage"
+    ],
+    "channels": [
+      "TAMM platform with UAE PASS or Emirates ID",
+      "Dataflow Tasheel centre in Abu Dhabi, Monday to Friday 8 am to 4 pm"
+    ]
+  },
+  "fields": []
+}

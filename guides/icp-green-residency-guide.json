@@ -1,0 +1,44 @@
+{
+  "id": "icp-green-residency-guide",
+  "service": {
+    "en": "Green Residence guide",
+    "ar": "دليل الإقامة الخضراء",
+    "ur": "گرین ریزیڈنسی گائیڈ",
+    "ml": "ഗ്രീൻ റെസിഡൻസി ഗൈഡ"
+  },
+  "about": "See who qualifies for the five-year Green Residence without a sponsor.",
+  "authority": "ICP",
+  "aliases": [
+    "Green residency",
+    "Green visa",
+    "5 year residence",
+    "الإقامة الخضراء"
+  ],
+  "source": "https://icp.gov.ae/en/services/uae-green-residency/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Green Residence guide. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "5-year renewable residence with no sponsor",
+      "Skilled workers: employment contract, MOHRE level 1 to 3, bachelor's degree and a salary of at least 15,000 AED a month",
+      "Freelancers and self-employed: MOHRE permit, a degree or diploma and income of at least 360,000 AED a year over the last two years",
+      "Investors and partners: proof of investment or contribution, with the needed licences and approvals",
+      "Holders can sponsor family under the approved requirements"
+    ],
+    "documents": [
+      "The guide page does not list documents"
+    ],
+    "fees": [
+      "The guide page states no fees"
+    ],
+    "timing": [
+      "The guide page gives no timing"
+    ],
+    "channels": [
+      "ICP Smart Services platform (sign in required)",
+      "an ICP Customer Happiness Centre",
+      "ICP call centre 600522222"
+    ]
+  },
+  "fields": []
+}

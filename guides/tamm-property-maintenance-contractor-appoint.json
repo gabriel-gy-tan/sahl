@@ -1,0 +1,35 @@
+{
+  "id": "tamm-property-maintenance-contractor-appoint",
+  "service": {
+    "en": "Appoint a contractor for property maintenance",
+    "ar": "تعيين مقاول لصيانة العقار",
+    "ur": "جائیداد کی دیکھ بھال کے لیے ٹھیکیدار کی تقرری",
+    "ml": "വസ്തു അറ്റകുറ്റപ്പണിക്ക് കരാറുകാരനെ നിയമിക്കൽ"
+  },
+  "about": "Appoint a maintenance contractor under the annual contract for an heir's residence for routine upkeep.",
+  "authority": "TAMM",
+  "aliases": [
+    "Heir residence maintenance contractor",
+    "Endowments and Minors Funds contractor",
+    "تعيين مقاول صيانة مسكن",
+    "مقاول صيانة سكن الورثة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/Contracts-and-Consultations/RequesttoAppointContractorsforthePropertyMaintenance",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

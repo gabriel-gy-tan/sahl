@@ -1,0 +1,50 @@
+{
+  "id": "mohap-health-professional-evaluation",
+  "service": {
+    "en": "Health professional evaluation",
+    "ar": "تقييم المهنيين الصحيين",
+    "ur": "صحت پیشہ ور کی تشخیص",
+    "ml": "ആരോഗ്യ പ്രൊഫഷണൽ വിലയിരുത്തൽ"
+  },
+  "about": "Have a health professional's qualifications assessed before a MOHAP licence.",
+  "authority": "MOHAP",
+  "aliases": [
+    "Medical professional evaluation",
+    "Health professional assessment",
+    "Assessment certificate",
+    "تقييم مهني صحي",
+    "تقييم الكفاءة الطبية"
+  ],
+  "source": "https://mohap.gov.ae/en/w/evaluation-of-health-professional",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHAP service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "No gap in practice longer than three years",
+      "Qualification accredited in the country of origin",
+      "Passing any required exams",
+      "Valid passport; blacklisted candidates cannot apply",
+      "Non-English certificates need a legal translation"
+    ],
+    "documents": [
+      "Qualification certificate and academic record",
+      "Experience certificate, professional licence and good conduct certificate (optional for new graduates)",
+      "Surgical record for surgical specialties",
+      "Family book for UAE nationals",
+      "Valid passport copy"
+    ],
+    "fees": [
+      "Physicians and dentists 500 AED",
+      "Nurses and midwives 400 AED",
+      "TCAM and allied health 300 AED each"
+    ],
+    "timing": [
+      "Done in 5 working days"
+    ],
+    "channels": [
+      "MOHAP website",
+      "MOHAP smart app"
+    ]
+  },
+  "fields": []
+}

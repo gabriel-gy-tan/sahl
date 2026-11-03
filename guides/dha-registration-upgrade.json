@@ -1,0 +1,43 @@
+{
+  "id": "dha-registration-upgrade",
+  "service": {
+    "en": "Add or upgrade professional registration",
+    "ar": "إضافة أو ترقية التسجيل المهني",
+    "ur": "پیشہ ورانہ رجسٹریشن میں اضافہ یا اپ گریڈ",
+    "ml": "പ്രൊഫഷണൽ രജിസ്ട്രേഷൻ ചേർക്കുക അല്ലെങ്കിൽ ഉയർത്തുക"
+  },
+  "about": "Move up to a higher registration title or add a new position to your DHA registration. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "Upgrade DHA title",
+    "Add specialty registration",
+    "ترقية التسجيل المهني",
+    "إضافة مسمى وظيفي"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/b894ffc0-c4b4-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "Registration must be active",
+      "You must not be revoked or blacklisted",
+      "You must have no incomplete CPD action and no unpaid fines"
+    ],
+    "documents": [
+      "Verification result for the qualifications and experience of the position",
+      "Good Standing Certificate valid within six months",
+      "Two-year logbook for surgical specialties"
+    ],
+    "fees": [
+      "AED 200 for the request"
+    ],
+    "timing": [
+      "5 working days"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

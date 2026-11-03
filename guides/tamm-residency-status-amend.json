@@ -1,0 +1,38 @@
+{
+  "id": "tamm-residency-status-amend",
+  "service": {
+    "en": "Amend residency file status",
+    "ar": "تعديل وضع ملف الإقامة",
+    "ur": "رہائشی فائل کی حیثیت میں ترمیم",
+    "ml": "റെസിഡൻസി ഫയൽ സ്റ്റാറ്റസ് മാറ്റൽ"
+  },
+  "about": "A sponsor changes a foreign visitor's status so they can apply for residency from inside the country.",
+  "authority": "TAMM",
+  "aliases": [
+    "Change visit visa to residency",
+    "Adjust status",
+    "تعديل وضع",
+    "تغيير وضع الإقامة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoChangeStatusofResidency",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Visit visa",
+      "Passport"
+    ],
+    "fees": [
+      "AED 150 e-services fee",
+      "AED 500 request fee"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

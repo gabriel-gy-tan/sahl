@@ -1,0 +1,36 @@
+{
+  "id": "tamm-attested-school-fees-certificate",
+  "service": {
+    "en": "Issue an attested school fees certificate",
+    "ar": "إصدار شهادة رسوم دراسية مصدقة",
+    "ur": "تصدیق شدہ اسکول فیس سرٹیفکیٹ کا اجرا",
+    "ml": "സാക്ഷ്യപ്പെടുത്തിയ സ്കൂൾ ഫീസ് സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get an attested certificate showing the set tuition fees of private schools.",
+  "authority": "TAMM",
+  "aliases": [
+    "School fees certificate",
+    "Tuition fee certificate",
+    "شهادة رسوم المدرسة",
+    "اعتماد الرسوم الدراسية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/WorkEducation/StudentAffairs/RequesttoApprovePrivateSchoolFeesCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "15 AED attestation fee"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive an electronic copy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

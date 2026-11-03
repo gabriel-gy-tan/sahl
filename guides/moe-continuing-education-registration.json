@@ -1,0 +1,47 @@
+{
+  "id": "moe-continuing-education-registration",
+  "service": {
+    "en": "Continuing education registration",
+    "ar": "التسجيل في التعليم المستمر",
+    "ur": "مسلسل تعلیم میں رجسٹریشن",
+    "ml": "തുടർ വിദ്യാഭ്യാസ രജിസ്ട്രേഷൻ"
+  },
+  "about": "Enrol in home-schooling, the general academic stream or the literacy programme.",
+  "authority": "MOE",
+  "aliases": [
+    "Home schooling registration",
+    "Adult education UAE",
+    "التعليم المنزلي",
+    "التعليم المستمر"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/Application-for-registration-in-home-study.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Continuing education registration. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Home-schooling track is open to citizens and residents of all nationalities, Grades 7 to 12",
+      "General academic stream is for female citizens, wives of citizens and daughters of female citizens",
+      "Literacy track is for people aged nine and over",
+      "A level test applies to some applicants"
+    ],
+    "documents": [
+      "Equivalency certificate for the latest certificate (new enrolment only)",
+      "Latest authenticated certificate (new enrolment only)",
+      "Proof of residence for residents and GCC students in the home study and level test tracks"
+    ],
+    "fees": [
+      "AED 150 for home study",
+      "AED 150 for the level test",
+      "Free for the literacy and general academic tracks"
+    ],
+    "timing": [
+      "5 working days"
+    ],
+    "channels": [
+      "MOE website or mobile app, sign in with UAE PASS",
+      "Outcome by email and SMS",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,36 @@
+{
+  "id": "tamm-advance-driving-test",
+  "service": {
+    "en": "Change a theory or practical driving test appointment to an earlier date",
+    "ar": "تقديم موعد اختبار القيادة النظري أو العملي",
+    "ur": "ڈرائیونگ ٹیسٹ کی ملاقات پہلے کی تاریخ پر کرنا",
+    "ml": "ഡ്രൈവിംഗ് ടെസ്റ്റ് തീയതി നേരത്തെയാക്കൽ"
+  },
+  "about": "Ask for an earlier theory or practical driving test appointment, if one is free.",
+  "authority": "TAMM",
+  "aliases": [
+    "Earlier driving test",
+    "Advance test date",
+    "تقديم موعد اختبار",
+    "موعد أبكر للاختبار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requesttoadvanceadrivingtestappointment",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "300 AED request fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

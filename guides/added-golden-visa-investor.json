@@ -1,0 +1,41 @@
+{
+  "id": "added-golden-visa-investor",
+  "service": {
+    "en": "Abu Dhabi Golden Visa for non-real-estate investors",
+    "ar": "التأشيرة الذهبية في أبوظبي للمستثمرين",
+    "ur": "ابوظہبی گولڈن ویزا غیر رئیل اسٹیٹ سرمایہ کار",
+    "ml": "അബുദാബി ഗോൾഡൻ വിസ (റിയൽ എസ്റ്റേറ്റ് ഇതര നിക്ഷേപകർ)"
+  },
+  "about": "Ten-year residence for investors who put money into a company or deposit.",
+  "authority": "ADDED",
+  "aliases": [
+    "Golden visa investor",
+    "Investor golden visa Abu Dhabi",
+    "الإقامة الذهبية للمستثمرين",
+    "التأشيرة الذهبية للمستثمر"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-golden-visa/Investors/visa-for-non-real-estate-investors",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Invest at least AED 2 million as a bank deposit or company ownership, or show at least AED 250,000 in tax paid in each of the last two years",
+      "Covers spouse, children, one advisor and one executive director"
+    ],
+    "documents": [
+      "Valid trade licence",
+      "Commercial registration certificate showing paid-in capital and ownership share",
+      "Bank or fund letter confirming the AED 2 million (investment route)",
+      "Commercial register copy showing no attachments",
+      "Tax returns and receipts for both years (tax route)"
+    ],
+    "timing": [
+      "The visa lasts 10 years"
+    ],
+    "channels": [
+      "UAE residents apply for nomination through TAMM (Abu Dhabi Residents Office)",
+      "Non-residents email e.management@adio.gov.ae"
+    ]
+  },
+  "fields": []
+}

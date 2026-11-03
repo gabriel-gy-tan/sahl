@@ -1,0 +1,44 @@
+{
+  "id": "tamm-enroll-basic-health-insurance-member",
+  "service": {
+    "en": "Enroll a member in Abu Dhabi basic health insurance",
+    "ar": "تسجيل مشترك في التأمين الصحي الأساسي لأبوظبي",
+    "ur": "ابوظہبی بنیادی ہیلتھ انشورنس میں رکن کا اندراج",
+    "ml": "അബുദാബി അടിസ്ഥാന ആരോഗ്യ ഇൻഷുറൻസിൽ അംഗത്തെ ചേർക്കൽ"
+  },
+  "about": "Enroll a member in an individual Abu Dhabi basic health insurance policy with Daman.",
+  "authority": "TAMM",
+  "aliases": [
+    "Issue Daman policy",
+    "New health insurance",
+    "Get health insurance",
+    "إصدار تأمين صحي",
+    "تأمين صحي جديد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Request%20to%20Issue%20a%20Health%20Insurance%20Policy%20Daman",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Residence visa",
+      "Change of status",
+      "Salary certificate",
+      "Sponsor's Emirates ID and passport",
+      "Certificate of continuity or previous visa insurance"
+    ],
+    "fees": [
+      "Premium listed as 750 to 19,306 AED",
+      "Late fine of 300 AED per delayed month, if it applies"
+    ],
+    "timing": [
+      "About 24 hours",
+      "You receive the insurance policy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

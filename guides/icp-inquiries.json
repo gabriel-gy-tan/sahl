@@ -1,0 +1,42 @@
+{
+  "id": "icp-inquiries",
+  "service": {
+    "en": "Submit an inquiry to ICP",
+    "ar": "تقديم استفسار إلى الهيئة",
+    "ur": "آئی سی پی سے استفسار",
+    "ml": "ഐസിപിയോട് അന്വേഷണം സമർപ്പിക്കൽ"
+  },
+  "about": "Ask ICP a question about a service, a transaction or a general matter.",
+  "authority": "ICP",
+  "aliases": [
+    "ICP inquiry",
+    "Ask ICP",
+    "Service inquiry",
+    "استفسار",
+    "طلب استفسار"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=67fc879aea116e0011287c0d",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Submit an inquiry to ICP. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For ICP customers",
+      "Give full details of the question and attach supporting papers if any"
+    ],
+    "documents": [
+      "Supporting papers where relevant; no fixed list"
+    ],
+    "fees": [
+      "The page lists no fee"
+    ],
+    "timing": [
+      "About 5 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "ICP call centre 600522222",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,48 @@
+{
+  "id": "dld-tenancy-contract-registration",
+  "service": {
+    "en": "Register or renew a tenancy contract (Ejari)",
+    "ar": "تسجيل أو تجديد عقد الإيجار (إيجاري)",
+    "ur": "کرایہ نامے کی رجسٹریشن یا تجدید (ایجاری)",
+    "ml": "വാടക കരാർ രജിസ്റ്റർ ചെയ്യൽ / പുതുക്കൽ (ഇജാരി)"
+  },
+  "about": "Register a new tenancy contract in Dubai or renew an existing one.",
+  "authority": "DLD",
+  "aliases": [
+    "Ejari registration",
+    "Renew Ejari",
+    "Register tenancy contract",
+    "تسجيل إيجاري",
+    "تجديد عقد الإيجار"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register or renew a tenancy contract (Ejari). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "At a trustee centre the applicant must be the tenant or hold an official power of attorney",
+      "At a trustee centre the property must not be run by a management company or an owner with Ejari access",
+      "Through the app the tenant and landlord must both be individuals with up-to-date owner data"
+    ],
+    "documents": [
+      "Copy of the Unified Tenancy Contract for the app",
+      "Original Unified Tenancy Contract at a trustee centre",
+      "Emirates ID of the applicant at a trustee centre",
+      "Power of attorney if a representative applies; one issued outside Dubai must be attached"
+    ],
+    "fees": [
+      "AED 177.75 in total through the Dubai REST app or DLD website",
+      "AED 220 in total at a Real Estate Services Trustee Centre"
+    ],
+    "timing": [
+      "25 minutes at a trustee centre, not counting waiting"
+    ],
+    "channels": [
+      "DLD Ejari website",
+      "Dubai REST app",
+      "Dubai Now",
+      "a Real Estate Services Trustee Centre"
+    ]
+  },
+  "fields": []
+}

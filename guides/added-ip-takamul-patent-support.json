@@ -1,0 +1,39 @@
+{
+  "id": "added-ip-takamul-patent-support",
+  "service": {
+    "en": "Takamul Patent Support",
+    "ar": "دعم تكامل لتسجيل براءات الاختراع",
+    "ur": "تکامل پیٹنٹ سپورٹ",
+    "ml": "തകാമുൽ പേറ്റന്റ് പിന്തുണ"
+  },
+  "about": "Funding to help Abu Dhabi inventors register patents in the UAE and abroad.",
+  "authority": "ADDED",
+  "aliases": [
+    "Takamul patent grant",
+    "Patent funding Abu Dhabi",
+    "دعم تكامل",
+    "دعم براءات الاختراع"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/ip-funding/takamul-patent-support",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP Takamul Patent Support page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to Abu Dhabi citizens, and to small and medium companies, academic institutions and other economic establishments licensed in the emirate, with proof of approval to apply for a patent",
+      "The idea must be unpublished, new, technical and meant for a product or service"
+    ],
+    "documents": [
+      "Completed application form",
+      "High-level description of the invention",
+      "Proof of approval to apply for a patent (companies and institutions)"
+    ],
+    "timing": [
+      "Eligibility is assessed, possibly with an interview, then the result is sent; grant payment usually starts about a month after approval"
+    ],
+    "channels": [
+      "TAMM portal (tamm.abudhabi)",
+      "AD.iP: 800555, Baniyas Towers, Abu Dhabi"
+    ]
+  },
+  "fields": []
+}

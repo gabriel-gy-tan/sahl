@@ -1,0 +1,39 @@
+{
+  "id": "tamm-renew-driving-test-date",
+  "service": {
+    "en": "Renew the date of an expired theory or practical driving test",
+    "ar": "تجديد موعد اختبار القيادة النظري أو العملي",
+    "ur": "ڈرائیونگ ٹیسٹ کی میعاد ختم تاریخ کی تجدید",
+    "ml": "കാലഹരണപ്പെട്ട ഡ്രൈവിംഗ് ടെസ്റ്റ് തീയതി പുതുക്കൽ"
+  },
+  "about": "Renew an expired date for the theory or practical driving test.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew test date",
+    "Renew driving test appointment",
+    "تجديد موعد الاختبار",
+    "تجديد موعد فحص السياقة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requestforrenewalofdrivingtestappointment",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The earlier test date has expired"
+    ],
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive the renewed test date"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

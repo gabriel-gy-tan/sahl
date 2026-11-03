@@ -1,0 +1,33 @@
+{
+  "id": "adcustoms-ip-rights-protection",
+  "service": {
+    "en": "Customs protection for IP rights",
+    "ar": "تسجيل حقوق الملكية الفكرية لدى الجمارك",
+    "ur": "املاک دانش کے حقوق کا کسٹمز تحفظ",
+    "ml": "ബൗദ്ധിക സ്വത്തവകാശത്തിന് കസ്റ്റംസ് സംരക്ഷണം"
+  },
+  "about": "Register intellectual property rights with customs for monitoring and inspection.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "IP customs registration",
+    "Counterfeit goods complaint",
+    "حماية الملكية الفكرية جمركيا",
+    "شكوى سلع مقلدة"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 200 for registering for customs protection and monitoring of IP rights",
+      "AED 2,000 for a customs inspection to verify infringement",
+      "AED 5,000 refundable security for an inspection complaint",
+      "AED 500 for an urgent inspection",
+      "AED 1,000 for an inspection request on holidays"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

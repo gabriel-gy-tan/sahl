@@ -1,0 +1,45 @@
+{
+  "id": "dld-tenancy-contract-cancellation",
+  "service": {
+    "en": "Cancel a tenancy contract",
+    "ar": "إلغاء عقد الإيجار",
+    "ur": "کرایہ نامہ منسوخ کرنا",
+    "ml": "വാടക കരാർ റദ്ദാക്കൽ"
+  },
+  "about": "Cancel an expired tenancy contract for a property that has been vacated in Dubai.",
+  "authority": "DLD",
+  "aliases": [
+    "Cancel Ejari",
+    "Terminate Ejari",
+    "إلغاء إيجاري",
+    "إنهاء عقد الإيجار"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/cancel-tenancy-contract/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Cancel a tenancy contract. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "At a trustee centre the applicant must be the tenant or hold an official power of attorney",
+      "Through the app the tenant and landlord must both be individuals with up-to-date owner data"
+    ],
+    "documents": [
+      "Original Unified Tenancy Contract, unless it is still active, in which case it must be shown",
+      "Emirates ID of the applicant",
+      "Power of attorney if a representative applies",
+      "Letter from the owner asking for cancellation if the contract is still active"
+    ],
+    "fees": [
+      "Free through the app or the Ejari system",
+      "AED 40 plus VAT for the service partner at a trustee centre"
+    ],
+    "timing": [
+      "25 minutes at a trustee centre"
+    ],
+    "channels": [
+      "Ejari system",
+      "Dubai REST app",
+      "a Real Estate Service Trustees Centre"
+    ]
+  },
+  "fields": []
+}

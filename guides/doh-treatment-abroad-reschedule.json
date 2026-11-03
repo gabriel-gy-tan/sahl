@@ -1,0 +1,30 @@
+{
+  "id": "doh-treatment-abroad-reschedule",
+  "service": {
+    "en": "Treatment abroad appointment change",
+    "ar": "تغيير موعد العلاج في الخارج",
+    "ur": "بیرون ملک علاج کی تاریخ میں تبدیلی",
+    "ml": "വിദേശ ചികിത്സാ അപ്പോയിന്റ്മെന്റ് മാറ്റൽ"
+  },
+  "about": "Ask to move, delay or cancel an approved treatment abroad appointment, or change the country.",
+  "authority": "DOH",
+  "aliases": [
+    "Reschedule treatment abroad",
+    "Change treatment country",
+    "تأجيل موعد العلاج بالخارج",
+    "تغيير بلد العلاج"
+  ],
+  "source": "https://www.doh.gov.ae/en/faq",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Department of Health Abu Dhabi FAQ page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "An exception request is needed to advance, postpone or cancel the appointment, or to change the country",
+      "A patient can postpone at most 2 times before travel is arranged and tickets are issued"
+    ],
+    "channels": [
+      "TAMM application or TAMM platform"
+    ]
+  },
+  "fields": []
+}

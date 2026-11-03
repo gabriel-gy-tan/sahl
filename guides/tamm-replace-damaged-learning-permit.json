@@ -1,0 +1,36 @@
+{
+  "id": "tamm-replace-damaged-learning-permit",
+  "service": {
+    "en": "Replace a damaged driving learning permit",
+    "ar": "بدل تالف لتصريح التدريب على القيادة",
+    "ur": "خراب ڈرائیونگ لرننگ پرمٹ کی تبدیلی",
+    "ml": "കേടായ ഡ്രൈവിംഗ് ലേണിംഗ് പെർമിറ്റ് മാറ്റി വാങ്ങൽ"
+  },
+  "about": "Get a replacement for a damaged Learning to Drive permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Damaged learner permit",
+    "Damaged trainee card",
+    "بدل تالف تصريح تعلم",
+    "استبدال بطاقة متدرب تالفة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requestforreplacementofadamagedtraineecard",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

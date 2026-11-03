@@ -1,0 +1,40 @@
+{
+  "id": "tamm-property-ownership-info-change",
+  "service": {
+    "en": "Change property ownership information (TAQA)",
+    "ar": "تغيير بيانات ملكية العقار (طاقة)",
+    "ur": "جائیداد کی ملکیت کی معلومات میں تبدیلی (طاقہ)",
+    "ml": "വസ്തു ഉടമസ്ഥാവകാശ വിവരങ്ങൾ മാറ്റൽ (ടാഖ)"
+  },
+  "about": "Transfer or change the property owner details held for a utility account from one owner to another.",
+  "authority": "TAMM",
+  "aliases": [
+    "TAQA change of owner",
+    "Utility account owner change",
+    "تغيير مالك العقار طاقة",
+    "نقل ملكية حساب المياه والكهرباء"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/ChangePropertyOwnershipInformation-taqa",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No objection certificate signed by the other owners (if more than one owner)",
+      "Emirates ID of the other owners",
+      "Emirates ID of the agent (if applying through an agent)",
+      "Site plan valid for 6 months",
+      "Power of attorney",
+      "Economic licence and signature authorisation (companies)"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

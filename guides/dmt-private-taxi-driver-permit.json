@@ -1,0 +1,46 @@
+{
+  "id": "dmt-private-taxi-driver-permit",
+  "service": {
+    "en": "Private taxi driver permit",
+    "ar": "تصريح سائق تاكسي خاص",
+    "ur": "نجی ٹیکسی ڈرائیور پرمٹ",
+    "ml": "പ്രൈവറ്റ് ടാക്സി ഡ്രൈവർ പെർമിറ്റ്"
+  },
+  "about": "Permit for Emirati drivers to work as private taxi drivers.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Private taxi driver",
+    "Taxi driver licence Emirati",
+    "تصريح سائق تاكسي",
+    "سائق تاكسي خاص للمواطنين"
+  ],
+  "source": "https://admobility.gov.ae/en/taxi-private-taxi-driver",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE nationals or children of Emirati mothers",
+      "Pass the assessment with at least 60% correct and complete five online training courses",
+      "Valid UAE driving licence and clean criminal, health and eye test certificates"
+    ],
+    "documents": [
+      "Coloured passport copy, white-background photo and school certificate showing ten academic years",
+      "Initial approval from the relevant authorities and the assessment pass certificate",
+      "Emirates ID, original driving licence and a photo in UAE uniform",
+      "Birth certificate and valid residence for children of Emirati mothers"
+    ],
+    "fees": [
+      "No fee is listed for each step; assessment fees are paid when booking and third party certificate costs are not stated"
+    ],
+    "timing": [
+      "Arrive 30 minutes before the assessment; arriving over 90 minutes late counts as a fail"
+    ],
+    "channels": [
+      "Licensing and Enforcement System (online)",
+      "Smart Training System",
+      "Customer Happiness Office in Abu Dhabi or Al Ain",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

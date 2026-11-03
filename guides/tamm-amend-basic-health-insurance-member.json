@@ -1,0 +1,38 @@
+{
+  "id": "tamm-amend-basic-health-insurance-member",
+  "service": {
+    "en": "Amend member details in Abu Dhabi basic health insurance",
+    "ar": "تعديل بيانات مشترك في التأمين الصحي الأساسي لأبوظبي",
+    "ur": "ابوظہبی بنیادی ہیلتھ انشورنس میں رکن کی تفصیلات میں ترمیم",
+    "ml": "അബുദാബി അടിസ്ഥാന ആരോഗ്യ ഇൻഷുറൻസിൽ അംഗത്തിന്റെ വിവരങ്ങൾ മാറ്റൽ"
+  },
+  "about": "Change a member's details in an individual Abu Dhabi basic health insurance policy.",
+  "authority": "TAMM",
+  "aliases": [
+    "Update insurance details",
+    "Daman amend details",
+    "تعديل بيانات التأمين",
+    "تحديث بيانات مشترك"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Request%20to%20Amend%20Member%20Details%20Daman",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Marriage certificate when adding maternity cover"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "1 working day",
+      "You receive the amended policy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "a service centre"
+    ]
+  },
+  "fields": []
+}
