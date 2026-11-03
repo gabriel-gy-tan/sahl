@@ -554,6 +554,10 @@ export default function Panel() {
   const guideName = current?.service[lang];
 
   // --- open on hover, fold back into the notch a moment after the pointer leaves ---
+  // a box that unmounts while focused (picking a form hides the text box) never fires blur, so check the focus itself
+  useEffect(() => {
+    if (focused && document.activeElement !== inputRef.current) setFocused(false);
+  });
   const keep = busy || thinking || readingDocs || dropping || !!field || focused;
   const keepRef = useRef(keep);
   keepRef.current = keep;

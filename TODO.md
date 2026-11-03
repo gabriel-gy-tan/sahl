@@ -13,6 +13,8 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
 - [ ] More UAE service guides (`uae-form-data`): 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH, ADDED, DMT, FTA, MOFA, MOE, MOJ, EHS and more, all `fields: []` except 5 forms with printed labels; the form picker ranks by rare words, answers questions, and has a search box; the form screen shows what a service needs. Fees dated 2026-11-02/03; 94 TAMM guides not re-dated; translations unreviewed
 
+- [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). First launch after install takes ~40 s while macOS scans the files, later ones ~1 s; signing and notarising should shorten the first. `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
+
 ## Next
 
 - [ ] Not reachable from the build machine, still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA, Dubai Courts, MOI, Customs; embassies, free zones, utilities and telecom, transport, finance, Sharjah and the northern emirates
@@ -24,7 +26,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] More label variants in guides, from real portal results
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
 - [ ] Other dropdowns and date pickers (show-only today)
-- [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
+- [ ] Sign and notarise the installers (Apple Developer ID, Windows certificate); bundle Ollama or fetch it on first run; Intel Mac build
 - [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
 - [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)
 - [ ] Native speakers to check the new greeting and form-picker strings (ar/ur/ml)

@@ -279,24 +279,29 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
     app.manage(Sidecar { port: Mutex::new(None), token, child: Mutex::new(None), exiting: AtomicBool::new(false) });
     let handle = app.clone();
     std::thread::spawn(move || loop {
-        // ponytail: dev layout only (repo checkout with sidecar/.venv); bundle the sidecar for releases
-        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../sidecar");
         let s = handle.state::<Sidecar>();
-        let python = if cfg!(windows) {
-            root.join(".venv/Scripts/python.exe")
+        let mut cmd = if cfg!(debug_assertions) {
+            // dev: the repo checkout with sidecar/.venv
+            let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../sidecar");
+            let python = if cfg!(windows) { root.join(".venv/Scripts/python.exe") } else { root.join(".venv/bin/python") };
+            let mut c = Command::new(python);
+            c.args(["-m", "sahl.server"]).current_dir(&root);
+            c
         } else {
-            root.join(".venv/bin/python")
+            // release: the packed sidecar folder and the guides are in the app's resources
+            // (resource_dir() fails in this build, so work it out from the executable: Contents/Resources on macOS, beside it on Windows)
+            let exe = std::env::current_exe().expect("app path");
+            let dir = if cfg!(target_os = "macos") { exe.parent().unwrap().join("../Resources") } else { exe.parent().unwrap().to_path_buf() };
+            let mut c = Command::new(dir.join("sidecar").join(if cfg!(windows) { "sahl-sidecar.exe" } else { "sahl-sidecar" }));
+            c.env("SAHL_GUIDES", dir.join("guides"));
+            c
         };
-        let mut cmd = Command::new(&python);
-        cmd.args(["-m", "sahl.server"])
-            .current_dir(&root)
-            .env("SAHL_TOKEN", &s.token)
-            .stdout(Stdio::piped());
+        cmd.env("SAHL_TOKEN", &s.token).stdout(Stdio::piped());
         #[cfg(windows)]
         cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW: no console flashes up beside the panel
         let mut child = cmd
             .spawn()
-            .unwrap_or_else(|e| panic!("could not start {} ({e}), see sidecar/README.md", python.display()));
+            .unwrap_or_else(|e| panic!("could not start the sidecar ({e}), see sidecar/README.md"));
         let out = child.stdout.take().unwrap();
         *s.child.lock().unwrap() = Some(child);
         for line in BufReader::new(out).lines().map_while(Result::ok) {
