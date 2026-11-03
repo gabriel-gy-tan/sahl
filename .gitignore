@@ -2,4 +2,4 @@
 __pycache__/
 .pytest_cache/
 .DS_Store
-app/src-tauri/binaries/
+app/src-tauri/sidecar/

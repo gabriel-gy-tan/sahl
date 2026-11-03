@@ -34,8 +34,7 @@
   "bundle": {
     "active": true,
     "targets": ["app", "dmg", "nsis"],
-    "externalBin": ["binaries/sahl-sidecar"],
-    "resources": { "../../guides": "guides" },
+    "resources": { "../../guides": "guides", "sidecar": "sidecar" },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

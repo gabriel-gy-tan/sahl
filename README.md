@@ -81,7 +81,7 @@ cd sidecar && .venv/bin/pip install -r requirements-build.txt && .venv/bin/pytho
 cd ../app && npm run tauri build -- --bundles dmg
 ```
 
-`build.py` packs the sidecar into one executable that Tauri bundles beside the app, with the guides as resources. The installers are not signed yet, so macOS and Windows warn on first open. Ollama is still installed separately.
+`build.py` packs the sidecar into a folder (not one file, which unpacks on every launch and takes about 40 seconds to start) that Tauri bundles as resources, beside the guides. The installers are not signed yet, so macOS and Windows warn on first open. Ollama is still installed separately.
 
 ## Licence
 

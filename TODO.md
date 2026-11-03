@@ -14,7 +14,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Fold the island out of the way while Sahl clicks and types into the form
 - [ ] Confirm short values such as surnames after filling, even when OCR is imperfect
 
-- [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
+- [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). First launch after install takes ~40 s while macOS scans the files, later ones ~1 s; signing and notarising should shorten the first. `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
 
 ## Next
 

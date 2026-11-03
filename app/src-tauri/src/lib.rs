@@ -253,12 +253,10 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
             c.args(["-m", "sahl.server"]).current_dir(&root);
             c
         } else {
-            // release: the packed sidecar sits beside the app binary, the guides in its resources
-            let exe = std::env::current_exe().expect("app path").with_file_name(if cfg!(windows) { "sahl-sidecar.exe" } else { "sahl-sidecar" });
-            let mut c = Command::new(exe);
-            if let Ok(dir) = handle.path().resource_dir() {
-                c.env("SAHL_GUIDES", dir.join("guides"));
-            }
+            // release: the packed sidecar folder and the guides are in the app's resources
+            let dir = handle.path().resource_dir().expect("resource dir");
+            let mut c = Command::new(dir.join("sidecar").join(if cfg!(windows) { "sahl-sidecar.exe" } else { "sahl-sidecar" }));
+            c.env("SAHL_GUIDES", dir.join("guides"));
             c
         };
         cmd.env("SAHL_TOKEN", &s.token).stdout(Stdio::piped());
