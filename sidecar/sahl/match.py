@@ -7,6 +7,7 @@ import numpy as np
 from rapidfuzz import fuzz
 
 THRESHOLD = 85
+INK = 8  # how far a pixel is from the page to count as a line or shading (#f3f3f3 boxes on white are 12)
 ARABIC = str.maketrans({"أ": "ا", "إ": "ا", "آ": "ا", "ٱ": "ا", "ى": "ي", "ة": "ه"})
 
 
@@ -39,17 +40,28 @@ def _runs(on):
 def _lines(gray, bg, x0, x1, y0, y1, min_len):
     """Horizontal ink segments long enough to be a field border or an underline, not text."""
     x0, x1, y0, y1 = (int(v) for v in (x0, x1, y0, y1))
-    ink = lambda row: np.abs(row.astype(np.int16) - bg) > 12
+    ink = lambda row: np.abs(row.astype(np.int16) - bg) > INK
     out = []
     for y in range(max(0, y0), min(gray.shape[0], y1)):
         out.extend((y, s + x0, e + x0) for s, e in _runs(ink(gray[y, x0:x1])) if e - s >= min_len)
-    # a 2 px border is two rows; keep one
-    kept = []
+    # stack runs that continue on the next row: a 2 px border is two rows, a shaded box with no border is a whole band
+    bands = []  # [first, last]
     for line in sorted(out):
-        if any(line[0] - k[0] <= 1 and abs(line[1] - k[1]) <= 6 and abs(line[2] - k[2]) <= 6 for k in kept[-8:]):
-            continue
-        kept.append(line)
-    return kept
+        b = next((b for b in reversed(bands[-8:]) if line[0] - b[1][0] <= 1 and abs(line[1] - b[1][1]) <= 6
+                  and abs(line[2] - b[1][2]) <= 6), None)
+        if b:
+            b[1] = line
+        else:
+            bands.append([line, line])
+    # a band cut by the window (a tall shaded box running past it) has no edge there: keep only edges where it stops
+    goes_on = lambda y, s, e: 0 <= y < gray.shape[0] and np.mean(ink(gray[y, s:e])) > 0.9
+    kept = []
+    for first, last in bands:  # a border keeps one line; a band gives its top and bottom, like a bordered box
+        if not goes_on(first[0] - 1, first[1], first[2]):
+            kept.append(first)
+        if last[0] - first[0] >= 4 and not goes_on(last[0] + 1, last[1], last[2]):
+            kept.append(last)
+    return sorted(kept)
 
 
 def _bg(gray, label):
@@ -73,66 +85,193 @@ def _tight(rects):
     return [r for r in rects if not any(inside(o[1], r[1]) for o in rects)]
 
 
-def _below(gray, label):
-    """A bordered input, then an underline, directly below a label. Returns (score, box) or None."""
+def _real(gray, bg, rect, h):
+    """Whether a rectangle made of two lines is one input, not the gap between two inputs: it is shaded inside,
+    or it has a left and a right side (a few px off the lines' ends where the corners are rounded)."""
+    left, top, right, bottom = (int(v) for v in rect)
+    if _cover(gray, bg, (left + right) // 2, top, bottom) >= 0.85:  # the gap between two stacked boxes is not shaded
+        return True
+    lim = min(14, h)
+    has = lambda xs: any(_cover(gray, bg, x, top, bottom) >= 0.85 for x in xs)
+    return has(range(left - lim, left + 3)) and has(range(right - 3, right + lim))
+
+
+def _claimed(gray, bg, rect, gap, h):
+    """Whether other text sits under the box, closer to it than the label above it is: then the box is that
+    text's (a form with labels under their boxes), not this label's."""
+    left, top, right, bottom = (int(v) for v in rect)
+    y0, y1 = bottom + 3, bottom + max(3, int(gap))
+    x1 = min(right, left + 12 * h, gray.shape[1])
+    if y1 <= y0 or y0 >= gray.shape[0]:
+        return False
+    ink = np.abs(gray[y0:y1, left:x1].astype(np.int16) - bg) > 40
+    for i, row in enumerate(ink):  # drop the long runs of a border; what is left is text
+        for a, b in _runs(row):
+            if b - a >= 3 * h:
+                ink[i, a:b] = False
+    return int(ink.sum()) >= h
+
+
+def _below(gray, label, underline=True):
+    """A bordered or shaded input, then an underline, directly below a label. Returns (score, box) or None."""
     x0, y0, x1, y1 = (int(v) for v in label)
     h = max(y1 - y0, 8)
     H, W = gray.shape
     bg = _bg(gray, label)
-    lines = _lines(gray, bg, max(0, x0 - 3 * h), W, y1 + 0.2 * h, min(H, y1 + 10 * h), max(4 * h, 40))
-    rects = []
+    lines = _lines(gray, bg, max(0, x0 - 3 * h), W, y1 + 0.2 * h, min(H, y1 + 16 * h), max(4 * h, 40))
+    rects, edges = [], set()  # edges: lines that are a real box's top or bottom, so never an underline
     for i, (top, tx0, tx1) in enumerate(lines):
+        if top - y1 > 6 * h:  # too far below to be this label's box
+            break
         for bottom, bx0, bx1 in lines[i + 1:]:
             height = bottom - top
             if height < h:  # the same border, or a hairline
                 continue
-            if height > 5 * h:
+            if height > 15 * h:  # taller than a text area
                 break
             left, right = max(tx0, bx0), min(tx1, bx1)
-            if right - left < 3.5 * h or left > x1 + 4 * h:
+            if right - left < 3.5 * h or left > x1 + 4 * h or right < x0:
+                continue
+            if not _real(gray, bg, (left, top, right, bottom), h):
+                continue
+            edges.update((top, bottom))
+            if _claimed(gray, bg, (left, top, right, bottom), top - y1, h):
                 continue
             score = (top - y1) / h + 0.2 * abs(left - x0) / h - 0.01 * (right - left) / h
             rects.append((score, (left, top, right, bottom)))
     if rects:
         return min(_tight(rects))
-    for y, left, right in lines:  # an underline, with no box top or bottom
-        if right - left < 4 * h or left > x1 + 4 * h or not 0.8 * h <= y - y1 <= 6 * h:
+    for y, left, right in lines if underline else ():  # an underline, with no box top or bottom
+        if right - left < 4 * h or left > x1 + 4 * h or not 0.8 * h <= y - y1 <= 6 * h or y in edges:
             continue
         top = max(y1 + 2, y - int(2.6 * h))
-        score = (y - y1) / h + 0.2 * abs(left - x0) / h - 0.01 * (right - left) / h
+        if _claimed(gray, bg, (left, top, right, y), top - y1, h):  # gap from the label to the box's top, not the line
+            continue
+        score = (top - y1) / h + 0.2 * abs(left - x0) / h - 0.01 * (right - left) / h
         return score, (left, top, right, y)
     return None
 
 
 def _right(gray, label):
-    """A bordered input, then an underline, to the right of a label. Returns (score, box) or None."""
+    """A bordered or shaded input, then an underline, to the right of a label and on its row. Returns (score, box) or None."""
     x0, y0, x1, y1 = (int(v) for v in label)
     h = max(y1 - y0, 8)
     H, W = gray.shape
     bg = _bg(gray, label)
-    lines = _lines(gray, bg, x1 + h // 2, min(W, x1 + 40 * h), max(0, y0 - 2 * h), min(H, y1 + 3 * h),
-                   max(4 * h, 40))
+    far = x1 + 40 * h  # the box must start within this; it may run on past it to the screen's edge
+    lines = _lines(gray, bg, x1 + h // 2, W, max(0, y0 - 10 * h), min(H, y1 + 10 * h), max(4 * h, 40))
     rects = []
     for i, (top, tx0, tx1) in enumerate(lines):
+        if top > y1 + h // 2:  # the box must reach up to the label's row
+            break
         for bottom, bx0, bx1 in lines[i + 1:]:
             height = bottom - top
             if height < h:
                 continue
-            if height > 5 * h:
+            if height > 15 * h:
                 break
             left, right = max(tx0, bx0), min(tx1, bx1)
-            if right - left < 4 * h or left < x1 + h // 2:
+            if right - left < 4 * h or left < x1 + h // 2 or left > far or bottom < y0 - h // 2:
+                continue
+            if not _real(gray, bg, (left, top, right, bottom), h):
                 continue
             score = abs(left - (x1 + h)) / h + 0.3 * abs((top + bottom) / 2 - (y0 + y1) / 2) / h
             rects.append((score, (left, top, right, bottom)))
     if rects:
         return min(_tight(rects))
     for y, left, right in lines:
-        if left < x1 + h // 2 or right - left < 4 * h:
+        if left < x1 + h // 2 or left > far or right - left < 4 * h or not y1 - h // 2 <= y <= y1 + 3 * h:
             continue
         score = abs(left - (x1 + h)) / h + abs(y - (y0 + y1) / 2) / h
         return score, (left, max(y0, y - int(2.6 * h)), right, y)
     return None
+
+
+def _left(gray, label):
+    """A box to the left of the label (right-to-left forms): the right-hand search on the mirrored screen."""
+    W = gray.shape[1]
+    x0, y0, x1, y1 = label
+    found = _right(gray[:, ::-1], (W - x1, y0, W - x0, y1))
+    if not found:
+        return None
+    score, (l, t, r, b) = found
+    return score, (W - r, t, W - l, b)
+
+
+def _above(gray, label):
+    """A box above the label: the below search on the screen turned upside down."""
+    H = gray.shape[0]
+    x0, y0, x1, y1 = label
+    found = _below(gray[::-1], (x0, H - y1, x1, H - y0), underline=False)  # an underline above a label is the field before's
+    if not found:
+        return None
+    score, (l, t, r, b) = found
+    return score, (l, H - b, r, H - t)
+
+
+def _cover(gray, bg, x, top, bottom):
+    """How much of a column between top and bottom (corners aside) differs from the page: 1 for a side or a fill."""
+    q = min(14, (bottom - top) // 4)  # past rounded corners, but most of the height: a gap between boxes shows
+    if not 0 <= x < gray.shape[1] or bottom - top < 4:
+        return 0.0
+    return float(np.mean(np.abs(gray[top + q:bottom - q + 1, x].astype(np.int16) - bg) > INK))
+
+
+def _widen(gray, bg, box, h):
+    """Rounded corners shorten a box's straight top and bottom: move each end out to the real side."""
+    x0, y0, x1, y1 = (int(v) for v in box)
+    lim = min(14, h)
+
+    def side(x, step):
+        if _cover(gray, bg, x, y0, y1) >= 0.6:  # a fill or the side itself: follow it out
+            while abs(x + step - start) <= lim and _cover(gray, bg, x + step, y0, y1) >= 0.6:
+                x += step
+            return x
+        for k in range(1, lim + 1):  # a border a few px further out
+            if _cover(gray, bg, x + k * step, y0, y1) >= 0.6:
+                return x + k * step
+        return x
+
+    start = x0
+    left = side(x0, -1)
+    start = x1 - 1
+    right = side(x1 - 1, 1) + 1
+    return (left, y0, right, y1)
+
+
+def _part(gray, bg, box, h):
+    """A phone box split in two, a country code you pick (00971) beside the number you type: the part to type in.
+    The other part must touch this one, share its top and bottom, and look different (shaded, not blank)."""
+    x0, y0, x1, y1 = (int(v) for v in box)
+    rows = [y for y in range(y0, y0 + 3) if 0 <= y < gray.shape[0]]
+    inside = lambda a, b: np.median(gray[y0 + 3:y1 - 2, a:b]) if b - a > 4 and y1 - y0 > 6 else bg
+    mid = (y0 + y1) // 2
+    if 0 <= mid < gray.shape[0]:  # one outline holding both parts: a shaded part at one end of it
+        for a, b in _runs(np.abs(gray[mid, x0:x1].astype(np.int16) - bg) > INK):
+            a, b = a + x0, b + x0
+            at_end = a - x0 <= 4 or x1 - b <= 4
+            if at_end and 4 * h <= b - a <= 0.7 * (x1 - x0) and _cover(gray, bg, (a + b) // 2, y0, y1) >= 0.85:
+                rest = (b, y0, x1, y1) if a - x0 <= 4 else (x0, y0, a, y1)
+                if abs(inside(a + 3, b - 3) - bg) - abs(inside(rest[0] + 3, rest[2] - 3) - bg) >= 8:
+                    return rest
+    here = abs(inside(x0 + 3, x1 - 3) - bg)
+    best = None
+    for step in (1, -1):
+        edge = x1 if step == 1 else x0 - 1
+        for y in rows:
+            run = [r for r in _runs(np.abs(gray[y].astype(np.int16) - bg) > INK)
+                   if (step == 1 and edge <= r[0] <= edge + 8) or (step == -1 and edge - 8 <= r[1] - 1 <= edge)]
+            if not run:
+                continue
+            a, b = run[0]
+            a, b = (max(a, x1), b) if step == 1 else (a, min(b, x0))
+            if b - a < 4 * h or _cover(gray, bg, (a + b) // 2, y0, y1) > 0.6 and False:
+                continue
+            other = abs(inside(a + 6, b - 3) - bg)
+            if here - other >= 8:  # this part is shaded and the other is blank: type in the other
+                best = (a, y0, b, y1)
+            break
+    return best or box
 
 
 def _rects(gray, bg, region, min_len, h):
@@ -217,24 +356,26 @@ def date_parts(rects, lines, order="dmy"):
 
 
 def _input_box(gray, label, hint):
-    """The input rectangle next to a label, found from its border lines in the screenshot.
+    """The input rectangle next to a label, found from its border lines or shading in the screenshot.
 
-    Border first, then an underline, then a box sized from the label. "auto" lets generic forms
-    put the box below or beside the label; existing guides keep their explicit side.
+    "auto" (every guide uses it) looks below, to the right, to the left (right-to-left forms) and above the label and
+    keeps the closest fit; the left and above are rarer, so they need a clearly better fit to win. Then the box is
+    widened past rounded corners, and a split phone box gives the part you type in.
     """
     if gray is None:
         return _guess(label, hint)
-    found = []
-    if hint in ("below", "auto"):
-        found.append(("below", _below(gray, label)))
-    if hint in ("right", "auto"):
-        found.append(("right", _right(gray, label)))
-    found = [(side, box) for side, box in found if box]
+    sides = {"below": (_below, 0.0), "right": (_right, 0.0), "left": (_left, 1.0), "above": (_above, 1.5)}
+    use = sides if hint in ("auto", None) else {hint: sides[hint]} if hint in sides else sides
+    found = [(r[0] + penalty, r[1]) for fn, penalty in use.values() if (r := fn(gray, label))]
     if not found:
         return _guess(label, hint)
-    if len(found) == 1:
-        return found[0][1][1]
-    return min(found, key=lambda item: item[1][0])[1][1]
+    box = min(found)[1]
+    x0, y0, x1, y1 = (int(v) for v in label)
+    h = max(y1 - y0, 8)
+    bg = _bg(gray, label)
+    box = _widen(gray, bg, box, h)
+    part = _part(gray, bg, box, h)
+    return box if part is box else _widen(gray, bg, part, h)
 
 
 PLACEHOLDERS = re.compile(r"(?:[\W_]+(?:month|day|year|mm|dd|yyyy|yy)\b)+[\W_vV]*$", re.I)  # OCR puts "-", "|" or "v" for a dropdown's arrow

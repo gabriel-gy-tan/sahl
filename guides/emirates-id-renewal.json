@@ -47,7 +47,7 @@
       "id": "unified_number",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Emirate Unified Number"
       ],
@@ -62,7 +62,7 @@
       "id": "applicant_class",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Applicant Class"
       ],
@@ -77,7 +77,7 @@
       "id": "applicant_class_details",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Applicant Class Details"
       ],
@@ -92,7 +92,7 @@
       "id": "file_issue_date",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "File Issue Date"
       ],
@@ -107,7 +107,7 @@
       "id": "file_expiry_date",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "File Expiry Date"
       ],
@@ -124,7 +124,7 @@
         "eid.number"
       ],
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Emirates ID Number"
       ],
@@ -141,7 +141,7 @@
         "eid.expiry"
       ],
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Old EIDA Expiry Date"
       ],
@@ -158,7 +158,7 @@
         "eid.dob"
       ],
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Date Of Birth"
       ],
@@ -173,7 +173,7 @@
       "id": "preferred_language",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Preferred Language"
       ],
@@ -188,7 +188,7 @@
       "id": "card_duration",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "New ID Card Duration",
         "New ID Card Duration (years)"
@@ -204,7 +204,7 @@
       "id": "gender",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Gender"
       ],
@@ -219,7 +219,7 @@
       "id": "first_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "First Name English"
       ],
@@ -234,7 +234,7 @@
       "id": "first_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "First Name Arabic"
       ],
@@ -249,7 +249,7 @@
       "id": "second_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Second Name English"
       ],
@@ -264,7 +264,7 @@
       "id": "second_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Second Name Arabic"
       ],
@@ -279,7 +279,7 @@
       "id": "third_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Third Name English"
       ],
@@ -294,7 +294,7 @@
       "id": "third_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Third Name Arabic"
       ],
@@ -309,7 +309,7 @@
       "id": "forth_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Forth Name English"
       ],
@@ -324,7 +324,7 @@
       "id": "forth_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Forth Name Arabic"
       ],
@@ -339,7 +339,7 @@
       "id": "family_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Family Name English"
       ],
@@ -354,7 +354,7 @@
       "id": "family_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Family Name Arabic"
       ],
@@ -369,7 +369,7 @@
       "id": "mother_first_name_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Mother's First Name (English)",
         "Mother’s First Name (English)"
@@ -385,7 +385,7 @@
       "id": "mother_first_name_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Mother's First Name (Arabic)",
         "Mother’s First Name (Arabic)"
@@ -404,7 +404,7 @@
         "eid.nationality"
       ],
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Current Nationality"
       ],
@@ -419,7 +419,7 @@
       "id": "birth_country",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Birth Country"
       ],
@@ -434,7 +434,7 @@
       "id": "place_of_birth_english",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Place Of Birth (English)"
       ],
@@ -449,7 +449,7 @@
       "id": "place_of_birth_arabic",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Place Of Birth (Arabic)"
       ],
@@ -464,7 +464,7 @@
       "id": "religion",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Religion"
       ],
@@ -479,7 +479,7 @@
       "id": "faith",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Faith"
       ],
@@ -494,7 +494,7 @@
       "id": "marital_status",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Marital Status"
       ],
@@ -509,7 +509,7 @@
       "id": "work_type",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Work Type"
       ],
@@ -524,7 +524,7 @@
       "id": "professions",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Professions"
       ],
@@ -539,7 +539,7 @@
       "id": "qualification_level",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Qualification Level"
       ],
@@ -554,7 +554,7 @@
       "id": "address_emirate",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Emirate"
       ],
@@ -569,7 +569,7 @@
       "id": "address_city",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "City"
       ],
@@ -584,7 +584,7 @@
       "id": "address_area",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Area"
       ],
@@ -599,7 +599,7 @@
       "id": "detailed_address",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Detailed Address"
       ],
@@ -614,7 +614,7 @@
       "id": "building_hotel",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Building / Hotel"
       ],
@@ -629,7 +629,7 @@
       "id": "local_flat_number",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Local Flat Number"
       ],
@@ -644,7 +644,7 @@
       "id": "po_box",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "P.O. BOX",
         "PO BOX"
@@ -660,7 +660,7 @@
       "id": "email",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Email"
       ],
@@ -675,7 +675,7 @@
       "id": "uae_mobile_number",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "UAE Mobile Number"
       ],
@@ -690,7 +690,7 @@
       "id": "uae_phone_number",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "UAE Phone Number"
       ],
@@ -705,7 +705,7 @@
       "id": "permanent_country",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Permanent Country"
       ],
@@ -720,7 +720,7 @@
       "id": "address_outside_uae",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Detailed Address Outside UAE"
       ],
@@ -735,7 +735,7 @@
       "id": "permanent_mobile_number",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Permanent Mobile Number"
       ],
@@ -750,7 +750,7 @@
       "id": "delivery_method",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery Method"
       ],
@@ -765,7 +765,7 @@
       "id": "delivery_company",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery Company"
       ],
@@ -780,7 +780,7 @@
       "id": "delivery_emirates",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery Emirates"
       ],
@@ -795,7 +795,7 @@
       "id": "delivery_city",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery City"
       ],
@@ -810,7 +810,7 @@
       "id": "delivery_area",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery Area"
       ],
@@ -825,7 +825,7 @@
       "id": "delivery_address_details",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Delivery Address Details"
       ],
@@ -840,7 +840,7 @@
       "id": "delivery_po_box",
       "vault_key": null,
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Po Box No."
       ],
@@ -855,7 +855,7 @@
       "id": "delivery_mobile_number",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Mobile Number"
       ],
@@ -870,7 +870,7 @@
       "id": "second_mobile_number",
       "vault_key": null,
       "input": "text",
-      "box": "right",
+      "box": "auto",
       "aliases": [
         "Second Mobile Number"
       ],

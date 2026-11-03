@@ -28,7 +28,7 @@
         "other.name"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Full name (as in passport)",
         "Full name",
@@ -49,7 +49,7 @@
         "other.dob"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Date of birth",
         "تاريخ الميلاد"
@@ -69,7 +69,7 @@
         "other.nationality"
       ],
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Nationality",
         "الجنسية"
@@ -85,7 +85,7 @@
       "id": "passport_number",
       "vault_key": "passport.number",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Passport number",
         "Passport No.",
@@ -102,7 +102,7 @@
       "id": "passport_expiry",
       "vault_key": "passport.expiry",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Passport expiry date",
         "Date of expiry",
@@ -119,7 +119,7 @@
       "id": "emirates_id",
       "vault_key": "eid.number",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Emirates ID number",
         "رقم الهوية الإماراتية"
@@ -135,7 +135,7 @@
       "id": "centre",
       "vault_key": null,
       "input": "select",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Medical centre",
         "المركز الطبي"
@@ -151,7 +151,7 @@
       "id": "appointment_date",
       "vault_key": null,
       "input": "date",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Appointment date",
         "تاريخ الموعد"
@@ -167,7 +167,7 @@
       "id": "mobile",
       "vault_key": "profile.mobile",
       "input": "text",
-      "box": "below",
+      "box": "auto",
       "aliases": [
         "Mobile number",
         "رقم الهاتف المتحرك"

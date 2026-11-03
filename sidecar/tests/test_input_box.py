@@ -115,3 +115,106 @@ def test_a_candidate_that_holds_another_is_dropped_but_near_twins_stay():
     assert _tight([phantom, real]) == [real]
     twin = (0.3, (425, 531, 593, 562))
     assert _tight([real, twin]) == [real, twin]
+
+
+def shaded_form(side):
+    """Rows of labels with grey, borderless inputs, like a portal that fills boxes in for you: on the right of
+    each label (a table of fields), or below it (a stacked form)."""
+    image = Image.new("L", (1100, 700), 255)
+    draw = ImageDraw.Draw(image)
+    rows = []
+    for i in range(6):
+        y = 40 + i * 100
+        label = draw.textbbox((44, y), f"Field number {i}", font=FONT)
+        if side == "right":
+            box = (580, y - 18, 1050, y + 42)
+        else:
+            box = (44, y + 40, 1050, y + 90)
+        draw.rectangle(box, fill=235)
+        draw.rectangle((box[0], box[1], box[0] + 4, box[3]), fill=120)  # the coloured bar some portals add
+        draw.text((box[0] + 20, box[1] + 14), f"value {i}", fill=70, font=FONT)
+        rows.append((label, box))
+    return np.array(image), rows
+
+
+def test_shaded_boxes_to_the_right_of_stacked_labels():
+    gray, rows = shaded_form("right")
+    for label, box in rows:
+        left, top, right, bottom = _input_box(gray, label, "auto")
+        assert abs(left - box[0]) <= 4 and abs(right - box[2]) <= 4, (label, box, (left, top, right, bottom))
+        assert abs(top - box[1]) <= 4 and abs(bottom - box[3]) <= 4
+
+
+def test_shaded_boxes_below_stacked_labels():
+    gray, rows = shaded_form("below")
+    for label, box in rows:
+        left, top, right, bottom = _input_box(gray, label, "auto")
+        assert abs(left - box[0]) <= 4 and abs(right - box[2]) <= 4, (label, box, (left, top, right, bottom))
+        assert abs(top - box[1]) <= 4 and abs(bottom - box[3]) <= 4
+
+
+def test_two_columns_of_labels_above_boxes_keep_their_own_box():
+    image = Image.new("L", (2000, 300), 255)
+    draw = ImageDraw.Draw(image)
+    left_label = draw.textbbox((35, 40), "First Name English", font=FONT)
+    draw.text((35, 40), "First Name English", fill=0, font=FONT)
+    draw.text((1032, 40), "First Name Arabic", fill=0, font=FONT)
+    for box in ((35, 80, 977, 140), (1032, 80, 1975, 140)):
+        draw.rectangle(box, fill=235)
+    left, top, right, bottom = _input_box(np.array(image), left_label, "auto")
+    assert abs(left - 35) <= 4 and abs(right - 977) <= 4 and abs(top - 80) <= 4
+
+
+def _layout(boxes, label_at, text="Mobile Number", size=(1400, 400)):
+    """A label and boxes: each box is (rect, fill or None for a 2 px border, rounded corner radius)."""
+    image = Image.new("L", size, 255)
+    draw = ImageDraw.Draw(image)
+    draw.text(label_at, text, fill=0, font=FONT)
+    for rect, fill, radius in boxes:
+        if fill is None:
+            draw.rounded_rectangle(rect, radius=radius, outline=0, width=2)
+        else:
+            draw.rounded_rectangle(rect, radius=radius, fill=fill, outline=200)
+    return np.array(image), draw.textbbox(label_at, text, font=FONT)
+
+
+def _near(got, want, slack=6):
+    return all(abs(a - b) <= slack for a, b in zip(got, want))
+
+
+import pytest  # noqa: E402
+
+
+@pytest.mark.parametrize("name, boxes, label_at, want", [
+    ("box left of the label (Arabic)", [((60, 45, 700, 95), None, 0)], (900, 55), (60, 45, 700, 95)),
+    ("box above the label", [((60, 40, 800, 90), None, 0)], (60, 110), (60, 40, 800, 90)),
+    ("tall text area below", [((60, 100, 800, 300), None, 0)], (60, 50), (60, 100, 800, 300)),
+    ("rounded box below", [((60, 100, 800, 150), None, 12)], (60, 50), (60, 100, 800, 150)),
+    ("rounded shaded box right", [((400, 40, 1100, 100), 235, 10)], (60, 55), (400, 40, 1100, 100)),
+])
+def test_box_on_any_side_and_shape(name, boxes, label_at, want):
+    gray, label = _layout(boxes, label_at)
+    assert _near(_input_box(gray, label, "auto"), want), name
+
+
+def _split(code, number, label_at, code_side="left"):
+    """A phone box in two parts: a shaded country code you pick (00971) and the part you type in."""
+    image = Image.new("L", (1400, 400), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text(label_at, "Mobile Number", fill=0, font=FONT)
+    draw.rectangle(code, fill=230, outline=200)
+    draw.text((code[0] + 20, code[1] + 18), "00971 - UNITED ARAB", fill=60, font=FONT)
+    bar = (code[2], code[1], code[2] + 4, code[3]) if code_side == "left" else (code[0] - 5, code[1], code[0] - 1, code[3])
+    draw.rectangle(bar, fill=150)  # the coloured bar between them
+    draw.rectangle(number, outline=200, width=2)
+    return np.array(image), draw.textbbox(label_at, "Mobile Number", font=FONT)
+
+
+@pytest.mark.parametrize("code, number, label_at, side", [
+    ((60, 100, 440, 160), (446, 100, 1000, 160), (60, 50), "left"),    # below the label
+    ((680, 230, 1060, 290), (1066, 230, 1380, 290), (60, 250), "left"),  # right of the label
+    ((640, 100, 1000, 160), (60, 100, 634, 160), (60, 50), "right"),   # code on the right, as in Arabic
+])
+def test_split_phone_box_rings_the_part_you_type_in(code, number, label_at, side):
+    gray, label = _split(code, number, label_at, side)
+    assert _near(_input_box(gray, label, "auto"), number)

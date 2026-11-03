@@ -24,7 +24,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
-- [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
+- [ ] Box finding on real portals: drawn layouts pass ~96% (box on any side, shaded, rounded, tall, split phone boxes; `tests/test_box_layouts.py`); weakest are tall boxes and boxes above their label (~87-90%). Check against real portal screenshots
 - [ ] Other dropdowns and date pickers (show-only today)
 - [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
