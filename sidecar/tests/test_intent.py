@@ -161,3 +161,49 @@ def test_the_model_only_sees_the_closest_guides(model, monkeypatch):
     intent.pick("licence for my falcon farm", many)  # not settled by words: the model chooses among the closest
     enum = seen[0]["format"]["properties"]["guide"]["enum"]
     assert len(enum) <= 9 and "tl" in enum
+
+
+def test_guides_follow_the_emirate_named():
+    guides = server.load_guides()
+    ajman = intent.in_emirate("apply for a boat licence in Ajman", guides)
+    assert not any(g.get("authority") == "TAMM" for g in ajman.values())  # Abu Dhabi's own services are not Ajman's
+    assert any(g.get("authority") == "ICP" for g in ajman.values())  # federal ones serve every emirate
+    dubai = intent.in_emirate("تسجيل عقد إيجار في دبي", guides)
+    assert any(g.get("authority") == "DLD" for g in dubai.values()) and not any(g.get("authority") == "TAMM" for g in dubai.values())
+    assert intent.in_emirate("renew my emirates id", guides) == guides  # no emirate named: every guide
+
+
+def test_a_named_service_must_be_in_their_own_words():
+    assert intent._echoes("boat license", "apply for a boat licence in ajman")  # spelt the other way
+    assert not intent._echoes("pharmacy licence renewal", "apply for a boat licence in ajman")  # made up
+
+
+@pytest.mark.parametrize("text, asked", [
+    ("the pages in my passport are finished, what now", True),
+    ("my visa expired. how do I renew it", True),
+    ("renew my emirates id", False),
+    ("passport renewal, emirates id renewal", False),
+])
+def test_question_in_a_later_clause(text, asked):
+    assert intent.is_question(text) is asked
+
+
+def test_northern_emirates_health_services_are_not_dubais():
+    guides = server.load_guides()
+    assert not any(g.get("authority") == "EHS" for g in intent.in_emirate("birth certificate in Dubai", guides).values())
+    assert any(g.get("authority") == "EHS" for g in intent.in_emirate("birth certificate in Sharjah", guides).values())
+
+
+def test_federal_guide_first_when_scores_tie():
+    ranked = intent.rank("كم رسوم تجديد الهوية؟", intent.catalogue(server.load_guides()))
+    top = [i for s, i in ranked if s == ranked[0][0]]
+    assert top[0] == "emirates-id-renewal"  # ICP serves everyone; TAMM's variants only Abu Dhabi
+
+
+@pytest.mark.parametrize("a, b, same", [
+    ("renew", "renewal", True), ("register", "registration", True), ("residence", "residency", True),
+    ("licence", "license", True), ("certificate", "certificates", True),
+    ("checkup", "check", False), ("passport", "pass", False), ("marriage", "married", False),
+])
+def test_word_forms(a, b, same):
+    assert intent._same(a, b) is same

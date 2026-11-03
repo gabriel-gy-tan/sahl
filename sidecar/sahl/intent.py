@@ -10,6 +10,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 
 from rapidfuzz import fuzz
+from rapidfuzz.distance import Levenshtein
 
 from . import ai
 
@@ -24,9 +25,16 @@ The person wrote: "{text}"
 Answer JSON only.
 - kind "match" and guide = its id, when they clearly want to fill in, book or start one of the forms above.
 - kind "about" and guide = its id, when they ask a question about one of the forms above (what it is, cost, documents, how long, how to).
-- kind "new" and name = the service in a few of their own words (same language), when they want a specific government service that is not above.
+- kind "not_listed" and name = the service in a few of their own words (same language), when they want a specific government
+  service that is not above. Wanting to get, renew, replace or register a licence, permit, card or certificate that is not
+  above is "not_listed", not "unsure".
 - kind "unsure" for anything else: a greeting, thanks, or vague words like "help" or "a form".
-Never pick a form just because it shares a word; it must be the thing they mean."""
+A problem with a document they already have (full, out of pages, lost, stolen, damaged, expired, wrong details) means that
+document's renewal or replacement form.
+Never pick a form just because it shares a word; it must be the thing they mean: a permit to keep an animal is not a
+permit to import one.
+Words in their message that none of the forms above mention: {missing}. If one of these names the kind of document, permit
+or service they want (not just its state, like "full" or "lost"), what they want is not above."""
 
 TALK = """You are Sahl, a calm helper on a UAE resident's own computer. You help them with government forms.
 {catalogue}
@@ -53,10 +61,30 @@ needed like help helps helping hi hello hey thanks thank you your yours sahl for
 that it its with from much many long take takes cost costs fee fees price document documents paper papers required require
 there any some just now page online apply applying get getting have has had know explain let lets is there one ok okay
 أريد اريد كيف ما ماذا هل كم متى أين اين لماذا عن في من على الى إلى لي انا أنا رسوم نموذج اشرح ابغى أبغى ممكن""".split())
-QUESTION = re.compile(r"^\s*(how|what|what's|whats|which|when|where|why|who|is|are|does|do i|do you|can i|could i|can you tell|"
+QUESTION = re.compile(r"(?:^|[,;.،]\s*)(how|what|what's|whats|which|when|where|why|who|is|are|does|do i|do you|can i|could i|can you tell|"
                       r"could you tell|tell me|explain|كيف|ما|ماذا|هل|كم|متى|أين|لماذا|اشرح|کیسے|کیا|کتنا|کب)\b|[?؟]\s*$", re.I)
 REQUEST = re.compile(r"\b(help me (fill|with|start|apply|renew|book)|fill (in|out)|start|i want to|i'd like to|let's|lets)\b", re.I)
 STRONG = 0.75  # share of a message's weight that one guide covers for Sahl to name it without asking the model
+
+
+# which emirates a guide's authority serves; federal authorities (and any-form) serve every emirate
+NORTH = {"sharjah", "ajman", "umm al quwain", "ras al khaimah", "fujairah"}
+EMIRATE_OF = {"TAMM": {"abu dhabi"}, "ADDED": {"abu dhabi"}, "Abu Dhabi Mobility": {"abu dhabi"}, "ADEK": {"abu dhabi"},
+              "DOH": {"abu dhabi"}, "Abu Dhabi Customs": {"abu dhabi"}, "DHA": {"dubai"}, "DLD": {"dubai"}, "KHDA": {"dubai"},
+              "EHS": NORTH}  # Emirates Health Services runs the northern emirates' hospitals; Dubai and Abu Dhabi have their own
+EMIRATES = {"abu dhabi": r"abu\s*dhabi|abudhabi|al\s*ain|أبوظبي|ابوظبي|أبو ظبي|ابو ظبي|العين",
+            "dubai": r"dubai|دبي", "sharjah": r"sharjah|الشارقة|شارقة", "ajman": r"ajman|عجمان",
+            "fujairah": r"fujairah|fujeirah|الفجيرة", "ras al khaimah": r"ras\s*al\s*khaimah|\brak\b|رأس الخيمة|راس الخيمة",
+            "umm al quwain": r"umm\s*al\s*quwain|\buaq\b|أم القيوين|ام القيوين"}
+
+
+def in_emirate(text: str, guides: dict) -> dict:
+    """The guides that serve the emirate the message names (with every federal one); all of them when it names none.
+    "A boat licence in Ajman" must not be offered Abu Dhabi's."""
+    named = {e for e, pat in EMIRATES.items() if re.search(pat, text, re.I)}
+    if not named:
+        return guides
+    return {i: g for i, g in guides.items() if g.get("authority") not in EMIRATE_OF or EMIRATE_OF[g["authority"]] & named}
 
 
 def catalogue(guides: dict) -> dict:
@@ -82,13 +110,23 @@ def _words(text: str) -> list[str]:
     return out
 
 
+# endings that make another form of the same word (renew-al, regist-er/-ration, residen-ce/-cy), not another word
+ENDINGS = {"", "s", "es", "e", "ed", "d", "ing", "al", "als", "er", "ers", "or", "ors", "ion", "ions", "ation", "ations",
+           "ration", "rations", "ment", "ments", "ce", "cy", "cies", "y", "ies", "ly", "ity", "ive", "ance", "ence", "ant",
+           "ent", "ate", "ated", "ates", "ating", "ise", "ize", "ised", "ized", "ship"}
+
+
 def _same(a: str, b: str) -> bool:
-    """renew ~ renewal ~ renewing, register ~ registration, residence ~ residency; short words only exactly."""
+    """renew ~ renewal ~ renewing, register ~ registration, residence ~ residency, licence ~ license; short words only
+    exactly. A shared start alone isn't enough: "checkup" is not "check" (what's left, "up", is no word ending)."""
     if a == b:
         return True
     if min(len(a), len(b)) < 4:
         return False
-    return len(os.path.commonprefix([a, b])) >= max(4, 0.75 * min(len(a), len(b))) or fuzz.ratio(a, b) >= 88
+    p = len(os.path.commonprefix([a, b]))
+    if p >= max(4, 0.6 * min(len(a), len(b))) and a[p:] in ENDINGS and b[p:] in ENDINGS:
+        return True
+    return min(len(a), len(b)) >= 6 and Levenshtein.distance(a, b) <= 1  # one letter apart: licence ~ license
 
 
 def is_question(text: str) -> bool:
@@ -104,16 +142,22 @@ def rank(text: str, guides: dict) -> list[tuple[float, str]]:
     q = list(dict.fromkeys(_words(text)))
     if not q:
         return []
-    bags = {i: set(_words(" ".join([*_names(g), *g.get("aliases", []), g.get("about", "")]))) for i, g in guides.items()}
-    has = {w: {i for i, b in bags.items() if any(_same(w, x) for x in b)} for w in q}
+    named = {i: set(_words(" ".join([*_names(g), *g.get("aliases", [])]))) for i, g in guides.items()}
+    about = {i: set(_words(g.get("about", ""))) for i, g in guides.items()}
+    has = {w: {i for i in guides if any(_same(w, x) for x in named[i] | about[i])} for w in q}
     idf = {w: math.log(1 + len(guides) / (1 + len(has[w]))) for w in q}
     total = sum(idf.values())
+    # a word in a guide's own name counts in full; one only in what it is for counts half ("birth certificate" names
+    # the birth certificate, and is only mentioned by the age estimation certificate)
+    weight = lambda w, i: 1.0 if any(_same(w, x) for x in named[i]) else 0.5
     t = " ".join(q)
 
     def tie(g: dict) -> float:  # equal cover: the guide whose own name is closest to the message, with fewest extra words
         return max(fuzz.token_sort_ratio(n.casefold(), t) for n in [*_names(g), *g.get("aliases", [])])
-    scored = [(sum(idf[w] for w in q if i in has[w]) / total, tie(guides[i]), i) for i in guides]
-    return [(s, i) for s, _, i in sorted(scored, reverse=True) if s > 0]
+    # equal cover: a federal guide (it serves every emirate) before one emirate's own, then the closest name
+    scored = [(sum(idf[w] * weight(w, i) for w in q if i in has[w]) / total, guides[i].get("authority") not in EMIRATE_OF,
+               tie(guides[i]), i) for i in guides]
+    return [(s, i) for s, _, _, i in sorted(scored, reverse=True) if s > 0]
 
 
 def _shortlist(text: str, guides: dict, n: int = 8) -> dict:
@@ -141,16 +185,27 @@ def _quick(text: str, known: dict) -> dict | None:
     return None
 
 
+def _echoes(name: str, text: str) -> bool:
+    """Whether the service the model named is in the person's own words (at least half of its words are theirs, spelt
+    either way: "license" is their "licence"), not something the model made up."""
+    said = _words(text)
+    words = _words(name)
+    found = [w for w in words if any(_same(w, x) or fuzz.ratio(w, x) >= 80 for x in said)]
+    return bool(words) and len(found) >= 0.5 * len(words)
+
+
 def pick(text: str, guides: dict) -> dict:
     """{kind: match|about|new|unsure, guide: best id or None, options: up to 3 ids, name: the service in their words
     for "new"}. "about" is a question about a form, so Sahl answers it and offers the form without choosing it."""
-    known = catalogue(guides)
     text = text.strip()[:300]
+    known = in_emirate(text, catalogue(guides))
     if quick := _quick(text, known):
         return quick
     asking = is_question(text)
     ranked = rank(text, known)
     near = {i: known[i] for _, i in ranked[:8]}
+    seen = {x for g in near.values() for x in _words(" ".join([*_names(g), *g.get("aliases", []), g.get("about", "")]))}
+    missing = [w for w in dict.fromkeys(_words(text)) if not any(_same(w, x) for x in seen)]
     lines = "\n".join(f"{i}: {' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for i, g in near.items())
     out = ai.chat({
         "model": ai.text_model(),
@@ -158,23 +213,28 @@ def pick(text: str, guides: dict) -> dict:
         "think": True,  # a short think is what tells "medical for my visa" apart from a new service
         "format": {
             "type": "object",
-            "properties": {"kind": {"type": "string", "enum": ["match", "about", "new", "unsure"]},
+            "properties": {"kind": {"type": "string", "enum": ["match", "about", "not_listed", "unsure"]},
                            "guide": {"type": "string", "enum": [*near, ""]},
                            "name": {"type": "string"}},
             "required": ["kind", "guide", "name"],
         },
         "keep_alive": "30m",
         "options": {"temperature": 0, "num_predict": 600},
-        "messages": [{"role": "user", "content": PICK.format(catalogue=lines or "(none)", text=text.replace('"', "'"))}],
+        "messages": [{"role": "user", "content": PICK.format(catalogue=lines or "(none)", text=text.replace('"', "'"),
+                                                             missing=", ".join(missing) or "none")}],
     }, timeout=20, tries=1)
     if not isinstance(out, dict):
         return _answer("unsure", [])
     kind, guide, name = out.get("kind"), out.get("guide"), str(out.get("name", "")).strip()[:60]
+    kind = "new" if kind == "not_listed" else kind  # "new" is Sahl's word; to the model it read as "a new passport"
     if kind in ("match", "about") and guide in near:  # the model's id is only trusted if it is one it was shown
+        score = dict((i, sc) for sc, i in ranked)
+        # the model picks between close forms; it doesn't overrule one that covers most of the message clearly better
+        if ranked[0][0] >= 0.6 and score[guide] < ranked[0][0] - 0.1:
+            guide = ranked[0][1]
         return _answer("about" if asking or kind == "about" else "match", [guide])
     # small models sometimes call a vague message a new service, or name it after a known guide
-    if (kind == "new" and not asking and _words(name) and fuzz.token_set_ratio(name.casefold(), text.casefold()) >= 60
-            and not _strong(rank(name, known))):
+    if kind == "new" and not asking and _echoes(name, text) and not _strong(rank(name, known)):
         return _answer("new", [], name)
     return _answer("unsure", [])
 
@@ -201,7 +261,7 @@ def _held(summary: dict | None) -> str:
 
 def _focus(text: str, guides: dict) -> dict:
     """The guides Sahl's reply may talk about: the ones the message clearly covers, else the close ones."""
-    ranked = rank(text, catalogue(guides))
+    ranked = rank(text, in_emirate(text, catalogue(guides)))
     ids = _strong(ranked) or [i for s, i in ranked[:3] if s >= 0.5]
     return {i: guides[i] for i in ids}
 
@@ -213,8 +273,9 @@ def reply(turns: list[dict], guides: dict, held: dict | None = None) -> str:
         lines = "Forms Sahl has a guide for that match their message, as names | what it is for, then what it needs:\n" + "\n".join(
             f"{' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}\n{_needs(g)}".rstrip() for g in focus.values())
     else:  # nothing named: say what Sahl does, without a list a small model would read out or blend together
-        lines = (f"Sahl has guides for {len(catalogue(guides))} UAE government services (Abu Dhabi TAMM, ICP, MOHRE, MOHAP), "
-                 "such as Emirates ID, visas and residence, passports, vehicles, work permits and family services. "
+        lines = (f"Sahl has guides for {len(catalogue(guides))} UAE government services, from federal authorities (ICP, MOHRE, "
+                 "MOHAP and other ministries) and from Abu Dhabi and Dubai, such as Emirates ID, visas and residence, passports, "
+                 "vehicles, work permits, health, education, property and family services. "
                  "No particular form matches their message, so don't describe one.")
     out = ai.chat({
         "model": ai.text_model(),
@@ -251,7 +312,7 @@ def talk(history: list[dict], guides: dict, held: dict | None = None) -> dict:
     last = next((t["content"] for t in reversed(turns) if t["role"] == "user"), "")
     if not last:
         return {"reply": "", **_answer("unsure", [])}
-    quick = _quick(last[:300], catalogue(guides))
+    quick = _quick(last[:300], in_emirate(last, catalogue(guides)))
     if quick and quick["kind"] == "match":  # the panel says "sounds like" over the forms; a model's words add only risk
         return {"reply": "", **quick}
     if quick:

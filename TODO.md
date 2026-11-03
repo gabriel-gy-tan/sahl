@@ -13,6 +13,9 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
 - [ ] More UAE service guides (`uae-form-data`): 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH, ADDED, DMT, FTA, MOFA, MOE, MOJ, EHS and more, all `fields: []` except 5 forms with printed labels; the form picker ranks by rare words, answers questions, and has a search box; the form screen shows what a service needs. Fees dated 2026-11-02/03; 94 TAMM guides not re-dated; translations unreviewed
 
+- [ ] Skip boxes the portal already filled (UAE PASS) when they show the right value; ICP Emirates ID renewal guide gets its real field labels, every section of the form (55 fields) (`feat/skip-filled-boxes`). Labels copied from the signed-in form; not yet tried on the live ICP page
+
+- [ ] Form picker evals in `sidecar/evals/picker.py` (needs Ollama): dev 40/40, heldout 15/15, fresh 13/15; it honours the emirate named. Misses left: "title deed" offers verification, not the ownership certificate; no KHDA school transfer guide
 - [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). First launch after install takes ~40 s while macOS scans the files, later ones ~1 s; signing and notarising should shorten the first. `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
 
 ## Next
@@ -24,6 +27,9 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
 - [ ] More label variants in guides, from real portal results
+- [ ] Box finding on real portals: drawn layouts pass ~96% (box on any side, shaded, rounded, tall, split phone boxes; `tests/test_box_layouts.py`); weakest are tall boxes and boxes above their label (~87-90%). Check against real portal screenshots
+- [ ] Dropdowns, radio buttons and checkboxes (`feat/skip-filled-boxes`): found on drawn layouts ~96% (`tests/test_choice_layouts.py`); dropdowns and radios filled only from verified values (today nationality), checkboxes never ticked. Not yet tried on a real portal's searchable dropdown; pop-up calendars still untested
+- [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
 - [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
 - [ ] Other dropdowns and date pickers (show-only today)
 - [ ] Sign and notarise the installers (Apple Developer ID, Windows certificate); bundle Ollama or fetch it on first run; Intel Mac build

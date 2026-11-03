@@ -17,7 +17,7 @@
   ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5d",
   "checked": "2026-10-30",
-  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID renewal. Translations not reviewed by native speakers.",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels; the fields here were copied from the signed-in renewal form, where UAE PASS already fills most of them. Emirates ID renewal. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
       "Residents can renew when the card has expired or has less than six months left",
@@ -42,5 +42,844 @@
       "an ICP Customer Happiness Centre"
     ]
   },
-  "fields": []
+  "fields": [
+    {
+      "id": "unified_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Emirate Unified Number"
+      ],
+      "help": {
+        "en": "Your Emirate Unified Number (UID). ICP fills it in from your records; Sahl does not type it.",
+        "ar": "رقمك الموحد للإمارة. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your Emirate Unified Number (UID). ICP fills it in from your records; Sahl does not type it.",
+        "ml": "Your Emirate Unified Number (UID). ICP fills it in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "applicant_class",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Applicant Class"
+      ],
+      "help": {
+        "en": "Your applicant class. ICP fills it in from your records; Sahl does not type it.",
+        "ar": "فئة مقدم الطلب. تملؤها الهيئة من سجلاتك ولا يكتبها سهل.",
+        "ur": "Your applicant class. ICP fills it in from your records; Sahl does not type it.",
+        "ml": "Your applicant class. ICP fills it in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "applicant_class_details",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Applicant Class Details"
+      ],
+      "help": {
+        "en": "Details of your applicant class. ICP fills them in from your records; Sahl does not type them.",
+        "ar": "تفاصيل فئة مقدم الطلب. تملؤها الهيئة من سجلاتك ولا يكتبها سهل.",
+        "ur": "Details of your applicant class. ICP fills them in from your records; Sahl does not type them.",
+        "ml": "Details of your applicant class. ICP fills them in from your records; Sahl does not type them."
+      }
+    },
+    {
+      "id": "file_issue_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "File Issue Date"
+      ],
+      "help": {
+        "en": "The issue date of your residence file. ICP fills it in; Sahl does not type it.",
+        "ar": "تاريخ إصدار ملف الإقامة. تملؤه الهيئة ولا يكتبه سهل.",
+        "ur": "The issue date of your residence file. ICP fills it in; Sahl does not type it.",
+        "ml": "The issue date of your residence file. ICP fills it in; Sahl does not type it."
+      }
+    },
+    {
+      "id": "file_expiry_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "File Expiry Date"
+      ],
+      "help": {
+        "en": "The expiry date of your residence file. ICP fills it in; Sahl does not type it.",
+        "ar": "تاريخ انتهاء ملف الإقامة. تملؤه الهيئة ولا يكتبه سهل.",
+        "ur": "The expiry date of your residence file. ICP fills it in; Sahl does not type it.",
+        "ml": "The expiry date of your residence file. ICP fills it in; Sahl does not type it."
+      }
+    },
+    {
+      "id": "eid_number",
+      "vault_key": [
+        "eid.number"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Emirates ID Number"
+      ],
+      "help": {
+        "en": "Your Emirates ID number, 15 digits, as printed on the card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ar": "رقم هويتك الإماراتية، 15 رقمًا، كما هو مطبوع على البطاقة.",
+        "ur": "Your Emirates ID number, 15 digits, as printed on the card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ml": "Your Emirates ID number, 15 digits, as printed on the card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value."
+      }
+    },
+    {
+      "id": "old_eid_expiry",
+      "vault_key": [
+        "eid.expiry"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Old EIDA Expiry Date"
+      ],
+      "help": {
+        "en": "The expiry date printed on your current Emirates ID card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ar": "تاريخ انتهاء بطاقة الهوية الحالية كما هو مطبوع عليها.",
+        "ur": "The expiry date printed on your current Emirates ID card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ml": "The expiry date printed on your current Emirates ID card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value."
+      }
+    },
+    {
+      "id": "date_of_birth",
+      "vault_key": [
+        "eid.dob"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Date Of Birth"
+      ],
+      "help": {
+        "en": "Your date of birth as printed on your Emirates ID. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ar": "تاريخ ميلادك كما هو مطبوع على هويتك.",
+        "ur": "Your date of birth as printed on your Emirates ID. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ml": "Your date of birth as printed on your Emirates ID. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value."
+      }
+    },
+    {
+      "id": "preferred_language",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Preferred Language"
+      ],
+      "help": {
+        "en": "Choose Arabic or English for the new card and your messages.",
+        "ar": "اختر العربية أو الإنجليزية للبطاقة الجديدة والرسائل.",
+        "ur": "Choose Arabic or English for the new card and your messages.",
+        "ml": "Choose Arabic or English for the new card and your messages."
+      }
+    },
+    {
+      "id": "card_duration",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "New ID Card Duration",
+        "New ID Card Duration (years)"
+      ],
+      "help": {
+        "en": "How long the new card lasts. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "How long the new card lasts. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "How long the new card lasts. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "gender",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Gender"
+      ],
+      "help": {
+        "en": "Choose Male or Female. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اختر ذكر أو أنثى. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Choose Male or Female. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Choose Male or Female. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "first_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "First Name English"
+      ],
+      "help": {
+        "en": "Your first name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الأول بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your first name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your first name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "first_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "First Name Arabic"
+      ],
+      "help": {
+        "en": "Your first name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الأول بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your first name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your first name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "second_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Second Name English"
+      ],
+      "help": {
+        "en": "Your second name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الثاني بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your second name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your second name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "second_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Second Name Arabic"
+      ],
+      "help": {
+        "en": "Your second name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الثاني بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your second name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your second name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "third_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Third Name English"
+      ],
+      "help": {
+        "en": "Your third name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الثالث بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your third name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your third name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "third_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Third Name Arabic"
+      ],
+      "help": {
+        "en": "Your third name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الثالث بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your third name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your third name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "forth_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Forth Name English"
+      ],
+      "help": {
+        "en": "Your fourth name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الرابع بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your fourth name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your fourth name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "forth_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Forth Name Arabic"
+      ],
+      "help": {
+        "en": "Your fourth name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك الرابع بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your fourth name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your fourth name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "family_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Family Name English"
+      ],
+      "help": {
+        "en": "Your family name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك العائلة بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your family name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your family name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "family_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Family Name Arabic"
+      ],
+      "help": {
+        "en": "Your family name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسمك العائلة بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your family name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your family name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "mother_first_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mother's First Name (English)",
+        "Mother’s First Name (English)"
+      ],
+      "help": {
+        "en": "Your mother's first name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسم والدتك الأول بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your mother's first name in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your mother's first name in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "mother_first_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mother's First Name (Arabic)",
+        "Mother’s First Name (Arabic)"
+      ],
+      "help": {
+        "en": "Your mother's first name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اسم والدتك الأول بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your mother's first name in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your mother's first name in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "current_nationality",
+      "vault_key": [
+        "passport.nationality",
+        "eid.nationality"
+      ],
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Current Nationality"
+      ],
+      "help": {
+        "en": "Your nationality as on your passport. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "جنسيتك كما في جواز سفرك. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your nationality as on your passport. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your nationality as on your passport. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "birth_country",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Birth Country"
+      ],
+      "help": {
+        "en": "The country you were born in. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "بلد ميلادك. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "The country you were born in. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "The country you were born in. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "place_of_birth_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Place Of Birth (English)"
+      ],
+      "help": {
+        "en": "Your place of birth in English. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "مكان ميلادك بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your place of birth in English. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your place of birth in English. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "place_of_birth_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Place Of Birth (Arabic)"
+      ],
+      "help": {
+        "en": "Your place of birth in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "مكان ميلادك بالعربية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your place of birth in Arabic. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your place of birth in Arabic. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "religion",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Religion"
+      ],
+      "help": {
+        "en": "Choose one: Islam, Christianity, Hinduism, Non religious, Buddhism, Baha'i or Sikhism. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "اختر واحدًا: الإسلام، المسيحية، الهندوسية، غير متدين، البوذية، البهائية أو السيخية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Choose one: Islam, Christianity, Hinduism, Non religious, Buddhism, Baha'i or Sikhism. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Choose one: Islam, Christianity, Hinduism, Non religious, Buddhism, Baha'i or Sikhism. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "faith",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Faith"
+      ],
+      "help": {
+        "en": "A further choice under your religion: the list depends on the religion you chose.",
+        "ar": "خيار إضافي تحت ديانتك: تعتمد القائمة على الديانة التي اخترتها.",
+        "ur": "A further choice under your religion: the list depends on the religion you chose.",
+        "ml": "A further choice under your religion: the list depends on the religion you chose."
+      }
+    },
+    {
+      "id": "marital_status",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Marital Status"
+      ],
+      "help": {
+        "en": "Your marital status. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "حالتك الاجتماعية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your marital status. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your marital status. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "work_type",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Work Type"
+      ],
+      "help": {
+        "en": "Choose one: Government, No Work, Private or Free Zone, Retired or Student.",
+        "ar": "اختر واحدًا: حكومي، لا يعمل، قطاع خاص أو منطقة حرة، متقاعد أو طالب.",
+        "ur": "Choose one: Government, No Work, Private or Free Zone, Retired or Student.",
+        "ml": "Choose one: Government, No Work, Private or Free Zone, Retired or Student."
+      }
+    },
+    {
+      "id": "professions",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Professions"
+      ],
+      "help": {
+        "en": "Your profession, chosen from the list. ICP fills this in from your records; Sahl does not type it.",
+        "ar": "مهنتك من القائمة. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
+        "ur": "Your profession, chosen from the list. ICP fills this in from your records; Sahl does not type it.",
+        "ml": "Your profession, chosen from the list. ICP fills this in from your records; Sahl does not type it."
+      }
+    },
+    {
+      "id": "qualification_level",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Qualification Level"
+      ],
+      "help": {
+        "en": "Choose one: Below Education Age, High Diploma, None, Primary Education, Lower Secondary Education, Upper Secondary Education, Diploma, Bachelor, Master or Doctoral.",
+        "ar": "اختر واحدًا: دون سن التعليم، دبلوم عالٍ، لا شيء، ابتدائي، إعدادي، ثانوي، دبلوم، بكالوريوس، ماجستير أو دكتوراه.",
+        "ur": "Choose one: Below Education Age, High Diploma, None, Primary Education, Lower Secondary Education, Upper Secondary Education, Diploma, Bachelor, Master or Doctoral.",
+        "ml": "Choose one: Below Education Age, High Diploma, None, Primary Education, Lower Secondary Education, Upper Secondary Education, Diploma, Bachelor, Master or Doctoral."
+      }
+    },
+    {
+      "id": "address_emirate",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Emirate"
+      ],
+      "help": {
+        "en": "The emirate where you live. Choose it from the list.",
+        "ar": "الإمارة التي تسكن فيها. اختَرها من القائمة.",
+        "ur": "The emirate where you live. Choose it from the list.",
+        "ml": "The emirate where you live. Choose it from the list."
+      }
+    },
+    {
+      "id": "address_city",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "City"
+      ],
+      "help": {
+        "en": "Your city in that emirate. Choose it from the list.",
+        "ar": "مدينتك في تلك الإمارة. اختَرها من القائمة.",
+        "ur": "Your city in that emirate. Choose it from the list.",
+        "ml": "Your city in that emirate. Choose it from the list."
+      }
+    },
+    {
+      "id": "address_area",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Area"
+      ],
+      "help": {
+        "en": "Your area or neighbourhood. Choose it from the list.",
+        "ar": "منطقتك أو حيّك. اختَرها من القائمة.",
+        "ur": "Your area or neighbourhood. Choose it from the list.",
+        "ml": "Your area or neighbourhood. Choose it from the list."
+      }
+    },
+    {
+      "id": "detailed_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Detailed Address"
+      ],
+      "help": {
+        "en": "Your street and where to find your home. Required. Type it yourself; Sahl does not hold your address.",
+        "ar": "شارعك وكيف يصل الناس إلى منزلك. مطلوب. اكتبه بنفسك فسهل لا يحتفظ بعنوانك.",
+        "ur": "Your street and where to find your home. Required. Type it yourself; Sahl does not hold your address.",
+        "ml": "Your street and where to find your home. Required. Type it yourself; Sahl does not hold your address."
+      }
+    },
+    {
+      "id": "building_hotel",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Building / Hotel"
+      ],
+      "help": {
+        "en": "Your building or hotel name, if you have one. Optional.",
+        "ar": "اسم المبنى أو الفندق إن وجد. اختياري.",
+        "ur": "Your building or hotel name, if you have one. Optional.",
+        "ml": "Your building or hotel name, if you have one. Optional."
+      }
+    },
+    {
+      "id": "local_flat_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Local Flat Number"
+      ],
+      "help": {
+        "en": "Your flat or villa number. Optional.",
+        "ar": "رقم شقتك أو فيلتك. اختياري.",
+        "ur": "Your flat or villa number. Optional.",
+        "ml": "Your flat or villa number. Optional."
+      }
+    },
+    {
+      "id": "po_box",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "P.O. BOX",
+        "PO BOX"
+      ],
+      "help": {
+        "en": "Your P.O. box number, if you have one. Optional.",
+        "ar": "رقم صندوق بريدك إن وجد. اختياري.",
+        "ur": "Your P.O. box number, if you have one. Optional.",
+        "ml": "Your P.O. box number, if you have one. Optional."
+      }
+    },
+    {
+      "id": "email",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Email"
+      ],
+      "help": {
+        "en": "The email address ICP will use for your application. Required. Type it yourself.",
+        "ar": "البريد الإلكتروني الذي ستستخدمه الهيئة لطلبك. مطلوب. اكتبه بنفسك.",
+        "ur": "The email address ICP will use for your application. Required. Type it yourself.",
+        "ml": "The email address ICP will use for your application. Required. Type it yourself."
+      }
+    },
+    {
+      "id": "uae_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "UAE Mobile Number"
+      ],
+      "help": {
+        "en": "Your UAE mobile number without the 00971 country code, which the form already shows. Required. Type it yourself.",
+        "ar": "رقم هاتفك المتحرك في الإمارات دون رمز الدولة 00971 الظاهر في النموذج. مطلوب. اكتبه بنفسك.",
+        "ur": "Your UAE mobile number without the 00971 country code, which the form already shows. Required. Type it yourself.",
+        "ml": "Your UAE mobile number without the 00971 country code, which the form already shows. Required. Type it yourself."
+      }
+    },
+    {
+      "id": "uae_phone_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "UAE Phone Number"
+      ],
+      "help": {
+        "en": "Your UAE landline number, without the 00971 country code. Optional.",
+        "ar": "رقم هاتفك الأرضي في الإمارات دون رمز الدولة 00971. اختياري.",
+        "ur": "Your UAE landline number, without the 00971 country code. Optional.",
+        "ml": "Your UAE landline number, without the 00971 country code. Optional."
+      }
+    },
+    {
+      "id": "permanent_country",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Permanent Country"
+      ],
+      "help": {
+        "en": "The country where your permanent home is. Required. Choose it from the list.",
+        "ar": "بلد إقامتك الدائمة. مطلوب. اختَره من القائمة.",
+        "ur": "The country where your permanent home is. Required. Choose it from the list.",
+        "ml": "The country where your permanent home is. Required. Choose it from the list."
+      }
+    },
+    {
+      "id": "address_outside_uae",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Detailed Address Outside UAE"
+      ],
+      "help": {
+        "en": "Your address in your home country. Required. Type it yourself; Sahl does not hold your address.",
+        "ar": "عنوانك في بلدك. مطلوب. اكتبه بنفسك فسهل لا يحتفظ بعنوانك.",
+        "ur": "Your address in your home country. Required. Type it yourself; Sahl does not hold your address.",
+        "ml": "Your address in your home country. Required. Type it yourself; Sahl does not hold your address."
+      }
+    },
+    {
+      "id": "permanent_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Permanent Mobile Number"
+      ],
+      "help": {
+        "en": "Your mobile number in your home country, without the country code the form already shows. Required. Type it yourself.",
+        "ar": "رقم هاتفك المتحرك في بلدك دون رمز الدولة الظاهر في النموذج. مطلوب. اكتبه بنفسك.",
+        "ur": "Your mobile number in your home country, without the country code the form already shows. Required. Type it yourself.",
+        "ml": "Your mobile number in your home country, without the country code the form already shows. Required. Type it yourself."
+      }
+    },
+    {
+      "id": "delivery_method",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Delivery Method"
+      ],
+      "help": {
+        "en": "How you want the new card delivered, for example to a specific address. Choose it from the list.",
+        "ar": "كيف تريد استلام البطاقة الجديدة، مثلًا إلى عنوان محدد. اختَر من القائمة.",
+        "ur": "How you want the new card delivered, for example to a specific address. Choose it from the list.",
+        "ml": "How you want the new card delivered, for example to a specific address. Choose it from the list."
+      }
+    },
+    {
+      "id": "delivery_company",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Delivery Company"
+      ],
+      "help": {
+        "en": "The company that delivers your card. The form fills this in.",
+        "ar": "شركة توصيل بطاقتك. يملؤها النموذج.",
+        "ur": "The company that delivers your card. The form fills this in.",
+        "ml": "The company that delivers your card. The form fills this in."
+      }
+    },
+    {
+      "id": "delivery_emirates",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Delivery Emirates"
+      ],
+      "help": {
+        "en": "The emirate to deliver to. Required. Choose it from the list.",
+        "ar": "الإمارة التي ستصلها البطاقة. مطلوب. اختَرها من القائمة.",
+        "ur": "The emirate to deliver to. Required. Choose it from the list.",
+        "ml": "The emirate to deliver to. Required. Choose it from the list."
+      }
+    },
+    {
+      "id": "delivery_city",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Delivery City"
+      ],
+      "help": {
+        "en": "The city to deliver to. Required. Choose it from the list.",
+        "ar": "المدينة التي ستصلها البطاقة. مطلوب. اختَرها من القائمة.",
+        "ur": "The city to deliver to. Required. Choose it from the list.",
+        "ml": "The city to deliver to. Required. Choose it from the list."
+      }
+    },
+    {
+      "id": "delivery_area",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Delivery Area"
+      ],
+      "help": {
+        "en": "The area to deliver to. Required. Choose it from the list.",
+        "ar": "المنطقة التي ستصلها البطاقة. مطلوب. اختَرها من القائمة.",
+        "ur": "The area to deliver to. Required. Choose it from the list.",
+        "ml": "The area to deliver to. Required. Choose it from the list."
+      }
+    },
+    {
+      "id": "delivery_address_details",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Delivery Address Details"
+      ],
+      "help": {
+        "en": "Where the courier should bring the card. Required. Type it yourself; Sahl does not hold your address.",
+        "ar": "أين يجب أن يوصل المندوب البطاقة. مطلوب. اكتبه بنفسك فسهل لا يحتفظ بعنوانك.",
+        "ur": "Where the courier should bring the card. Required. Type it yourself; Sahl does not hold your address.",
+        "ml": "Where the courier should bring the card. Required. Type it yourself; Sahl does not hold your address."
+      }
+    },
+    {
+      "id": "delivery_po_box",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Po Box No."
+      ],
+      "help": {
+        "en": "The P.O. box for delivery, if you have one. Optional.",
+        "ar": "صندوق البريد للتوصيل إن وجد. اختياري.",
+        "ur": "The P.O. box for delivery, if you have one. Optional.",
+        "ml": "The P.O. box for delivery, if you have one. Optional."
+      }
+    },
+    {
+      "id": "delivery_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mobile Number"
+      ],
+      "help": {
+        "en": "The mobile number the courier will call to deliver your card. Choose a number the form shows, or type a new one without the 00971 country code. Required. Type it yourself.",
+        "ar": "رقم الهاتف المتحرك الذي سيتصل به المندوب. اختر رقمًا يعرضه النموذج أو اكتب رقمًا جديدًا دون رمز الدولة 00971. مطلوب. اكتبه بنفسك.",
+        "ur": "The mobile number the courier will call to deliver your card. Choose a number the form shows, or type a new one without the 00971 country code. Required. Type it yourself.",
+        "ml": "The mobile number the courier will call to deliver your card. Choose a number the form shows, or type a new one without the 00971 country code. Required. Type it yourself."
+      }
+    },
+    {
+      "id": "second_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Second Mobile Number"
+      ],
+      "help": {
+        "en": "A second UAE mobile number, without the 00971 country code. Optional. Type it yourself.",
+        "ar": "رقم هاتف متحرك ثانٍ في الإمارات دون رمز الدولة 00971. اختياري. اكتبه بنفسك.",
+        "ur": "A second UAE mobile number, without the 00971 country code. Optional. Type it yourself.",
+        "ml": "A second UAE mobile number, without the 00971 country code. Optional. Type it yourself."
+      }
+    }
+  ]
 }
