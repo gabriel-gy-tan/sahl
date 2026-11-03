@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import numpy as np
@@ -422,3 +423,99 @@ def test_box_already_showing_the_right_value_is_skipped(client):
 ])
 def test_prefilled_dates_in_other_layouts(seen, want, expected):
     assert server._shows(seen, want) is expected
+
+
+def _choice_app(monkeypatch, tmp_path, page, **hooks):
+    """A form with a nationality dropdown, a radio group and a declaration checkbox, read from a drawn page."""
+    guides = tmp_path / "guides"
+    guides.mkdir()
+    help_ = {"en": "x", "ar": "x", "ur": "x", "ml": "x"}
+    (guides / "choices.json").write_text(json.dumps({"id": "choices", "service": {"en": "Choices", "ar": "خيارات"}, "fields": [
+        {"id": "nationality", "vault_key": ["passport.nationality"], "input": "select", "box": "auto",
+         "aliases": ["Current Nationality"], "help": help_},
+        {"id": "citizen", "vault_key": ["passport.nationality"], "input": "radio", "box": "auto", "aliases": ["Citizen of"],
+         "options": [{"aliases": ["India"]}, {"aliases": ["Pakistan"]}], "help": help_},
+        {"id": "confirm", "vault_key": None, "input": "checkbox", "box": "auto",
+         "aliases": ["I confirm the details are correct"], "help": help_},
+    ]}))
+    monkeypatch.setattr(server, "GUIDES", guides)
+    app = server.create_app("t0k", screen=lambda: [(page, 1.0, (0, 0, 1400, 900))], **hooks)
+    c = TestClient(app, headers={"x-sahl-token": "t0k"})
+    c.post("/vault/import", json={"path": str(ROOT / "demo/samples/passport.png")})  # an Indian passport (MRZ: IND)
+    return c
+
+
+def _draw(page, fn):
+    img = Image.fromarray(page)
+    fn(ImageDraw.Draw(img))
+    page[:] = np.array(img)
+
+
+FONT26 = ImageFont.load_default(26)
+
+
+def _choice_page():
+    page = np.full((900, 1400), 255, np.uint8)
+
+    def draw(d):
+        d.text((100, 80), "Current Nationality", fill=0, font=FONT26)
+        d.rectangle((100, 130, 700, 190), outline=0, width=2)
+        d.text((115, 146), "Please select", fill=120, font=FONT26)
+        d.text((100, 300), "Citizen of", fill=0, font=FONT26)
+        for x, t in ((300, "India"), (500, "Pakistan")):
+            d.ellipse((x, 302, x + 26, 328), outline=0, width=2)
+            d.text((x + 40, 300), t, fill=0, font=FONT26)
+        d.rectangle((100, 452, 126, 478), outline=0, width=2)
+        d.text((140, 450), "I confirm the details are correct", fill=0, font=FONT26)
+    _draw(page, draw)
+    return page
+
+
+def test_dropdown_is_chosen_by_clicking_the_matching_option(fake_ai, monkeypatch, tmp_path):
+    page, typed, clicks = _choice_page(), [], []
+
+    def chooser(box, text):  # a searchable list opens under the box, filtered by what was typed
+        typed.append(text)
+        _draw(page, lambda d: [d.rectangle((100, 192, 700, 330), fill=245, outline=150),
+                               d.text((115, 205), "INDIA", fill=0, font=FONT26),
+                               d.text((115, 255), "BRITISH INDIAN OCEAN", fill=0, font=FONT26)])
+
+    def clicker(point, wake=False):
+        clicks.append(point)
+        if 195 <= point[1] <= 245:  # on INDIA: the list closes and the box shows it
+            _draw(page, lambda d: [d.rectangle((100, 192, 700, 330), fill=255),
+                                   d.rectangle((104, 134, 696, 186), fill=255), d.text((115, 146), "INDIA", fill=0, font=FONT26)])
+
+    c = _choice_app(monkeypatch, tmp_path, page, chooser=chooser, clicker=clicker, closer=lambda: None)
+    fields = {f["id"]: f for f in c.post("/read", json={"guide": "choices"}).json()["fields"]}
+    assert fields["nationality"]["vault"]["value"] == "Indian"
+    r = c.post("/fill", json={"field_id": "nationality"}).json()
+    assert typed == ["India"]  # the country's name, the way a country list says it
+    assert len(clicks) == 1 and 195 <= clicks[0][1] <= 245 and r["landed"] is True
+
+
+def test_radio_button_of_the_value_is_clicked_and_checked(fake_ai, monkeypatch, tmp_path):
+    page, clicks = _choice_page(), []
+
+    def clicker(point, wake=False):
+        clicks.append(point)
+        x, y = point
+        _draw(page, lambda d: d.ellipse((x - 7, y - 7, x + 7, y + 7), fill=0))
+
+    c = _choice_app(monkeypatch, tmp_path, page, clicker=clicker)
+    fields = {f["id"]: f for f in c.post("/read", json={"guide": "choices"}).json()["fields"]}
+    opts = fields["citizen"]["options"]
+    assert [o["text"] for o in opts] == ["India", "Pakistan"] and not any(o["checked"] for o in opts)
+    r = c.post("/fill", json={"field_id": "citizen"}).json()
+    assert r["landed"] is True and len(clicks) == 1 and 300 <= clicks[0][0] <= 326  # India's circle, not Pakistan's
+    again = {f["id"]: f for f in c.post("/read", json={"guide": "choices", "restart": True}).json()["fields"]}
+    assert again["citizen"]["prefilled"] is True  # chosen already: Read again skips it
+
+
+def test_checkbox_is_found_but_never_ticked(fake_ai, monkeypatch, tmp_path):
+    page = _choice_page()
+    c = _choice_app(monkeypatch, tmp_path, page, clicker=lambda *a: pytest.fail("clicked a checkbox"))
+    fields = {f["id"]: f for f in c.post("/read", json={"guide": "choices"}).json()["fields"]}
+    box = fields["confirm"]["input_box"]
+    assert abs(box[0] - 100) <= 3 and abs(box[2] - 127) <= 3 and fields["confirm"]["checked"] is False
+    assert c.post("/fill", json={"field_id": "confirm"}).status_code == 422

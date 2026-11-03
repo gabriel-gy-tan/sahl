@@ -355,6 +355,166 @@ def date_parts(rects, lines, order="dmy"):
     return [{"kind": k, "box": r} for k, r in zip(kinds, rects)]
 
 
+def _mark(gray, text, side=None):
+    """The radio circle or checkbox square beside an option's text: a compact mark about the text's height just
+    before it, or just after it in right-to-left forms. OCR often reads the mark as the line's first character
+    ("O India"), so the start of the text's own box is looked at first. Returns (box, checked) or None."""
+    if gray is None:
+        return None
+    x0, y0, x1, y1 = (int(v) for v in text)
+    h = max(y1 - y0, 8)
+    H, W = gray.shape
+    bg = _bg(gray, text)
+    top, bottom = max(0, int(y0 - 0.4 * h)), min(H, int(y1 + 0.4 * h))  # its own row only, not the next option's
+    found = []
+    for step in ((-1, 1) if side is None else (side,)):
+        a, b = (max(0, x0 - 4 * h), min(W, x0 + 2 * h)) if step == -1 else (max(0, x1 - 2 * h), min(W, x1 + 4 * h))
+        if b - a < 4:
+            continue
+        ink = np.abs(gray[top:bottom, a:b].astype(np.int16) - bg) > 30
+        runs = _runs(ink.any(axis=0))
+
+        def shaped(i):
+            c0, c1 = runs[i]
+            rows = _rows_at(ink[:, c0:c1], (y0 + y1) / 2 - top)
+            if rows is None:
+                return None
+            w, ht = c1 - c0, rows[1] - rows[0]
+            if not (0.3 * h <= w <= 2.2 * h and 0.3 * h <= ht <= 2.2 * h and 0.6 <= w / ht <= 1.6):
+                return None
+            return (a + c0, rows[0] + top, a + c1, rows[1] + top)
+
+        edge = x0 - a if step == -1 else x1 - a  # the text box's own edge, in window columns
+        # in or across the text box's edge: the first thing in it, from the mark's side
+        inside = [i for i, (c0, c1) in enumerate(runs) if (c1 > edge - 2 if step == -1 else c0 < edge + 2)]
+        inside = inside[:1] if step == -1 else inside[-1:]
+        for i in inside:  # a mark OCR took into the line: a clear space between it and the text
+            text_at = i - step  # the text is on the far side from the mark
+            if 0 <= text_at < len(runs):
+                space = runs[text_at][0] - runs[i][1] if step == -1 else runs[i][0] - runs[text_at][1]
+            else:
+                space = 99
+            box = shaped(i)
+            if box and space >= 0.22 * h:
+                found.append((0, box, _ticked(gray, bg, box)))
+        outside = [i for i, (c0, c1) in enumerate(runs) if (c1 <= edge - 2 if step == -1 else c0 >= edge + 2)]
+        for i in (reversed(outside) if step == -1 else outside):  # else the nearest mark outside the text
+            c0, c1 = runs[i]
+            gap = (edge - c1) if step == -1 else (c0 - edge)
+            if gap > 1.5 * h:
+                break
+            box = shaped(i)
+            if box:
+                found.append((gap, box, _ticked(gray, bg, box)))
+                break
+    if not found:
+        return None
+    _, box, checked = min(found, key=lambda f: f[0])
+    return box, checked
+
+
+def _rows_at(ink, centre):
+    """The rows of the inked block nearest a row (the text's middle): the next option's mark in a tight list
+    sits in the same columns, a little lower, with clear rows between."""
+    rows = np.flatnonzero(ink.any(axis=1))
+    if not len(rows):
+        return None
+    cuts = np.flatnonzero(np.diff(rows) > 1)
+    blocks = [(rows[a], rows[b] + 1) for a, b in zip(np.r_[0, cuts + 1], np.r_[cuts, len(rows) - 1])]
+    return min(blocks, key=lambda r: 0 if r[0] <= centre < r[1] else min(abs(r[0] - centre), abs(r[1] - centre)))
+
+
+def _ticked(gray, bg, box):
+    """Whether a mark is chosen: inside its ring or square, past the line itself, there is a dot or a tick."""
+    x0, y0, x1, y1 = (int(v) for v in box)
+    mid = (y0 + y1) // 2
+    row = np.abs(gray[mid, x0:x1].astype(np.int16) - bg) > 30
+    line = next((i for i, v in enumerate(row) if not v), len(row))  # how thick the ring is, from its left edge
+    if line >= len(row) - 1:  # inked right across: a dot filling a small ring
+        return True
+    k = line + 1
+    inner = gray[y0 + k:y1 - k, x0 + k:x1 - k]
+    return bool(inner.size) and float(np.mean(np.abs(inner.astype(np.int16) - bg) > 30)) > 0.15
+
+
+def _marks_in_row(gray, box, h):
+    """Every mark along one OCR line holding several options ("O Male O Female"), left to right: compact blobs
+    about the text's height with a clear gap on both sides, which letters inside a word don't have."""
+    x0, y0, x1, y1 = (int(v) for v in box)
+    H, W = gray.shape
+    a, b = max(0, x0 - 4 * h), min(W, x1 + 4 * h)
+    top, bottom = max(0, int(y0 - 0.4 * h)), min(H, int(y1 + 0.4 * h))
+    bg = _bg(gray, box)
+    ink = np.abs(gray[top:bottom, a:b].astype(np.int16) - bg) > 30
+    runs = _runs(ink.any(axis=0))
+    out = []
+    for i, (c0, c1) in enumerate(runs):
+        before = c0 - runs[i - 1][1] if i else 99
+        after = runs[i + 1][0] - c1 if i + 1 < len(runs) else 99
+        rows = np.flatnonzero(ink[:, c0:c1].any(axis=1))
+        w, ht = c1 - c0, (rows[-1] + 1 - rows[0]) if len(rows) else 0
+        if ht and 0.45 * h <= w <= 2.2 * h and 0.45 * h <= ht <= 2.2 * h and 0.6 <= w / ht <= 1.6 \
+                and min(before, after) >= 0.22 * h:
+            m = (a + c0, top + rows[0], a + c1, top + rows[-1] + 1)
+            out.append((m, _ticked(gray, bg, m)))
+    return out
+
+
+def _option_box(text, box, option):
+    """Where one option's words sit inside an OCR line that holds several ("O Male O Female"): by character offset."""
+    t, o = _norm(text), _norm(option)
+    m = re.search(r"(?<!\w)" + re.escape(o) + r"(?!\w)", t) if o else None  # a whole word: "male" is not in "female"
+    if not m:
+        return None
+    at = m.start()
+    x0, y0, x1, y1 = box
+    per = (x1 - x0) / len(t)
+    return (x0 + at * per, y0, x0 + (at + len(o)) * per, y1)
+
+
+def choices(lines, label, options, gray):
+    """A radio group's options near its question label (on its row either side, or in the lines below it), each
+    with the mark beside it: [{text, box, mark, checked}] in screen pixels, or [] when they aren't on screen.
+    Every option's mark is on the same side of its text, so the side is chosen for the whole group."""
+    x0, y0, x1, y1 = label
+    h = max(y1 - y0, 8)
+    found = []  # (option, text box, the OCR line it was in)
+    for opt in options:  # each option: its aliases as printed (English, Arabic)
+        best = None
+        for li, (text, box) in enumerate(lines):
+            if tuple(box) == tuple(label):
+                continue
+            bx0, by0, bx1, by1 = box
+            same_row = abs((by0 + by1) / 2 - (y0 + y1) / 2) <= h
+            below = 0 < by0 - y1 <= 16 * h and bx1 >= x0 - 30 * h and bx0 <= x1 + 30 * h  # a long list runs well down
+            if not (same_row or below):
+                continue
+            for alias in opt:
+                ob = _option_box(text, box, alias)
+                if ob:
+                    d = abs(by0 - y0) + abs(bx0 - x0) / 10
+                    if best is None or d < best[0]:
+                        best = (d, ob, li)
+        if best:
+            found.append((opt, best[1], best[2]))
+    if gray is None:
+        return [{"text": o[0], "box": b, "mark": None, "checked": False} for o, b, _ in found]
+    marks = {}
+    for li in {li for _, _, li in found}:  # options sharing one OCR line: pair them with that row's marks, in order
+        mine = sorted((i for i, f in enumerate(found) if f[2] == li), key=lambda i: found[i][1][0])
+        if len(mine) > 1:
+            row = _marks_in_row(gray, lines[li][1], h)
+            if len(row) == len(mine):
+                marks.update(zip(mine, row))
+    sides = {}
+    for side in (-1, 1):
+        sides[side] = {i: _mark(gray, b, side) for i, (_, b, _) in enumerate(found) if i not in marks}
+    side = max((-1, 1), key=lambda s: sum(1 for m in sides[s].values() if m))  # ties go to the left
+    marks.update({i: m for i, m in sides[side].items() if m})
+    return [{"text": o[0], "box": b, "mark": marks[i][0] if i in marks else None,
+             "checked": bool(i in marks and marks[i][1])} for i, (o, b, _) in enumerate(found)]
+
+
 def _input_box(gray, label, hint):
     """The input rectangle next to a label, found from its border lines or shading in the screenshot.
 
@@ -431,6 +591,18 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
         label = labels[hits[fi]][1]
         hit = {"id": f["id"], "seen": labels[hits[fi]][0], "label_box": to_pt(label),
                "input_box": to_pt(_input_box(gray, label, f["box"]))}
+        if f["input"] == "checkbox":  # the label is the box's own text; the mark sits beside it
+            m = _mark(gray, label)
+            if m:
+                hit.update(input_box=to_pt(m[0]), checked=m[1])
+        if f["input"] == "radio":
+            opts = choices(labels, label, [o["aliases"] for o in f.get("options", [])], gray)
+            if opts:
+                hit["options"] = [{"text": o["text"], "checked": o["checked"],
+                                   "box": to_pt(o["mark"] or o["box"])} for o in opts]
+                every = [o["mark"] or o["box"] for o in opts] + [label]
+                hit["input_box"] = to_pt((min(b[0] for b in every[:-1]), min(b[1] for b in every[:-1]),
+                                          max(b[2] for b in every[:-1]), max(b[3] for b in every[:-1])))
         row = _row(gray, label) if f["input"] == "date-parts" and gray is not None else None
         if row:
             parts = date_parts(row, tails, f.get("parts", "dmy"))

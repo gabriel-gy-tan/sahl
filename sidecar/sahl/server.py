@@ -86,6 +86,21 @@ def _shows(seen: str, want: str) -> bool:
     return any(norm(f) and norm(f) in seen for f in forms)
 
 
+def _wanted(value: str, f: dict) -> list[str]:
+    """What a choice may say for a value: the value itself and, for a nationality, the country's name and the
+    nationality's word ("Indian" is "INDIA" in a country list). With the field's own options, only those that match."""
+    forms = {value}
+    for country, word in vault.NATIONS.values():
+        if match._norm(value) in (match._norm(country), match._norm(word)):
+            forms |= {country, word}
+    want = {match._norm(x) for x in forms}
+    opts = [o for o in f.get("options", []) if any(match._norm(a) in want for a in o["aliases"])]
+    if f.get("options"):
+        return [a for o in opts for a in o["aliases"]]
+    countries = {c for c, _ in vault.NATIONS.values()}
+    return sorted(forms, key=lambda x: (x not in countries, len(x)))  # the country's name first: what lists say
+
+
 def _needs(vault_key) -> str | None:
     """The document a field's value comes from first ("passport" or "eid"), to ask for when it's missing."""
     first = (vault_key if isinstance(vault_key, str) else (vault_key or [""])[0]).split(".")[0]
@@ -103,7 +118,8 @@ def _part_texts(kind, value):
     return short, [short, m, str(int(m))]
 
 
-def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=fill.pick_from) -> FastAPI:
+def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=fill.pick_from,
+               chooser=fill.open_and_type, clicker=fill.click_at, closer=fill.close_list) -> FastAPI:
     app = FastAPI()
     # the Tauri webview's origins in dev and in a built app
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
@@ -161,11 +177,17 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         for m in best:
             f = spec[m["id"]]
             v = vault.get(f["vault_key"], person)
-            if v and v["verified"] and f["input"] == "text" and not m.get("parts") and m["id"] not in state["confirmed"] \
-                    and _box_shows(shot[1], best_scale, monitor, m["input_box"], v["value"], _shows):
+            if v and v["verified"] and f["input"] in ("text", "select") and not m.get("parts") and m["id"] not in state["confirmed"] \
+                    and any(_box_shows(shot[1], best_scale, monitor, m["input_box"], w, _shows) for w in _wanted(v["value"], f)):
                 state["confirmed"].add(m["id"])  # the portal (UAE PASS) already filled this one with the right value
                 m = {**m, "prefilled": True}
+            if v and v["verified"] and f["input"] == "radio" and m["id"] not in state["confirmed"]:
+                want = {match._norm(w) for w in _wanted(v["value"], f)}
+                if any(o["checked"] and match._norm(o["text"]) in want for o in m.get("options", [])):
+                    state["confirmed"].add(m["id"])  # already chosen
+                    m = {**m, "prefilled": True}
             fields.append({**m, "label": f["aliases"][0], "input": f["input"], "help": f["help"], "vault": vault.get(f["vault_key"], person),
+                           "spec_options": f.get("options", []),
                            "needs": _needs(f["vault_key"]), "confirmed": m["id"] in state["confirmed"]})
         state["fields"] = {f["id"]: f for f in fields}
         state["monitor"] = monitor
@@ -194,10 +216,16 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def do_fill(body: FieldRef):
         f = _field(body.field_id)
         v = f["vault"]
-        if f["input"] not in ("text", "date-parts"):
-            raise HTTPException(422, "Sahl only fills text boxes and dates")
+        if f["input"] == "checkbox":
+            raise HTTPException(422, "Sahl never ticks a box for you: a tick says you agree or confirm something")
+        if f["input"] not in ("text", "date-parts", "select", "radio"):
+            raise HTTPException(422, "Sahl only fills text boxes, dates, dropdowns and radio buttons")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
+        if f["input"] == "radio":
+            return _fill_radio(f, v["value"], body.field_id)
+        if f["input"] == "select":
+            return _fill_select(f, v["value"], body.field_id)
         if f.get("parts"):  # three dropdowns; a date in one box is typed like any text
             return _fill_date(f, v["value"], body.field_id)
         box = f["input_box"]  # screen points
@@ -214,6 +242,79 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         else:
             report.record_miss(state["guide"][0], body.field_id)
         return {"ok": True, "landed": landed}
+
+    def _px(box, mon, scale):
+        return tuple((v - mon[i % 2]) * scale for i, v in enumerate(box))
+
+    def _phys(point):  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
+        return tuple(round(v * state["scale"]) for v in point) if sys.platform == "win32" else point
+
+    def _shot():
+        for gray, scale, mon in screen():
+            if tuple(mon) == tuple(state["monitor"]):
+                return gray, scale, mon
+        return None, 1.0, state["monitor"]
+
+    def _done(field_id, landed):
+        if landed:
+            state["confirmed"].add(field_id)
+        else:
+            report.record_miss(state["guide"][0], field_id)
+        return {"ok": True, "landed": landed}
+
+    def _fill_radio(f, value, field_id):
+        """Clicks the radio button of the option that is the person's value, then checks it now shows chosen."""
+        want = {match._norm(w) for w in _wanted(value, {"options": f.get("spec_options", [])})}
+        opt = next((o for o in f.get("options", []) if match._norm(o["text"]) in want), None)
+        if not opt:
+            raise HTTPException(422, "none of the options on screen is this value")
+        x0, y0, x1, y1 = opt["box"]
+        try:
+            clicker(_phys(((x0 + x1) / 2, (y0 + y1) / 2)), True)
+        except Exception as e:
+            raise HTTPException(409, f"clicking failed: {e}")
+        time.sleep(0.3)
+        gray, scale, mon = _shot()
+        if gray is None:
+            return _done(field_id, False)
+        px = _px(opt["box"], mon, scale)
+        return _done(field_id, match._ticked(gray, match._bg(gray, px), px))
+
+    def _fill_select(f, value, field_id):
+        """Opens the dropdown, types the value, then clicks the option that says it (or sees the closed box already
+        showing it). Never Enter: a list Sahl can't choose from is closed with Esc."""
+        wanted = _wanted(value, {"options": f.get("spec_options", [])})
+        if not wanted:
+            raise HTTPException(422, "none of this dropdown's options is this value")
+        typed = wanted[0]
+        box = f["input_box"]
+        try:
+            chooser(tuple(round(v * state["scale"]) for v in box) if sys.platform == "win32" else box, typed)
+        except Exception as e:
+            raise HTTPException(409, f"typing failed: {e}")
+        gray, scale, mon = _shot()
+        if gray is None:
+            return _done(field_id, False)
+        if any(_box_shows(gray, scale, mon, box, w, _shows) for w in wanted):  # a closed list picked it as typed
+            return _done(field_id, True)
+        bx = _px(box, mon, scale)
+        h = max(8, (bx[3] - bx[1]) / 2)
+        want = {match._norm(w) for w in wanted}
+        near = [(abs(b[1] - bx[3]) + abs(b[0] - bx[0]) / 4, b) for t, b in ocr.lines(gray)
+                if match._norm(t) in want and not (b[1] >= bx[1] - 2 and b[3] <= bx[3] + 2 and b[0] >= bx[0] - 2 and b[2] <= bx[2] + 2)
+                and bx[1] - 25 * h <= b[1] <= bx[3] + 25 * h and b[2] >= bx[0] - 10 * h and b[0] <= bx[2] + 10 * h]
+        if not near:
+            closer()
+            return _done(field_id, False)
+        b = min(near)[1]
+        pt = ((b[0] + b[2]) / 2 / scale + mon[0], (b[1] + b[3]) / 2 / scale + mon[1])
+        try:
+            clicker(_phys(pt), False)
+        except Exception as e:
+            raise HTTPException(409, f"clicking failed: {e}")
+        time.sleep(0.4)
+        gray, scale, mon = _shot()
+        return _done(field_id, gray is not None and any(_box_shows(gray, scale, mon, box, w, _shows) for w in wanted))
 
     def _fill_date(f, value, field_id):
         landed = True

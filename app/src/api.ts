@@ -7,7 +7,9 @@ export type Field = {
   label: string;
   label_box: Box;
   input_box: Box;
-  input: "text" | "date" | "select" | "date-parts";
+  input: "text" | "date" | "select" | "date-parts" | "radio" | "checkbox";
+  options?: { text: string; checked: boolean; box: Box }[]; // a radio group's choices on screen
+  checked?: boolean; // a checkbox already ticked
   help: Record<Lang, string>;
   vault: { value: string; verified: boolean; source: string; crop: string | null } | null;
   needs: Doc | null; // the document to add when vault is null

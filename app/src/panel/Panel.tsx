@@ -549,7 +549,7 @@ export default function Panel() {
 
   const field = reading?.fields.find((f) => f.id === reading.next) ?? null;
   const index = field ? reading!.fields.indexOf(field) + 1 : 0;
-  const canFill = mode === "fill" && (field?.input === "text" || field?.input === "date-parts") && field.vault?.verified;
+  const canFill = mode === "fill" && field && ["text", "date-parts", "select", "radio"].includes(field.input) && field.vault?.verified;
   const current = guides?.find((g) => g.id === guide);
   const guideName = current?.service[lang];
 
@@ -876,6 +876,7 @@ export default function Panel() {
                       <Speaker text={`${field.label}. ${field.help[lang]}`} label={t("listen")} />
                     </div>
                     <p className="help">{field.help[lang]}</p>
+                    {field.input === "checkbox" && <p className="warn">{t("tick_yourself")}</p>}
                     {field.vault ? (
                       <>
                         <div className="value">
