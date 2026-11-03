@@ -397,3 +397,28 @@ def test_date_in_three_dropdowns_is_picked_part_by_part(fake_ai, monkeypatch):
     r = c.post("/fill", json={"field_id": "dob"}).json()
     assert r["landed"] is True
     assert picked == ["1985", "14", "Mar"]
+
+
+def test_box_already_showing_the_right_value_is_skipped(client):
+    client.post("/vault/import", json={"path": str(ROOT / "demo/samples")})
+    me = {p["name"]: p["id"] for p in client.get("/people").json()}["Mohammed Rafeeq Kunnummal"]
+    read = lambda **kw: client.post("/read", json={"guide": "medical-fitness", "person": me, **kw}).json()
+    read()  # fill needs a read first
+    assert client.post("/fill", json={"field_id": "full_name"}).json()["landed"] is True  # stands in for UAE PASS filling it
+    again = read(restart=True)
+    by_id = {f["id"]: f for f in again["fields"]}
+    assert by_id["full_name"]["prefilled"] is True and by_id["full_name"]["confirmed"] is True
+    assert not by_id["dob"].get("prefilled")
+    assert again["next"] == "dob"
+    typed = len(client.typed)
+    assert again["next"] != "full_name" and len(client.typed) == typed  # nothing was typed over it
+
+
+@pytest.mark.parametrize("seen, want, expected", [
+    ("01/05/2030", "01/05/2030", True),
+    ("2030-05-01", "01/05/2030", True),  # the portal writes the date the other way round
+    ("05/01/2030", "01/05/2030", True),
+    ("02/05/2030", "01/05/2030", False),
+])
+def test_prefilled_dates_in_other_layouts(seen, want, expected):
+    assert server._shows(seen, want) is expected

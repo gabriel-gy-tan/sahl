@@ -5,6 +5,7 @@ Run: SAHL_TOKEN=... python -m sahl.server   (prints SAHL_PORT=<n> once it is lis
 import calendar
 import json
 import os
+import re
 import secrets
 import socket
 import subprocess
@@ -72,6 +73,17 @@ def _matches(seen: str, want: str) -> bool:
     if score >= 90 or (len(want) <= 12 and score >= 85) or (len(want) <= 6 and score >= 80):
         return True
     return len(seen) >= 4 and fuzz.partial_ratio(seen, want) >= 92
+
+
+def _shows(seen: str, want: str) -> bool:
+    """Whether a box's text is exactly the value (a DD/MM/YYYY date may be written another way round).
+    No OCR-slip leeway: a different date must never pass as the right one, or Sahl would leave a wrong box alone."""
+    norm = lambda t: "".join(c for c in t.upper() if c.isalnum())
+    seen = norm(seen)
+    forms = [want]
+    if m := re.fullmatch(r"(\d\d)/(\d\d)/(\d{4})", want):
+        forms += ["".join((m[3], m[2], m[1])), "".join((m[2], m[1], m[3]))]
+    return any(norm(f) and norm(f) in seen for f in forms)
 
 
 def _needs(vault_key) -> str | None:
@@ -148,6 +160,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         fields = []
         for m in best:
             f = spec[m["id"]]
+            v = vault.get(f["vault_key"], person)
+            if v and v["verified"] and f["input"] == "text" and not m.get("parts") and m["id"] not in state["confirmed"] \
+                    and _box_shows(shot[1], best_scale, monitor, m["input_box"], v["value"], _shows):
+                state["confirmed"].add(m["id"])  # the portal (UAE PASS) already filled this one with the right value
+                m = {**m, "prefilled": True}
             fields.append({**m, "label": f["aliases"][0], "input": f["input"], "help": f["help"], "vault": vault.get(f["vault_key"], person),
                            "needs": _needs(f["vault_key"]), "confirmed": m["id"] in state["confirmed"]})
         state["fields"] = {f["id"]: f for f in fields}
@@ -236,24 +253,27 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
                 return match._inside([(p[0] - left, p[1] - top, p[2] - left, p[3] - top) for p in pts], ocr.lines(crop))
         return [""] * len(boxes)
 
+    def _box_shows(gray, scale, mon, box, value, same=_matches) -> bool:
+        """Reads one box (screen points) from a screenshot and checks `same(text, value)`."""
+        x0, y0, x1, y1 = ((v - mon[i % 2]) * scale for i, v in enumerate(box))
+        pad = 6 * scale  # OCR needs a margin round the text
+        crop = gray[max(0, int(y0 - pad)):int(y1 + pad), max(0, int(x0 - pad)):int(x1 + pad)]
+        if crop.size == 0:
+            return False
+        if same("".join(t for t, _ in ocr.lines(crop)), value):
+            return True
+        if crop.shape[1] < 400 or crop.shape[0] < 80:  # a small input, whose text OCR may miss at native size
+            from PIL import Image
+            big = np.array(Image.fromarray(crop).resize(
+                (crop.shape[1] * 2, crop.shape[0] * 2), Image.Resampling.LANCZOS))
+            return same("".join(t for t, _ in ocr.lines(big)), value)
+        return False
+
     def _landed(box, value) -> bool:
         """Re-reads one box from the screen and checks it now shows the value."""
         for gray, scale, mon in screen():
-            if tuple(mon) != tuple(state["monitor"]):
-                continue
-            x0, y0, x1, y1 = ((v - mon[i % 2]) * scale for i, v in enumerate(box))
-            pad = 6 * scale  # OCR needs a margin round the text
-            crop = gray[max(0, int(y0 - pad)):int(y1 + pad), max(0, int(x0 - pad)):int(x1 + pad)]
-            if crop.size == 0:
-                return False
-            if _matches("".join(t for t, _ in ocr.lines(crop)), value):
-                return True
-            if crop.shape[1] < 400 or crop.shape[0] < 80:  # a small input, whose text OCR may miss at native size
-                from PIL import Image
-                big = np.array(Image.fromarray(crop).resize(
-                    (crop.shape[1] * 2, crop.shape[0] * 2), Image.Resampling.LANCZOS))
-                return _matches("".join(t for t, _ in ocr.lines(big)), value)
-            return False
+            if tuple(mon) == tuple(state["monitor"]):
+                return _box_shows(gray, scale, mon, box, value)
         return False
 
     @app.post("/vault/import", dependencies=[Depends(auth)])

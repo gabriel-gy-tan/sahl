@@ -12,6 +12,7 @@ export type Field = {
   vault: { value: string; verified: boolean; source: string; crop: string | null } | null;
   needs: Doc | null; // the document to add when vault is null
   confirmed: boolean;
+  prefilled?: boolean; // the portal had already filled it with the right value, so Sahl skips it
 };
 export type Person = { id: string; name: string };
 export type Doc = "passport" | "eid" | "other";

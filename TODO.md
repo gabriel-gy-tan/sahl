@@ -13,6 +13,8 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
 - [ ] More UAE service guides (`uae-form-data`): 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH, ADDED, DMT, FTA, MOFA, MOE, MOJ, EHS and more, all `fields: []` except 5 forms with printed labels; the form picker ranks by rare words, answers questions, and has a search box; the form screen shows what a service needs. Fees dated 2026-11-02/03; 94 TAMM guides not re-dated; translations unreviewed
 
+- [ ] Skip boxes the portal already filled (UAE PASS) when they show the right value; ICP Emirates ID renewal guide gets its real field labels, every section of the form (55 fields) (`feat/skip-filled-boxes`). Labels copied from the signed-in form; not yet tried on the live ICP page
+
 ## Next
 
 - [ ] Not reachable from the build machine, still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA, Dubai Courts, MOI, Customs; embassies, free zones, utilities and telecom, transport, finance, Sharjah and the northern emirates
