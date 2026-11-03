@@ -6,7 +6,7 @@
     "ur": "بیرون ملک علاج کے خطوط",
     "ml": "വിദേശ ചികിത്സയ്ക്കുള്ള കത്തുകൾ"
   },
-  "about": "Get a medical visa letter, a to-whom-it-may-concern letter or an airport transfer request for treatment abroad.",
+  "about": "Get a medical visa letter, a to-whom-it-may-concern letter or an airport transfer request for treatment abroad. For patients travelling abroad for treatment only.",
   "authority": "DHA",
   "aliases": [
     "Medical visa letter",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for patients travelling abroad for treatment and their escorts; it is not a general to-whom-it-may-concern letter",
       "Patient and escort passports must not be expired"
     ],
     "documents": [

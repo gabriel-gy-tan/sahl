@@ -6,7 +6,7 @@
     "ur": "اماراتی شہریوں کے لیے متعلقہ حکام کے نام سرٹیفکیٹ",
     "ml": "സ്വദേശികൾക്കുള്ള ടു ഹൂം ഇറ്റ് മേ കൺസേൺ സർട്ടിഫിക്കറ്റ്"
   },
-  "about": "Get a certificate for a marriage, medical or study matter abroad, issued to a UAE national.",
+  "about": "Get a certificate for a marriage, medical or study matter abroad, issued to a UAE national. For UAE nationals only.",
   "authority": "MOFA",
   "aliases": [
     "MOFA certificate",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official MOFA service page on the checked date. MOFA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. To Whom It May Concern certificate for UAE nationals. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "UAE nationals only, and only for a marriage, medical or study matter abroad",
       "Applicant must be a UAE national",
       "The application must be complete with all documents attached"
     ],

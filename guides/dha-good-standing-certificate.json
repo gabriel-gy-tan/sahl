@@ -6,7 +6,7 @@
     "ur": "گڈ اسٹینڈنگ سرٹیفکیٹ",
     "ml": "ഗുഡ് സ്റ്റാൻഡിംഗ് സർട്ടിഫിക്കറ്റ്"
   },
-  "about": "Request a Good Standing Certificate or a licence details verification as a current or past DHA professional.",
+  "about": "Request a Good Standing Certificate or a licence details verification as a current or past DHA professional. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "Good standing certificate",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "You must have no unpaid fines",
       "Anyone who was suspended or revoked, or under investigation in the past two years, gets a Certificate of Current Status instead",
       "Licence verification needs a past DHA licence"

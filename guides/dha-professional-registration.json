@@ -6,7 +6,7 @@
     "ur": "ہیلتھ کیئر پروفیشنل رجسٹریشن",
     "ml": "ആരോഗ്യ പ്രൊഫഷണൽ രജിസ്ട്രേഷൻ"
   },
-  "about": "Register with DHA as a healthcare professional so a facility can later activate your licence.",
+  "about": "Register with DHA as a healthcare professional so a facility can later activate your licence. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "DHA registration",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "You must not be blacklisted",
       "You must pass the related assessment within 3 attempts across the authorities",
       "You must first receive the primary source verification result for your documents"

@@ -6,7 +6,7 @@
     "ur": "رجسٹریشن کی اہلیت کا جائزہ",
     "ml": "രജിസ്ട്രേഷൻ യോഗ്യതാ അവലോകനം"
   },
-  "about": "Check whether you qualify for DHA professional registration and which title fits you.",
+  "about": "Check whether you qualify for DHA professional registration and which title fits you. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "Registration eligibility",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "You must not be blacklisted",
       "Assessment attempts are limited to 3"
     ],

@@ -6,7 +6,7 @@
     "ur": "یونیفائیڈ انٹرن شپ پروگرام",
     "ml": "യൂണിഫൈഡ് ഇന്റേൺഷിപ്പ് പ്രോഗ്രാം"
   },
-  "about": "Apply for the yearly unified medical and dental internship in DHA-accredited facilities.",
+  "about": "Apply for the yearly unified medical and dental internship in DHA-accredited facilities. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "DHA internship",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "For medical or dental graduates of internationally recognised institutions"
     ],
     "documents": [

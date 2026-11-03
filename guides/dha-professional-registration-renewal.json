@@ -6,7 +6,7 @@
     "ur": "ہیلتھ کیئر پروفیشنل رجسٹریشن کی تجدید",
     "ml": "ആരോഗ്യ പ്രൊഫഷണൽ രജിസ്ട്രേഷൻ പുതുക്കൽ"
   },
-  "about": "Renew your DHA professional registration for another year.",
+  "about": "Renew your DHA professional registration for another year. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "Renew DHA registration",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "Renew within three months of the expiry date",
       "Registration must not be expired, you must not be revoked or blacklisted and you must have no unpaid fines"
     ],

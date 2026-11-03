@@ -6,7 +6,7 @@
     "ur": "یوٹیلیٹی اکاؤنٹ سرٹیفکیٹ (متعلقہ افراد کے نام)",
     "ml": "യൂട്ടിലിറ്റി അക്കൗണ്ട് സർട്ടിഫിക്കറ്റ്"
   },
-  "about": "Get a certificate confirming you hold an active water and electricity account, with account and premises details.",
+  "about": "Get a certificate confirming you hold an active water and electricity account, with account and premises details. For water and electricity account holders only.",
   "authority": "TAMM",
   "aliases": [
     "Utility account letter",
@@ -31,6 +31,9 @@
     "channels": [
       "Sign in with UAE PASS on TAMM (website or app) or another available channel",
       "Provided by TAQA Distribution"
+    ],
+    "eligibility": [
+      "Only for holders of an active water and electricity account (individuals or businesses); it is not a general to-whom-it-may-concern letter"
     ]
   },
   "fields": []

@@ -6,7 +6,7 @@
     "ur": "بیرون ملک علاج کے فیصلے کے خلاف اپیل",
     "ml": "വിദേശ ചികിത്സ തീരുമാനത്തിനെതിരെ അപ്പീൽ"
   },
-  "about": "Ask the committee to reconsider a rejected overseas treatment request.",
+  "about": "Ask the committee to reconsider a rejected overseas treatment request. For patients whose overseas treatment request was rejected.",
   "authority": "DHA",
   "aliases": [
     "Overseas treatment appeal",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for patients whose overseas treatment request was rejected",
       "File within 30 days of the first application"
     ],
     "documents": [

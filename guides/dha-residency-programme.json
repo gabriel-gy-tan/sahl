@@ -6,7 +6,7 @@
     "ur": "ریزیڈنسی پروگرام میں داخلہ",
     "ml": "റെസിഡൻസി പ്രോഗ്രാം എൻറോൾമെന്റ്"
   },
-  "about": "Apply to the Dubai medical or dental residency training programme.",
+  "about": "Apply to the Dubai medical or dental residency training programme. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "DHA residency",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "For doctors who have completed internship",
       "Available only during the registration period"
     ],

@@ -6,7 +6,7 @@
     "ur": "زبانی جانچ کا وقت مقرر کرنا",
     "ml": "ഓറൽ അസസ്മെന്റ് ഷെഡ്യൂൾ ചെയ്യുക"
   },
-  "about": "Book the oral assessment that some healthcare professionals need to finish DHA registration.",
+  "about": "Book the oral assessment that some healthcare professionals need to finish DHA registration. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "Oral assessment DHA",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "Opens only after DHA has reviewed your registration or upgrade request and an oral assessment is required",
       "You must not be suspended, revoked or blacklisted"
     ],

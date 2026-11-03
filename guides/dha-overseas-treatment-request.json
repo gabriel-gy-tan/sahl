@@ -6,7 +6,7 @@
     "ur": "بیرون ملک علاج کی درخواست",
     "ml": "വിദേശ ചികിത്സയ്ക്കുള്ള അപേക്ഷ"
   },
-  "about": "Ask DHA to approve medical treatment abroad through the Shefaa system.",
+  "about": "Ask DHA to approve medical treatment abroad through the Shefaa system. For patients seeking treatment abroad only.",
   "authority": "DHA",
   "aliases": [
     "Treatment abroad",
@@ -20,6 +20,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for patients seeking treatment abroad",
       "The passport must be issued from Dubai",
       "Treatment must not be available locally",
       "The medical report must be no more than 30 days old"

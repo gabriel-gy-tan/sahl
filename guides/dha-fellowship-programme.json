@@ -6,7 +6,7 @@
     "ur": "فیلوشپ پروگرام میں داخلہ",
     "ml": "ഫെല്ലോഷിപ്പ് പ്രോഗ്രാം എൻറോൾമെന്റ്"
   },
-  "about": "Enrol in the Dubai fellowship training for doctors with a general specialty board certificate.",
+  "about": "Enrol in the Dubai fellowship training for doctors with a general specialty board certificate. For healthcare professionals only.",
   "authority": "DHA",
   "aliases": [
     "DHA fellowship",
@@ -19,6 +19,7 @@
   "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
       "For doctors who finished residency and hold a general specialty board certificate",
       "Registration opens only when the programme announces it"
     ],
