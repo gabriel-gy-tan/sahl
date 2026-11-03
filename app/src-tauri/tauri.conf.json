@@ -3,6 +3,7 @@
   "productName": "Sahl",
   "version": "0.1.0",
   "identifier": "ae.sahl.app",
+  "mainBinaryName": "Sahl",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
