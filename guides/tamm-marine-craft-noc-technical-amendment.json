@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-noc-technical-amendment",
+  "service": {
+    "en": "Issue a NOC for water sport marine craft technical amendment",
+    "ar": "إصدار شهادة عدم ممانعة لتعديل مواصفات مركبة بحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ کرافٹ کی تکنیکی ترمیم کے لیے این او سی کا اجرا",
+    "ml": "വാട്ടർ സ്പോർട്ട് ക്രാഫ്റ്റ് സാങ്കേതിക ഭേദഗതിക്കുള്ള എൻഒസി നൽകൽ"
+  },
+  "about": "Get a no objection certificate, valid for 90 days, to change the technical specification of a water sport craft.",
+  "authority": "TAMM",
+  "aliases": [
+    "Marine craft modification NOC",
+    "Jet ski amendment NOC",
+    "شهادة عدم ممانعة تعديل مركبة بحرية",
+    "عدم ممانعة تعديل مواصفات"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/IssueaNOCforWaterSportMarineCraftTechnicalSpecificationAmendment",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Craft builder certificate"
+    ],
+    "fees": [
+      "AED 100 for the no objection certificate"
+    ],
+    "timing": [
+      "About 1 day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

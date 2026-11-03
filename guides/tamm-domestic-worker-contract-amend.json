@@ -1,0 +1,35 @@
+{
+  "id": "tamm-domestic-worker-contract-amend",
+  "service": {
+    "en": "Amend a domestic worker's work contract",
+    "ar": "تعديل عقد عمل عامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے ورک کنٹریکٹ میں ترمیم",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ തൊഴിൽ കരാർ ഭേദഗതി"
+  },
+  "about": "An employer amends the data in a domestic worker's work contract and receives the amended contract.",
+  "authority": "TAMM",
+  "aliases": [
+    "Change maid contract details",
+    "Amend domestic worker contract",
+    "تعديل عقد خادمة",
+    "تعديل بيانات عقد عمل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/AmendingtheDataofWorkContractforaDomesticWorkerandReceivingAmendedContract",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Attested contract, document or receipt from the issuing entity"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 1 working day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

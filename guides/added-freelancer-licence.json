@@ -1,0 +1,30 @@
+{
+  "id": "added-freelancer-licence",
+  "service": {
+    "en": "Abu Dhabi Freelancer Licence",
+    "ar": "رخصة العمل الحر في أبوظبي",
+    "ur": "ابوظہبی فری لانسر لائسنس",
+    "ml": "അബുദാബി ഫ്രീലാൻസർ ലൈസൻസ്"
+  },
+  "about": "Licence to practise certain fields remotely without premises.",
+  "authority": "ADDED",
+  "aliases": [
+    "Freelance business licence",
+    "Freelancer licence Abu Dhabi",
+    "رخصة مستقل",
+    "رخصة العمل الحر"
+  ],
+  "source": "https://www.added.gov.ae/en/set-up/establish-your-business/licensing-requirements",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED licensing requirements page on the checked date. Licences are applied for through the ADDED eServices on TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For citizens and foreign investors practising specific fields remotely without physical premises"
+    ],
+    "channels": [
+      "ADDED eServices on TAMM (tamm.abudhabi) or the TAMM app",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

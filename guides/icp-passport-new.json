@@ -1,0 +1,44 @@
+{
+  "id": "icp-passport-new",
+  "service": {
+    "en": "New UAE passport issuance",
+    "ar": "إصدار جواز سفر جديد",
+    "ur": "نیا اماراتی پاسپورٹ جاری کرنا",
+    "ml": "പുതിയ യുഎഇ പാസ്പോർട്ട് നൽകൽ"
+  },
+  "about": "Get a first UAE passport as a citizen.",
+  "authority": "ICP",
+  "aliases": [
+    "First passport",
+    "Apply for UAE passport",
+    "إصدار جواز سفر",
+    "جواز سفر لأول مرة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e79",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE nationals only",
+      "Must already be in the family records",
+      "Valid for 10 years at age 21 or over, 5 years under 21"
+    ],
+    "documents": [
+      "Personal photo that meets ICAO standards",
+      "Other papers only if not available through government linkage"
+    ],
+    "fees": [
+      "Application 10 AED",
+      "5-year passport 40 AED, 10-year passport 90 AED",
+      "Delivery 15 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

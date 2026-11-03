@@ -1,0 +1,46 @@
+{
+  "id": "icp-administrative-list-circular",
+  "service": {
+    "en": "Circular on a sponsored person (administrative list)",
+    "ar": "تعميم على مكفول في القائمة الإدارية",
+    "ur": "زیر کفالت شخص پر سرکلر (انتظامی فہرست)",
+    "ml": "സ്പോൺസർ ചെയ്യപ്പെട്ടയാളെ അഡ്മിനിസ്ട്രേറ്റീവ് പട്ടികയിൽ ചേർക്കൽ"
+  },
+  "about": "Add a sponsored person to ICP's administrative list through a circular.",
+  "authority": "ICP",
+  "aliases": [
+    "Circulate sponsored person",
+    "Absconding circular",
+    "Administrative list",
+    "تعميم على مكفول",
+    "القائمة الإدارية"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e82",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Circular on a sponsored person (administrative list). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to citizens, residents, GCC citizens and government or private entities and free zones",
+      "Complete any changes ICP asks for if the application is returned"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "A MOHRE letter where a circular is issued before the work card is cancelled"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Smart service fee 100 AED",
+      "Deportation 200 AED",
+      "Financial guarantee 2,000 AED and deposit 20 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

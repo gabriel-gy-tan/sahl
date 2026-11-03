@@ -1,0 +1,43 @@
+{
+  "id": "tamm-family-book-new-marriage",
+  "service": {
+    "en": "New family book by marriage",
+    "ar": "إصدار خلاصة قيد جديدة بموجب الزواج",
+    "ur": "شادی پر نئی فیملی بک",
+    "ml": "വിവാഹത്തിലൂടെ പുതിയ ഫാമിലി ബുക്ക്"
+  },
+  "about": "Issue a new family book on first marriage, separate from the guardian's book.",
+  "authority": "TAMM",
+  "aliases": [
+    "Khulasat qaid marriage",
+    "Family book",
+    "خلاصة القيد",
+    "كتاب العائلة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/RequesttoIssueaNewFamilyBookMarriageStatement",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Academic qualification(s)",
+      "Certificate to whom it may concern",
+      "Marriage contract",
+      "Photo"
+    ],
+    "fees": [
+      "AED 50 family book request fee",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee",
+      "AED 25 statistical statement"
+    ],
+    "timing": [
+      "2 working days",
+      "Family book is issued electronically"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

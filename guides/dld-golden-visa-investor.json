@@ -1,0 +1,42 @@
+{
+  "id": "dld-golden-visa-investor",
+  "service": {
+    "en": "Golden Visa for real estate investors",
+    "ar": "التأشيرة الذهبية للمستثمر العقاري",
+    "ur": "رئیل اسٹیٹ سرمایہ کار کے لیے گولڈن ویزا",
+    "ml": "റിയൽ എസ്റ്റേറ്റ് നിക്ഷേപകർക്കുള്ള ഗോൾഡൻ വിസ"
+  },
+  "about": "Apply for a 10-year renewable residence permit as an investor who owns property in Dubai.",
+  "authority": "DLD",
+  "aliases": [
+    "Property Golden Visa",
+    "10 year residency property",
+    "الإقامة الذهبية العقارية"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-investor/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Golden Visa for real estate investors. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Property value of AED 2 million or more, wholly owned by the applicant",
+      "A mortgaged property needs a bank letter showing the paid amount",
+      "The applicant must be inside the UAE",
+      "Spouse, children and parents can be sponsored"
+    ],
+    "documents": [
+      "Passport",
+      "E-certificate of title or title deed",
+      "Personal photo",
+      "UAE ID and current residence permit, if any"
+    ],
+    "fees": [
+      "AED 9,884.75 in total for the investor's 10-year permit",
+      "AED 5,774.50 for each family member's or parent's 10-year permit",
+      "AED 318.75 for opening a family sponsorship file"
+    ],
+    "timing": [
+      "7 to 10 business days"
+    ]
+  },
+  "fields": []
+}

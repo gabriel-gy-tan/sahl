@@ -1,0 +1,37 @@
+{
+  "id": "tamm-marine-craft-licence-new",
+  "service": {
+    "en": "Issue a new water sport marine craft licence",
+    "ar": "إصدار رخصة جديدة لمركبة بحرية للرياضات المائية",
+    "ur": "نئی واٹر اسپورٹ سمندری کرافٹ لائسنس کا اجرا",
+    "ml": "പുതിയ വാട്ടർ സ്പോർട്ട് മറൈൻ ക്രാഫ്റ്റ് ലൈസൻസ് നൽകൽ"
+  },
+  "about": "Licence a personal or commercial water sport craft such as jet skis, barbecue boats, amphibious boats, small electric or petrol boats and similar water sport craft.",
+  "authority": "TAMM",
+  "aliases": [
+    "Jet ski licence",
+    "Water sport boat registration",
+    "رخصة دراجة مائية",
+    "ترخيص مركبة بحرية ترفيهية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/IssueaNewWaterSportMarineCraftLicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Craft builder certificate",
+      "Vehicle licence"
+    ],
+    "fees": [
+      "AED 300 for the on-site inspection visit"
+    ],
+    "timing": [
+      "About 30 days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

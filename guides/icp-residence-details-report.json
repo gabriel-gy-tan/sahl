@@ -1,0 +1,43 @@
+{
+  "id": "icp-residence-details-report",
+  "service": {
+    "en": "Residence details report",
+    "ar": "تقرير بيانات الإقامة",
+    "ur": "رہائش تفصیلات کی رپورٹ",
+    "ml": "റെസിഡൻസ് വിവര റിപ്പോർട്ട്"
+  },
+  "about": "Print a report of your residence details and file information.",
+  "authority": "ICP",
+  "aliases": [
+    "Residence print",
+    "Print residence details",
+    "Residence report",
+    "طباعة بيانات الإقامة",
+    "تقرير إقامة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e353815ae59b0011738413",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Residence details report. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents with an active residence file"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Work card if the occupation changed",
+      "Letter from the government body for the government sector or for students holding a MOHRE work card"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "The page gives no processing time"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

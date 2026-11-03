@@ -1,0 +1,42 @@
+{
+  "id": "tamm-residency-eid-family-investor",
+  "service": {
+    "en": "Residency and Emirates ID for family (investor or partner sponsor)",
+    "ar": "إقامة وهوية إماراتية للعائلة (كفيل مستثمر أو شريك)",
+    "ur": "خاندان کے لیے رہائش اور ایمریٹس آئی ڈی (سرمایہ کار یا شراکت دار کفیل)",
+    "ml": "കുടുംബത്തിന് റെസിഡൻസിയും എമിറേറ്റ്സ് ഐഡിയും (നിക്ഷേപകൻ/പങ്കാളി സ്പോൺസർ)"
+  },
+  "about": "An investor or partner sponsor requests a residency permit and Emirates ID for family members.",
+  "authority": "TAMM",
+  "aliases": [
+    "Family Emirates ID investor",
+    "Residence and EID investor",
+    "هوية وإقامة عائلة مستثمر",
+    "إصدار إقامة وهوية للأسرة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssuanceofResidenceandFamilyEIDaResidentSponsorInvestororPartner",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Sponsor is an investor or partner"
+    ],
+    "documents": [
+      "Certificate",
+      "Emirates ID",
+      "Passport"
+    ],
+    "fees": [
+      "AED 100 for card issuance",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee"
+    ],
+    "timing": [
+      "About 2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

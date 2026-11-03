@@ -1,0 +1,38 @@
+{
+  "id": "dmt-mawaqif-villa-visitor-permit",
+  "service": {
+    "en": "Mawaqif villa visitor parking permit",
+    "ar": "تصريح موقف زوار الفلل (مواقف)",
+    "ur": "مواقف ولا وزیٹر پارکنگ پرمٹ",
+    "ml": "മവാഖിഫ് വില്ല സന്ദർശക പാർക്കിംഗ് പെർമിറ്റ്"
+  },
+  "about": "Short parking permit that a villa owner requests for visitors by SMS.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Villa visitors permit",
+    "Visitor parking permit",
+    "تصريح زوار الفلل",
+    "تصريح موقف الزائر"
+  ],
+  "source": "https://admobility.gov.ae/en/mawaqif-public-parking-types",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The owner requests it by SMS from a phone number registered in the system; up to 4 numbers can be registered"
+    ],
+    "fees": [
+      "Free for UAE nationals",
+      "AED 2 per hour for non-UAE nationals"
+    ],
+    "timing": [
+      "Requests are sent between 2:00 and 8:00 in the morning",
+      "The permit lasts 6 hours"
+    ],
+    "channels": [
+      "SMS from a registered phone number",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

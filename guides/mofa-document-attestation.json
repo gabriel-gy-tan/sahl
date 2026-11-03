@@ -1,0 +1,48 @@
+{
+  "id": "mofa-document-attestation",
+  "service": {
+    "en": "Document attestation",
+    "ar": "تصديق الوثائق",
+    "ur": "دستاویزات کی تصدیق",
+    "ml": "രേഖകളുടെ അറ്റസ്റ്റേഷൻ"
+  },
+  "about": "Have a UAE-issued document attested by the Ministry of Foreign Affairs for use abroad.",
+  "authority": "MOFA",
+  "aliases": [
+    "Attest documents",
+    "MOFA attestation",
+    "Certificate attestation",
+    "تصديق المستندات",
+    "تصديق الشهادات"
+  ],
+  "source": "https://www.mofa.gov.ae/en/Services/attestation",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOFA service page on the checked date. MOFA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Document attestation. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Individuals and companies can apply",
+      "Digital attestation covers UAE-issued original digital documents with a QR code, barcode or reference number",
+      "Courier attestation is for documents that do not qualify for digital attestation",
+      "Commercial invoices and certificates of origin go through the separate eDAS system"
+    ],
+    "documents": [
+      "Digital: the original digital PDF, not scanned, photographed or password protected",
+      "Courier: original document in Arabic or English or with a legal translation, not laminated, and already attested by the competent authorities",
+      "Up to five documents per application, all using the same method"
+    ],
+    "fees": [
+      "Fee depends on number of documents, completion option and personal or commercial use; see the Attestation Guide"
+    ],
+    "timing": [
+      "Digital inside the UAE within 2 hours in working hours",
+      "Courier inside the UAE 1 to 3 business days",
+      "Courier outside the UAE up to 7 business days"
+    ],
+    "channels": [
+      "MOFA website and UAE MOFA app, sign in with UAE PASS",
+      "Selected UAE missions abroad",
+      "Call 800 44444"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "moe-school-certificate-attestation-private",
+  "service": {
+    "en": "Attestation of school certificate (private foreign-curriculum schools)",
+    "ar": "تصديق شهادة دراسية للتعليم العام داخل الدولة",
+    "ur": "اسکول سرٹیفکیٹ کی تصدیق (نجی اسکول)",
+    "ml": "സ്കൂൾ സർട്ടിഫിക്കറ്റ് അറ്റസ്റ്റേഷൻ (സ്വകാര്യ സ്കൂൾ)"
+  },
+  "about": "Have a general education certificate from a private foreign-curriculum school in the UAE attested.",
+  "authority": "MOE",
+  "aliases": [
+    "Attest school certificate",
+    "Certificate attestation MOE",
+    "تصديق شهادة مدرسية",
+    "تصديق شهادة الصف الثاني عشر"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/SchoolCertificate-MOE.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Attestation of school certificate (private foreign-curriculum schools). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Certificates from private schools licensed by MOE that follow a foreign curriculum",
+      "Schools in Abu Dhabi, Dubai, Sharjah and Ras Al Khaimah are attested by their own education authority"
+    ],
+    "documents": [
+      "Copy of the certificate to be attested, in PDF"
+    ],
+    "fees": [
+      "AED 15 for the certificate",
+      "Optional digital MOFA attestation: AED 150 plus AED 150 for the UAE embassy abroad"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "MOE website or smart app, sign in with UAE PASS",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

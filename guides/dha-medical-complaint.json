@@ -1,0 +1,41 @@
+{
+  "id": "dha-medical-complaint",
+  "service": {
+    "en": "Submit a medical complaint",
+    "ar": "تقديم شكوى طبية",
+    "ur": "طبی شکایت درج کرانا",
+    "ml": "മെഡിക്കൽ പരാതി സമർപ്പിക്കുക"
+  },
+  "about": "File a complaint against a healthcare professional or facility in Dubai.",
+  "authority": "DHA",
+  "aliases": [
+    "Medical complaint",
+    "Complain about a doctor",
+    "Hospital complaint Dubai",
+    "شكوى طبية",
+    "شكوى ضد طبيب"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/a468d441-ea44-11e9-0723-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Patients or their carers can apply",
+      "A complaint cannot be filed more than 3 years after the event"
+    ],
+    "documents": [
+      "No documents are required unless asked for"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "Handled in 1 to 6 months",
+      "Submission is open 24 hours"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "tamm-add-basic-health-insurance-member",
+  "service": {
+    "en": "Add a member to Abu Dhabi basic health insurance",
+    "ar": "إضافة مشترك إلى التأمين الصحي الأساسي لأبوظبي",
+    "ur": "ابوظہبی بنیادی ہیلتھ انشورنس میں رکن شامل کرنا",
+    "ml": "അബുദാബി അടിസ്ഥാന ആരോഗ്യ ഇൻഷുറൻസിൽ അംഗത്തെ കൂട്ടിച്ചേർക്കൽ"
+  },
+  "about": "Add a member to an existing individual Abu Dhabi basic health insurance policy.",
+  "authority": "TAMM",
+  "aliases": [
+    "Add dependent insurance",
+    "Daman add member",
+    "إضافة تابع للتأمين",
+    "إضافة فرد تأمين"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Request%20for%20Member%20Addition%20Daman",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID",
+      "Passport",
+      "Residence visa",
+      "Change of status",
+      "Salary certificate",
+      "Certificate of continuity or previous visa insurance"
+    ],
+    "fees": [
+      "Premium listed as 750 to 19,306 AED",
+      "Late fine of 300 AED per delayed month, if it applies"
+    ],
+    "timing": [
+      "About 1 day",
+      "You receive the updated policy"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,47 @@
+{
+  "id": "icp-golden-visa-entrepreneur",
+  "service": {
+    "en": "Residence visa for an entrepreneur",
+    "ar": "تأشيرة إقامة لرائد أعمال",
+    "ur": "کاروباری شخص کے لیے رہائشی ویزا",
+    "ml": "സംരംഭകനുള്ള റെസിഡൻസ് വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as an entrepreneur.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa entrepreneur",
+    "Startup golden residency",
+    "الإقامة الذهبية لرواد الأعمال",
+    "تأشيرة رائد أعمال"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e34f115ae59b00117383d9",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "Project owners need a letter saying the project is innovative or future-oriented",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Letter from the emirate's competent authority on the project's innovative nature",
+      "Accredited auditor's letter showing project value of at least 500,000 AED"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

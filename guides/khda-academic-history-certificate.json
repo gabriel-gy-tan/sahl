@@ -1,0 +1,42 @@
+{
+  "id": "khda-academic-history-certificate",
+  "service": {
+    "en": "Student academic history certificate",
+    "ar": "شهادة السجل الأكاديمي للطالب",
+    "ur": "طالب علم کی تعلیمی تاریخ کا سرٹیفکیٹ",
+    "ml": "വിദ്യാർത്ഥിയുടെ അക്കാദമിക് ഹിസ്റ്ററി സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get an official certificate of a student's enrolment history at Dubai private schools or early childhood centres.",
+  "authority": "KHDA",
+  "aliases": [
+    "Student registration history",
+    "School history certificate",
+    "شهادة السجل الدراسي",
+    "سجل قيد الطالب"
+  ],
+  "source": "https://web.khda.gov.ae/en/Services/Student-Related-Services/Applying-for-the-Student-Registration-History-Cert",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official KHDA service page on the checked date. KHDA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The student must have been enrolled in a Dubai private school or early childhood centre and be registered in the KHDA system",
+      "Extra papers may be asked for if records are incomplete"
+    ],
+    "documents": [
+      "Emirates ID number",
+      "Enrolment letter from the school if data is not in the KHDA system",
+      "Accurate years attended, especially for closed schools"
+    ],
+    "fees": [
+      "AED 120 in total: AED 100 application and AED 20 Knowledge and Innovation"
+    ],
+    "timing": [
+      "3 working days"
+    ],
+    "channels": [
+      "Dubai Now app",
+      "KHDA portal"
+    ]
+  },
+  "fields": []
+}

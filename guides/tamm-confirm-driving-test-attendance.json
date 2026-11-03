@@ -1,0 +1,35 @@
+{
+  "id": "tamm-confirm-driving-test-attendance",
+  "service": {
+    "en": "Confirm attendance for a driving licence test",
+    "ar": "تأكيد الحضور لاختبار رخصة القيادة",
+    "ur": "ڈرائیونگ لائسنس ٹیسٹ میں حاضری کی تصدیق",
+    "ml": "ഡ്രൈവിംഗ് ലൈസൻസ് ടെസ്റ്റിനുള്ള ഹാജർ സ്ഥിരീകരിക്കൽ"
+  },
+  "about": "Confirm you will attend your scheduled driving licence test.",
+  "authority": "TAMM",
+  "aliases": [
+    "Conduct driving test",
+    "Confirm test attendance",
+    "تأكيد حضور الاختبار",
+    "إجراء اختبار القيادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requesttoscheduleadrivingtestdate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "200 AED request fee"
+    ],
+    "timing": [
+      "About 2 hours"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

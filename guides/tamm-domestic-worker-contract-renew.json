@@ -1,0 +1,43 @@
+{
+  "id": "tamm-domestic-worker-contract-renew",
+  "service": {
+    "en": "Renew domestic worker contract and residence",
+    "ar": "تجديد عقد عمل عامل خدمة منزلية",
+    "ur": "گھریلو ملازم کے معاہدے کی تجدید",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ കരാർ പുതുക്കൽ"
+  },
+  "about": "An employer renews a domestic worker's work contract and residence permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew maid visa",
+    "Renew domestic worker",
+    "تجديد خادمة",
+    "تجديد إقامة عامل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RenewResidencyPermitforDomesticWorker",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Employment contract",
+      "Emirates ID",
+      "Health insurance scheme",
+      "Passport",
+      "Personal photo"
+    ],
+    "fees": [
+      "AED 215 for one year (citizen, GCC or diplomatic)",
+      "AED 315 for two years (citizen, GCC or diplomatic)",
+      "AED 5,215 for one year (resident)",
+      "AED 5,265 for one year (investor)"
+    ],
+    "timing": [
+      "1 day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Ministry of Human Resources & Emiratisation"
+    ]
+  },
+  "fields": []
+}

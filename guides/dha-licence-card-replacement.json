@@ -1,0 +1,41 @@
+{
+  "id": "dha-licence-card-replacement",
+  "service": {
+    "en": "Professional licence card replacement",
+    "ar": "استبدال بطاقة الترخيص المهني",
+    "ur": "پروفیشنل لائسنس کارڈ کی تبدیلی",
+    "ml": "പ്രൊഫഷണൽ ലൈസൻസ് കാർഡ് മാറ്റിവാങ്ങൽ"
+  },
+  "about": "Reissue your healthcare professional e-licence card after a name or photo change. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "DHA licence card",
+    "Replace licence card",
+    "Update licence photo",
+    "استبدال بطاقة الترخيص",
+    "تغيير صورة الترخيص"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/a6481050-c4b7-11e8-0721-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "You must hold an active licence"
+    ],
+    "documents": [
+      "Proof of a name change such as an official ID or passport",
+      "A new photo, if changing the photo"
+    ],
+    "fees": [
+      "AED 50 for the replacement"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

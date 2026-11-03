@@ -1,0 +1,40 @@
+{
+  "id": "tamm-national-rehabilitation-medical-report",
+  "service": {
+    "en": "Issue a medical report from the National Rehabilitation Centre",
+    "ar": "إصدار تقرير طبي لمرضى المركز الوطني للتأهيل",
+    "ur": "قومی بحالی مرکز کے مریضوں کے لیے طبی رپورٹ",
+    "ml": "നാഷണൽ റീഹാബിലിറ്റേഷൻ സെന്ററിലെ രോഗികൾക്കുള്ള മെഡിക്കൽ റിപ്പോർട്ട്"
+  },
+  "about": "Request a medical report for a patient of the National Rehabilitation Centre.",
+  "authority": "TAMM",
+  "aliases": [
+    "NRC medical report",
+    "Rehabilitation report",
+    "تقرير طبي مركز التأهيل",
+    "تقرير المركز الوطني للتأهيل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Rehabilitation/RequestMedicalReport",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)",
+      "Official letter",
+      "Passport",
+      "Formal letter requesting the service"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "5 working days",
+      "A centre representative calls to confirm your details",
+      "You collect the report in person at the centre"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS) or other available channels"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "icp-visa-top-students",
+  "service": {
+    "en": "Golden Residence visa for top high school students (inside the UAE)",
+    "ar": "تأشيرة الطلبة المتفوقين في الثانوية داخل الدولة",
+    "ur": "اعلیٰ نمبر والے ہائی اسکول طلبہ کے لیے ویزا (ملک کے اندر)",
+    "ml": "ഉയർന്ന മാർക്ക് നേടിയ ഹൈസ്കൂൾ വിദ്യാർത്ഥികൾക്കുള്ള വിസ"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as a top secondary school graduate already in the UAE.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa high school students",
+    "Top students golden residency",
+    "الإقامة الذهبية للطلبة المتفوقين",
+    "تأشيرة الطلاب المتفوقين"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bb628c587a0011cb16b1",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Golden Residence visa for top high school students (inside the UAE). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Top state-level rank with at least 95% from a public or private secondary school",
+      "Recommendation letter from the Ministry of Education (Emirates Schools Establishment); the page lists it under terms, not documents",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,30 @@
+{
+  "id": "dmt-school-transport-salama",
+  "service": {
+    "en": "School bus tracking (Salama app)",
+    "ar": "تتبع الحافلات المدرسية (تطبيق سلامة)",
+    "ur": "اسکول بس ٹریکنگ (سلامہ ایپ)",
+    "ml": "സ്കൂൾ ബസ് ട്രാക്കിംഗ് (സലാമ ആപ്പ്)"
+  },
+  "about": "Parents follow school bus trips in the Salama app.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Salama app",
+    "School bus tracking",
+    "تطبيق سلامة",
+    "متابعة الحافلة المدرسية"
+  ],
+  "source": "https://admobility.gov.ae/en/school-transport",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This is an app service, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Available to students in private and charter schools in Abu Dhabi"
+    ],
+    "channels": [
+      "Salama app on the App Store and Google Play",
+      "Safety concerns or driver violations: 800850"
+    ]
+  },
+  "fields": []
+}

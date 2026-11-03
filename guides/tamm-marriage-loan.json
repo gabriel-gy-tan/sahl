@@ -1,0 +1,40 @@
+{
+  "id": "tamm-marriage-loan",
+  "service": {
+    "en": "Marriage loan",
+    "ar": "قرض الزواج",
+    "ur": "شادی کا قرض",
+    "ml": "വിവാഹ വായ്പ"
+  },
+  "about": "Employed Abu Dhabi citizens about to marry apply for an interest-free marriage loan.",
+  "authority": "TAMM",
+  "aliases": [
+    "Marriage grant loan",
+    "Newlywed loan",
+    "قرض زواج",
+    "منحة زواج"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/SupportCommunityEnvironment/SocialCare/MarriageLoan",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Citizens of the Emirate of Abu Dhabi who are employed in the country and about to marry"
+    ],
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "No fees or interest; loan of up to AED 150,000"
+    ],
+    "timing": [
+      "About 30 working days",
+      "Banking steps are completed through First Abu Dhabi Bank"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Abu Dhabi Social Support Authority"
+    ]
+  },
+  "fields": []
+}

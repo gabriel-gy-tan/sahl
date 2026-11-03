@@ -1,0 +1,29 @@
+{
+  "id": "dld-property-status-enquiry",
+  "service": {
+    "en": "Property status enquiry",
+    "ar": "الاستعلام عن حالة عقار",
+    "ur": "جائیداد کی حیثیت معلوم کرنا",
+    "ml": "സ്വത്തിന്റെ നില അന്വേഷണം"
+  },
+  "about": "Look up the status of a property by entering details such as area and land number.",
+  "authority": "DLD",
+  "aliases": [
+    "Check property status",
+    "حالة العقار",
+    "استعلام عن عقار"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/property-status-overview/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Property status enquiry. Translations not reviewed by native speakers.",
+  "requirements": {
+    "timing": [
+      "Immediate"
+    ],
+    "channels": [
+      "DLD website",
+      "Dubai REST app"
+    ]
+  },
+  "fields": []
+}

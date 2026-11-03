@@ -1,0 +1,42 @@
+{
+  "id": "moj-cancel-contract-deed",
+  "service": {
+    "en": "Cancellation of contracts and deeds",
+    "ar": "إلغاء العقود والمحررات",
+    "ur": "معاہدوں اور دستاویزات کی منسوخی",
+    "ml": "കരാറുകളും രേഖകളും റദ്ദാക്കൽ"
+  },
+  "about": "Ask a notary to cancel a contract or deed that was previously notarised.",
+  "authority": "MOJ",
+  "aliases": [
+    "Cancel notarised contract",
+    "Cancel deed",
+    "إلغاء عقد موثق",
+    "إلغاء محرر"
+  ],
+  "source": "https://www.moj.gov.ae/en/services/services-categories/notary-public-and-authentication/cancellation-of-contracts-and-deeds-def0e3bb.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOJ service page on the checked date. MOJ fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The page prints the fee without a currency, AED assumed. Cancellation of contracts and deeds. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Service is for individuals",
+      "The contract or deed must have been notarised earlier"
+    ],
+    "documents": [
+      "Identification of the parties",
+      "Proof of each party's capacity and authority",
+      "Agency document if a party acts through an agent",
+      "The original contract or deed to be cancelled"
+    ],
+    "fees": [
+      "AED 200"
+    ],
+    "timing": [
+      "1 day"
+    ],
+    "channels": [
+      "eNotary portal (enotary.moj.gov.ae), sign in with UAE PASS"
+    ]
+  },
+  "fields": []
+}

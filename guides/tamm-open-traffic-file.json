@@ -1,0 +1,36 @@
+{
+  "id": "tamm-open-traffic-file",
+  "service": {
+    "en": "Open a traffic file",
+    "ar": "فتح ملف مروري",
+    "ur": "ٹریفک فائل کھولنا",
+    "ml": "ട്രാഫിക് ഫയൽ തുറക്കൽ"
+  },
+  "about": "Open a file so you can attend theory and practical training to get a driving licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Open driving licence file",
+    "Start learning to drive",
+    "فتح ملف رخصة قيادة",
+    "ملف تعليم قيادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/obtain-driving-licence/requesttoopenadrivinglicencefile",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "200 AED request fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

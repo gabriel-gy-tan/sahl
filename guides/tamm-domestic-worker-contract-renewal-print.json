@@ -1,0 +1,35 @@
+{
+  "id": "tamm-domestic-worker-contract-renewal-print",
+  "service": {
+    "en": "Print renewal of a domestic worker's work contract",
+    "ar": "طباعة تجديد عقد عمل عامل مساعدة منزلية",
+    "ur": "گھریلو ملازم کے ورک کنٹریکٹ کی تجدید پرنٹ کرنا",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ തൊഴിൽ കരാർ പുതുക്കൽ പ്രിന്റ് ചെയ്യൽ"
+  },
+  "about": "An employer requests a printed renewal of a domestic worker's work contract.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renewed maid contract",
+    "Domestic worker contract renewal copy",
+    "تجديد عقد خادمة",
+    "طباعة تجديد عقد عمل"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RenewWorkContractforDomesticWorkers",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 1 day"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

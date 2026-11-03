@@ -1,0 +1,42 @@
+{
+  "id": "icp-lost-resident-passport-abroad",
+  "service": {
+    "en": "Report a resident's passport lost abroad",
+    "ar": "فقدان جواز سفر مقيم خارج الدولة",
+    "ur": "بیرون ملک رہائشی کے پاسپورٹ کی گمشدگی",
+    "ml": "വിദേശത്ത് റെസിഡന്റിന്റെ പാസ്പോർട്ട് നഷ്ടപ്പെട്ടാൽ"
+  },
+  "about": "Report and circulate a resident's passport lost outside the UAE.",
+  "authority": "ICP",
+  "aliases": [
+    "Lost passport outside UAE",
+    "Passport lost abroad resident",
+    "فقدان جواز سفر خارج الدولة",
+    "ضياع جواز المقيم"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e3539c5ae59b0011738428",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Report a resident's passport lost abroad. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents of the UAE",
+      "The page lists a departure permit as a related service"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Police report attested by the UAE embassy"
+    ],
+    "fees": [
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

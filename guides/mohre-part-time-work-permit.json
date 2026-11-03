@@ -1,0 +1,52 @@
+{
+  "id": "mohre-part-time-work-permit",
+  "service": {
+    "en": "Part-time work permit",
+    "ar": "تصريح عمل بدوام جزئي",
+    "ur": "پارٹ ٹائم ورک پرمٹ",
+    "ml": "പാർട്ട് ടൈം വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Let a resident take a second, part-time job with another establishment.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Part time work permit",
+    "Second job permit",
+    "تصريح عمل جزئي",
+    "تصريح دوام جزئي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/our-services/part-time-work-permit-2022.aspx",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee is at least 18 and holds a valid residence visa",
+      "Job matches the establishment's activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory",
+      "No bank guarantee, insurance or quota needed"
+    ],
+    "documents": [
+      "Clear colour photo on a white background",
+      "Passport copy valid for at least 6 months",
+      "Official job offer form signed by employer and employee",
+      "Academic certificate that depends on skill level: bachelor's for levels 1-2, diploma for 3-4, high school for level 5, none for 6-9",
+      "Professional licence from the competent authority where the job needs one"
+    ],
+    "fees": [
+      "Federal fee 50 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app; tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 1 year"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

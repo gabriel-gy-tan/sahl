@@ -1,0 +1,50 @@
+{
+  "id": "icp-tourist-visa-family-5-year",
+  "service": {
+    "en": "5-year multiple-entry tourist visa for a family group",
+    "ar": "تأشيرة سياحية متعددة الدخول 5 سنوات لمجموعة عائلية",
+    "ur": "خاندان کے لیے 5 سالہ متعدد داخلے والا سیاحتی ویزا",
+    "ml": "കുടുംബത്തിനുള്ള 5 വർഷ മൾട്ടിപ്പിൾ എൻട്രി ടൂറിസ്റ്റ് വിസ"
+  },
+  "about": "Get a five-year multiple-entry tourist visa for a family group, with no sponsor needed.",
+  "authority": "ICP",
+  "aliases": [
+    "Family 5 year tourist visa",
+    "Long-term family tourist visa",
+    "تأشيرة سياحية عائلية 5 سنوات"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e73f2f5ae59b00117389ea",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. 5-year multiple-entry tourist visa for a family group. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to all nationalities; the head of the family enters with the family",
+      "Children can be included; those under 18 travel with a parent",
+      "Stay is 90 days per year counted from first entry; the page says each stay can be extended by the same length up to 180 days per year",
+      "First entry within 60 days of issue",
+      "UAE health insurance valid for 180 days",
+      "Overstaying invalidates the visa and the financial guarantee is enforced"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Official bank statement (stamped, signed, colour) showing at least USD 4,000 a month or equivalent over 6 months",
+      "Return or onward ticket copy",
+      "Identity document for applicants from Iraq, Pakistan, Afghanistan or Iran"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 500 AED",
+      "Financial guarantee 3,000 AED and deposit 20 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

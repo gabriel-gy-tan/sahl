@@ -1,0 +1,40 @@
+{
+  "id": "tamm-nursery-building-expansion",
+  "service": {
+    "en": "Obtain approval to expand a nursery building",
+    "ar": "الموافقة على توسعة مبنى حضانة",
+    "ur": "نرسری کی عمارت کی توسیع کی منظوری",
+    "ml": "നഴ്സറി കെട്ടിടം വിപുലീകരിക്കാനുള്ള അനുമതി"
+  },
+  "about": "Let a nursery investor apply to expand the nursery building.",
+  "authority": "TAMM",
+  "aliases": [
+    "Expand nursery",
+    "Nursery expansion approval",
+    "توسعة حضانة",
+    "الموافقة على توسعة مبنى"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/education/educational-institutes/RequesttheExpansionofaNursery",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Approved site and floor plans",
+      "Building completion certificate",
+      "Civil Defence certificate",
+      "Valid ADEK licence",
+      "Valid trade licence"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "6 working days",
+      "You receive an approval or rejection"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

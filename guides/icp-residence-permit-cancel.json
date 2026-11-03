@@ -1,0 +1,46 @@
+{
+  "id": "icp-residence-permit-cancel",
+  "service": {
+    "en": "Cancellation of residence permit",
+    "ar": "إلغاء الإقامة",
+    "ur": "رہائشی اجازت نامہ منسوخ کرنا",
+    "ml": "താമസ പെർമിറ്റ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel a residence permit, which also cancels the linked Emirates ID.",
+  "authority": "ICP",
+  "aliases": [
+    "Cancel residency",
+    "Cancel residence visa",
+    "إلغاء إقامة",
+    "إلغاء تأشيرة إقامة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e68",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For family members, retirees, property owners, students and employees",
+      "Domestic worker cancellations go through MOHRE or the Domestic Work Bundle",
+      "Grace period after cancellation: 30 days for most, 60 with a guarantor, 90 for skilled workers and property owners, 180 for Golden, Green and Blue holders"
+    ],
+    "documents": [
+      "Passport",
+      "For investors or partners: licence cancellation or waiver certificate",
+      "Death certificate, certified, where it applies"
+    ],
+    "fees": [
+      "Application fee 50 AED and smart service fee 100 AED",
+      "Exceptional cancellation 100 AED",
+      "Guarantee fee 5,000 AED when a sponsor cancels without cancelling family permits",
+      "Fine 50 AED a day after the grace period"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

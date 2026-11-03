@@ -1,0 +1,45 @@
+{
+  "id": "icp-permit-stay-abroad",
+  "service": {
+    "en": "Permit to stay outside the UAE over 6 months",
+    "ar": "تصريح البقاء خارج الدولة لأكثر من 6 أشهر",
+    "ur": "چھ ماہ سے زیادہ ملک سے باہر رہنے کی اجازت",
+    "ml": "ആറ് മാസത്തിലധികം രാജ്യത്തിന് പുറത്ത് തങ്ങാനുള്ള അനുമതി"
+  },
+  "about": "Let a resident keep their residence while staying outside the UAE for more than six months.",
+  "authority": "ICP",
+  "aliases": [
+    "Stay abroad permit",
+    "Residence outside UAE over 6 months",
+    "تصريح إقامة خارج الدولة",
+    "إذن البقاء خارج الدولة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e352d65ae59b00117383fc",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Residents only, applying from outside the UAE",
+      "More than 30 days must remain on the residence",
+      "Apply after 180 days outside the UAE, with a valid reason",
+      "Not available to residents of Dubai",
+      "Enter within 30 days of approval; Golden, Green and Blue holders are exempt"
+    ],
+    "documents": [
+      "Proof of the reason for staying abroad"
+    ],
+    "fees": [
+      "100 AED issuance for each month of delay after six months",
+      "Smart service fee 100 AED",
+      "100 AED fine for every 30 days or less outside the UAE"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

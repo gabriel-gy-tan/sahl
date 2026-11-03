@@ -1,0 +1,34 @@
+{
+  "id": "adek-nursery-temporary-closure",
+  "service": {
+    "en": "Nursery temporary closure",
+    "ar": "الإغلاق المؤقت للحضانة",
+    "ur": "نرسری کی عارضی بندش",
+    "ml": "നഴ്സറിയുടെ താൽക്കാലിക അടച്ചിടൽ"
+  },
+  "about": "Tell ADEK that a licensed nursery will close for a period.",
+  "authority": "ADEK",
+  "aliases": [
+    "Temporary nursery closure",
+    "Close nursery temporarily",
+    "إغلاق مؤقت للحضانة",
+    "تعليق عمل الحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Reason for the closure",
+      "Closure period",
+      "Acceptance of the terms and conditions"
+    ],
+    "fees": [
+      "Fees are paid at the payment step after ADEK approval; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

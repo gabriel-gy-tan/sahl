@@ -3,7 +3,19 @@ import sys
 import time
 
 
+def _allowed():
+    """macOS drops synthetic clicks and keys without a word unless the app has Accessibility permission."""
+    if sys.platform != "darwin":
+        return
+    import ctypes
+    lib = ctypes.cdll.LoadLibrary("/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices")
+    lib.AXIsProcessTrusted.restype = ctypes.c_bool
+    if not lib.AXIsProcessTrusted():
+        raise PermissionError("Accessibility permission is off")
+
+
 def type_into(box, value: str):
+    _allowed()
     from pynput.keyboard import Controller as Keys, Key
     from pynput.mouse import Button, Controller as Mouse
 
@@ -24,3 +36,29 @@ def type_into(box, value: str):
     for ch in value:
         keys.type(ch)
         time.sleep(0.01)
+
+
+def pick_from(box, text: str):
+    """Chooses an option in a dropdown by typing its start into the closed, focused select. Tab moves on; never Enter."""
+    _allowed()
+    from pynput.keyboard import Controller as Keys, Key
+    from pynput.mouse import Button, Controller as Mouse
+
+    x0, y0, x1, y1 = box
+    mouse, keys = Mouse(), Keys()
+    mouse.position = ((x0 + x1) / 2, (y0 + y1) / 2)
+    time.sleep(0.12)
+    mouse.click(Button.left)  # brings a background browser forward, or opens the list if it was already in front
+    time.sleep(0.8)  # a browser that was in the background needs this long to come forward before it takes keys
+    keys.tap(Key.esc)  # closes the list either way, so the next click opens it exactly once
+    time.sleep(0.15)
+    mouse.click(Button.left)
+    time.sleep(0.5)
+    keys.tap(Key.esc)  # an open list only highlights what you type; a closed, focused one selects it
+    time.sleep(0.3)
+    for ch in text:
+        keys.type(ch)
+        time.sleep(0.12)
+    time.sleep(0.1)
+    keys.tap(Key.tab)
+    time.sleep(0.2)

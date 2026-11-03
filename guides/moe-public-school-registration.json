@@ -1,0 +1,47 @@
+{
+  "id": "moe-public-school-registration",
+  "service": {
+    "en": "Public school registration and admission",
+    "ar": "التسجيل والقبول في المدارس الحكومية",
+    "ur": "سرکاری اسکول میں رجسٹریشن اور داخلہ",
+    "ml": "സർക്കാർ സ്കൂൾ രജിസ്ട്രേഷനും പ്രവേശനവും"
+  },
+  "about": "Register a child in a UAE public school from kindergarten to Grade 12.",
+  "authority": "MOE",
+  "aliases": [
+    "Enrol in public school",
+    "Public school admission",
+    "Register child in government school",
+    "التسجيل في المدارس الحكومية",
+    "قبول الطلاب"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/Application-for-registration-and-admission-of-a-student-to-a-public-school.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Public school registration and admission. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to categories such as citizens, children of female citizens, GCC nationals, children of diplomats and decree holders",
+      "New students enter at kindergarten or Grade 1, others transfer in from private or foreign schools"
+    ],
+    "documents": [
+      "Proof of residence (electricity bill, notarised lease or ownership document)",
+      "Report card for the current year for Grades 2 to 12",
+      "Birth certificate for children of female citizens",
+      "Diplomatic card, decree copy or GCC certification depending on the category",
+      "Medical or psychological report under 6 months old for students of determination"
+    ],
+    "fees": [
+      "No application fee"
+    ],
+    "timing": [
+      "About 3 working days for review",
+      "Initial advanced-track approval in 3 working days, final approval 7 working days after the test"
+    ],
+    "channels": [
+      "MOE website or mobile app, sign in with UAE PASS",
+      "Outcome sent by SMS",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

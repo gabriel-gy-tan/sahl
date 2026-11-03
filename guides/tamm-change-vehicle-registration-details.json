@@ -1,0 +1,36 @@
+{
+  "id": "tamm-change-vehicle-registration-details",
+  "service": {
+    "en": "Change vehicle registration card details",
+    "ar": "تغيير بيانات بطاقة تسجيل المركبة",
+    "ur": "گاڑی کی رجسٹریشن کارڈ کی تفصیلات کی تبدیلی",
+    "ml": "വാഹന രജിസ്ട്രേഷൻ കാർഡ് വിവരങ്ങൾ മാറ്റൽ"
+  },
+  "about": "Change details printed on a vehicle ownership card.",
+  "authority": "TAMM",
+  "aliases": [
+    "Amend vehicle licence details",
+    "Update mulkiya details",
+    "تعديل بيانات رخصة المركبة",
+    "تعديل ملكية المركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/requesttoamendvehiclelicencedetails",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "100 AED"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

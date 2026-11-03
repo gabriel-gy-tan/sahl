@@ -1,0 +1,40 @@
+{
+  "id": "tamm-domestic-worker-emirates-id-renew",
+  "service": {
+    "en": "Renew Emirates ID for a domestic worker",
+    "ar": "تجديد الهوية الإماراتية لعامل خدمة منزلية",
+    "ur": "گھریلو ملازم کی ایمریٹس آئی ڈی کی تجدید",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ എമിറേറ്റ്സ് ഐഡി പുതുക്കൽ"
+  },
+  "about": "Renew a domestic worker's Emirates ID card, a step needed for renewing their residence permit.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew maid ID",
+    "Domestic helper ID renewal",
+    "تجديد هوية خادمة",
+    "تجديد بطاقة عامل منزلي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RenewanEmiratesIDfortheDomesticWorker",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Personal photo",
+      "Passport"
+    ],
+    "fees": [
+      "AED 100 card issuance",
+      "AED 150 request submission fee"
+    ],
+    "timing": [
+      "5 working days",
+      "The residence permit must be issued first",
+      "Card arrives by an authorised delivery company"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

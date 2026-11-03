@@ -1,0 +1,47 @@
+{
+  "id": "icp-blue-residency-guide",
+  "service": {
+    "en": "Blue Residence guide",
+    "ar": "دليل الإقامة الزرقاء",
+    "ur": "نیلی رہائش گائیڈ",
+    "ml": "ബ്ലൂ റെസിഡൻസി ഗൈഡ"
+  },
+  "about": "See who qualifies for the 10-year Blue Residence for environmental and sustainability work.",
+  "authority": "ICP",
+  "aliases": [
+    "Blue residency",
+    "Blue visa",
+    "10 year blue residence",
+    "الإقامة الزرقاء"
+  ],
+  "source": "https://icp.gov.ae/en/services/uae-blue-residency/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Blue Residence guide. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "10-year renewable residence with no sponsor, for people who contribute to environmental protection and sustainability",
+      "Categories: environmental influencers, scientists and researchers, investors and entrepreneurs, inventors and innovators, and elite specialists in environmental organisations",
+      "Investors need fully owned capital of at least 2 million AED; entrepreneurs an SME with at least 1 million AED annual revenue",
+      "Golden Residence holders can convert if they meet the requirements",
+      "Family members (spouse, children of any age, parents) can get 10-year permits"
+    ],
+    "documents": [
+      "Passport valid for more than 6 months",
+      "Recent personal photo",
+      "Valid health insurance",
+      "Proof of medical fitness",
+      "Other papers depend on the category, such as recommendation letters, publications or business plans"
+    ],
+    "fees": [
+      "The guide page states no fee amounts"
+    ],
+    "timing": [
+      "The guide page gives no timing"
+    ],
+    "channels": [
+      "Blue Residence services on the ICP Smart Services platform",
+      "Nomination by a relevant authority, which applies for the person"
+    ]
+  },
+  "fields": []
+}

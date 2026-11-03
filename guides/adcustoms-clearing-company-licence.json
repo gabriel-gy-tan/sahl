@@ -1,0 +1,33 @@
+{
+  "id": "adcustoms-clearing-company-licence",
+  "service": {
+    "en": "Clearing or shipping company set-up",
+    "ar": "تأسيس شركة تخليص أو شحن",
+    "ur": "کلیئرنگ یا شپنگ کمپنی کا قیام",
+    "ml": "ക്ലിയറിങ്/ഷിപ്പിംഗ് കമ്പനി സ്ഥാപിക്കൽ"
+  },
+  "about": "Fees to set up, renew or change a customs clearing, shipping or forwarding company.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "Customs broker company",
+    "Clearing agent company",
+    "تأسيس شركة تخليص",
+    "شركة تخليص جمركي"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 700 for establishing a clearing, shipping or forwarding company",
+      "AED 700 for renewal",
+      "AED 700 for opening a new branch",
+      "AED 250 for adding a partner",
+      "AED 250 for adding an activity"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

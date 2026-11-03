@@ -30,11 +30,13 @@ For reading documents, run the local AI (Ollama, offline after the download). In
 
 ```bash
 ollama serve
-ollama pull qwen3-vl:8b
+ollama pull qwen3-vl:8b-instruct
 ollama pull qwen3:1.7b
 ```
 
-`qwen3-vl:8b` reads documents; the small `qwen3:1.7b` works out which form someone means from what they type ("the medical test for my visa"). Without it, Sahl only finds a form whose name is typed.
+`qwen3-vl:8b-instruct` reads documents; the small `qwen3:1.7b` works out which form someone means from what they type ("the medical test for my visa"). Without it, Sahl only finds a form whose name is typed.
+
+That pair is the **Standard** AI model in Settings → General. **Lighter** (`qwen3:0.6b` + `qwen3-vl:4b-instruct`) is faster on smaller computers; **Stronger** (`qwen3:8b` + `qwen3-vl:30b-a3b-instruct`) needs about 32 GB of memory. The panel shows the `ollama pull` line for a size that isn't downloaded yet.
 
 Without it Sahl still reads the machine-readable lines, but won't type names it can't confirm.
 

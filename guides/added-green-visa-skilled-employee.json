@@ -1,0 +1,40 @@
+{
+  "id": "added-green-visa-skilled-employee",
+  "service": {
+    "en": "Abu Dhabi Green Visa for skilled employees",
+    "ar": "التأشيرة الخضراء في أبوظبي للموظفين المهرة",
+    "ur": "ابوظہبی گرین ویزا ہنرمند ملازمین",
+    "ml": "അബുദാബി ഗ്രീൻ വിസ (വൈദഗ്ധ്യമുള്ള ജീവനക്കാർ)"
+  },
+  "about": "Five-year residence for skilled employees on a qualifying contract.",
+  "authority": "ADDED",
+  "aliases": [
+    "Skilled employee green visa",
+    "Green visa skilled worker",
+    "التأشيرة الخضراء للموظفين المهرة",
+    "الإقامة الخضراء للمهرة"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-green-visa/for-skilled-employees",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Hold a work permit based on a UAE employment contract",
+      "Work in a MOHRE first, second or third skill level job",
+      "Hold a bachelor's degree or equivalent",
+      "Earn at least AED 15,000 a month"
+    ],
+    "documents": [
+      "Valid MOHRE employment contract showing job title and income",
+      "Attested bachelor's degree or equivalent"
+    ],
+    "timing": [
+      "The visa lasts 5 years"
+    ],
+    "channels": [
+      "Start with your employer's HR team",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

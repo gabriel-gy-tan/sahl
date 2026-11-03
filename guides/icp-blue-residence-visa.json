@@ -1,0 +1,44 @@
+{
+  "id": "icp-blue-residence-visa",
+  "service": {
+    "en": "Entry visa for Blue Residence applicants",
+    "ar": "تأشيرة دخول لمتقدمي الإقامة الزرقاء",
+    "ur": "نیلی رہائش کے درخواست گزاروں کے لیے داخلہ ویزا",
+    "ml": "ബ്ലൂ റെസിഡൻസി അപേക്ഷകർക്കുള്ള പ്രവേശന വിസ"
+  },
+  "about": "Get an entry visa while you apply for Blue Residence, for people active in climate, sustainability and the environment.",
+  "authority": "ICP",
+  "aliases": [
+    "Blue residency visa",
+    "Blue visa",
+    "التأشيرة الزرقاء",
+    "تأشيرة الإقامة الزرقاء"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bb228c587a0011cb16ad",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Entry visa for Blue Residence applicants. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Papers proving eligibility for Blue Residence"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "added-ip-industrial-design",
+  "service": {
+    "en": "Industrial design registration (UAE)",
+    "ar": "تسجيل تصميم صناعي",
+    "ur": "صنعتی ڈیزائن رجسٹریشن",
+    "ml": "ഇൻഡസ്ട്രിയൽ ഡിസൈൻ രജിസ്ട്രേഷൻ"
+  },
+  "about": "Guidance for registering the look of a product as an industrial design in the UAE.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register industrial design",
+    "Design registration UAE",
+    "تسجيل تصميم صناعي",
+    "حماية التصميم"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/registration-guidance/register-industrial-design",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP (Abu Dhabi IP) guidance page on the checked date. AD.iP gives guidance and the filing is made with the Ministry of Economy, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The design must be new, non-obvious, ornamental, tied to a product, and two or three-dimensional"
+    ],
+    "documents": [
+      "Assignment",
+      "Design drawings, representative drawings and description in Arabic and English",
+      "Drawing in Arabic (PDF)",
+      "Emirates ID copy",
+      "Memorandum of association and valid trade licence (companies only)",
+      "Power of attorney for individuals and companies registered outside the UAE"
+    ],
+    "fees": [
+      "Filing fees are paid at submission; amounts are not stated on the page"
+    ],
+    "timing": [
+      "Grant typically takes 6 to 18 months"
+    ],
+    "channels": [
+      "Ministry of Economy online portal",
+      "A patent attorney or registered agent is recommended; AD.iP lists providers",
+      "AD.iP: 800555, Baniyas Towers, Abu Dhabi, Mon-Thu 8 am to 3 pm, Fri 8 am to 11:30 am"
+    ]
+  },
+  "fields": []
+}

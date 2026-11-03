@@ -1,0 +1,39 @@
+{
+  "id": "tamm-release-impounded-vehicle-certificate",
+  "service": {
+    "en": "Issue a certificate for releasing impounded vehicles",
+    "ar": "إصدار شهادة الإفراج عن مركبة محجوزة",
+    "ur": "ضبط شدہ گاڑی کی رہائی کا سرٹیفکیٹ",
+    "ml": "പിടിച്ചെടുത്ത വാഹനം വിട്ടുകിട്ടാനുള്ള സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Let a vehicle owner collect a vehicle once its impound period ends.",
+  "authority": "TAMM",
+  "aliases": [
+    "Release impounded car",
+    "Vehicle impound release",
+    "الإفراج عن مركبة",
+    "فك حجز مركبة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/fines-violations/Issuing%20a%20Certificate%20for%20Releasing%20Impounded%20Vehicles",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Driving licence (original)",
+      "Emirates ID (original)",
+      "Passport (original)",
+      "Vehicle registration (original)"
+    ],
+    "fees": [
+      "100 AED issuance fee"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Abu Dhabi Police service centre"
+    ]
+  },
+  "fields": []
+}

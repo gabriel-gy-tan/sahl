@@ -1,0 +1,39 @@
+{
+  "id": "dld-tenancy-dubai-now",
+  "service": {
+    "en": "Register, renew or end a tenancy via Dubai Now",
+    "ar": "تسجيل أو تجديد أو إنهاء عقد الإيجار عبر دبي الآن",
+    "ur": "دبئی ناؤ کے ذریعے کرایہ نامہ رجسٹر، تجدید یا ختم کرنا",
+    "ml": "ദുബായ് നൗ വഴി വാടക കരാർ രജിസ്റ്റർ / പുതുക്കൽ / അവസാനിപ്പിക്കൽ"
+  },
+  "about": "Register, renew or end a tenancy contract in the Dubai Now app and sign it with UAE PASS.",
+  "authority": "DLD",
+  "aliases": [
+    "Dubai Now Ejari",
+    "Ejari via Dubai Now",
+    "إيجاري دبي الآن"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/register-renew-terminate-tenancy-contract/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register, renew or end a tenancy via Dubai Now. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Owners who manage their own property, and their tenants",
+      "A valid Emirates ID is needed"
+    ],
+    "documents": [
+      "Valid Emirates ID",
+      "UAE PASS for electronic signing"
+    ],
+    "fees": [
+      "AED 177.75 for registering a tenancy contract, including service, knowledge and innovation fees and VAT"
+    ],
+    "timing": [
+      "Instant"
+    ],
+    "channels": [
+      "Dubai Now app"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "tamm-parking-reservation-permit",
+  "service": {
+    "en": "Issue a parking reservation permit",
+    "ar": "إصدار تصريح حجز مواقف",
+    "ur": "پارکنگ ریزرویشن پرمٹ کا اجرا",
+    "ml": "പാർക്കിംഗ് റിസർവേഷൻ പെർമിറ്റ് നൽകൽ"
+  },
+  "about": "Banks, hotels, diplomatic bodies, hospitals and construction companies can apply to reserve parking spaces.",
+  "authority": "TAMM",
+  "aliases": [
+    "Reserve parking spaces",
+    "Mawaqif reservation permit",
+    "حجز مواقف",
+    "تصريح حجز مواقف للجهات"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ApplyforaParkingReservationPermit",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Banks, hotels, political and diplomatic bodies, hospitals and construction companies for projects"
+    ],
+    "documents": [
+      "Building permit",
+      "Official letter"
+    ],
+    "fees": [
+      "AED 200 application fee (private entities only)",
+      "AED 15,000 per parking space per 6 months (private)",
+      "AED 85 per parking space per day (private)"
+    ],
+    "timing": [
+      "About 3 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

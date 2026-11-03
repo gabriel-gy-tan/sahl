@@ -1,0 +1,42 @@
+{
+  "id": "dld-property-sale-dubai-now",
+  "service": {
+    "en": "Buy or sell a property via Dubai Now",
+    "ar": "شراء أو بيع عقار عبر دبي الآن",
+    "ur": "دبئی ناؤ کے ذریعے جائیداد خریدنا یا بیچنا",
+    "ml": "ദുബായ് നൗ വഴി സ്വത്ത് വാങ്ങൽ / വിൽക്കൽ"
+  },
+  "about": "Buy or sell a unit in a freehold area through the Dubai Now app, signing with UAE PASS.",
+  "authority": "DLD",
+  "aliases": [
+    "Dubai Now property sale",
+    "بيع عقار دبي الآن"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/buy-or-sell-property-via-dubai-now/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Buy or sell a property via Dubai Now. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For individuals who hold a UAE ID",
+      "The property must be free of restrictions and mortgages and in a freehold area",
+      "Only subdivided units such as apartments, offices and townhouses",
+      "The sale amount and fees go through an escrow account"
+    ],
+    "documents": [
+      "UAE PASS"
+    ],
+    "fees": [
+      "2% of the value from the seller and 2% from the buyer",
+      "AED 250 for the title deed and AED 250 for a villa or apartment map",
+      "AED 30 innovation fee and AED 30 knowledge fee",
+      "AED 1,000 plus VAT service partner fee if the value is AED 500,000 or more, otherwise AED 500 plus VAT"
+    ],
+    "timing": [
+      "Instant"
+    ],
+    "channels": [
+      "Dubai Now app"
+    ]
+  },
+  "fields": []
+}

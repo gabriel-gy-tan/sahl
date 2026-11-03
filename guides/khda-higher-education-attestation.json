@@ -1,0 +1,41 @@
+{
+  "id": "khda-higher-education-attestation",
+  "service": {
+    "en": "Attest a higher education certificate",
+    "ar": "تصديق شهادة التعليم العالي",
+    "ur": "اعلیٰ تعلیم کی سند کی تصدیق",
+    "ml": "ഉന്നത വിദ്യാഭ്യാസ സർട്ടിഫിക്കറ്റ് അറ്റസ്റ്റേഷൻ"
+  },
+  "about": "Get a degree or related document from a Dubai university attested.",
+  "authority": "KHDA",
+  "aliases": [
+    "Attest university degree",
+    "KHDA degree attestation",
+    "تصديق شهادة جامعية",
+    "تصديق الشهادة الجامعية"
+  ],
+  "source": "https://web.khda.gov.ae/en/Services/Student-Related-Services/Attestation-of-Higher-Education-Certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official KHDA service page on the checked date. KHDA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Documents issued before the 2006-07 academic year are not attested",
+      "The institution must be regulated by KHDA"
+    ],
+    "documents": [
+      "University degree or other official document",
+      "Student's transcript"
+    ],
+    "fees": [
+      "AED 220 in total: AED 200 application and AED 20 Knowledge and Innovation"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Dubai Now app",
+      "KHDA portal"
+    ]
+  },
+  "fields": []
+}

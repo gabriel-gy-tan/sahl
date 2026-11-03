@@ -1,0 +1,48 @@
+{
+  "id": "icp-establishment-card-amend",
+  "service": {
+    "en": "Establishment card amendment",
+    "ar": "تعديل بطاقة منشأة",
+    "ur": "ادارے کے کارڈ میں ترمیم",
+    "ml": "സ്ഥാപന കാർഡ് തിരുത്തൽ"
+  },
+  "about": "Change the data on an establishment card, such as the trade name, owner or partners.",
+  "authority": "ICP",
+  "aliases": [
+    "Amend establishment card",
+    "Add partner to establishment card",
+    "تعديل بطاقة الشركة",
+    "تعديل بطاقة منشأة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e70",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to government entities, private companies and free zone establishments",
+      "Fines paid and workers cleared"
+    ],
+    "documents": [
+      "Trade licence",
+      "Preliminary approval when adding a partner or changing activity",
+      "Signature authorisation letter",
+      "Letter from the authorised person asking for the changes"
+    ],
+    "fees": [
+      "Changing or adding an electronic service 200 AED",
+      "Adding a service category 100 AED",
+      "Adding visit visa privilege 5,000 AED",
+      "More visit visas 500 AED",
+      "Smart service fee 100 AED",
+      "Fine 1,000 AED for changing details without telling ICP"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "icp-violation-fine-payment",
+  "service": {
+    "en": "Pay a visa or residence violation fine",
+    "ar": "سداد غرامة مخالفة تأشيرة أو إقامة",
+    "ur": "ویزا یا رہائش کی خلاف ورزی کا جرمانہ ادا کرنا",
+    "ml": "വിസ / റെസിഡൻസ് നിയമലംഘന പിഴ അടയ്ക്കൽ"
+  },
+  "about": "Pay fines for breaking UAE entry or residence rules, such as overstaying.",
+  "authority": "ICP",
+  "aliases": [
+    "Pay overstay fine",
+    "Visa fine payment",
+    "ICP fines",
+    "دفع غرامة تأشيرة",
+    "سداد غرامات الإقامة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e73faf5ae59b00117389f1",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Pay a visa or residence violation fine. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Open to individuals, the private sector and the government sector",
+      "After paying, the status must be corrected or the person must leave the UAE"
+    ],
+    "documents": [
+      "No documents needed"
+    ],
+    "fees": [
+      "Overstay or expired visa, residence, exit permit or newborn registration: 50 AED a day",
+      "Misuse of smart services 2,000 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "The page gives no processing time"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "dmt-asateel-commercial-transport",
+  "service": {
+    "en": "Asateel commercial transport permits",
+    "ar": "تصاريح النقل التجاري (أسطيل)",
+    "ur": "اسطیل کمرشل ٹرانسپورٹ پرمٹ",
+    "ml": "അസ്ഥീൽ വാണിജ്യ ഗതാഗത പെർമിറ്റ്"
+  },
+  "about": "Company, vehicle and driver permits for freight and bus transport.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Asateel",
+    "Freight transport permit",
+    "منصة أسطيل",
+    "تصريح نقل البضائع"
+  ],
+  "source": "https://admobility.gov.ae/en/digital-services/commercial-transport",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. This service has no sign-in form of its own to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Companies in freight, passenger bus or school bus transport must register",
+      "Permits are issued only for vehicles with a working approved tracking device"
+    ],
+    "documents": [
+      "Approved tracking device list and the transport regulations are posted on the page for reference"
+    ],
+    "channels": [
+      "Asateel platform (asateel.itc.gov.ae)",
+      "Help desk ticket in Asateel",
+      "Service Support Call Centre 800555"
+    ]
+  },
+  "fields": []
+}

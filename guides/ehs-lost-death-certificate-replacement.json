@@ -1,0 +1,40 @@
+{
+  "id": "ehs-lost-death-certificate-replacement",
+  "service": {
+    "en": "Replacement for a lost death certificate",
+    "ar": "بدل فاقد لشهادة الوفاة",
+    "ur": "گم شدہ وفات سرٹیفکیٹ کا متبادل",
+    "ml": "നഷ്ടപ്പെട്ട മരണ സർട്ടിഫിക്കറ്റിന് പകരം"
+  },
+  "about": "Get a replacement copy of a lost death certificate.",
+  "authority": "EHS",
+  "aliases": [
+    "Duplicate death certificate",
+    "Lost death certificate",
+    "بدل فاقد شهادة وفاة",
+    "نسخة شهادة وفاة"
+  ],
+  "source": "https://www.ehs.gov.ae/en/services/services-directory/issue-of-a-replacement-for-lost-death-certificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official EHS service page on the checked date. EHS fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Replacement for a lost death certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Relatives of the deceased up to the fourth degree, legal representatives or embassy representatives"
+    ],
+    "documents": [
+      "No documents listed; the notification (QAID) number and birth date are entered in the application"
+    ],
+    "fees": [
+      "AED 65 per certificate"
+    ],
+    "timing": [
+      "24 hours"
+    ],
+    "channels": [
+      "EHS website or app",
+      "Birth and Death Portal",
+      "Service delivery centres"
+    ]
+  },
+  "fields": []
+}

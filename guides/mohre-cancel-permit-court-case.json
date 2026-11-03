@@ -1,0 +1,43 @@
+{
+  "id": "mohre-cancel-permit-court-case",
+  "service": {
+    "en": "Cancel the work permit of an employee with a labour court case",
+    "ar": "إلغاء تصريح عمل موظف لديه قضية عمالية",
+    "ur": "لیبر کورٹ کیس والے ملازم کا ورک پرمٹ منسوخ کرنا",
+    "ml": "ലേബർ കോടതി കേസുള്ള ജീവനക്കാരന്റെ വർക്ക് പെർമിറ്റ് റദ്ദാക്കൽ"
+  },
+  "about": "Cancel a work permit so an employee whose complaint went to the labour court can move on.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Cancel permit during court case",
+    "Work permit cancellation labour court",
+    "إلغاء تصريح عمل قضية عمالية",
+    "إلغاء إذن العمل"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/cancellation-of-work-permit-for-an-employee-with-a-labour-court-case",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee is registered in the Ministry's system and has an active work permit",
+      "A labour complaint has been referred to the Labour Court",
+      "No absence-from-work complaint against the employee"
+    ],
+    "documents": [
+      "Court ruling, if a verdict has been issued",
+      "Certificate of the active case showing the complaint status"
+    ],
+    "fees": [
+      "No fee"
+    ],
+    "timing": [
+      "Done in 14 working days",
+      "Result is sent by SMS"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "tamm-domestic-worker-new-contract",
+  "service": {
+    "en": "New employment contract and residence permit (domestic worker)",
+    "ar": "إصدار عقد عمل جديد لعامل خدمة منزلية",
+    "ur": "گھریلو ملازم کا نیا ملازمت معاہدہ",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ പുതിയ തൊഴിൽ കരാർ"
+  },
+  "about": "An employer applies for a new residence permit and work contract for a domestic worker.",
+  "authority": "TAMM",
+  "aliases": [
+    "Hire maid",
+    "New domestic worker visa",
+    "تأشيرة خادمة",
+    "عقد عامل منزلي جديد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/IssuenewResidencyPermitforDomesticWorker",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Contract",
+      "Health insurance scheme",
+      "Passport",
+      "Photo"
+    ],
+    "fees": [
+      "AED 215 for one year (citizen, GCC or diplomatic)",
+      "AED 315 for two years (citizen, GCC or diplomatic)",
+      "AED 5,215 for one year (resident or investor), which includes an AED 2,000 guarantee paid at the bank"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Ministry of Human Resources & Emiratisation"
+    ]
+  },
+  "fields": []
+}

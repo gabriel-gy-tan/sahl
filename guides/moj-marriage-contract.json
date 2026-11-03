@@ -1,0 +1,44 @@
+{
+  "id": "moj-marriage-contract",
+  "service": {
+    "en": "Marriage contract request",
+    "ar": "طلب عقد زواج",
+    "ur": "نکاح نامے کی درخواست",
+    "ml": "വിവാഹ കരാർ അപേക്ഷ"
+  },
+  "about": "Request an electronic marriage contract for Muslim or non-Muslim couples.",
+  "authority": "MOJ",
+  "aliases": [
+    "Marriage contract UAE",
+    "e-marriage",
+    "Civil marriage UAE",
+    "عقد زواج",
+    "زواج مدني"
+  ],
+  "source": "https://www.moj.gov.ae/en/services/services-categories/marriage-and-personal-status/request-for-marriage-contract.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOJ service page on the checked date. MOJ fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The page prints the fee without a currency, AED assumed. Marriage contract request. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Non-Muslims: both spouses at least 21, a civil marriage between a man and a woman, with legal capacity",
+      "Eligibility rules for Muslims are not listed on the page"
+    ],
+    "documents": [
+      "Emirates ID for all applicants",
+      "Muslims: identification of applicant and witnesses and any case documents",
+      "Non-Muslims: identity proof, embassy no-objection letter and a medical certificate including genetic testing",
+      "Premarital screening at a federal health centre"
+    ],
+    "fees": [
+      "AED 50 for the marriage contract request"
+    ],
+    "timing": [
+      "1 day"
+    ],
+    "channels": [
+      "e-marriage portal ezawaj.moj.gov.ae, sign in with UAE PASS",
+      "Contract is received electronically"
+    ]
+  },
+  "fields": []
+}

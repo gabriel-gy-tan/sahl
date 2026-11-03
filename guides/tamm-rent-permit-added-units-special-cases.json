@@ -1,0 +1,42 @@
+{
+  "id": "tamm-rent-permit-added-units-special-cases",
+  "service": {
+    "en": "Permit to rent units added for special cases",
+    "ar": "تصريح تأجير وحدات مضافة لحالات خاصة",
+    "ur": "خصوصی صورتوں میں شامل کردہ یونٹس کے کرایے کا اجازت نامہ",
+    "ml": "പ്രത്യേക സാഹചര്യങ്ങൾക്കായി ചേർത്ത യൂണിറ്റുകൾ വാടകയ്ക്ക് നൽകാനുള്ള പെർമിറ്റ്"
+  },
+  "about": "An owner of residential land or a government house applies to rent approved extra units once the special case no longer applies.",
+  "authority": "TAMM",
+  "aliases": [
+    "Rent additional units permit",
+    "Special case unit rental",
+    "تصريح تأجير وحدات إضافية",
+    "إيجار وحدات حالات خاصة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/IssuingaPermittoRentaUnitsAddedDuetoaSpecialCases",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Owner of residential land or a government house",
+      "Proof that the special case no longer exists"
+    ],
+    "documents": [
+      "Architectural layout plan",
+      "Documents supporting the case",
+      "Project completion certificate"
+    ],
+    "fees": [
+      "AED 5,000 application fee",
+      "AED 0 for the rental permit application"
+    ],
+    "timing": [
+      "About 10 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

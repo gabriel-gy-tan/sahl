@@ -1,0 +1,32 @@
+{
+  "id": "adek-nursery-location-change",
+  "service": {
+    "en": "Nursery location change",
+    "ar": "تعديل موقع الحضانة",
+    "ur": "نرسری کے مقام کی تبدیلی",
+    "ml": "നഴ്സറി സ്ഥലം മാറ്റൽ"
+  },
+  "about": "Ask ADEK to amend the location of a licensed nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "Amend nursery location",
+    "Move nursery",
+    "نقل موقع الحضانة",
+    "تعديل عنوان الحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Read the guidelines on the first page of the request wizard"
+    ],
+    "fees": [
+      "Payment is due after approval; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

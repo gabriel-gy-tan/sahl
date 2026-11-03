@@ -1,0 +1,30 @@
+{
+  "id": "adcustoms-importer-code",
+  "service": {
+    "en": "Importer or exporter code",
+    "ar": "رمز المستورد أو المصدر",
+    "ur": "درآمد کنندہ یا برآمد کنندہ کوڈ",
+    "ml": "ഇറക്കുമതി/കയറ്റുമതി കോഡ്"
+  },
+  "about": "Customs code a company needs to import or export goods through Abu Dhabi.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "Importer number",
+    "Customs profile",
+    "رقم المستورد",
+    "ملف جمركي"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 100 for a company importer or exporter code",
+      "AED 25 for renewing an importer code"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

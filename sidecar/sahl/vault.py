@@ -434,6 +434,26 @@ def people() -> list[dict]:
     return [{"id": str(i), "name": n} for i, n in _db().execute("select id, name from people order by name")]
 
 
+def documents() -> dict[str, tuple[int, str | None, str]]:
+    """{path: (mtime, person id, document type)} for every document read."""
+    return {p: (m, None if pid is None else str(pid), t)
+            for p, m, pid, t in _db().execute("select path, mtime, person, doc_type from files")}
+
+
+def summary() -> dict:
+    """What Sahl holds: each person's document types with counts, and how many documents belong to no one.
+    Never the values."""
+    names = {x["id"]: x["name"] for x in people()}
+    held, unmatched = {}, 0
+    for _, pid, doc in documents().values():
+        if pid in names:
+            docs = held.setdefault(pid, {})
+            docs[doc] = docs.get(doc, 0) + 1
+        else:
+            unmatched += 1
+    return {"people": [{"id": i, "name": n, "docs": held.get(i, {})} for i, n in names.items()], "unmatched": unmatched}
+
+
 def get(keys, person):
     """{value, verified, source, crop (data URL)} for one person, from the first of `keys` that has a value.
 

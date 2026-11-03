@@ -1,0 +1,47 @@
+{
+  "id": "icp-visa-60-day",
+  "service": {
+    "en": "60-day visa for certain nationals living abroad",
+    "ar": "تأشيرة 60 يومًا لمواطني دول محددة المقيمين بالخارج",
+    "ur": "بیرون ملک مقیم مخصوص ممالک کے شہریوں کے لیے 60 دن کا ویزا",
+    "ml": "വിദേശത്ത് താമസിക്കുന്ന ചില രാജ്യക്കാർക്കുള്ള 60 ദിവസ വിസ"
+  },
+  "about": "Get a 60-day entry visa if you hold a passport from a listed country and a visa or residence permit from a listed country.",
+  "authority": "ICP",
+  "aliases": [
+    "60 day UAE visa",
+    "Visit visa 60 days",
+    "تأشيرة 60 يوم",
+    "تأشيرة زيارة 60 يوما"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68f5bcdb8c587a0011cb16d5",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Ordinary passports from India, Kenya, Indonesia, Vietnam, Thailand, the Philippines and South Africa, plus family members",
+      "Must hold a valid visa or residence permit from the US, EU or UK, or a residence permit from Japan, South Korea, Australia, Canada, Singapore or New Zealand; India also accepts a US Green Card",
+      "Passport valid for at least 6 months",
+      "Cannot be extended"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Copy of the visa, residence permit or Green Card"
+    ],
+    "fees": [
+      "Issuance 250 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days",
+      "Valid 30 days before entry; stay 60 days from entry"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

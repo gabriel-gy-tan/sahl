@@ -1,0 +1,38 @@
+{
+  "id": "adek-nursery-expansion",
+  "service": {
+    "en": "Nursery expansion",
+    "ar": "توسعة الحضانة",
+    "ur": "نرسری کی توسیع",
+    "ml": "നഴ്സറി വിപുലീകരണം"
+  },
+  "about": "Apply to ADEK to expand an existing nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "Expand nursery",
+    "Nursery capacity increase",
+    "توسعة حضانة",
+    "زيادة سعة الحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Proposed capacity, plot number, sector and a description of the expansion",
+      "HSE self-inspection form",
+      "Service provider contracts, validated through TAWTHEEQ, with CCTV provider details",
+      "Other required documents and contracts"
+    ],
+    "eligibility": [
+      "Read the ADEK guidelines and policies before applying"
+    ],
+    "timing": [
+      "ADEK approval is required; no processing time is stated"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

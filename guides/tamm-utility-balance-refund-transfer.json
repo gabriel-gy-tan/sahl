@@ -1,0 +1,37 @@
+{
+  "id": "tamm-utility-balance-refund-transfer",
+  "service": {
+    "en": "Refund or transfer a utility account balance",
+    "ar": "استرداد رصيد حساب المرافق أو تحويله",
+    "ur": "یوٹیلیٹی اکاؤنٹ بیلنس کی واپسی یا منتقلی",
+    "ml": "യൂട്ടിലിറ്റി അക്കൗണ്ട് ബാലൻസ് റീഫണ്ട് / കൈമാറ്റം"
+  },
+  "about": "Ask for a credit balance to be refunded after closing a utility account, or moved to another account.",
+  "authority": "TAMM",
+  "aliases": [
+    "Utility deposit refund",
+    "Transfer water electricity balance",
+    "استرداد رصيد",
+    "تحويل رصيد حساب الكهرباء"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/utilities/BalanceRefundorTransfer-taqa",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID of the account holder",
+      "Bank certificate showing the IBAN",
+      "Power of attorney and the agent's Emirates ID, if someone applies on the holder's behalf",
+      "For companies: official company letter, economic licence and signature authorisation"
+    ],
+    "timing": [
+      "About 6 working days",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app) or another available channel",
+      "Provided by TAQA Distribution"
+    ]
+  },
+  "fields": []
+}

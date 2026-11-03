@@ -1,0 +1,37 @@
+{
+  "id": "tamm-parking-multi-storey-permit",
+  "service": {
+    "en": "Issue a multi-storey parking permit",
+    "ar": "إصدار تصريح مواقف المباني المتعددة الطوابق",
+    "ur": "کثیر منزلہ پارکنگ پرمٹ کا اجرا",
+    "ml": "ബഹുനില പാർക്കിംഗ് പെർമിറ്റ് നൽകൽ"
+  },
+  "about": "Apply for a permit to use multi-storey parking for three months, six months or a year.",
+  "authority": "TAMM",
+  "aliases": [
+    "Multi-storey parking subscription",
+    "Parking building permit",
+    "تصريح مواقف متعددة الطوابق",
+    "اشتراك مواقف"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/ApplyforMultiStoreyParking",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 1,369 for 3 months",
+      "AED 2,738 for 6 months",
+      "AED 5,475 for 12 months"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

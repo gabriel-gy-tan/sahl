@@ -1,0 +1,35 @@
+{
+  "id": "adek-nursery-licence-renewal",
+  "service": {
+    "en": "Private nursery licence renewal",
+    "ar": "تجديد ترخيص الحضانة الخاصة",
+    "ur": "نجی نرسری لائسنس کی تجدید",
+    "ml": "സ്വകാര്യ നഴ്സറി ലൈസൻസ് പുതുക്കൽ"
+  },
+  "about": "Renew the licence of a private nursery in Abu Dhabi.",
+  "authority": "ADEK",
+  "aliases": [
+    "Renew nursery licence",
+    "Nursery licence renewal",
+    "تجديد رخصة حضانة",
+    "تجديد ترخيص حضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "A valid trade licence",
+      "Staff details updated on the PASS system",
+      "Details of service providers",
+      "Updated documents and contracts"
+    ],
+    "fees": [
+      "The application fee applies; the amount is not stated on the page"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ]
+  },
+  "fields": []
+}

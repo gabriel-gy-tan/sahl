@@ -1,0 +1,38 @@
+{
+  "id": "tamm-property-owner-legal-name-change",
+  "service": {
+    "en": "Change legal name of a real estate owner",
+    "ar": "تغيير الاسم القانوني لمالك عقار",
+    "ur": "جائیداد کے مالک کے قانونی نام میں تبدیلی",
+    "ml": "റിയൽ എസ്റ്റേറ്റ് ഉടമയുടെ നിയമപരമായ പേര് മാറ്റൽ"
+  },
+  "about": "Change the name of a property owner or company based on a court letter or a residency administration letter.",
+  "authority": "TAMM",
+  "aliases": [
+    "Change owner name on title deed",
+    "Owner name amendment",
+    "تغيير اسم مالك العقار",
+    "تعديل اسم المالك"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/ChangeLegalNameofRealEstateAssetOwner",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Court decision",
+      "Trade licence",
+      "Power of attorney"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 15 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "Service centre"
+    ]
+  },
+  "fields": []
+}

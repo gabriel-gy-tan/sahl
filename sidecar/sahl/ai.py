@@ -6,6 +6,11 @@ the document number formats before anything is marked verified.
 import base64
 import json
 import os
+import shutil
+import subprocess
+import sys
+import threading
+import time
 import urllib.error
 import urllib.request
 from io import BytesIO
@@ -14,7 +19,38 @@ import numpy as np
 from PIL import Image
 
 OLLAMA = os.environ.get("SAHL_OLLAMA", "http://127.0.0.1:11434")
-MODEL = os.environ.get("SAHL_MODEL", "qwen3-vl:8b-instruct")  # instruct: answers directly, no hidden reasoning
+# The person picks how big a pair of local models to run: (text model for the form picker, vision model for documents).
+# Lighter is faster on a small computer; stronger needs a lot of memory. instruct: answers directly, no hidden reasoning.
+TIERS = {
+    "light": ("qwen3:0.6b", "qwen3-vl:4b-instruct"),
+    "standard": ("qwen3:1.7b", "qwen3-vl:8b-instruct"),
+    "strong": ("qwen3:8b", "qwen3-vl:30b-a3b-instruct"),
+}
+
+
+def _tier_file():
+    from . import vault  # vault imports this module
+    return vault.home() / "models.json"
+
+
+def tier() -> str:
+    try:
+        t = json.loads(_tier_file().read_text(encoding="utf-8"))["tier"]
+    except (OSError, ValueError, KeyError):
+        return "standard"
+    return t if t in TIERS else "standard"
+
+
+def set_tier(t: str):
+    _tier_file().write_text(json.dumps({"tier": t}), encoding="utf-8")
+
+
+def text_model() -> str:
+    return os.environ.get("SAHL_INTENT_MODEL") or TIERS[tier()][0]
+
+
+def vision_model() -> str:
+    return os.environ.get("SAHL_MODEL") or TIERS[tier()][1]
 
 FIELDS = ["doc_type", "full_name", "nationality", "date_of_birth", "passport_number", "emirates_id_number", "expiry_date"]
 SCHEMA = {
@@ -36,12 +72,89 @@ Return JSON only. Copy text exactly as printed in the human-readable part of the
 Use "" for anything not on this page. Do not guess."""
 
 
-def available(model: str = MODEL) -> bool:
+def installed() -> list[str]:
+    """The models Ollama has on this computer; [] when it isn't running."""
     try:
         with urllib.request.urlopen(OLLAMA + "/api/tags", timeout=2) as r:
-            return any(m["name"].startswith(model) for m in json.load(r)["models"])
+            return [m["name"] for m in json.load(r)["models"]]
     except (urllib.error.URLError, OSError, KeyError, ValueError):
+        return []
+
+
+def running() -> bool:
+    try:
+        urllib.request.urlopen(OLLAMA + "/api/tags", timeout=2).close()
+        return True
+    except (urllib.error.URLError, OSError):
         return False
+
+
+def binary() -> str | None:
+    """Where Ollama is installed, or None. The desktop apps don't always put it on PATH."""
+    for path in (shutil.which("ollama"), "/opt/homebrew/bin/ollama", "/usr/local/bin/ollama",
+                 "/Applications/Ollama.app/Contents/Resources/ollama",
+                 os.path.expandvars(r"%LOCALAPPDATA%\Programs\Ollama\ollama.exe")):
+        if path and os.path.isfile(path):
+            return path
+    return None
+
+
+def start() -> bool:
+    """Starts `ollama serve` when it isn't answering. False when Ollama isn't installed or doesn't come up."""
+    if running():
+        return True
+    exe = binary()
+    if not exe:
+        return False
+    flags = {"creationflags": 0x08000000} if sys.platform == "win32" else {"start_new_session": True}  # no console; outlive us
+    subprocess.Popen([exe, "serve"], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **flags)
+    for _ in range(30):
+        if running():
+            return True
+        time.sleep(0.5)
+    return False
+
+
+PULL = {"model": None, "done": 0, "total": 0, "error": False}  # the download in progress, for the panel
+_pulling = threading.Lock()
+
+
+def _pull(model: str):
+    PULL.update(model=model, done=0, total=0, error=False)
+    req = urllib.request.Request(OLLAMA + "/api/pull", json.dumps({"model": model}).encode(), {"content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:  # streams one JSON line per progress step
+            for line in r:
+                step = json.loads(line)
+                if step.get("error"):
+                    raise ValueError(step["error"])
+                if step.get("total"):
+                    PULL.update(done=step.get("completed", 0), total=step["total"])
+    except (urllib.error.URLError, OSError, ValueError):
+        PULL["error"] = True
+        return
+    PULL["model"] = None
+
+
+def prepare():
+    """In the background: start Ollama if needed, download the chosen models if missing, then load the text model."""
+    def work():
+        if not _pulling.acquire(blocking=False):
+            return
+        try:
+            if start():
+                for m in (text_model(), vision_model()):
+                    if not any(n.startswith(m) for n in installed()):
+                        _pull(m)
+                chat({"model": text_model(), "messages": [], "keep_alive": "30m"}, 60, 1)  # load it, so the first question is quick
+        finally:
+            _pulling.release()
+    threading.Thread(target=work, daemon=True).start()
+
+
+def available(model: str | None = None) -> bool:
+    model = model or vision_model()
+    return any(n.startswith(model) for n in installed())
 
 
 def chat(body: dict, timeout: float, tries: int = 2) -> dict | None:
@@ -63,7 +176,7 @@ def read_page(gray: np.ndarray) -> dict | None:
     buf = BytesIO()
     img.save(buf, "PNG")
     body = {
-        "model": MODEL,
+        "model": vision_model(),
         "stream": False,
         "think": False,
         "format": SCHEMA,

@@ -1,0 +1,294 @@
+{
+  "id": "form-india-personal-particulars",
+  "service": {
+    "en": "Indian missions · Personal Particulars Form",
+    "ar": "السفارة الهندية · نموذج البيانات الشخصية",
+    "ur": "ہندوستانی مشن · ذاتی تفصیلات فارم",
+    "ml": "ഇന്ത്യൻ മിഷൻ · വ്യക്തിഗത വിവര ഫോം"
+  },
+  "about": "The Personal Particulars Form that Indian embassies ask for with passport, police clearance and other consular services.",
+  "authority": "Embassy of India",
+  "aliases": [
+    "Personal Particulars Form",
+    "PP Form",
+    "PCC/Passport/Other Services form",
+    "Indian passport re-issue form"
+  ],
+  "source": "https://www.indembassysuriname.gov.in/public_files/assets/pdf/Passport_with_PPF-1.pdf",
+  "checked": "2026-11-03",
+  "note": "Labels read from the Embassy of India Paramaribo copy; the UAE missions may use a slightly different layout. Translations not reviewed by native speakers.",
+  "fields": [
+    {
+      "id": "full_name",
+      "vault_key": [
+        "passport.name",
+        "eid.name",
+        "other.name"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "1. Full name (Initials not allowed)",
+        "Full name (Initials not allowed)",
+        "Full name"
+      ],
+      "help": {
+        "en": "Your full name exactly as printed in your passport.",
+        "ar": "اسمك الكامل كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پورا نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ മുഴുവൻ പേര്."
+      }
+    },
+    {
+      "id": "sex",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "2. Sex: Male / Female / Others",
+        "Sex"
+      ],
+      "help": {
+        "en": "Tick male, female or others.",
+        "ar": "اختر ذكر أو أنثى أو غير ذلك.",
+        "ur": "Tick male, female or others.",
+        "ml": "Tick male, female or others."
+      }
+    },
+    {
+      "id": "name_changed",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(a) Has the applicant ever changed name?",
+        "Has the applicant ever changed name?"
+      ],
+      "help": {
+        "en": "Say yes or no.",
+        "ar": "أجب بنعم أو لا.",
+        "ur": "Say yes or no.",
+        "ml": "Say yes or no."
+      }
+    },
+    {
+      "id": "previous_name",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(b) If yes, previous name",
+        "If yes, previous name",
+        "Previous name"
+      ],
+      "help": {
+        "en": "Your earlier name, only if you changed it.",
+        "ar": "اسمك السابق إن غيّرته.",
+        "ur": "Your earlier name, only if you changed it.",
+        "ml": "Your earlier name, only if you changed it."
+      }
+    },
+    {
+      "id": "dob",
+      "vault_key": [
+        "passport.dob",
+        "eid.dob",
+        "other.dob"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "4. Date of Birth",
+        "Date of Birth",
+        "Date of birth"
+      ],
+      "help": {
+        "en": "Your date of birth, as the form asks (day, month, year).",
+        "ar": "تاريخ ميلادك بالصيغة المطلوبة في النموذج (يوم، شهر، سنة).",
+        "ur": "آپ کی تاریخ پیدائش، جیسا فارم میں مانگا گیا ہے (دن، مہینہ، سال)۔",
+        "ml": "നിങ്ങളുടെ ജനനത്തീയതി, ഫോമിൽ ചോദിച്ച രീതിയിൽ (ദിവസം, മാസം, വർഷം)."
+      }
+    },
+    {
+      "id": "place_of_birth",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "5. Place of Birth",
+        "Place of Birth"
+      ],
+      "help": {
+        "en": "The town or city where you were born.",
+        "ar": "المدينة أو البلدة التي ولدت فيها.",
+        "ur": "The town or city where you were born.",
+        "ml": "The town or city where you were born."
+      }
+    },
+    {
+      "id": "profession",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "6. Profession",
+        "Profession"
+      ],
+      "help": {
+        "en": "Your job or occupation.",
+        "ar": "مهنتك أو عملك.",
+        "ur": "Your job or occupation.",
+        "ml": "Your job or occupation."
+      }
+    },
+    {
+      "id": "father",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "7. a) Father",
+        "Father"
+      ],
+      "help": {
+        "en": "Your father's surname and name.",
+        "ar": "اسم والدك مع اسم العائلة.",
+        "ur": "Your father's surname and name.",
+        "ml": "Your father's surname and name."
+      }
+    },
+    {
+      "id": "mother",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "b) Mother",
+        "Mother"
+      ],
+      "help": {
+        "en": "Your mother's surname and name.",
+        "ar": "اسم والدتك مع اسم العائلة.",
+        "ur": "Your mother's surname and name.",
+        "ml": "Your mother's surname and name."
+      }
+    },
+    {
+      "id": "spouse",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "c) Husband / wife",
+        "Husband / wife"
+      ],
+      "help": {
+        "en": "Your spouse's surname and name, if married.",
+        "ar": "اسم زوجك أو زوجتك إن كنت متزوجا.",
+        "ur": "Your spouse's surname and name, if married.",
+        "ml": "Your spouse's surname and name, if married."
+      }
+    },
+    {
+      "id": "permanent_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "8 a) Permanent Address & Tel. No. along with Police Station",
+        "Permanent Address & Tel. No.",
+        "Permanent address"
+      ],
+      "help": {
+        "en": "Your permanent address in India, phone number and police station.",
+        "ar": "عنوانك الدائم في الهند مع الهاتف ومركز الشرطة.",
+        "ur": "Your permanent address in India, phone number and police station.",
+        "ml": "Your permanent address in India, phone number and police station."
+      }
+    },
+    {
+      "id": "present_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "8(b) Present Residential Address & Tel. No, along with Police Station and residing since",
+        "Present Residential Address",
+        "Present address"
+      ],
+      "help": {
+        "en": "Where you live now, with phone, police station and since when.",
+        "ar": "عنوان سكنك الحالي مع الهاتف ومركز الشرطة ومنذ متى.",
+        "ur": "Where you live now, with phone, police station and since when.",
+        "ml": "Where you live now, with phone, police station and since when."
+      }
+    },
+    {
+      "id": "references",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "10. References: Names and Addresses of two responsible persons in the applicant's locality who can vouch for the applicant",
+        "References"
+      ],
+      "help": {
+        "en": "Names, addresses and phones of two people who know you.",
+        "ar": "أسماء وعناوين وهواتف شخصين يعرفانك.",
+        "ur": "Names, addresses and phones of two people who know you.",
+        "ml": "Names, addresses and phones of two people who know you."
+      }
+    },
+    {
+      "id": "citizenship_by",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "11. Citizenship of India by",
+        "Citizenship of India by"
+      ],
+      "help": {
+        "en": "Tick how you are an Indian citizen: birth, descent, registration or naturalization.",
+        "ar": "اختر طريقة حصولك على الجنسية الهندية.",
+        "ur": "Tick how you are an Indian citizen: birth, descent, registration or naturalization.",
+        "ml": "Tick how you are an Indian citizen: birth, descent, registration or naturalization."
+      }
+    },
+    {
+      "id": "previous_passport_number",
+      "vault_key": [
+        "passport.number"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(i) Passport/Travel document No",
+        "Passport/Travel document No",
+        "Passport number"
+      ],
+      "help": {
+        "en": "The passport number printed on the photo page.",
+        "ar": "رقم جواز السفر المطبوع في صفحة الصورة.",
+        "ur": "فوٹو والے صفحے پر چھپا پاسپورٹ نمبر۔",
+        "ml": "ഫോട്ടോ പേജിൽ അച്ചടിച്ച പാസ്പോർട്ട് നമ്പർ."
+      }
+    },
+    {
+      "id": "previous_passport_issue",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "(ii) Date & Place of issue",
+        "Date & Place of issue"
+      ],
+      "help": {
+        "en": "When and where your last passport was issued.",
+        "ar": "تاريخ ومكان إصدار جوازك السابق.",
+        "ur": "When and where your last passport was issued.",
+        "ml": "When and where your last passport was issued."
+      }
+    }
+  ]
+}

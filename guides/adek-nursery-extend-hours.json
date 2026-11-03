@@ -1,0 +1,36 @@
+{
+  "id": "adek-nursery-extend-hours",
+  "service": {
+    "en": "Nursery opening hours extension",
+    "ar": "تمديد ساعات عمل الحضانة",
+    "ur": "نرسری کے اوقات کار میں توسیع",
+    "ml": "നഴ്സറി പ്രവർത്തന സമയം നീട്ടൽ"
+  },
+  "about": "Ask ADEK to approve longer working hours for a licensed nursery.",
+  "authority": "ADEK",
+  "aliases": [
+    "Extend nursery working hours",
+    "ECE extend working hours",
+    "تمديد ساعات الحضانة",
+    "تمديد الدوام للحضانة"
+  ],
+  "source": "https://guides.adek.gov.ae/LicensingSystem/tc/10012",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADEK Licensing System guide page on the checked date. Details are filled in after sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The nursery needs both a valid trade licence and a valid education licence"
+    ],
+    "documents": [
+      "Valid trade licence",
+      "Valid education licence"
+    ],
+    "channels": [
+      "ADEK Licensing System (licensing.adek.gov.ae), from the dashboard or the Services tab of the nursery"
+    ],
+    "timing": [
+      "ADEK approval is required; no processing time is stated"
+    ]
+  },
+  "fields": []
+}

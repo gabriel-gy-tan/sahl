@@ -1,0 +1,46 @@
+{
+  "id": "dha-internship-programme",
+  "service": {
+    "en": "Unified internship programme",
+    "ar": "برنامج الامتياز الموحد",
+    "ur": "یونیفائیڈ انٹرن شپ پروگرام",
+    "ml": "യൂണിഫൈഡ് ഇന്റേൺഷിപ്പ് പ്രോഗ്രാം"
+  },
+  "about": "Apply for the yearly unified medical and dental internship in DHA-accredited facilities. For healthcare professionals only.",
+  "authority": "DHA",
+  "aliases": [
+    "DHA internship",
+    "Medical internship Dubai",
+    "Dental internship",
+    "برنامج الامتياز",
+    "التدريب الطبي"
+  ],
+  "source": "https://www.dha.gov.ae/services/serviceDetails/84291768-bfc8-11e8-0720-005056ad1b09",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official DHA service page on the checked date. DHA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only for healthcare professionals (doctors, dentists, nurses and similar), not for patients or the general public",
+      "For medical or dental graduates of internationally recognised institutions"
+    ],
+    "documents": [
+      "CV",
+      "Attested certificate and transcript",
+      "Passport and Emirates ID",
+      "English test result such as TOEFL 550, IELTS Academic 6 or OET 300",
+      "ECE evaluation for degrees from outside the UAE"
+    ],
+    "fees": [
+      "AED 220 non-refundable application fee",
+      "AED 30,000 training fee for the medical programme",
+      "Dental training fee is set by the institution"
+    ],
+    "timing": [
+      "About two months after all requirements are complete"
+    ],
+    "channels": [
+      "DHA website"
+    ]
+  },
+  "fields": []
+}

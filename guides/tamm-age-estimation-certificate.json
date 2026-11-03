@@ -1,0 +1,41 @@
+{
+  "id": "tamm-age-estimation-certificate",
+  "service": {
+    "en": "Digital age estimation certificate",
+    "ar": "إصدار شهادة تقدير عمر رقمية",
+    "ur": "ڈیجیٹل عمر کے تخمینے کا سرٹیفکیٹ",
+    "ml": "ഡിജിറ്റൽ പ്രായ നിർണ്ണയ സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Emirati citizens without a birth certificate request an age estimation certificate.",
+  "authority": "TAMM",
+  "aliases": [
+    "Age estimate",
+    "No birth certificate",
+    "شهادة تقدير عمر",
+    "تقدير العمر"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/identification-documents/IssueaDigitalAgeEstimationCertificate",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For Emirati citizens who never obtained a birth certificate"
+    ],
+    "documents": [
+      "Medical report",
+      "Letter from the Ministry of Interior for the age estimation",
+      "Personal photo"
+    ],
+    "fees": [
+      "AED 50 certificate issuance fee"
+    ],
+    "timing": [
+      "1 working day"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

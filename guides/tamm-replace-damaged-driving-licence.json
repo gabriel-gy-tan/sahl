@@ -1,0 +1,36 @@
+{
+  "id": "tamm-replace-damaged-driving-licence",
+  "service": {
+    "en": "Replace a damaged driving licence",
+    "ar": "بدل تالف لرخصة القيادة",
+    "ur": "خراب ڈرائیونگ لائسنس کی تبدیلی",
+    "ml": "കേടായ ഡ്രൈവിംഗ് ലൈസൻസ് മാറ്റി വാങ്ങൽ"
+  },
+  "about": "Get a replacement for a damaged driving licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Damaged driving license",
+    "Replace licence card",
+    "بدل تالف رخصة قيادة",
+    "استبدال رخصة قيادة تالفة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/requestforareplacementofadamageddrivinglicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "300 AED"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

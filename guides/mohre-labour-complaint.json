@@ -1,0 +1,44 @@
+{
+  "id": "mohre-labour-complaint",
+  "service": {
+    "en": "Register a labour complaint",
+    "ar": "تسجيل شكوى عمالية",
+    "ur": "لیبر شکایت درج کرنا",
+    "ml": "തൊഴിൽ പരാതി രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Report a dispute between a private-sector employer and employee to the Ministry.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Labour complaint",
+    "Labor complaint",
+    "File a complaint against employer",
+    "تقديم شكوى عمالية",
+    "شكوى عمل"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/register-labor-complaints-private-sector-employees-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employer or employee can file when the other breaks contract obligations",
+      "Employee must be in the Ministry's database",
+      "No new complaint if the employee already has a pending complaint or court case, unless employment continues or the permit is to be cancelled"
+    ],
+    "documents": [
+      "Evidence for the claim if any, such as a resignation or dismissal letter",
+      "Employee's passport number, name, date of birth, nationality and ID card number",
+      "Employers add their establishment or licence number"
+    ],
+    "fees": [
+      "No fee"
+    ],
+    "timing": [
+      "Done in 14 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app"
+    ]
+  },
+  "fields": []
+}

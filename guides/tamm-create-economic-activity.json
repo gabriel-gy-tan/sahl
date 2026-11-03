@@ -1,0 +1,40 @@
+{
+  "id": "tamm-create-economic-activity",
+  "service": {
+    "en": "Create a new economic activity",
+    "ar": "إنشاء نشاط اقتصادي جديد",
+    "ur": "نئی اقتصادی سرگرمی بنانا",
+    "ml": "പുതിയ സാമ്പത്തിക പ്രവർത്തനം സൃഷ്ടിക്കൽ"
+  },
+  "about": "Ask for a new economic activity when the one you need is not on the approved list.",
+  "authority": "TAMM",
+  "aliases": [
+    "Add new activity",
+    "Request new business activity",
+    "طلب نشاط اقتصادي جديد",
+    "إضافة نشاط"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/economic-licence/Customerrequesttoaddeconomicactivity",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Only when the activity you need is missing from the approved list",
+      "Not for issuing, amending, renewing or cancelling a licence"
+    ],
+    "documents": [
+      "No documents are needed"
+    ],
+    "fees": [
+      "No extra costs"
+    ],
+    "timing": [
+      "5 working days",
+      "You are told if the request is approved or rejected"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

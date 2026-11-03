@@ -1,0 +1,46 @@
+{
+  "id": "icp-departure-permit",
+  "service": {
+    "en": "Departure permit for violators",
+    "ar": "تصريح مغادرة للمخالفين",
+    "ur": "خلاف ورزی کرنے والوں کے لیے روانگی کا اجازت نامہ",
+    "ml": "നിയമലംഘകർക്കുള്ള പുറപ്പെടൽ പെർമിറ്റ്"
+  },
+  "about": "Get a permit to leave the UAE after paying fines for overstaying.",
+  "authority": "ICP",
+  "aliases": [
+    "Exit permit overstay",
+    "Leave UAE with fines",
+    "تصريح خروج",
+    "إذن مغادرة مخالف"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e7e",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For people with fines; fines must be paid first",
+      "If a passport is lost, a police report and a consulate travel pass may be used first"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Birth certificate for newborns",
+      "Travel ticket with a departure date within 7 days of the permit"
+    ],
+    "fees": [
+      "Application 200 AED",
+      "Smart service fee 100 AED",
+      "Late fine 50 AED a day from the 8th day after the permit expires or is cancelled"
+    ],
+    "timing": [
+      "About 2 days",
+      "Leave within 7 days of issue or the permit must be cancelled"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "icp-residence-permit-amend",
+  "service": {
+    "en": "Amendment of residence permit data",
+    "ar": "تعديل بيانات الإقامة",
+    "ur": "رہائشی اجازت نامے کے ڈیٹا میں ترمیم",
+    "ml": "താമസ പെർമിറ്റ് വിവരങ്ങൾ തിരുത്തൽ"
+  },
+  "about": "Change details on an existing residence permit, such as the profession.",
+  "authority": "ICP",
+  "aliases": [
+    "Amend residence data",
+    "Change profession on residence",
+    "تعديل بيانات إقامة",
+    "تعديل المهنة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e67",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For residents, foreign students via their institution, and employees via their employer",
+      "Application is cancelled if requested changes are not completed in time"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Work card if the profession changes",
+      "Government letter for the government sector"
+    ],
+    "fees": [
+      "Emirates ID replacement to show new details 150 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

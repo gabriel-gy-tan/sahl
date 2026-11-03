@@ -1,0 +1,47 @@
+{
+  "id": "icp-establishment-card-issue",
+  "service": {
+    "en": "Establishment card issuance",
+    "ar": "إصدار بطاقة منشأة",
+    "ur": "ادارے کا کارڈ جاری کرنا",
+    "ml": "സ്ഥാപന കാർഡ് നൽകൽ"
+  },
+  "about": "Get an electronic ICP card for a company or government entity showing its registered data.",
+  "authority": "ICP",
+  "aliases": [
+    "Establishment card",
+    "Company card ICP",
+    "Immigration card",
+    "بطاقة منشأة",
+    "بطاقة الشركة"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e6d",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Valid trade licence",
+      "Valid Emirates ID of one authorised signatory, or a Unified Number for visitors",
+      "Free zone companies apply through their free zone authority",
+      "Government entities need the decree or law that set them up"
+    ],
+    "documents": [
+      "Government: establishing decree, board resolution, request letter and signature authorisation",
+      "Companies: trade licence, signature authorisation, memorandum of association for partnerships"
+    ],
+    "fees": [
+      "Application fee 100 AED",
+      "Issuance 100 AED per year",
+      "Smart service fee 100 AED",
+      "Electronic system subscription 2,000 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

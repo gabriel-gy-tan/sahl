@@ -1,0 +1,43 @@
+{
+  "id": "icp-visa-gcc-companions-extension",
+  "service": {
+    "en": "Extension of entry permit for companions of GCC citizens",
+    "ar": "تمديد تصريح دخول مرافقي مواطني دول الخليج",
+    "ur": "خلیجی شہریوں کے ساتھیوں کے داخلہ اجازت نامے میں توسیع",
+    "ml": "ഗൾഫ് പൗരന്മാരുടെ സഹയാത്രികരുടെ പ്രവേശന അനുമതി നീട്ടൽ"
+  },
+  "about": "Extend the visa of a companion of a GCC citizen by 30 days.",
+  "authority": "ICP",
+  "aliases": [
+    "Extend GCC companion visa",
+    "تمديد تأشيرة مرافق خليجي"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e3534f5ae59b001173840c",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Extension of entry permit for companions of GCC citizens. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Visitor category",
+      "Passport valid for at least 6 months",
+      "Extends the visa by 30 days"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Entry card of the companion of the GCC citizen",
+      "Proof of identity of the GCC citizen"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 500 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

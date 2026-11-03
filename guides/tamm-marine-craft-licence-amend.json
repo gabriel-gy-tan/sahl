@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-licence-amend",
+  "service": {
+    "en": "Amend a water sport marine craft licence",
+    "ar": "تعديل رخصة مركبة بحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ سمندری کرافٹ لائسنس میں ترمیم",
+    "ml": "വാട്ടർ സ്പോർട്ട് മറൈൻ ക്രാഫ്റ്റ് ലൈസൻസ് ഭേദഗതി"
+  },
+  "about": "Amend the technical specification on the licence of a water sport craft.",
+  "authority": "TAMM",
+  "aliases": [
+    "Change jet ski specifications",
+    "Water sport craft technical amendment",
+    "تعديل مواصفات مركبة بحرية",
+    "تعديل رخصة دراجة مائية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/AmendWaterSportsMarineCraftLicence",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "AED 300 for the on-site inspection visit"
+    ],
+    "timing": [
+      "About 30 days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

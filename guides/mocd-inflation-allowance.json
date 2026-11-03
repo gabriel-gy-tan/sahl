@@ -1,0 +1,47 @@
+{
+  "id": "mocd-inflation-allowance",
+  "service": {
+    "en": "Inflation allowance application",
+    "ar": "طلب علاوة التضخم",
+    "ur": "مہنگائی الاؤنس کی درخواست",
+    "ml": "പണപ്പെരുപ്പ അലവൻസ് അപേക്ഷ"
+  },
+  "about": "Apply for the inflation allowance for UAE national families and individuals under the income limit.",
+  "authority": "MOCD",
+  "aliases": [
+    "Inflation allowance",
+    "Cost of living allowance",
+    "علاوة التضخم",
+    "بدل التضخم"
+  ],
+  "source": "https://www.moce.gov.ae/en/w/applying-for-inflation-allowance",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOCD service page on the checked date. MOCD fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. The ministry is named MOCD in this file; its site is moce.gov.ae. Inflation allowance application. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "UAE citizens with monthly income under AED 25,000",
+      "Families: one spouse employed and insured by a pension authority, or retired, or a widowed or divorced head of household with a child under 21",
+      "Individuals: senior citizens, or widowed or divorced women aged 45 and over"
+    ],
+    "documents": [
+      "Emirates ID",
+      "Detailed salary certificate for the head of household and wives",
+      "Property documents for leased properties",
+      "Proof of commercial licence income",
+      "Identity proof for members with separate family book entries",
+      "Divorced applicants: court proof of custody and the children's IDs"
+    ],
+    "fees": [
+      "Free"
+    ],
+    "timing": [
+      "About 10 minutes to apply",
+      "Decision within 10 working days"
+    ],
+    "channels": [
+      "MOCD website, sign in with UAE PASS",
+      "Toll free 800623"
+    ]
+  },
+  "fields": []
+}

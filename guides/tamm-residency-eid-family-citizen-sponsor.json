@@ -1,0 +1,42 @@
+{
+  "id": "tamm-residency-eid-family-citizen-sponsor",
+  "service": {
+    "en": "Residency and Emirates ID for family (citizen sponsor)",
+    "ar": "إقامة وهوية إماراتية للعائلة (كفيل مواطن)",
+    "ur": "خاندان کے لیے رہائش اور ایمریٹس آئی ڈی (شہری کفیل)",
+    "ml": "കുടുംബത്തിന് റെസിഡൻസിയും എമിറേറ്റ്സ് ഐഡിയും (പൗര സ്പോൺസർ)"
+  },
+  "about": "A UAE citizen sponsor requests a residency permit and Emirates ID for their family.",
+  "authority": "TAMM",
+  "aliases": [
+    "Family Emirates ID citizen",
+    "Residence and EID Emirati sponsor",
+    "هوية وإقامة عائلة مواطن",
+    "إقامة عائلية كفيل مواطن"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequesttoIssuanceofResidenceandFamilyEIDanEmiratiCitizen",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Sponsor is a UAE citizen"
+    ],
+    "documents": [
+      "Certificate",
+      "Emirates ID",
+      "Passport"
+    ],
+    "fees": [
+      "AED 100 for card issuance",
+      "AED 28 e-services fee",
+      "AED 22 ICP fee"
+    ],
+    "timing": [
+      "About 2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,48 @@
+{
+  "id": "mohre-golden-visa-work-permit",
+  "service": {
+    "en": "Work permit for Golden Visa holders",
+    "ar": "تصريح عمل لأصحاب الإقامة الذهبية",
+    "ur": "گولڈن ویزا ہولڈرز کا ورک پرمٹ",
+    "ml": "ഗോൾഡൻ വിസ ഉടമകൾക്കുള്ള വർക്ക് പെർമിറ്റ്"
+  },
+  "about": "Get a work permit for someone who holds a Golden Visa and wants to take a job.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Golden visa work permit",
+    "Golden residency work permit",
+    "تصريح عمل الإقامة الذهبية",
+    "تصريح عمل حامل الإقامة الذهبية"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/work-permits-of-golden-visa-holders-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee is at least 18 and holds a valid Golden Visa",
+      "Job matches the establishment's activity",
+      "Establishment has a valid licence with no violations",
+      "Applied for by the establishment's authorised signatory",
+      "No bank guarantee, insurance or quota needed"
+    ],
+    "documents": [
+      "Page says to attach the required documents after login but does not list them"
+    ],
+    "fees": [
+      "Federal fee 50 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app; tax and collection charges are extra"
+    ],
+    "timing": [
+      "Done in 2 working days",
+      "Permit lasts 2 years"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

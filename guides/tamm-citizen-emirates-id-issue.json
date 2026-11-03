@@ -1,0 +1,37 @@
+{
+  "id": "tamm-citizen-emirates-id-issue",
+  "service": {
+    "en": "Issue Emirates ID for a citizen",
+    "ar": "إصدار الهوية الإماراتية للمواطن",
+    "ur": "شہری کے لیے ایمریٹس آئی ڈی کا اجرا",
+    "ml": "പൗരന്മാർക്കുള്ള എമിറേറ്റ്സ് ഐഡി നൽകൽ"
+  },
+  "about": "Emirati citizens request a new Emirates ID card.",
+  "authority": "TAMM",
+  "aliases": [
+    "New Emirates ID citizen",
+    "Emirati ID application",
+    "بطاقة هوية مواطن جديدة",
+    "طلب هوية إماراتية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Identity-Citizenship/IssueanEmiratesIDforCitizens",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Photograph"
+    ],
+    "fees": [
+      "AED 100 card fee for five years, or AED 200 for ten years",
+      "AED 50 electronic service fee"
+    ],
+    "timing": [
+      "5 working days"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

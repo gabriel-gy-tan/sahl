@@ -1,0 +1,38 @@
+{
+  "id": "tamm-parking-violation-fines-pay",
+  "service": {
+    "en": "Pay parking reservation and utilisation violation fines",
+    "ar": "سداد غرامات مخالفات حجز واستخدام المواقف",
+    "ur": "پارکنگ ریزرویشن اور استعمال کی خلاف ورزی کے جرمانے کی ادائیگی",
+    "ml": "പാർക്കിംഗ് റിസർവേഷൻ, ഉപയോഗ ലംഘന പിഴകൾ അടയ്ക്കൽ"
+  },
+  "about": "Companies pay fines for reserving or using parking spaces for business without a permit or against its conditions.",
+  "authority": "TAMM",
+  "aliases": [
+    "Pay parking reservation fines",
+    "Commercial parking violation",
+    "دفع مخالفات حجز المواقف",
+    "غرامات استخدام المواقف التجارية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Parking/PayParkingFines",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Companies with a commercial licence"
+    ],
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs beyond the fines"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

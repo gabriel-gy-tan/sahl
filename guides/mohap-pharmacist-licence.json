@@ -1,0 +1,44 @@
+{
+  "id": "mohap-pharmacist-licence",
+  "service": {
+    "en": "Licensing of pharmacists",
+    "ar": "ترخيص الصيادلة",
+    "ur": "فارماسسٹ کا لائسنس",
+    "ml": "ഫാർമസിസ്റ്റുകൾക്കുള്ള ലൈസൻസ്"
+  },
+  "about": "Licence a pharmacist or assistant pharmacist to work at a facility.",
+  "authority": "MOHAP",
+  "aliases": [
+    "Pharmacist licence",
+    "Pharmacy licence for pharmacist",
+    "ترخيص صيدلاني",
+    "رخصة صيدلي"
+  ],
+  "source": "https://mohap.gov.ae/en/w/licensing-of-pharmacists",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHAP service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Facility applies for its employees",
+      "At least two years of experience",
+      "No more than a two-year gap in work record",
+      "Assessment certificate is valid for five years"
+    ],
+    "documents": [
+      "Academic certificates and recent experience certificates",
+      "Valid assessment certificate and criminal clearance",
+      "Facility's licence request letter, job offer and employment contract",
+      "Passport, residence permit, Emirates ID and labour card copies",
+      "Pharmacist's character reference form",
+      "List of controlled medicines for official pharmacists"
+    ],
+    "fees": [
+      "Application fee 100 AED",
+      "Pharmacy practice licence 1,000 AED"
+    ],
+    "timing": [
+      "Done in 5 working days"
+    ]
+  },
+  "fields": []
+}

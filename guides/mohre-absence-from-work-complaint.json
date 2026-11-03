@@ -1,0 +1,45 @@
+{
+  "id": "mohre-absence-from-work-complaint",
+  "service": {
+    "en": "Report an employee absent from work",
+    "ar": "شكوى عمالية - الانقطاع عن العمل",
+    "ur": "ملازم کی غیر حاضری کی شکایت",
+    "ml": "ജോലിയിൽ ഹാജരാകാത്തതിനുള്ള പരാതി"
+  },
+  "about": "Let an employer report a worker who has stopped coming to work and cannot be reached.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Absconding report",
+    "Absence from work complaint",
+    "Labour complaint absence",
+    "بلاغ تغيب عن العمل",
+    "شكوى انقطاع عن العمل"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/filing-a-labor-complaint-absence-from-work-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employee has been absent for more than seven days",
+      "Employee is inside the UAE",
+      "Employer does not know where the employee is or cannot reach them",
+      "Any late-renewal permit fines must be paid",
+      "Approval cancels the work permit automatically, except recruitment-from-abroad and transfer permits"
+    ],
+    "documents": [
+      "Entry and exit movement report from the federal identity and port authority, dated within the last 30 days",
+      "A document from the authorities showing the employee is in the country, if Ministry systems lack their status"
+    ],
+    "fees": [
+      "No fee"
+    ],
+    "timing": [
+      "Done in 2 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app"
+    ]
+  },
+  "fields": []
+}

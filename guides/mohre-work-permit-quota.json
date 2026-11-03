@@ -1,0 +1,49 @@
+{
+  "id": "mohre-work-permit-quota",
+  "service": {
+    "en": "Work permit quota for establishments",
+    "ar": "حصص تصاريح العمل للمنشآت",
+    "ur": "اداروں کے لیے ورک پرمٹ کوٹہ",
+    "ml": "സ്ഥാപനങ്ങൾക്കുള്ള വർക്ക് പെർമിറ്റ് ക്വാട്ട"
+  },
+  "about": "Find out how many work permits an establishment may use, based on its Taq'eem report.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Electronic quota",
+    "Establishment quota",
+    "حصة المنشأة",
+    "تقييم المنشآت"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/work-permit-quotas-for-establishments-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Establishment holds a valid trade licence",
+      "Establishment has private status with no restrictions",
+      "Establishment has a valid Taq'eem report",
+      "Profession matches the business activities"
+    ],
+    "documents": [
+      "Evidence of work volume",
+      "Trade licence",
+      "List of vehicles matching the activity",
+      "Taq'eem report for electronic quotas"
+    ],
+    "fees": [
+      "Taq'eem fee 406 AED",
+      "Business centres may add a commission of up to 72 AED",
+      "Otherwise free on the website and app"
+    ],
+    "timing": [
+      "Done in 2 working days"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre",
+      "A Tawseel centre"
+    ]
+  },
+  "fields": []
+}

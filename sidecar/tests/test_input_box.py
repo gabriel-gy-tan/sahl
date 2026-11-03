@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from sahl.match import _input_box
+from sahl.match import _input_box, _row, date_parts
 
 ROOT = Path(__file__).resolve().parents[2]
 FONT = ImageFont.load_default(24)
@@ -53,3 +53,65 @@ def test_finds_underlined_box_to_the_right_of_label():
 def test_any_form_lets_the_layout_choose_the_side():
     guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
     assert {f["box"] for f in guide["fields"]} == {"auto"}
+
+
+def test_finds_day_month_year_dropdowns_in_a_row():
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((60, 50), "Date of birth", fill=0, font=FONT)
+    label = draw.textbbox((60, 50), "Date of birth", font=FONT)
+    lines = [("Date of birth", label)]
+    for x, shown in ((60, "Year"), (260, "Day"), (460, "Month")):  # a year-first form
+        draw.rectangle((x, 110, x + 160, 160), outline=0, width=2)
+        lines.append((shown, (x + 10, 120, x + 80, 150)))
+    row = _row(np.array(image), label)
+    assert [r[0] for r in row] == [60, 260, 460]
+    assert [p["kind"] for p in date_parts(row, lines)] == ["y", "d", "m"]
+    joined = [lines[0], ("Year Day Month", (70, 120, 600, 150))]  # OCR often reads boxes in a row as one line
+    assert [p["kind"] for p in date_parts(row, joined)] == ["y", "d", "m"]
+    assert [p["kind"] for p in date_parts(row, [lines[0]])] == ["d", "m", "y"]  # no placeholders: the guide's order
+
+
+def test_label_and_dropdowns_read_as_one_ocr_line():
+    """OCR reads "Date Of Birth Month v Day v Year v", a label inline with its dropdowns, as a single line."""
+    from sahl.match import match
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((80, 60), "Date Of Birth", fill=0, font=FONT)
+    for left, right in ((304, 430), (441, 531), (541, 647)):
+        draw.rectangle((left, 56, right, 100), outline=0, width=2)
+    guide = json.loads((ROOT / "guides/any-form.json").read_text(encoding="utf-8"))
+    for read in ("Date Of Birth Month - Day- Year -", "Date Of Birth Month- |Day-|Year -", "Date Of Birth Mar 21 2009"):
+        hit, = match([(read, (80, 56, 650, 100))], guide, np.array(image))
+        assert hit["id"] == "dob" and hit["seen"] == "Date Of Birth"
+        assert [p["kind"] for p in hit["parts"]] == ["m", "d", "y"]
+        assert [p["box"][0] for p in hit["parts"]] == [304, 441, 541]
+
+
+def test_a_numbered_label_is_not_cut_back_like_a_date():
+    from sahl.match import _labels
+    lines = [("Address line 2", (80, 56, 300, 100))]
+    assert _labels(lines, np.full((300, 900), 255, np.uint8), ["Date of birth"])[0] == lines
+
+
+def test_a_row_of_dropdowns_between_two_text_boxes_is_not_mistaken_for_one_tall_box():
+    """The bottom of the box above and the top of the box below pair into a phantom box that hides the real ones."""
+    image = Image.new("L", (900, 300), 255)
+    draw = ImageDraw.Draw(image)
+    draw.text((60, 120), "Date Of Birth", fill=0, font=FONT)
+    label = draw.textbbox((60, 120), "Date Of Birth", font=FONT)
+    draw.rectangle((300, 60, 800, 100), outline=0, width=2)    # a text box above
+    for left, right in ((300, 420), (428, 530), (538, 650)):   # the dropdowns, a few px apart
+        draw.rectangle((left, 112, right, 150), outline=0, width=2)
+    draw.rectangle((300, 160, 800, 200), outline=0, width=2)   # a text box below
+    assert [r[0] for r in _row(np.array(image), label)] == [300, 428, 538]
+
+
+def test_a_candidate_that_holds_another_is_dropped_but_near_twins_stay():
+    """On RoboForm the box above's bottom border paired with this box's bottom border, a taller phantom that won on
+    a one-pixel tie; the real box lies inside it."""
+    from sahl.match import _tight
+    phantom, real = (0.1, (423, 525, 593, 562)), (0.2, (424, 531, 592, 562))
+    assert _tight([phantom, real]) == [real]
+    twin = (0.3, (425, 531, 593, 562))
+    assert _tight([real, twin]) == [real, twin]

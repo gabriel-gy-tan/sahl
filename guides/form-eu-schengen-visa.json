@@ -1,0 +1,496 @@
+{
+  "id": "form-eu-schengen-visa",
+  "service": {
+    "en": "Schengen visa · application form",
+    "ar": "تأشيرة شنغن · نموذج الطلب",
+    "ur": "شینگن ویزا · درخواست فارم",
+    "ml": "ഷെങ്കൻ വിസ · അപേക്ഷാ ഫോം"
+  },
+  "about": "The standard harmonised paper form used to apply for a short-stay Schengen visa at any Schengen embassy or visa centre.",
+  "authority": "Schengen States",
+  "aliases": [
+    "Schengen visa application",
+    "Harmonised application form",
+    "Application for Schengen Visa",
+    "طلب تأشيرة شنغن"
+  ],
+  "source": "https://mzv.gov.cz/file/4189753/Schengen_visa_application_form_2024.pdf",
+  "checked": "2026-11-03",
+  "note": "Labels read from the harmonised form (a consulate copy, MIGR_119031); each country's copy may differ slightly in layout. Translations not reviewed by native speakers.",
+  "fields": [
+    {
+      "id": "surname",
+      "vault_key": [
+        "passport.surname",
+        "eid.surname"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "1. Surname (Family name)",
+        "Surname (Family name)",
+        "Surname/Family name",
+        "Last name"
+      ],
+      "help": {
+        "en": "Your family name exactly as printed in your passport.",
+        "ar": "اسم العائلة كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا خاندانی نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ കുടുംബപ്പേര്."
+      }
+    },
+    {
+      "id": "surname_at_birth",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "2. Surname at birth (Former family name(s))",
+        "Surname at birth",
+        "Former family name",
+        "Maiden name"
+      ],
+      "help": {
+        "en": "Your family name at birth, only if it differs from your surname now.",
+        "ar": "اسم العائلة عند الولادة إن كان يختلف عن اسمك الحالي.",
+        "ur": "Your family name at birth, only if it differs from your surname now.",
+        "ml": "Your family name at birth, only if it differs from your surname now."
+      }
+    },
+    {
+      "id": "given",
+      "vault_key": [
+        "passport.given",
+        "eid.given"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "3. First name(s) (Given name(s))",
+        "First name(s) (Given name(s))",
+        "First name",
+        "Given names"
+      ],
+      "help": {
+        "en": "Your first and middle names exactly as printed in your passport.",
+        "ar": "اسمك الأول والأوسط كما هو مكتوب في جواز السفر.",
+        "ur": "آپ کا پہلا اور درمیانی نام بالکل ویسا جیسا پاسپورٹ پر لکھا ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ അച്ചടിച്ചതുപോലെ നിങ്ങളുടെ ആദ്യ, മധ്യ പേരുകൾ."
+      }
+    },
+    {
+      "id": "dob",
+      "vault_key": [
+        "passport.dob",
+        "eid.dob",
+        "other.dob"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "4. Date of birth (day-month-year)",
+        "Date of birth (day-month-year)",
+        "Date of birth",
+        "تاريخ الميلاد"
+      ],
+      "help": {
+        "en": "Your date of birth, as the form asks (day, month, year).",
+        "ar": "تاريخ ميلادك بالصيغة المطلوبة في النموذج (يوم، شهر، سنة).",
+        "ur": "آپ کی تاریخ پیدائش، جیسا فارم میں مانگا گیا ہے (دن، مہینہ، سال)۔",
+        "ml": "നിങ്ങളുടെ ജനനത്തീയതി, ഫോമിൽ ചോദിച്ച രീതിയിൽ (ദിവസം, മാസം, വർഷം)."
+      }
+    },
+    {
+      "id": "place_of_birth",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "5. Place of birth",
+        "Place of birth",
+        "City of birth"
+      ],
+      "help": {
+        "en": "The town or city where you were born.",
+        "ar": "المدينة أو البلدة التي ولدت فيها.",
+        "ur": "The town or city where you were born.",
+        "ml": "The town or city where you were born."
+      }
+    },
+    {
+      "id": "country_of_birth",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "6. Country of birth",
+        "Country of birth"
+      ],
+      "help": {
+        "en": "The country where you were born.",
+        "ar": "الدولة التي ولدت فيها.",
+        "ur": "The country where you were born.",
+        "ml": "The country where you were born."
+      }
+    },
+    {
+      "id": "nationality",
+      "vault_key": [
+        "passport.nationality",
+        "eid.nationality",
+        "other.nationality"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "7. Current nationality",
+        "Current nationality",
+        "Nationality"
+      ],
+      "help": {
+        "en": "The nationality shown in your passport.",
+        "ar": "الجنسية المذكورة في جواز سفرك.",
+        "ur": "وہ قومیت جو آپ کے پاسپورٹ پر درج ہے۔",
+        "ml": "പാസ്പോർട്ടിൽ കാണിച്ചിരിക്കുന്ന പൗരത്വം."
+      }
+    },
+    {
+      "id": "sex",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "8. Sex",
+        "Sex",
+        "Gender"
+      ],
+      "help": {
+        "en": "Tick male or female as in your passport.",
+        "ar": "اختر ذكر أو أنثى كما في جواز السفر.",
+        "ur": "Tick male or female as in your passport.",
+        "ml": "Tick male or female as in your passport."
+      }
+    },
+    {
+      "id": "civil_status",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "9. Civil status",
+        "Civil status",
+        "Marital status"
+      ],
+      "help": {
+        "en": "Tick your marital status.",
+        "ar": "اختر حالتك الاجتماعية.",
+        "ur": "Tick your marital status.",
+        "ml": "Tick your marital status."
+      }
+    },
+    {
+      "id": "national_id_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "11. National identity number, where applicable",
+        "National identity number",
+        "National ID number"
+      ],
+      "help": {
+        "en": "Your home country's national ID number, if it has one.",
+        "ar": "رقم الهوية الوطنية في بلدك إن وجد.",
+        "ur": "Your home country's national ID number, if it has one.",
+        "ml": "Your home country's national ID number, if it has one."
+      }
+    },
+    {
+      "id": "passport_number",
+      "vault_key": [
+        "passport.number"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "13. Number of travel document",
+        "Number of travel document",
+        "Passport number",
+        "Travel document number"
+      ],
+      "help": {
+        "en": "The passport number printed on the photo page.",
+        "ar": "رقم جواز السفر المطبوع في صفحة الصورة.",
+        "ur": "فوٹو والے صفحے پر چھپا پاسپورٹ نمبر۔",
+        "ml": "ഫോട്ടോ പേജിൽ അച്ചടിച്ച പാസ്പോർട്ട് നമ്പർ."
+      }
+    },
+    {
+      "id": "passport_issue_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "14. Date of issue",
+        "Date of issue"
+      ],
+      "help": {
+        "en": "The date your passport was issued, as printed in it.",
+        "ar": "تاريخ إصدار جواز السفر كما هو مكتوب فيه.",
+        "ur": "The date your passport was issued, as printed in it.",
+        "ml": "The date your passport was issued, as printed in it."
+      }
+    },
+    {
+      "id": "passport_expiry",
+      "vault_key": [
+        "passport.expiry"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "15. Valid until",
+        "Valid until",
+        "Date of expiry"
+      ],
+      "help": {
+        "en": "The date your passport expires, as printed in it.",
+        "ar": "تاريخ انتهاء صلاحية جواز السفر كما هو مكتوب فيه.",
+        "ur": "آپ کے پاسپورٹ کی میعاد ختم ہونے کی تاریخ، جیسی اس میں چھپی ہے۔",
+        "ml": "പാസ്പോർട്ട് കാലഹരണപ്പെടുന്ന തീയതി, അതിൽ അച്ചടിച്ചതുപോലെ."
+      }
+    },
+    {
+      "id": "passport_issued_by",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "16. Issued by (country)",
+        "Issued by (country)",
+        "Issuing country"
+      ],
+      "help": {
+        "en": "The country that issued your passport.",
+        "ar": "الدولة التي أصدرت جواز سفرك.",
+        "ur": "The country that issued your passport.",
+        "ml": "The country that issued your passport."
+      }
+    },
+    {
+      "id": "home_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "19. Applicant's home address and e-mail address",
+        "Applicant's home address and e-mail address",
+        "Home address"
+      ],
+      "help": {
+        "en": "Your home address and e-mail address.",
+        "ar": "عنوان سكنك وبريدك الإلكتروني.",
+        "ur": "Your home address and e-mail address.",
+        "ml": "Your home address and e-mail address."
+      }
+    },
+    {
+      "id": "telephone",
+      "vault_key": [
+        "profile.mobile"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Telephone no.",
+        "Telephone number",
+        "Phone number"
+      ],
+      "help": {
+        "en": "Your mobile number with country code.",
+        "ar": "رقم هاتفك المحمول مع رمز الدولة.",
+        "ur": "آپ کا موبائل نمبر ملک کے کوڈ کے ساتھ۔",
+        "ml": "രാജ്യ കോഡോടുകൂടിയ നിങ്ങളുടെ മൊബൈൽ നമ്പർ."
+      }
+    },
+    {
+      "id": "occupation",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "21. Current occupation",
+        "Current occupation",
+        "Occupation"
+      ],
+      "help": {
+        "en": "Your job title or what you do now.",
+        "ar": "مهنتك الحالية.",
+        "ur": "Your job title or what you do now.",
+        "ml": "Your job title or what you do now."
+      }
+    },
+    {
+      "id": "employer",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "22. Employer and employer's address and telephone number",
+        "Employer and employer's address and telephone number",
+        "Employer"
+      ],
+      "help": {
+        "en": "Your employer's name, address and phone; for students, the school or university.",
+        "ar": "اسم جهة عملك وعنوانها وهاتفها، وللطلاب اسم المؤسسة التعليمية.",
+        "ur": "Your employer's name, address and phone; for students, the school or university.",
+        "ml": "Your employer's name, address and phone; for students, the school or university."
+      }
+    },
+    {
+      "id": "purpose_of_journey",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "23. Purpose(s) of the journey",
+        "Purpose(s) of the journey",
+        "Purpose of the journey"
+      ],
+      "help": {
+        "en": "Tick why you are travelling.",
+        "ar": "اختر الغرض من سفرك.",
+        "ur": "Tick why you are travelling.",
+        "ml": "Tick why you are travelling."
+      }
+    },
+    {
+      "id": "additional_purpose_info",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "24. Additional information on purpose of stay",
+        "Additional information on purpose of stay"
+      ],
+      "help": {
+        "en": "Any extra detail about your stay.",
+        "ar": "أي تفاصيل إضافية عن الغرض من الإقامة.",
+        "ur": "Any extra detail about your stay.",
+        "ml": "Any extra detail about your stay."
+      }
+    },
+    {
+      "id": "main_destination",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "25. Member State of main destination (and other Member States of destination, if applicable)",
+        "Member State of main destination"
+      ],
+      "help": {
+        "en": "The Schengen country where you will spend the most time.",
+        "ar": "دولة شنغن التي ستقضي فيها أطول وقت.",
+        "ur": "The Schengen country where you will spend the most time.",
+        "ml": "The Schengen country where you will spend the most time."
+      }
+    },
+    {
+      "id": "first_entry",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "26. Member state of first entry",
+        "Member state of first entry"
+      ],
+      "help": {
+        "en": "The Schengen country you will enter first.",
+        "ar": "دولة شنغن التي ستدخلها أولا.",
+        "ur": "The Schengen country you will enter first.",
+        "ml": "The Schengen country you will enter first."
+      }
+    },
+    {
+      "id": "arrival_date",
+      "vault_key": null,
+      "input": "date",
+      "box": "auto",
+      "aliases": [
+        "Intended date of arrival of the first intended stay in the Schengen area",
+        "Intended date of arrival"
+      ],
+      "help": {
+        "en": "The date you plan to arrive in the Schengen area.",
+        "ar": "تاريخ وصولك المتوقع إلى منطقة شنغن.",
+        "ur": "The date you plan to arrive in the Schengen area.",
+        "ml": "The date you plan to arrive in the Schengen area."
+      }
+    },
+    {
+      "id": "departure_date",
+      "vault_key": null,
+      "input": "date",
+      "box": "auto",
+      "aliases": [
+        "Intended date of departure from the Schengen area after the first intended stay",
+        "Intended date of departure"
+      ],
+      "help": {
+        "en": "The date you plan to leave the Schengen area.",
+        "ar": "تاريخ مغادرتك المتوقع لمنطقة شنغن.",
+        "ur": "The date you plan to leave the Schengen area.",
+        "ml": "The date you plan to leave the Schengen area."
+      }
+    },
+    {
+      "id": "inviting_person",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "30. Surname and first name of the inviting person(s) in the Member State(s)",
+        "Surname and first name of the inviting person(s)",
+        "Name of hotel(s) or temporary accommodation(s)"
+      ],
+      "help": {
+        "en": "Name of the person inviting you, or your hotel if none.",
+        "ar": "اسم الشخص الذي يدعوك أو اسم الفندق إن لم يوجد.",
+        "ur": "Name of the person inviting you, or your hotel if none.",
+        "ml": "Name of the person inviting you, or your hotel if none."
+      }
+    },
+    {
+      "id": "inviting_company",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "31. Name and address of inviting company/organisation",
+        "Name and address of inviting company/organisation"
+      ],
+      "help": {
+        "en": "The company or organisation inviting you, with its address.",
+        "ar": "اسم الشركة أو الجهة الداعية وعنوانها.",
+        "ur": "The company or organisation inviting you, with its address.",
+        "ml": "The company or organisation inviting you, with its address."
+      }
+    },
+    {
+      "id": "place_and_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Place and date"
+      ],
+      "help": {
+        "en": "The city where you sign and today's date.",
+        "ar": "المدينة التي توقع فيها وتاريخ اليوم.",
+        "ur": "The city where you sign and today's date.",
+        "ml": "The city where you sign and today's date."
+      }
+    }
+  ]
+}

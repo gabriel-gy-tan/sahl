@@ -1,0 +1,42 @@
+{
+  "id": "tamm-death-certificate-issue",
+  "service": {
+    "en": "Issue a death certificate",
+    "ar": "إصدار شهادة وفاة",
+    "ur": "ڈیتھ سرٹیفکیٹ جاری کرنا",
+    "ml": "മരണ സർട്ടിഫിക്കറ്റ് നൽകൽ"
+  },
+  "about": "A relative or authorised person applies for a death certificate, with optional Ministry of Foreign Affairs certification.",
+  "authority": "TAMM",
+  "aliases": [
+    "Death certificate",
+    "Register a death",
+    "شهادة وفاة",
+    "إصدار شهادة وفاة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DeceasedInheritance/Deceased/IssueDeathCertificate",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "A relative of the deceased or an authorised person"
+    ],
+    "documents": [
+      "Deceased's Emirates ID, passport and residence visa",
+      "Official document evidencing the death",
+      "Power of attorney or authorisation letter, if applying for someone else"
+    ],
+    "fees": [
+      "AED 300 Ministry of Foreign Affairs attestation",
+      "AED 50 per copy from the third copy onward"
+    ],
+    "timing": [
+      "About 10 minutes"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Health"
+    ]
+  },
+  "fields": []
+}

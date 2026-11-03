@@ -1,0 +1,38 @@
+{
+  "id": "dmt-hafilat-anonymous-card",
+  "service": {
+    "en": "Hafilat anonymous bus card",
+    "ar": "بطاقة حافلات الأنونيمس",
+    "ur": "حافلات گمنام کارڈ",
+    "ml": "ഹഫീലാത്ത് അനോണിമസ് കാർഡ്"
+  },
+  "about": "Rechargeable card for Abu Dhabi public buses, no registration needed.",
+  "authority": "Abu Dhabi Mobility",
+  "aliases": [
+    "Hafilat card",
+    "Bus card Abu Dhabi",
+    "بطاقة حافلات",
+    "بطاقة حافلات العامة"
+  ],
+  "source": "https://admobility.gov.ae/en/pb-bus-service/hafilat-cards",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Mobility page on the checked date. The card is bought in person or online, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "No prerequisites"
+    ],
+    "documents": [
+      "None when buying in person",
+      "Online applications: the application copy and payment receipt, shown at a customer care office at a bus station or the airport"
+    ],
+    "fees": [
+      "AED 10 for the card, valid 16 years"
+    ],
+    "channels": [
+      "Ticket vending machines",
+      "Partner stores such as SPAR, Al Ain Co-op and Lulu",
+      "Customer Happiness Offices at bus stations and the airport"
+    ]
+  },
+  "fields": []
+}

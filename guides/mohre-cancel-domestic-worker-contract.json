@@ -1,0 +1,46 @@
+{
+  "id": "mohre-cancel-domestic-worker-contract",
+  "service": {
+    "en": "Cancel a domestic worker's employment contract",
+    "ar": "إلغاء عقد عمل عامل خدمة منزلية",
+    "ur": "گھریلو ملازم کا ملازمت معاہدہ منسوخ کرنا",
+    "ml": "ഗാർഹിക തൊഴിലാളിയുടെ തൊഴിൽ കരാർ റദ്ദാക്കൽ"
+  },
+  "about": "End the employment contract of a domestic worker, inside or outside the country.",
+  "authority": "MOHRE",
+  "aliases": [
+    "Cancel maid contract",
+    "Domestic worker contract cancellation",
+    "إلغاء عقد خادمة",
+    "إلغاء عقد عامل منزلي"
+  ],
+  "source": "https://www.mohre.gov.ae/en/services/cancellation-of-a-domestic-workers-employment-contract-inside-or-outside-of-the-country-2022",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official MOHRE service page on the checked date. Field labels sit behind sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Employer's passport and ID card must be valid",
+      "Resident employers or investors need a valid residence visa"
+    ],
+    "documents": [
+      "Employer's passport copy (citizens include the unified number page)",
+      "Employer's valid original ID",
+      "Worker's passport copy and ID card",
+      "Resident employer's or investor's residence visa"
+    ],
+    "fees": [
+      "65 AED outside Dubai",
+      "85.75 AED in Dubai inside the country; 185.75 AED outside it",
+      "Business centres may add a commission of up to 72 AED"
+    ],
+    "timing": [
+      "Done in 1 working day"
+    ],
+    "channels": [
+      "MOHRE website",
+      "MOHRE smart app",
+      "A MOHRE service centre"
+    ]
+  },
+  "fields": []
+}

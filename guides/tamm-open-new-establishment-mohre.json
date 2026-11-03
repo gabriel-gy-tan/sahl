@@ -1,0 +1,41 @@
+{
+  "id": "tamm-open-new-establishment-mohre",
+  "service": {
+    "en": "Open a new establishment (MOHRE)",
+    "ar": "فتح منشأة جديدة (وزارة الموارد البشرية والتوطين)",
+    "ur": "نئی ادارہ کھولنا (وزارت انسانی وسائل)",
+    "ml": "പുതിയ സ്ഥാപനം തുറക്കൽ (മൊഹ്രെ)"
+  },
+  "about": "Register an establishment with the Ministry of Human Resources and Emiratisation and get its MOHRE code.",
+  "authority": "TAMM",
+  "aliases": [
+    "MOHRE establishment file",
+    "Open labour file",
+    "فتح منشأة وزارة الموارد",
+    "ملف منشأة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/Start-a-Business/Business-Support/OpenNewEstablishment",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Appendix to the partnership contract",
+      "Emirates ID",
+      "Establishment card",
+      "Licence",
+      "Memorandum of association",
+      "Tenancy contract"
+    ],
+    "fees": [
+      "37.80 AED electronic document processing",
+      "406.35 AED Ta'qeem fees"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "TAMM website or mobile app"
+    ]
+  },
+  "fields": []
+}

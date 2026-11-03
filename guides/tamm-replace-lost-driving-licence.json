@@ -1,0 +1,37 @@
+{
+  "id": "tamm-replace-lost-driving-licence",
+  "service": {
+    "en": "Replace a lost driving licence",
+    "ar": "بدل فاقد لرخصة القيادة",
+    "ur": "گم شدہ ڈرائیونگ لائسنس کی تبدیلی",
+    "ml": "നഷ്ടപ്പെട്ട ഡ്രൈവിംഗ് ലൈസൻസ് മാറ്റി വാങ്ങൽ"
+  },
+  "about": "Get a replacement for a lost driving licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Lost driving license",
+    "Duplicate licence",
+    "بدل فاقد رخصة قيادة",
+    "فقدان رخصة القيادة"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/manage-driving-licence/requestforreplacementoflostdrivinglicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID (original)"
+    ],
+    "fees": [
+      "300 AED for a licence held more than one year",
+      "100 AED for a licence held one year"
+    ],
+    "timing": [
+      "2 working days"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)",
+      "an Integrated Transport Center service centre"
+    ]
+  },
+  "fields": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "dld-ownership-certificate",
+  "service": {
+    "en": "To Whom It May Concern certificate",
+    "ar": "شهادة لمن يهمه الأمر",
+    "ur": "متعلقہ حکام کے نام سرٹیفکیٹ",
+    "ml": "ബന്ധപ്പെട്ടവർക്കുള്ള സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a letter confirming property ownership or compliance with property management rules.",
+  "authority": "DLD",
+  "aliases": [
+    "No objection letter",
+    "Ownership certificate",
+    "شهادة ملكية",
+    "شهادة لمن يهمه الأمر"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/to-whom-it-may-concern-certificate/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. To Whom It May Concern certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents through the app or website",
+      "Emirates ID at a trustee centre, plus a passport for non-residents"
+    ],
+    "fees": [
+      "AED 50 per letter plus AED 10 knowledge and AED 10 innovation fees",
+      "AED 50 plus VAT extra at a trustee centre",
+      "Free for People of Determination and AED 70 for senior citizens via call centre"
+    ],
+    "timing": [
+      "Instant"
+    ],
+    "channels": [
+      "Dubai REST app",
+      "DLD website",
+      "Real Estate Trustee Centres",
+      "DLD call centre for People of Determination and senior citizens"
+    ]
+  },
+  "fields": []
+}

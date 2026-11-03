@@ -1,0 +1,46 @@
+{
+  "id": "moe-grade12-equivalency-abroad",
+  "service": {
+    "en": "Grade 12 certificate equivalency (from abroad)",
+    "ar": "معادلة شهادة الصف الثاني عشر الصادرة من خارج الدولة",
+    "ur": "گریڈ 12 سرٹیفکیٹ کی مساوات (بیرون ملک)",
+    "ml": "ഗ്രേഡ് 12 സർട്ടിഫിക്കറ്റ് തുല്യത (വിദേശത്ത് നിന്ന്)"
+  },
+  "about": "Get a Grade 12 certificate issued outside the UAE recognised as equivalent.",
+  "authority": "MOE",
+  "aliases": [
+    "Foreign certificate equivalency",
+    "High school certificate equivalence abroad",
+    "معادلة شهادة من الخارج",
+    "معادلة الشهادة الثانوية"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/CertEquivalent-Out.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Grade 12 certificate equivalency (from abroad). Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Certificate is checked for authenticity and the issuing institute's recognition",
+      "Distance-learning, open school and GED style certificates are not equalised"
+    ],
+    "documents": [
+      "Attested high school certificate and the two previous years' certificates",
+      "Passport copy",
+      "Job offer letter (for work) or university admission letter (for study)",
+      "Attested legal translation if not in Arabic or English",
+      "Grade 12 transcript and certificate attested by UAE MOFA",
+      "PDF only, up to 5 MB per file"
+    ],
+    "fees": [
+      "AED 50"
+    ],
+    "timing": [
+      "3 to 5 working days if everything is in order",
+      "Up to 30 working days if a committee review and extra correspondence are needed"
+    ],
+    "channels": [
+      "MOE website or smart app, sign in with UAE PASS",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

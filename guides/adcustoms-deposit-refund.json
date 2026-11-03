@@ -1,0 +1,30 @@
+{
+  "id": "adcustoms-deposit-refund",
+  "service": {
+    "en": "Customs deposit refund",
+    "ar": "استرداد التأمين الجمركي",
+    "ur": "کسٹمز ڈپازٹ کی واپسی",
+    "ml": "കസ്റ്റംസ് ഡെപ്പോസിറ്റ് റീഫണ്ട്"
+  },
+  "about": "Ask to get a customs deposit back.",
+  "authority": "Abu Dhabi Customs",
+  "aliases": [
+    "Refund deposits",
+    "Customs deposit return",
+    "استرداد التأمينات",
+    "طلب استرجاع تأمين"
+  ],
+  "source": "https://www.adcustoms.gov.ae/en/Policies-and-Regulations/Customs-Services-Fees-Guide",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Abu Dhabi Customs fees guide page on the checked date. Services are requested through TAMM, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "fees": [
+      "AED 50 for a refund of deposit",
+      "AED 1,000 deposit when original documents are missing"
+    ],
+    "channels": [
+      "TAMM platform (tamm.abudhabi), as linked from the Abu Dhabi Customs site"
+    ]
+  },
+  "fields": []
+}

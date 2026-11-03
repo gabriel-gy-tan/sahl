@@ -1,0 +1,38 @@
+{
+  "id": "added-non-work-visa-real-estate-owner",
+  "service": {
+    "en": "Abu Dhabi Real Estate Owner Visa",
+    "ar": "تأشيرة مالك العقار في أبوظبي",
+    "ur": "ابوظہبی پراپرٹی مالک ویزا",
+    "ml": "അബുദാബി റിയൽ എസ്റ്റേറ്റ് ഉടമ വിസ"
+  },
+  "about": "Two-year residence for people who fully own a finished property.",
+  "authority": "ADDED",
+  "aliases": [
+    "Property owner visa",
+    "Real estate owner residence",
+    "إقامة مالك العقار",
+    "تأشيرة التملك العقاري"
+  ],
+  "source": "https://www.added.gov.ae/en/live/long-term-residency/abu-dhabi-non-work-visa/for-real-estate-owner-visa",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ADDED long-term residency page on the checked date. The visa itself is applied for through ICP, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The property must be fully built and habitable, not vacant land",
+      "The applicant must own it outright",
+      "Monthly income of at least AED 10,000, or proof of financial solvency during the stay"
+    ],
+    "documents": [
+      "Ownership certificate from the emirate's real estate registration authority"
+    ],
+    "timing": [
+      "The visa lasts 2 years and can be renewed if the conditions are still met"
+    ],
+    "channels": [
+      "ICP website (icp.gov.ae)",
+      "ADDED contact line 800555, 8 am to 3 pm, or contact@tamm.abudhabi"
+    ]
+  },
+  "fields": []
+}

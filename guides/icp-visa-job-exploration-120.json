@@ -1,0 +1,47 @@
+{
+  "id": "icp-visa-job-exploration-120",
+  "service": {
+    "en": "Job exploration visa, 120 days",
+    "ar": "تأشيرة البحث عن عمل 120 يوما",
+    "ur": "ملازمت تلاش ویزا، 120 دن",
+    "ml": "തൊഴിൽ അന്വേഷണ വിസ, 120 ദിവസം"
+  },
+  "about": "Get a single-entry visa to look for a job in the UAE for 120 days, without a UAE host.",
+  "authority": "ICP",
+  "aliases": [
+    "Job seeker visa 120 days",
+    "Job exploration visa",
+    "Look for a job UAE visa",
+    "تأشيرة استكشاف وظائف 120 يوم",
+    "تأشيرة باحث عن عمل"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e356135ae59b001173842d",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Job exploration visa, 120 days. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Stay of 120 days on a single entry, without a UAE host",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months",
+      "The page does not say how long the visa is valid for entry or whether it can be extended"
+    ],
+    "documents": [
+      "Passport and personal photo",
+      "Other papers only if ICP cannot fetch them from government records"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED",
+      "Overstay fine 50 AED a day"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

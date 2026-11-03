@@ -1,0 +1,42 @@
+{
+  "id": "added-ip-trademark-registration",
+  "service": {
+    "en": "Trademark registration (UAE)",
+    "ar": "تسجيل علامة تجارية",
+    "ur": "ٹریڈ مارک رجسٹریشن",
+    "ml": "ട്രേഡ്മാർക്ക് രജിസ്ട്രേഷൻ"
+  },
+  "about": "Guidance for registering a trademark in the UAE through the Ministry of Economy.",
+  "authority": "ADDED",
+  "aliases": [
+    "Register a trademark",
+    "Trademark application UAE",
+    "تسجيل علامة تجارية",
+    "حماية العلامة التجارية"
+  ],
+  "source": "https://www.added.gov.ae/en/ipu/create-ip/registration-guidance/register-trademark",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official AD.iP (Abu Dhabi IP) guidance page on the checked date. AD.iP gives guidance and the filing is made with the Ministry of Economy, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "The mark must be in use in trade and distinctive, and not easily confused with a mark for similar goods or services"
+    ],
+    "documents": [
+      "Individual UAE-based owner: no licence needed",
+      "Company or institution: a commercial licence",
+      "Filing through an agent: a legal power of attorney",
+      "Foreign owner: must file through a registration agent with a notarised power of attorney"
+    ],
+    "fees": [
+      "Fees are paid after submission; amounts are not stated on the page"
+    ],
+    "timing": [
+      "Steps run from submission to fee payment, examination and then registration; no time is stated"
+    ],
+    "channels": [
+      "Ministry of Economy online trademark portal",
+      "AD.iP lists IP service providers for help"
+    ]
+  },
+  "fields": []
+}

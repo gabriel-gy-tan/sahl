@@ -1,0 +1,40 @@
+{
+  "id": "moe-academic-record-certificate",
+  "service": {
+    "en": "Academic record To Whom It May Concern certificate",
+    "ar": "شهادة لمن يهمه الأمر بالتسلسل الدراسي",
+    "ur": "تعلیمی ریکارڈ کا سرٹیفکیٹ",
+    "ml": "അക്കാദമിക് റെക്കോർഡ് സർട്ടിഫിക്കറ്റ്"
+  },
+  "about": "Get a certificate listing the grade attended in each year from Grade 1 to 12.",
+  "authority": "MOE",
+  "aliases": [
+    "Academic sequence certificate",
+    "School history certificate",
+    "شهادة التسلسل الدراسي",
+    "شهادة لمن يهمه الأمر"
+  ],
+  "source": "https://www.moe.gov.ae/en/eservices/servicecard/Pages/Student-Academic-Record-To-Whom-It-May-Concern-Certificate-request.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official MOE service page on the checked date. MOE fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. Academic record To Whom It May Concern certificate. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For government schools and private schools that follow the ministry curriculum"
+    ],
+    "documents": [
+      "No documents required"
+    ],
+    "fees": [
+      "AED 15"
+    ],
+    "timing": [
+      "3 working days"
+    ],
+    "channels": [
+      "MOE website or mobile app, sign in with UAE PASS",
+      "Certificate delivered electronically",
+      "Toll free 80051115"
+    ]
+  },
+  "fields": []
+}

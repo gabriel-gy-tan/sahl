@@ -1,0 +1,36 @@
+{
+  "id": "tamm-property-details-amend",
+  "service": {
+    "en": "Amend property details",
+    "ar": "تعديل بيانات العقار",
+    "ur": "پراپرٹی کی تفصیلات میں ترمیم",
+    "ml": "വസ്തു വിവരങ്ങൾ ഭേദഗതി"
+  },
+  "about": "Change the details of a real estate unit that is already listed and registered.",
+  "authority": "TAMM",
+  "aliases": [
+    "Edit property data",
+    "Change unit details",
+    "تعديل بيانات وحدة عقارية",
+    "تعديل عقار"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/HousingProperties/units/RequesttoAmendPropertyDetails",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "DMK Excel file with the property details",
+      "Charts and drawings",
+      "Building completion certificate"
+    ],
+    "timing": [
+      "1 working day",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM, or visit a service centre",
+      "Provided by Department of Municipalities and Transport"
+    ]
+  },
+  "fields": []
+}

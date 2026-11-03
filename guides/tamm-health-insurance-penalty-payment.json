@@ -1,0 +1,38 @@
+{
+  "id": "tamm-health-insurance-penalty-payment",
+  "service": {
+    "en": "Health insurance penalty payment",
+    "ar": "سداد غرامة التأمين الصحي",
+    "ur": "ہیلتھ انشورنس جرمانے کی ادائیگی",
+    "ml": "ആരോഗ്യ ഇൻഷുറൻസ് പിഴ അടയ്ക്കൽ"
+  },
+  "about": "Pay the fine for renewing health insurance late, as set by the health insurance law.",
+  "authority": "TAMM",
+  "aliases": [
+    "Pay insurance fine",
+    "Insurance late renewal fine",
+    "غرامة تأخير التأمين",
+    "دفع غرامة تأمين صحي"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Manage-your-Health/Health-Insurance/Health%20Insurance%20Penalty%20Payment",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Commercial licence",
+      "Emirates ID",
+      "Certificate of Continuity (COC) reference number is entered during the steps"
+    ],
+    "fees": [
+      "No extra costs beyond the penalty"
+    ],
+    "timing": [
+      "About 6 minutes",
+      "You receive a payment receipt"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

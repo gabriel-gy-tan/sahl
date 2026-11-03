@@ -1,0 +1,41 @@
+{
+  "id": "dld-property-sale-registration",
+  "service": {
+    "en": "Register a property sale",
+    "ar": "تسجيل بيع عقار",
+    "ur": "جائیداد کی فروخت کی رجسٹریشن",
+    "ml": "സ്വത്ത് വിൽപ്പന രജിസ്റ്റർ ചെയ്യൽ"
+  },
+  "about": "Register the sale of land or a property between a seller and a buyer in Dubai.",
+  "authority": "DLD",
+  "aliases": [
+    "Sell property Dubai",
+    "Buy property registration",
+    "Transfer title deed",
+    "تسجيل بيع",
+    "نقل ملكية عقار"
+  ],
+  "source": "https://dubailand.gov.ae/en/eservices/property-sale-registration/",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official Dubai Land Department service page on the checked date. The sign-in forms do not publish their field labels, so this guide has no fields to read yet. Register a property sale. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Emirates ID of seller and buyer, or a valid passport for non-resident foreigners",
+      "E-NOC from the developer in freehold areas, via the Dubai REST app"
+    ],
+    "fees": [
+      "2% of the sale value from the seller and 2% from the buyer",
+      "AED 250 for the title deed certificate",
+      "AED 10 knowledge fee and AED 10 innovation fee",
+      "AED 4,000 plus VAT service partner fee if the value is AED 500,000 or more, otherwise AED 2,000 plus VAT"
+    ],
+    "timing": [
+      "20 minutes"
+    ],
+    "channels": [
+      "a Real Estate Registration Trustee Centre",
+      "Dubai Now"
+    ]
+  },
+  "fields": []
+}

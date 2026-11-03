@@ -1,0 +1,38 @@
+{
+  "id": "tamm-issue-training-licence",
+  "service": {
+    "en": "Issue a training licence",
+    "ar": "إصدار رخصة تدريب",
+    "ur": "تربیتی لائسنس کا اجرا",
+    "ml": "പരിശീലന ലൈസൻസ് നൽകൽ"
+  },
+  "about": "Get a licence to offer short-term training programmes in Abu Dhabi after getting a trade licence.",
+  "authority": "TAMM",
+  "aliases": [
+    "Training centre licence",
+    "Training institute licence",
+    "ترخيص مركز تدريب",
+    "رخصة تدريب"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/business/education/education-training/RequestforNewTrainingLicence",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "You already hold a trade licence from the economy department or a free zone"
+    ],
+    "documents": [
+      "Commercial licence or free zone licence"
+    ],
+    "fees": [
+      "5,500 AED"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

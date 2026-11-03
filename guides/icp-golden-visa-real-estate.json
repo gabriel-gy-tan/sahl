@@ -1,0 +1,45 @@
+{
+  "id": "icp-golden-visa-real-estate",
+  "service": {
+    "en": "Entry permit for real estate investor residency",
+    "ar": "تصريح دخول لمستثمر عقاري للإقامة الذهبية",
+    "ur": "رئیل اسٹیٹ سرمایہ کار کے لیے داخلہ اجازت نامہ",
+    "ml": "റിയൽ എസ്റ്റേറ്റ് നിക്ഷേപകനുള്ള എൻട്രി പെർമിറ്റ്"
+  },
+  "about": "Get a visa to complete the 10-year Golden Residence process as a real estate investor.",
+  "authority": "ICP",
+  "aliases": [
+    "Golden visa property investor",
+    "Golden residency real estate",
+    "الإقامة الذهبية للمستثمر العقاري",
+    "إقامة ذهبية عقار"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=68e34eea5ae59b00117383d5",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Property fully owned by the investor and worth at least 2,000,000 AED",
+      "Valid UAE health insurance",
+      "Passport valid for at least 6 months"
+    ],
+    "documents": [
+      "Passport",
+      "Personal photo",
+      "Letter from the Real Estate Registration Department confirming ownership and value"
+    ],
+    "fees": [
+      "Application 100 AED",
+      "Issuance 100 AED",
+      "Smart service fee 100 AED"
+    ],
+    "timing": [
+      "About 2 days"
+    ],
+    "channels": [
+      "ICP Smart App or ICP Smart Services website (sign in with UAE PASS)",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}

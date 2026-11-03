@@ -1,0 +1,37 @@
+{
+  "id": "tamm-golden-visa-nomination",
+  "service": {
+    "en": "Golden Visa nomination",
+    "ar": "الترشيح للتأشيرة الذهبية",
+    "ur": "گولڈن ویزا نامزدگی",
+    "ml": "ഗോൾഡൻ വിസ നോമിനേഷൻ"
+  },
+  "about": "Apply for a nomination that lets you start the Golden Visa process, finished later with ICP.",
+  "authority": "TAMM",
+  "aliases": [
+    "Golden visa Abu Dhabi",
+    "Apply golden visa",
+    "الإقامة الذهبية",
+    "ترشيح إقامة ذهبية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RequestforGoldenVisaNomination",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Residence visa",
+      "Passport",
+      "Health insurance",
+      "Other documents depending on the Golden Visa category"
+    ],
+    "timing": [
+      "7 working days",
+      "No additional cost"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Department of Economic Development"
+    ]
+  },
+  "fields": []
+}

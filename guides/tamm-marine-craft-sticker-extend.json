@@ -1,0 +1,35 @@
+{
+  "id": "tamm-marine-craft-sticker-extend",
+  "service": {
+    "en": "Extend sticker validity for a water sport marine craft number",
+    "ar": "تمديد صلاحية ملصق رقم مركبة بحرية للرياضات المائية",
+    "ur": "واٹر اسپورٹ کرافٹ نمبر کے اسٹیکر کی مدت میں توسیع",
+    "ml": "വാട്ടർ സ്പോർട്ട് ക്രാഫ്റ്റ് നമ്പർ സ്റ്റിക്കറിന്റെ കാലാവധി നീട്ടൽ"
+  },
+  "about": "Extend the validity of a water sport craft sticker by up to 90 days.",
+  "authority": "TAMM",
+  "aliases": [
+    "Extend jet ski sticker",
+    "Marine craft number sticker extension",
+    "تمديد ملصق مركبة بحرية",
+    "تمديد صلاحية رقم مركبة بحرية"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/DriveTransport/Manage-your-Vehicle/ExtensionofStickerValidityforaWaterSportsMarineCraftNumber",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the public TAMM service page on the checked date. TAMM fills the form in after UAE PASS sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "No documents are required"
+    ],
+    "fees": [
+      "No additional costs"
+    ],
+    "timing": [
+      "About 6 minutes"
+    ],
+    "channels": [
+      "TAMM website or app (sign in with UAE PASS)"
+    ]
+  },
+  "fields": []
+}

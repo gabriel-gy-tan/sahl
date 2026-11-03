@@ -1,0 +1,44 @@
+{
+  "id": "tamm-emirates-id-residency-renew-expat",
+  "service": {
+    "en": "Renew Emirates ID and residency (expatriate)",
+    "ar": "تجديد الهوية والإقامة للوافد",
+    "ur": "غیر ملکی کے لیے ایمریٹس آئی ڈی اور رہائش کی تجدید",
+    "ml": "പ്രവാസികൾക്ക് എമിറേറ്റ്സ് ഐഡിയും താമസ പെർമിറ്റും പുതുക്കൽ"
+  },
+  "about": "Renew a resident's residence permit and Emirates ID card in one combined request.",
+  "authority": "TAMM",
+  "aliases": [
+    "Renew residency and ID",
+    "Renew residence visa",
+    "تجديد الإقامة",
+    "تجديد إقامة وافد"
+  ],
+  "source": "https://www.tamm.abudhabi/en/life-events/individual/Identity-Citizenship-Human-Resources/Residency-Entry-Permit/RenewEmiratesIDandResidencyforExpat",
+  "checked": "2026-11-02",
+  "note": "Requirements read from the public TAMM service page on the checked date. The form itself sits behind UAE PASS sign-in, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "requirements": {
+    "documents": [
+      "Coloured personal photo",
+      "Passport",
+      "Valid rent agreement",
+      "Copy of medical insurance",
+      "Marriage contract"
+    ],
+    "fees": [
+      "AED 100 card issuance",
+      "AED 100 issuance fee",
+      "AED 100 application fee",
+      "AED 250 service fee"
+    ],
+    "timing": [
+      "5 working days",
+      "ID card comes by an authorised delivery company"
+    ],
+    "channels": [
+      "Sign in with UAE PASS on TAMM (website or app)",
+      "Provided by Federal Authority for Identity, Citizenship, Customs & Port Security"
+    ]
+  },
+  "fields": []
+}

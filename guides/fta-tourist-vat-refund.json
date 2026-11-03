@@ -1,0 +1,50 @@
+{
+  "id": "fta-tourist-vat-refund",
+  "service": {
+    "en": "VAT refund for tourists",
+    "ar": "استرداد ضريبة القيمة المضافة للسياح",
+    "ur": "سیاحوں کے لیے ویلیو ایڈڈ ٹیکس کی واپسی",
+    "ml": "വിനോദസഞ്ചാരികൾക്കുള്ള വാറ്റ് റീഫണ്ട്"
+  },
+  "about": "Claim back the VAT paid on eligible goods bought from registered shops before leaving the UAE.",
+  "authority": "FTA",
+  "aliases": [
+    "Tourist VAT refund",
+    "Tax free shopping refund",
+    "VAT refund airport",
+    "استرداد الضريبة للسياح",
+    "استرداد ضريبة التسوق"
+  ],
+  "source": "https://tax.gov.ae/en/services/tourist.vat.refunds.aspx",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official FTA service page on the checked date. FTA fills the form in after sign-in and does not publish its field labels, so this guide has no fields to read yet. VAT refund for tourists. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "Must have entered the UAE as a tourist, be 18 or older and not be a UAE resident",
+      "Purchases must be from retailers registered in the tourist refund scheme and be eligible goods",
+      "Minimum spend is AED 250 before VAT per refund transaction",
+      "Only the person whose passport or GCC ID was used can start or complete validation"
+    ],
+    "documents": [
+      "Original valid passport or GCC national ID card (copies are not accepted)",
+      "The purchased goods, which may be inspected",
+      "A valid ticket or confirmed booking showing departure from the UAE",
+      "An online boarding pass when using a kiosk in a mall or hotel (departure within 24 hours)"
+    ],
+    "fees": [
+      "13% of the VAT amount requested plus AED 3.60 per tax-free transaction"
+    ],
+    "timing": [
+      "Validate within 90 days of the tax invoice date",
+      "Leave within 6 hours of validation or the approval is cancelled",
+      "About 5 minutes at a staffed desk, about 3 at a kiosk",
+      "Bank card refund within 9 calendar days, cash in about 3 minutes"
+    ],
+    "channels": [
+      "Planet validation desks and self-service kiosks at exit points",
+      "Kiosks at selected malls and hotels",
+      "Planet Shopper Portal or Planet Tax Free ME app to track a claim"
+    ]
+  },
+  "fields": []
+}

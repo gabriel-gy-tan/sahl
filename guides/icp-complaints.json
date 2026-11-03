@@ -1,0 +1,41 @@
+{
+  "id": "icp-complaints",
+  "service": {
+    "en": "Submit a complaint to ICP",
+    "ar": "تقديم شكوى إلى الهيئة",
+    "ur": "آئی سی پی کو شکایت",
+    "ml": "ഐസിപിക്ക് പരാതി സമർപ്പിക്കൽ"
+  },
+  "about": "Send feedback or a complaint about an ICP service or transaction.",
+  "authority": "ICP",
+  "aliases": [
+    "ICP complaint",
+    "Complain about ICP service",
+    "شكوى",
+    "تقديم شكوى"
+  ],
+  "source": "https://icp.gov.ae/en/services-details/?serviceid=67fddd50ea116e0011287c67",
+  "checked": "2026-11-03",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Submit a complaint to ICP. Translations not reviewed by native speakers.",
+  "requirements": {
+    "eligibility": [
+      "For ICP customers",
+      "Give full details of the complaint and attach supporting papers if any"
+    ],
+    "documents": [
+      "Supporting papers where relevant; no fixed list"
+    ],
+    "fees": [
+      "The page lists no fee"
+    ],
+    "timing": [
+      "About 3 days"
+    ],
+    "channels": [
+      "ICP Smart Services website or ICP Smart App (sign in with UAE PASS)",
+      "ICP call centre 600522222",
+      "an ICP Customer Happiness Centre"
+    ]
+  },
+  "fields": []
+}
