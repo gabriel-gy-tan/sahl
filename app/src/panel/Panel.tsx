@@ -219,7 +219,9 @@ export default function Panel() {
   const fail = (e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
     if (e instanceof ApiError && e.status === 0) return setError("restarted");
-    setError(e instanceof ApiError && e.status === 409 ? (msg.startsWith("typing") ? "err_type" : "err_screen") : msg);
+    // typing can fail for more than a missing permission, so show the real reason beside the usual hint
+    if (e instanceof ApiError && e.status === 409 && msg.startsWith("typing")) return setError(`${t("err_type")} (${msg})`);
+    setError(e instanceof ApiError && e.status === 409 ? "err_screen" : msg);
   };
 
   // --- the island: boot palm, then open / folded into the notch ---
