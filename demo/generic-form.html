@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generic form · Sahl browser test</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: #f1f3f6; color: #202a35; font: 15px/1.45 system-ui, sans-serif; }
+  main { max-width: 760px; margin: 34px auto; background: #fff; padding: 28px 32px; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  h1 { margin: 0 0 18px; font-size: 22px; }
+  .row { display: flex; align-items: center; gap: 18px; margin: 9px 0; }
+  .row > .label { flex: 0 0 210px; text-align: right; font-size: 13px; color: #3d4a57; }
+  .row > .control { flex: 1; display: flex; align-items: center; gap: 5px; }
+  input, select { box-sizing: border-box; width: 100%; height: 30px; padding: 4px 7px; border: 1px solid #b8c2cc; border-radius: 3px; font: inherit; }
+  select { width: auto; min-width: 58px; }
+  .wide { width: 100%; }
+  .note { margin-top: 22px; color: #667585; font-size: 13px; }
+  button { margin-top: 18px; padding: 7px 15px; font: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Generic form layout</h1>
+  <div class="row"><div class="label">First Name</div><div class="control"><input name="02frstname" autocomplete="given-name"></div></div>
+  <div class="row"><div class="label">Middle Name</div><div class="control"><input name="03middle_i" autocomplete="additional-name"></div></div>
+  <div class="row"><div class="label">Last Name</div><div class="control"><input name="05lastnm" autocomplete="family-name"></div></div>
+  <div class="row"><div class="label">Full Name</div><div class="control"><input name="04fullname" autocomplete="name"></div></div>
+  <div class="row"><div class="label">Date Of Birth</div><div class="control">
+    <select name="66mm" aria-label="Month"><option value="">Month</option><option>January</option><option>March</option><option>June</option><option>December</option></select>
+    <select name="67dd" aria-label="Day"><option value="">Day</option><option>1</option><option>6</option><option>14</option><option>31</option></select>
+    <select name="68yy" aria-label="Year"><option value="">Year</option><option>1985</option><option>1990</option><option>2030</option></select>
+  </div></div>
+  <div class="row"><div class="label">Nationality</div><div class="control"><select class="wide" name="nationality"><option value="">Choose</option><option>India</option><option>Pakistan</option><option>United Arab Emirates</option></select></div></div>
+  <div class="row"><div class="label">Passport Number</div><div class="control"><input name="passportNumber" autocomplete="off"></div></div>
+  <div class="row"><div class="label">Emirates ID</div><div class="control"><input name="emiratesId" autocomplete="off"></div></div>
+  <p class="note">Invented page. Sahl reads the DOM; it never submits.</p>
+  <button type="button">Submit</button>
+</main>
+</body>
+</html>

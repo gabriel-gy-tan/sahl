@@ -4,6 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
+- [ ] Browser extension: read a page's real fields through a loopback bridge, find labels in table cells and beside their input wrapper, group RoboForm-style numbered date selects, treat date placeholders as empty, offer an opt-in replace for boxes that already hold a value, type text through the page's own input path and retry if it drops the value, replace stale content scripts after an extension reload, rank the guide with the local AI only when the page resembles a guide (8 s cap), show a reading animation in the popup and page, ring exact DOM boxes and fill verified values without submitting (`feat/browser-extension`)
 - [ ] Dropdown dates (issue #9): day, month and year boxes found as a row and picked one by one, boxes sized from their own borders (`fix/dropdown-date-parts`). Checked on RoboForm's test form; still to check on a real UAE portal
 - [ ] Start Ollama and download the models from inside the app, no Terminal (`feat/ollama-autostart`). Bundling Ollama itself is still open
 - [ ] Chat answers "what documents do I have?" from the vault's types and counts (`feat/chat-knows-documents`)
