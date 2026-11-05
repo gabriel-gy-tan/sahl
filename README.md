@@ -4,8 +4,10 @@
 
 A free, open-source desktop helper that looks at the form on your screen, tells you in your language which box comes next, and helps you autofill and confirm the details. Fill a form in seconds to minutes. Everything runs on your own computer: completely local AI. The government side changes nothing.
 
-> Status: concept. No code yet. This repo currently holds the plan.
+> Status: working on macOS, in testing. The app reads a form on screen, rings the next box, and types verified values after you confirm. It is not signed or notarized, it has not yet been tried on live UAE portals, and the Windows build has never run. See [TODO.md](TODO.md).
 > (Early planning documents call this project "Handover".)
+
+To run it from a checkout, see [sidecar/README.md](sidecar/README.md). Rules for contributors and agents, and how the code fits together, are in [AGENTS.md](AGENTS.md).
 
 ## How it works
 
@@ -30,26 +32,26 @@ English, العربية, اردو, മലയാളം (first set; more later).
 - **User in control.** Screen access is visible and pausable; screenshots are not stored by default; no automatic submission, payment, or CAPTCHA handling.
 - **Open guide format.** Any entity can later publish its own form guide in the same open format.
 
-## Architecture (planned)
+## Architecture
 
 | Layer | Role | Candidate |
 |---|---|---|
-| Desktop UI | Floating panel: form picker, card, approvals, settings | Tauri + React + TypeScript |
-| Screen understanding | Accessibility tree → screenshot → OCR fallback; active-window info | Platform accessibility APIs; Indra OCR (Datalab); evaluate `open-computer-use` |
-| Local AI | Explain fields, pick values, cite sources; replaceable model | Ollama / llama.cpp |
-| Public knowledge | Form guides: documents, fees, steps, field explanations, source URL, last-verified date | SQLite + FTS |
-| Private vault | User-approved documents and confirmed profile values, with source | Local files + SQLite; separate from public store |
-| Action | Show, copy, or fill after confirmation | Mouse/keyboard (fragile: date pickers, dropdowns) |
+| Desktop UI | Floating panel: form picker, card, approvals, settings | Tauri 2 (Rust) + React + TypeScript: a notch panel and a click-through ring overlay |
+| Screen understanding | Accessibility tree → screenshot → OCR fallback; active-window info | Screenshots of every monitor, Indra OCR, then box finding on any side of a label (accessibility tree not used yet) |
+| Local AI | Explain fields, pick values, cite sources; replaceable model | llama.cpp |
+| Public knowledge | Form guides: documents, fees, steps, field explanations, source URL, last-verified date | One JSON per form in `guides/` |
+| Private vault | User-approved documents and confirmed profile values, with source | Documents folder + SQLite; separate from the guides |
+| Action | Show, copy, or fill after confirmation | `pynput` mouse and keyboard; checkboxes are never ticked |
 
-The public catalogue and the private vault are separate stores so a passport scan can never end up in the shared catalogue. Optionally expose both through local MCP tools (`identify_current_form`, `get_service_requirements`, `explain_field`, `search_my_documents`, `get_profile_value`, `suggest_field_value`, `set_field_value`).
+The public catalogue and the private vault are separate stores so a passport scan can never end up in the shared catalogue. Exposing both through local MCP tools is an idea, not built.
 
 ## Roadmap
 
-1. **Knowledge layer** – 10–15 form guides from public service pages (first: residency medical fitness booking, MOHAP), each answer linked to its source.
-2. **Screen awareness** – read-only identification of a supported form; manual selection when unsure.
-3. **Vault** – import, index locally, save confirmed values with source; delete and privacy controls from day one.
-4. **Guided completion** – per-field explanation and suggestions, then fill with confirmation.
-5. **Per-OS packaging** – develop on one OS, validate permissions and integrations on each before claiming support.
+1. **Knowledge layer** – done for coverage: 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD and more carry requirements, fees and timing (dated 2026-11-02/03); 6 guides carry field labels. Still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA and others.
+2. **Screen awareness** – done on drawn layouts and a test portal; still to prove on real portals.
+3. **Vault** – done: passport MRZ, Emirates ID and printed text, several people, local AI only when check digits cannot settle a page.
+4. **Guided completion** – done: text boxes, split dates, dropdowns and radio buttons from verified values. Pop-up calendars are untested.
+5. **Per-OS packaging** – macOS `.dmg` builds (unsigned); the Windows build is written but has never run.
 
 Out of scope for the first milestone: autonomous submission, payment flows, CAPTCHA, unrestricted file access.
 
@@ -57,10 +59,13 @@ Out of scope for the first milestone: autonomous submission, payment flows, CAPT
 
 | Part | Status | Note |
 |---|---|---|
-| Screen reading and card | Not built | Only a scripted concept so far. |
-| Indra OCR | Reused from Yahmi | `indra-ocr` (Datalab), local CPU/ONNX, ~76 MB weights, 80+ languages; returns text lines with boxes, Tesseract as fallback. Yahmi's wrapper (`yahmi/extract.py`) is the starting point. Published Arabic 69.2 and Malayalam 65.0 on the maker's benchmark; handwriting weak. Not yet measured on forms or screenshots. |
-| Form guides | Planned | One MOHAP page checked; target 15. Reuse terms unchecked per source. |
+| Screen reading, ring and fill | Built (macOS) | Box finding on drawn layouts passes about 96% (`sidecar/tests`); not yet measured on real portal screenshots. |
+| Indra OCR | In use | `indra-ocr` (Datalab), local CPU/ONNX, ~76 MB weights, 80+ languages. Published Arabic 69.2 and Malayalam 65.0 on the maker's benchmark; handwriting weak. |
+| Local AI | Built | llama.cpp's `llama-server` runs Qwen3-VL (documents) and Qwen3 (form picker). The app asks before downloading and shows the size. |
+| Form guides | 409 | Mostly requirements only (`fields: []`); 6 have field labels. Reuse terms unchecked per source; 94 TAMM guides not re-dated. |
+| Form picker | Measured | Dev 40/40, held out 15/15, fresh 13/15 (`sidecar/evals/picker.py`). |
 | Translations | Unchecked | Not yet reviewed by native speakers. |
+| Windows | Untested | Code paths and build scripts exist; never run. |
 | Time saved | Not measured | Planned 10-person timed test, with and without. |
 | Sample documents | Invented | No real passport or Emirates ID is ever used in demos. |
 
@@ -69,6 +74,7 @@ Out of scope for the first milestone: autonomous submission, payment flows, CAPT
 - Filling by mouse and keyboard is fragile (date pickers, dropdowns, layout changes).
 - Filled values can hide mistakes, hence per-section confirmation.
 - iPhone does not allow reading other apps' screens, so this is a computer app.
+- The macOS `.dmg` is not signed or notarized, so the first open is right-click → Open.
 - Indra's weights are under a modified OpenRAIL-M licence (no competing with Datalab's API); check it fits Sahl's Apache-2.0 distribution before bundling.
 - Government content licences vary; the UAE Federal Open Data License needs attribution and no misleading representation. Keep a per-source licence and attribution record.
 
@@ -81,7 +87,7 @@ cd sidecar && .venv/bin/pip install -r requirements-build.txt && .venv/bin/pytho
 cd ../app && npm run tauri build -- --bundles dmg
 ```
 
-`build.py` packs the sidecar into a folder (not one file, which unpacks on every launch and takes about 40 seconds to start) that Tauri bundles as resources, beside the guides. The installers are not signed yet, so macOS and Windows warn on first open. Ollama is still installed separately.
+`build.py` packs the sidecar into a folder (not one file, which unpacks on every launch and takes about 40 seconds to start) that Tauri bundles as resources, beside the guides. The installers are not signed yet, so macOS and Windows warn on first open. The AI models download on first launch, after the person agrees.
 
 ## Licence
 
