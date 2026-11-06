@@ -4,6 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
+- [ ] Teach Sahl unknown boxes: a box no guide knows gets "we don't know X, tell me so I can always remember it"; the answer is stored per person and reused under another name for the same detail (Company / Workplace) after a yes to the local model's suggestion; passwords, PINs and one-time codes never (`feat/teach-unknown-boxes`). Tested on drawn forms; not yet tried on a real portal. After a fill or skip the next prompt comes straight from the sidecar's state with no new screen read, and the local model's name suggestions run in the background (the panel still pauses ~0.65 s to fold before typing, and fill.py waits ~1 s for clicks to land). Scrolling after a read is handled when you tap Yes, fill it: Sahl finds the label again and moves the boxes, or stops without clicking if it can't (the ring does not yet follow a scroll between taps). Still to do: a settings page to see and forget what Sahl was told one by one ("Delete everything" already clears it), dropdowns and date boxes that are unknown, and a form with no known label at all
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong. Labels for the ICP Emirates ID renewal guide were copied from the signed-in form and not yet tried on the live page
 
 ## Next
