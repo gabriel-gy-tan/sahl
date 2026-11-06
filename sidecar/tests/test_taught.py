@@ -244,3 +244,14 @@ def test_a_fill_answers_with_the_next_box_without_reading_the_screen_again(clien
     assert next(f for f in done["reading"]["fields"] if f["id"] == "taught:company")["confirmed"]
     skipped = client.post("/confirm", json={"field_id": done["reading"]["next"]}).json()
     assert skipped["reading"]["next"] not in (first, done["reading"]["next"])
+
+
+def test_similar_reaches_llama_server_as_a_schema_restricted_request(monkeypatch):
+    taught.teach("Company", "Acme", "1")
+    seen = []
+    monkeypatch.setattr(ai, "chat", lambda body, **k: seen.append(body) or {"matches": [{"label": "Workplace", "means": "Company"}]})
+    assert taught.similar(["Workplace"], "1") == {"Workplace": "Company"}
+    sent = ai._request(seen[0])
+    props = sent["response_format"]["json_schema"]["schema"]["properties"]["matches"]["items"]["properties"]
+    assert props["label"]["enum"] == ["Workplace"] and props["means"]["enum"] == ["Company", ""]
+    assert sent["stream"] is False and "keep_alive" not in sent

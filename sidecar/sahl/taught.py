@@ -117,7 +117,6 @@ def similar(labels: list[str], person) -> dict[str, str]:
         return {}
     out = ai.chat({
         "model": ai.text_model(),
-        "stream": False,
         "format": {
             "type": "object",
             "properties": {"matches": {"type": "array", "items": {
@@ -126,7 +125,6 @@ def similar(labels: list[str], person) -> dict[str, str]:
                 "required": ["label", "means"]}}},
             "required": ["matches"],
         },
-        "keep_alive": "30m",
         "options": {"temperature": 0, "num_predict": 400},
         "messages": [{"role": "user", "content": ASK.format(known="\n".join(f"- {c}" for c in known),
                                                             labels="\n".join(f"- {l}" for l in labels))}],

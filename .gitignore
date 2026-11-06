@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 app/src-tauri/sidecar/
+app/src-tauri/llama/
