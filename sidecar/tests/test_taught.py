@@ -60,11 +60,11 @@ def test_nothing_told_means_no_model_call(monkeypatch):
     assert taught.similar(["Workplace"], None) == {}
 
 
-def test_passwords_and_payment_are_never_remembered():
-    for label in ("Password", "Credit Card Number", "Card Verification Code", "Card Expiration Date", "PIN", "CVV"):
+def test_passwords_are_never_remembered():
+    for label in ("Password", "Passcode", "PIN", "One-time code"):
         assert not taught.allowed(label)
     assert taught.allowed("Company") and taught.allowed("Social Security Number")
-    assert taught.allowed("Card Customer Service Phone") and taught.allowed("Card Issuing Bank")  # about the bank, not the card
+    assert all(taught.allowed(x) for x in ("Credit Card Number", "Card Verification Code", "Card Expiration Date", "Card User Name", "IBAN"))
 
 
 def test_forgetting_one_and_everything():
