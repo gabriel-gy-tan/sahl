@@ -711,7 +711,7 @@ def _unmatched(lines, guide, gray, known: set[str], numbered=False):
         digits = re.sub(r"(?<=\D)\s\d{1,2}$", "", t) if numbered else t
         if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", digits) or _score(text, aliases) >= THRESHOLD:
             continue
-        if any(t in k or k in t for k in known) or not (_below(gray, box) or _right(gray, box)):
+        if any(t == k or (len(k) >= 4 and (t in k or k in t)) for k in known) or not (_below(gray, box) or _right(gray, box)):
             continue
         yield text, box
 

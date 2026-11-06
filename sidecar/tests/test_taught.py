@@ -175,3 +175,13 @@ def test_fields_go_in_the_order_they_are_on_the_page():
     assert [f["id"] for f in match.reading_order(two)] == ["l1", "l2", "l3", "r1", "r2", "r3", "stray"]  # down the left, then the right
     rows = [{"id": "b", **box(400, 100)}, {"id": "a", **box(100, 102)}, {"id": "c", **box(100, 160)}]
     assert [f["id"] for f in match.reading_order(rows)] == ["a", "b", "c"]  # short columns: row by row
+
+
+def test_a_short_value_does_not_hide_labels_that_contain_it():
+    from sahl import match
+    gray = np.full((300, 900), 255, np.uint8)
+    gray[40:42, 100:700] = gray[90:92, 100:700] = gray[40:92, 100:102] = gray[40:92, 698:700] = 150
+    lines = [("State / Province", (100, 10, 300, 35))]
+    guide = {"fields": [{"aliases": ["Full name"]}]}
+    for known in ({"v"}, {"mr"}, {"00000"}):  # a middle initial, a title, a code the person told Sahl
+        assert [u["label"] for u in match.unknown_boxes(lines, guide, gray, known, [])] == ["State / Province"]
