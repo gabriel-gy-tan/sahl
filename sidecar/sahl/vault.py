@@ -85,6 +85,9 @@ def _db():
         db.execute("alter table files add column ai_pending int default 0")
     db.execute("create table if not exists readings (path text, key text, value text, verified int, crop blob,"
                " primary key (path, key))")
+    # what the person told Sahl about boxes no guide knows: a value per person per concept, and the labels that mean it
+    db.execute("create table if not exists taught_values (person int, concept text, value text, primary key (person, concept))")
+    db.execute("create table if not exists taught_labels (label text primary key, concept text)")
     return db
 
 
@@ -477,6 +480,6 @@ def get(keys, person):
 def forget_all():
     """Deletes every stored reading and person (not the documents themselves)."""
     with _db() as db:
-        for t in ("readings", "files", "people"):
+        for t in ("readings", "files", "people", "taught_values", "taught_labels"):
             db.execute(f"delete from {t}")
     shutil.rmtree(home() / "crops", ignore_errors=True)  # where older versions kept crop images

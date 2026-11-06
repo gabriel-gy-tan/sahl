@@ -575,7 +575,7 @@ def choices(lines, label, options, gray):
              "checked": bool(i in marks and marks[i][1])} for i, (o, b, _) in enumerate(found)]
 
 
-def _input_box(gray, label, hint):
+def _input_box(gray, label, hint, pre=None):
     """The input rectangle next to a label, found from its border lines or shading in the screenshot.
 
     "auto" (every guide uses it) looks below, to the right, to the left (right-to-left forms) and above the label and
@@ -586,7 +586,8 @@ def _input_box(gray, label, hint):
         return _guess(label, hint)
     sides = {"below": (_below, 0.0), "right": (_right, 0.0), "left": (_left, 1.0), "above": (_above, 1.5)}
     use = sides if hint in ("auto", None) else {hint: sides[hint]} if hint in sides else sides
-    found = [(r[0] + penalty, r[1]) for fn, penalty in use.values() if (r := fn(gray, label))]
+    found = [(r[0] + penalty, r[1]) for name, (fn, penalty) in use.items()
+             if (r := pre[name] if pre and name in pre else fn(gray, label))]  # `pre`: sides already looked at
     if not found:
         return _guess(label, hint)
     box = min(found)[1]
@@ -672,20 +673,133 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     return out
 
 
-def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
-    """Printed labels no alias of the guide matches, to learn new aliases from.
+def _own_box(gray, box) -> bool:
+    """Whether a box's border crosses the line of text's middle to its right: it has an input of its own on its row."""
+    cy, x0 = int((box[1] + box[3]) / 2), int(box[2]) + 4
+    row = gray[min(cy, gray.shape[0] - 1), x0:x0 + max(600, int(30 * (box[3] - box[1])))].astype(int)
+    return row.size > 1 and int((abs(np.diff(row)) >= 20).sum()) >= 2
 
-    Only short text with no digits that has an input border next to it (a value sits inside a box, not beside one),
-    and never text that is one of the person's own values (`known`, already normalised)."""
-    if gray is None:
-        return []
-    aliases = [a for f in guide["fields"] for a in f["aliases"]]
+
+def _wrapped(lines, gray=None):
+    """Lines with a label that wraps onto a second line joined ("Card Customer Service" + "Phone"): a line directly
+    under another, tight against it and lined up with it on the right or the left (the other column's lines in
+    between don't matter). The joined label keeps the first line's box, which is the one the input sits beside."""
     out = []
-    for text, box in lines:
-        t = _norm(text)
-        if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", t) or _score(text, aliases) >= THRESHOLD:
-            continue
-        if any(t in k or k in t for k in known) or not (_below(gray, box) or _right(gray, box)):
-            continue
-        out.append(text.strip(" :*"))
+    for text, box in sorted(lines, key=lambda l: (l[1][1], l[1][0])):
+        for i, (t, b) in enumerate(out):
+            h, gap = max(b[3] - b[1], 8), box[1] - b[3]
+            if -0.3 * h <= gap <= 1.2 * h and (abs(box[2] - b[2]) <= 1.5 * h or abs(box[0] - b[0]) <= 1.5 * h) \
+                    and len(text.split()) <= 3 and len((t + " " + text).split()) <= 5 \
+                    and (gray is None or not _own_box(gray, box)):  # a second line has no input beside it
+                out[i] = (t + " " + text, b)
+                break
+        else:
+            out.append((text, box))
     return out
+
+
+def _unmatched(lines, guide, gray, known: set[str], numbered=False, skip=None):
+    """(text, box, sides) of printed labels no alias of the guide matches (`sides`: the borders already found for it).
+
+    Only short text with no digits (but "Address line 1" when `numbered`) that has an input border next to it (a value
+    sits inside a box, not beside one), and never text that is one of the person's own values (`known`, already
+    normalised)."""
+    if gray is None:
+        return
+    aliases = [a for f in guide["fields"] for a in f["aliases"]]
+    for text, box in _wrapped(lines, gray):
+        t = _norm(text)
+        digits = re.sub(r"(?<=\D)\s\d{1,2}$", "", t) if numbered else t
+        if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", digits) or _score(text, aliases) >= THRESHOLD:
+            continue
+        if (skip and skip(box)) or any(t == k or (len(k) >= 4 and (t in k or k in t)) for k in known):
+            continue
+        below = _below(gray, box)
+        right = None if below else _right(gray, box)
+        if below or right:
+            yield text, box, {"below": below} if below else {"below": None, "right": right}
+
+
+def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
+    """Printed labels no alias of the guide matches, to learn new aliases from."""
+    return [text.strip(" :*") for text, _, _ in _unmatched(lines, guide, gray, known)]
+
+
+def _overlap(a, b) -> float:
+    """How much of the smaller box the two share."""
+    w, h = min(a[2], b[2]) - max(a[0], b[0]), min(a[3], b[3]) - max(a[1], b[1])
+    return max(w, 0) * max(h, 0) / max(min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1])), 1e-6)
+
+
+def unknown_boxes(lines, guide, gray, known: set[str], taken, scale=1.0, origin=(0, 0)) -> list[dict]:
+    """Boxes the guide doesn't know: [{label, label_box, input_box}] in screen points, top to bottom, left to right.
+
+    `taken` are the input boxes of the fields that did match; a box one of them already owns is not unknown, and
+    neither is text inside one (a value already typed in)."""
+    to_pt = lambda b: tuple(round(v / scale + origin[i % 2], 1) for i, v in enumerate(b))
+    inside = lambda b, r: r[0] < (b[0] + b[2]) / 2 < r[2] and r[1] < (b[1] + b[3]) / 2 < r[3]
+    taken_px = [tuple((v - origin[i % 2]) * scale for i, v in enumerate(t)) for t in taken]
+    top = min((t[1] for t in taken_px), default=0) - 150 * scale  # the form is where the known fields are: not the menu
+    bottom = max((t[3] for t in taken_px), default=0) + 300 * scale  # bar, tabs or navigation far above or below it
+    skip = lambda b: (bool(taken_px) and not top <= b[1] <= bottom) or any(inside(b, t) for t in taken_px)  # or a value
+    cands = [(text, box, _input_box(gray, box, "auto", sides))
+             for text, box, sides in _unmatched(lines, guide, gray, known, numbered=True, skip=skip)]
+    held = [[o for _, o in lines if o != box and inside(o, raw)] for _, box, raw in cands]
+    values = [h[0] for h in held if len(h) == 1]  # a box with one line of text in it: that line is its value, not a label
+    out = []
+    for (text, box, raw), inner in zip(cands, held):
+        if inner or any(inside(box, v) or box == v for v in values):
+            continue  # a panel around other fields, a box already filled, or text inside a box: a value
+        found = to_pt(raw)
+        if any(_overlap(found, t) > 0.3 for t in [*taken, *(u["input_box"] for u in out)]):
+            continue
+        out.append({"label": text.strip(" :*"), "label_box": to_pt(box), "input_box": found})
+    return sorted(out, key=lambda u: (round(u["label_box"][1] / 12), u["label_box"][0]))
+
+
+def reading_order(items: list[dict]) -> list[dict]:
+    """Fields in the order a person fills them: down each column of boxes, left column first, when the form has
+    long columns (three boxes or more); otherwise row by row, left to right. By each field's `input_box`."""
+    items = sorted(items, key=lambda f: f["input_box"][0])
+    cols = []  # boxes whose left edges line up (within 60 points) are one column
+    for f in items:
+        if cols and f["input_box"][0] - cols[-1][0]["input_box"][0] <= 60:
+            cols[-1].append(f)
+        else:
+            cols.append([f])
+    tall = [c for c in cols if len(c) >= 3]
+    if len(tall) >= 2:
+        for c in cols:
+            if c not in tall:  # a short stray box joins the nearest long column
+                for f in c:
+                    min(tall, key=lambda t: abs(t[0]["input_box"][0] - f["input_box"][0])).append(f)
+        return [f for c in tall for f in sorted(c, key=lambda f: f["input_box"][1])]
+    rows = []
+    for f in sorted(items, key=lambda f: f["input_box"][1]):
+        y0, y1 = f["input_box"][1], f["input_box"][3]
+        if rows and y0 - rows[-1][0] <= 0.5 * (y1 - y0):
+            rows[-1][1].append(f)
+        else:
+            rows.append((y0, [f]))
+    return [f for _, row in rows for f in sorted(row, key=lambda f: f["input_box"][0])]
+
+
+def find_shift(tpl, img, x0: int, y0: int) -> int | None:
+    """How many pixels down the picture `tpl` (cut from an older screenshot at x0, y0) is now in `img`: 0 if it has not
+    moved, None if it is not there or could be any of several places. Vertical only, as pages scroll up and down."""
+    h, w = tpl.shape
+    cols = img[:, x0:x0 + w]
+    n = cols.shape[0] - h + 1
+    if cols.shape[1] < w or n < 1:
+        return None
+    win = np.lib.stride_tricks.sliding_window_view(cols, h, axis=0)  # (n, w, h), no copy
+    t, diffs = tpl.astype(np.int16).T, np.empty(n)
+    for s in range(0, n, 300):
+        diffs[s:s + 300] = np.abs(win[s:s + 300].astype(np.int16) - t).mean(axis=(1, 2))
+    if y0 < n and diffs[y0] <= 1.5:  # identical pixels: even a one-character difference ("Line 1" for "Line 2") is more
+        return 0
+    best = int(diffs.argmin())
+    apart = np.ones(n, bool)
+    apart[max(best - h, 0):best + h + 1] = False  # another place that looks as much like it as the best does
+    other = diffs[apart].min() if apart.any() else 255
+    return best - y0 if diffs[best] <= 18 and other >= 1.5 * diffs[best] + 4 else None

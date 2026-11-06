@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
-from . import ai, bridge, fill, intent, library, match, ocr, report, vault
+from . import ai, bridge, fill, intent, library, match, ocr, report, taught, vault
 
 GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] / "guides"))
 
@@ -46,6 +46,21 @@ class Tier(BaseModel):
 
 class FieldRef(BaseModel):
     field_id: str
+
+
+class Teach(BaseModel):
+    label: str = Field(min_length=1, max_length=80)
+    value: str = Field(min_length=1, max_length=500)
+    person: str | None = None
+
+
+class TaughtAlias(BaseModel):
+    label: str = Field(min_length=1, max_length=80)
+    concept: str = Field(max_length=80)
+
+
+class TaughtRef(BaseModel):
+    concept: str = Field(max_length=80)
 
 
 class ImportDoc(BaseModel):
@@ -126,7 +141,8 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
                        allow_methods=["*"], allow_headers=["*"])
     guides = load_guides()
-    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0}
+    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0, "shot": None,
+             "order": [], "person": None, "people": []}
 
     def auth(x_sahl_token: str = Header("")):
         if not secrets.compare_digest(x_sahl_token, token):
@@ -190,16 +206,51 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             fields.append({**m, "label": f["aliases"][0], "input": f["input"], "help": f["help"], "vault": vault.get(f["vault_key"], person),
                            "spec_options": f.get("options", []),
                            "needs": _needs(f["vault_key"]), "confirmed": m["id"] in state["confirmed"]})
-        state["fields"] = {f["id"]: f for f in fields}
+        extra = _unknown_fields(shot, best, best_scale, monitor, g, person) if best else []
+        state["fields"] = {f["id"]: f for f in [*fields, *extra]}
         state["monitor"] = monitor
         state["scale"] = best_scale
-        if report.enabled() and best:
-            known = {match._norm(str(v["value"])) for x in guides.values() for f in x["fields"]
-                     if (v := vault.get(f["vault_key"], person))}
-            unknown = match.unknown_labels(shot[0], g, shot[1], known)
-        report.record_read(g, fields, monitor, unknown)
-        nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
-        return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
+        state["shot"] = (shot[1], best_scale, monitor) if best else None  # what the boxes were found in, to spot a scroll
+        report.record_read(g, fields, monitor, [u["label"] for u in extra] if report.enabled() else [])
+        state.update(order=[f["id"] for f in match.reading_order([*fields, *extra])],  # the order on the page, not the guide's
+                     person=person, people=everyone)
+        return _payload()
+
+    def _payload():
+        """What the panel shows, from the last read: the fields in order, which are done, and the next one. Reads nothing
+        from the screen, so a fill or skip can answer with the next box at once."""
+        fields = [state["fields"][i] for i in state["order"]]
+        for f in fields:
+            f["confirmed"] = f["id"] in state["confirmed"]
+        return {"fields": fields, "next": next((f["id"] for f in fields if not f["confirmed"]), None),
+                "monitor": state["monitor"], "person": state["person"], "people": state["people"]}
+
+    def _unknown_fields(shot, best, scale, monitor, g, person):
+        """Boxes the guide doesn't know, as fields after the known ones: with what the person told Sahl before
+        (typed like any other value), or a suggestion of which told detail it is, or nothing, so the panel asks."""
+        known = {match._norm(str(v["value"])) for x in guides.values() for f in x["fields"]
+                 if (v := vault.get(f["vault_key"], person))}  # the person's own values: text in a box, not a label
+        known |= {match._norm(v) for v in taught.concepts(person).values()}
+        boxes = [u for u in match.unknown_boxes(shot[0], g, shot[1], known, [m["input_box"] for m in best], scale, monitor[:2])
+                 if taught.allowed(u["label"])]
+        told = {u["label"]: taught.get(u["label"], person) for u in boxes}
+        ideas = taught.suggestions([l for l, t in told.items() if not t], person)
+        out = []
+        for u in boxes:
+            fid = "taught:" + match._norm(u["label"])
+            t = told[u["label"]]
+            f = {"id": fid, "seen": u["label"], "label": u["label"], "label_box": u["label_box"], "input_box": u["input_box"],
+                 "input": "text", "help": dict.fromkeys(("en", "ar", "ur", "ml"), ""), "spec_options": [], "needs": None,
+                 "unknown": True, "vault": {"value": t["value"], "verified": True, "source": taught.SOURCE, "crop": None} if t else None}
+            if t and fid not in state["confirmed"] and any(_box_shows(shot[1], scale, monitor, u["input_box"], w, _shows)
+                                                           for w in _wanted(t["value"], {})):
+                state["confirmed"].add(fid)  # already holds it
+                f["prefilled"] = True
+            if (c := ideas.get(u["label"])):
+                f["suggest"] = {"concept": c, "value": taught.concepts(person)[c]}
+            f["confirmed"] = fid in state["confirmed"]
+            out.append(f)
+        return out
 
     def _field(field_id):
         f = state["fields"].get(field_id)
@@ -211,10 +262,38 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def confirm(body: FieldRef):
         _field(body.field_id)
         state["confirmed"].add(body.field_id)
-        return {"ok": True}
+        return {"ok": True, "reading": _payload()}
+
+    def _relocate(f):
+        """A scroll since the read moved every box. Find this field's label again in a fresh screenshot and move all the
+        boxes by the same amount; if it can't be found, stop before clicking anywhere."""
+        shot, box = state["shot"], f.get("label_box")
+        if not shot or not box:
+            return
+        old, scale, mon = shot
+        x0, y0, x1, y1 = (max(int((v - mon[i % 2]) * scale) + (-3 if i < 2 else 3), 0) for i, v in enumerate(box))
+        tpl = old[y0:y1, x0:x1]
+        if tpl.size == 0 or tpl.std() < 12:  # a blank or blanked-out label: nothing to recognise it by
+            return
+        now = next((g for g, _, m in screen() if tuple(m) == tuple(mon)), None)
+        dy = match.find_shift(tpl, now, x0, y0) if now is not None else None
+        if dy is None:
+            raise HTTPException(409, "moved: the page moved and this box is not where it was")
+        if dy:
+            for g in state["fields"].values():  # the whole page scrolled
+                for b in [g, *g.get("parts", []), *g.get("options", [])]:
+                    for k in ("input_box", "label_box", "box"):
+                        if k in b:
+                            b[k] = tuple(v + (dy / scale if i % 2 else 0) for i, v in enumerate(b[k]))
+            state["shot"] = (now, scale, mon)
 
     @app.post("/fill", dependencies=[Depends(auth)])
     def do_fill(body: FieldRef):
+        r = _fill_one(body)
+        # a box that took the value moves on at once; one that did not is read again by the panel
+        return {**r, "reading": _payload() if r.get("landed") else None}
+
+    def _fill_one(body: FieldRef):
         f = _field(body.field_id)
         v = f["vault"]
         if f["input"] == "checkbox":
@@ -223,6 +302,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             raise HTTPException(422, "Sahl only fills text boxes, dates, dropdowns and radio buttons")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
+        _relocate(f)
         if f["input"] == "radio":
             return _fill_radio(f, v["value"], body.field_id)
         if f["input"] == "select":
@@ -232,12 +312,17 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         box = f["input_box"]  # screen points
         if sys.platform == "win32":  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
             box = tuple(round(v * state["scale"]) for v in box)
+        short = len("".join(c for c in v["value"] if c.isalnum())) <= 4
+        before = _crop(f["input_box"]) if short else None  # OCR can't read a few letters ("Mr."): compare the box's pixels
         try:
             typer(box, v["value"])
         except Exception as e:  # no permission to type, or the form is elevated
             raise HTTPException(409, f"typing failed: {e}")
-        time.sleep(0.3)
+        time.sleep(0.15)
         landed = _landed(f["input_box"], v["value"])
+        if not landed:  # a slow page: look once more before calling it a miss
+            time.sleep(0.3)
+            landed = _landed(f["input_box"], v["value"]) or bool(short and _inked(f["input_box"], before))
         if landed:  # only move on when the box visibly shows what was typed
             state["confirmed"].add(body.field_id)
         else:
@@ -378,6 +463,23 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
                 return _box_shows(gray, scale, mon, box, value)
         return False
 
+    def _crop(box):
+        """The pixels of one box (screen points) as they are now, or None."""
+        for gray, scale, mon in screen():
+            if tuple(mon) == tuple(state["monitor"]):
+                x0, y0, x1, y1 = ((v - mon[i % 2]) * scale for i, v in enumerate(box))
+                return gray[int(y0):int(y1), int(x0):int(x1)].astype(int)
+        return None
+
+    def _inked(box, before) -> bool:
+        """A few typed letters that OCR reads as nothing: the box now has marks it did not, and no other text."""
+        after = _crop(box)
+        if before is None or after is None or before.shape != after.shape or before.size == 0:
+            return False
+        if ocr.lines(after.astype(np.uint8)):  # OCR read something: that must be the value, not this fallback
+            return False
+        return bool((abs(after - before) > 60).mean() >= 0.02)
+
     @app.post("/vault/import", dependencies=[Depends(auth)])
     def vault_import(body: ImportDoc):
         """A dropped file or folder is copied into the documents folder, which is then read."""
@@ -443,6 +545,28 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             return {"enabled": False, "running": False, "error": "", "port": bridge.PORT, "code": "", "paired": False}
         return {"enabled": True, "running": ext.running, "error": ext.error, "port": ext.port, "code": ext.code,
                 "paired": bool(ext.token)}
+    @app.post("/taught", dependencies=[Depends(auth)])
+    def teach(body: Teach):
+        """The person typed what goes in a box Sahl doesn't know; remember it under what the box is called."""
+        if not taught.allowed(body.label):
+            raise HTTPException(422, "Sahl never handles passwords or payment details")
+        return {"concept": taught.teach(body.label, body.value, body.person)}
+
+    @app.post("/taught/alias", dependencies=[Depends(auth)])
+    def teach_alias(body: TaughtAlias):
+        """The person agreed a box is one Sahl was already told about under another name."""
+        if not taught.allowed(body.label) or not taught.alias(body.label, body.concept):
+            raise HTTPException(404, "Sahl was not told about that")
+        return {"ok": True}
+
+    @app.get("/taught", dependencies=[Depends(auth)])
+    def list_taught(person: str | None = None):
+        return taught.listing(person)
+
+    @app.post("/taught/forget", dependencies=[Depends(auth)])
+    def forget_taught(body: TaughtRef):
+        taught.forget(body.concept)
+        return {"ok": True}
 
     @app.get("/improve", dependencies=[Depends(auth)])
     def get_improve():

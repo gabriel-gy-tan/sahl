@@ -316,6 +316,8 @@ button.ghost.danger { color: var(--danger); }
 figure { margin: 0; }
 figure img { display: block; width: 100%; border-radius: 6px; }
 figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-top: 4px; }
+.teach { display: flex; flex-direction: column; gap: 8px; }
+.teach p { margin: 0; }
 .actions { display: flex; gap: 8px; margin-top: 4px; }
 .actions .primary { flex: 1; }
 

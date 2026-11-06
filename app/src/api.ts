@@ -15,6 +15,8 @@ export type Field = {
   needs: Doc | null; // the document to add when vault is null
   confirmed: boolean;
   prefilled?: boolean; // the portal had already filled it with the right value, so Sahl skips it
+  unknown?: boolean; // a box no guide knows: Sahl types what the person told it, or asks them
+  suggest?: { concept: string; value: string }; // for an unknown box: a detail Sahl was told that this may be
 };
 export type Person = { id: string; name: string };
 export type Doc = "passport" | "eid" | "other";

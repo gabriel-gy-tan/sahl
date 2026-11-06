@@ -5,38 +5,26 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 ## In progress
 
 - [ ] Browser extension: read a page's real fields through a loopback bridge, find labels in table cells and beside their input wrapper, group RoboForm-style numbered date selects, treat date placeholders as empty, offer an opt-in replace for boxes that already hold a value, type text through the page's own input path and retry if it drops the value, replace stale content scripts after an extension reload, rank the guide with the local AI only when the page resembles a guide (8 s cap), show a reading animation in the popup and page, ring exact DOM boxes and fill verified values without submitting (`feat/browser-extension`)
-- [ ] Dropdown dates (issue #9): day, month and year boxes found as a row and picked one by one, boxes sized from their own borders (`fix/dropdown-date-parts`). Checked on RoboForm's test form; still to check on a real UAE portal
-- [ ] Start Ollama and download the models from inside the app, no Terminal (`feat/ollama-autostart`). Bundling Ollama itself is still open
-- [ ] Chat answers "what documents do I have?" from the vault's types and counts (`feat/chat-knows-documents`)
-- [ ] Documents and settings: + in the text box, a picker for files and folders, "Read Priya's passport" in the conversation, a nudge for a missing document, what Sahl holds per person, settings in pages with icons, AI model size, opt-in "Help improve Sahl" reports (`feat/documents-flow`)
-- [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong
-
-- [ ] Learn forms from portals: report lists unrecognised labels beside input boxes; guides carry official `requirements` (fees, documents, timing) that the form-picker chat reads (Emirates ID renewal/replacement, residence permit new/renewal from icp.gov.ae) (`feat/documents-flow`)
-- [ ] More UAE service guides (`uae-form-data`): 409 guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH, ADDED, DMT, FTA, MOFA, MOE, MOJ, EHS and more, all `fields: []` except 5 forms with printed labels; the form picker ranks by rare words, answers questions, and has a search box; the form screen shows what a service needs. Fees dated 2026-11-02/03; 94 TAMM guides not re-dated; translations unreviewed
-
-- [ ] Skip boxes the portal already filled (UAE PASS) when they show the right value; ICP Emirates ID renewal guide gets its real field labels, every section of the form (55 fields) (`feat/skip-filled-boxes`). Labels copied from the signed-in form; not yet tried on the live ICP page
-
-- [ ] Form picker evals in `sidecar/evals/picker.py` (needs Ollama): dev 40/40, heldout 15/15, fresh 13/15; it honours the emirate named. Misses left: "title deed" offers verification, not the ownership certificate; no KHDA school transfer guide
-- [ ] Installers: `.dmg` and Windows `.exe` with the sidecar packed inside (`feat/packaging`). First launch after install takes ~40 s while macOS scans the files, later ones ~1 s; signing and notarising should shorten the first. `.dmg` built and launched on an M-series Mac; the Windows build runs only in CI and is untested
+- [ ] Teach Sahl unknown boxes: a box no guide knows gets "we don't know X, tell me so I can always remember it"; the answer is stored per person and reused under another name for the same detail (Company / Workplace) after a yes to the local model's suggestion; passwords, PINs and one-time codes never (`feat/teach-unknown-boxes`). Tested on drawn forms; not yet tried on a real portal. After a fill or skip the next prompt comes straight from the sidecar's state with no new screen read, and the local model's name suggestions run in the background (the panel still pauses ~0.65 s to fold before typing, and fill.py waits ~1 s for clicks to land). Scrolling after a read is handled when you tap Yes, fill it: Sahl finds the label again and moves the boxes, or stops without clicking if it can't (the ring does not yet follow a scroll between taps). Still to do: a settings page to see and forget what Sahl was told one by one ("Delete everything" already clears it), dropdowns and date boxes that are unknown, and a form with no known label at all
+- [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong. Labels for the ICP Emirates ID renewal guide were copied from the signed-in form and not yet tried on the live page
 
 ## Next
 
+- [ ] Packaged macOS app (`.dmg` built and launched on an M-series Mac; first launch ~40 s while macOS scans the files, later ones ~1 s; signing should shorten the first). Still untried: Screen Recording / Accessibility prompts, a full first-launch model download, a Mac with nothing installed, Intel Macs. The `.dmg` is not signed or notarized (needs an Apple Developer ID), so the first open is right-click → Open
+- [ ] Sign and notarise the installers (Apple Developer ID, Windows certificate); Intel Mac build
+- [ ] Windows: the `.exe` is built in CI only (`.github/workflows/release.yml`), never run on Windows; run the app and check the overlay, the shortcut and filling in Edge/Chrome, and a picker that takes files and folders together
+- [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)
+- [ ] Inputs with the label on the left, or without borders (ring may land wrong); check on real portals
+- [ ] Dropdown dates on a real UAE portal (checked only on RoboForm's test form); searchable dropdowns and pop-up calendars are untested
+- [ ] Box finding on real portals: drawn layouts pass ~96% (`tests/test_box_layouts.py`, `tests/test_choice_layouts.py`); weakest are tall boxes and boxes above their label (~87-90%). Check against real portal screenshots
+- [ ] Form picker misses with llama.cpp: "title deed" offers verification, not the ownership certificate; "register a car in ras al khaimah" is offered an unrelated form
 - [ ] Not reachable from the build machine, still to cover: u.ae, GDRFA, Dubai Police, DEWA, RTA, Dubai Courts, MOI, Customs; embassies, free zones, utilities and telecom, transport, finance, Sharjah and the northern emirates
+- [ ] 94 TAMM guides not re-dated; fees elsewhere dated 2026-11-02/03
 - [ ] Fill `fields` for the busiest services from "Help improve Sahl" reports on real portals (labels sit behind UAE PASS sign-in)
-
-- [ ] Windows: run the app and check the overlay, the shortcut and filling in Edge/Chrome, and a picker that takes files and folders together
+- [ ] More label variants in guides, from real portal results
 - [ ] Platform-specific screen/typing error copy (the panel currently names macOS settings on Windows too)
 - [ ] Split names for passports without readable `<<<` lines (only the MRZ says where the surname ends today)
-- [ ] More label variants in guides, from real portal results
-- [ ] Box finding on real portals: drawn layouts pass ~96% (box on any side, shaded, rounded, tall, split phone boxes; `tests/test_box_layouts.py`); weakest are tall boxes and boxes above their label (~87-90%). Check against real portal screenshots
-- [ ] Dropdowns, radio buttons and checkboxes (`feat/skip-filled-boxes`): found on drawn layouts ~96% (`tests/test_choice_layouts.py`); dropdowns and radios filled only from verified values (today nationality), checkboxes never ticked. Not yet tried on a real portal's searchable dropdown; pop-up calendars still untested
-- [ ] Packaging: bundle the sidecar (PyInstaller) so no dev setup is needed
-- [ ] Inputs with the label on the left, or without borders (ring lands wrong today)
-- [ ] Other dropdowns and date pickers (show-only today)
-- [ ] Sign and notarise the installers (Apple Developer ID, Windows certificate); bundle Ollama or fetch it on first run; Intel Mac build
-- [ ] More guides (Emirates ID renewal, …) with an `about` line each, so the form picker has more to find
-- [ ] Windows: move the notch panel to the monitor the pointer reaches the top of (macOS does this already)
-- [ ] Native speakers to check the new greeting and form-picker strings (ar/ur/ml)
+- [ ] Native speakers to check the greeting, form-picker and guide strings (ar/ur/ml)
 
 ## Done
 
@@ -46,7 +34,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [x] Passport MRZ and Emirates ID parsing with check digits and OCR repairs
 - [x] PDFs (rendered in a child process so a crash can't take Sahl down)
 - [x] Folder drag-and-drop; Sahl documents folder that caches readings and syncs every 30 s
-- [x] Local AI (Qwen3-VL 8B instruct via Ollama), only when check digits can't settle a page; retried when it fails
+- [x] Local AI (Qwen3-VL 8B instruct, run by llama.cpp), only when check digits can't settle a page; retried when it fails
 - [x] Several people in one folder ("Filling for"), matched by birth date and first name
 - [x] Guides: medical fitness booking, and "any form" common details
 - [x] Panel in English, Arabic, Urdu and Malayalam (RTL for Arabic and Urdu)
@@ -56,3 +44,11 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [x] Notch panel: black island that opens on hover, palm while starting, "What form?" chat with a small local model (https://github.com/gabriel-gy-tan/sahl/pull/4)
 - [x] Windows port: sidecar path, `%APPDATA%\Sahl`, Recycle Bin, per-monitor DPI, UTF-8 files, `Ctrl+Alt+Space` (https://github.com/gabriel-gy-tan/sahl/pull/5)
 - [x] UAE form matching: label normalising, EN/AR aliases, underlined and side-by-side boxes, Read again after a finished form, the island folds while typing (https://github.com/gabriel-gy-tan/sahl/pull/6)
+- [x] Documents and settings: + in the text box, file and folder picker, documents in the conversation, settings pages, AI model size, opt-in "Help improve Sahl" reports (https://github.com/gabriel-gy-tan/sahl/pull/7)
+- [x] Learn forms from portals: unrecognised labels in reports, official `requirements` in guides, Emirates ID and residence permit guides (https://github.com/gabriel-gy-tan/sahl/pull/8)
+- [x] Dropdown dates: day, month and year boxes picked one by one (https://github.com/gabriel-gy-tan/sahl/pull/10)
+- [x] Chat answers "what documents do I have?" from the vault (https://github.com/gabriel-gy-tan/sahl/pull/11)
+- [x] The app downloads and runs its own AI: resumable, hash-checked, size shown first (https://github.com/gabriel-gy-tan/sahl/pull/12)
+- [x] 409 UAE service guides from TAMM, ICP, MOHRE, MOHAP, DHA, KHDA, DLD, ADEK, DOH and more; the form picker ranks by rare words and answers questions (https://github.com/gabriel-gy-tan/sahl/pull/13)
+- [x] Packaging: frozen sidecar and llama.cpp inside the `.dmg`; Windows scripts written (https://github.com/gabriel-gy-tan/sahl/pull/14)
+- [x] Skip boxes the portal already filled; box finding on any side and shape; dropdowns, radio buttons and checkboxes (never ticked); picker evals (https://github.com/gabriel-gy-tan/sahl/pull/15)
