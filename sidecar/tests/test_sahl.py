@@ -292,7 +292,7 @@ def test_improvement_reports_are_off_by_default_and_hold_no_values(client, monke
     client.post("/read", json={"guide": "medical-fitness"})
     client.post("/fill", json={"field_id": "full_name"})
     [r] = client.get("/improve").json()["reports"]
-    assert (r["guide"], r["found"], r["missed"]) == ("medical-fitness", len(fields), 1)
+    assert (r["guide"], r["found"], r["missed"]) == ("medical-fitness", len([f for f in fields if not f.get("unknown")]), 1)
     report = json.loads(r["text"])
     assert report["found"]["full_name"]["label"] == next(f["seen"] for f in fields if f["id"] == "full_name")
     values = [f["vault"]["value"] for f in fields if f["vault"]]

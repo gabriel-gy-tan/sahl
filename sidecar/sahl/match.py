@@ -672,20 +672,48 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     return out
 
 
-def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
-    """Printed labels no alias of the guide matches, to learn new aliases from.
+def _unmatched(lines, guide, gray, known: set[str]):
+    """(text, box) of printed labels no alias of the guide matches.
 
     Only short text with no digits that has an input border next to it (a value sits inside a box, not beside one),
     and never text that is one of the person's own values (`known`, already normalised)."""
     if gray is None:
-        return []
+        return
     aliases = [a for f in guide["fields"] for a in f["aliases"]]
-    out = []
     for text, box in lines:
         t = _norm(text)
         if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", t) or _score(text, aliases) >= THRESHOLD:
             continue
         if any(t in k or k in t for k in known) or not (_below(gray, box) or _right(gray, box)):
             continue
-        out.append(text.strip(" :*"))
-    return out
+        yield text, box
+
+
+def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
+    """Printed labels no alias of the guide matches, to learn new aliases from."""
+    return [text.strip(" :*") for text, _ in _unmatched(lines, guide, gray, known)]
+
+
+def _overlap(a, b) -> float:
+    """How much of the smaller box the two share."""
+    w, h = min(a[2], b[2]) - max(a[0], b[0]), min(a[3], b[3]) - max(a[1], b[1])
+    return max(w, 0) * max(h, 0) / max(min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1])), 1e-6)
+
+
+def unknown_boxes(lines, guide, gray, known: set[str], taken, scale=1.0, origin=(0, 0)) -> list[dict]:
+    """Boxes the guide doesn't know: [{label, label_box, input_box}] in screen points, top to bottom, left to right.
+
+    `taken` are the input boxes of the fields that did match; a box one of them already owns is not unknown."""
+    to_pt = lambda b: tuple(round(v / scale + origin[i % 2], 1) for i, v in enumerate(b))
+    out = []
+    for text, box in _unmatched(lines, guide, gray, known):
+        raw = _input_box(gray, box, "auto")
+        # a box with printed text inside is a panel around other fields (a heading's "box" is the card below it), or
+        # one that already holds something: either way Sahl has nothing to ask or type there
+        if any(raw[0] < (o[0] + o[2]) / 2 < raw[2] and raw[1] < (o[1] + o[3]) / 2 < raw[3] for _, o in lines if o != box):
+            continue
+        found = to_pt(raw)
+        if any(_overlap(found, t) > 0.3 for t in [*taken, *(u["input_box"] for u in out)]):
+            continue
+        out.append({"label": text.strip(" :*"), "label_box": to_pt(box), "input_box": found})
+    return sorted(out, key=lambda u: (round(u["label_box"][1] / 12), u["label_box"][0]))

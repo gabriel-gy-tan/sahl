@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
-from . import ai, fill, intent, library, match, ocr, report, vault
+from . import ai, fill, intent, library, match, ocr, report, taught, vault
 
 GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] / "guides"))
 
@@ -46,6 +46,21 @@ class Tier(BaseModel):
 
 class FieldRef(BaseModel):
     field_id: str
+
+
+class Teach(BaseModel):
+    label: str = Field(min_length=1, max_length=80)
+    value: str = Field(min_length=1, max_length=500)
+    person: str | None = None
+
+
+class TaughtAlias(BaseModel):
+    label: str = Field(min_length=1, max_length=80)
+    concept: str = Field(max_length=80)
+
+
+class TaughtRef(BaseModel):
+    concept: str = Field(max_length=80)
 
 
 class ImportDoc(BaseModel):
@@ -189,16 +204,41 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             fields.append({**m, "label": f["aliases"][0], "input": f["input"], "help": f["help"], "vault": vault.get(f["vault_key"], person),
                            "spec_options": f.get("options", []),
                            "needs": _needs(f["vault_key"]), "confirmed": m["id"] in state["confirmed"]})
-        state["fields"] = {f["id"]: f for f in fields}
+        extra = _unknown_fields(shot, best, best_scale, monitor, g, person) if best else []
+        state["fields"] = {f["id"]: f for f in [*fields, *extra]}
         state["monitor"] = monitor
         state["scale"] = best_scale
-        if report.enabled() and best:
-            known = {match._norm(str(v["value"])) for x in guides.values() for f in x["fields"]
-                     if (v := vault.get(f["vault_key"], person))}
-            unknown = match.unknown_labels(shot[0], g, shot[1], known)
-        report.record_read(g, fields, monitor, unknown)
+        report.record_read(g, fields, monitor, [u["label"] for u in extra] if report.enabled() else [])
+        fields += extra
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
         return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
+
+    def _unknown_fields(shot, best, scale, monitor, g, person):
+        """Boxes the guide doesn't know, as fields after the known ones: with what the person told Sahl before
+        (typed like any other value), or a suggestion of which told detail it is, or nothing, so the panel asks."""
+        known = {match._norm(str(v["value"])) for x in guides.values() for f in x["fields"]
+                 if (v := vault.get(f["vault_key"], person))}  # the person's own values: text in a box, not a label
+        known |= {match._norm(v) for v in taught.concepts(person).values()}
+        boxes = [u for u in match.unknown_boxes(shot[0], g, shot[1], known, [m["input_box"] for m in best], scale, monitor[:2])
+                 if taught.allowed(u["label"])]
+        told = {u["label"]: taught.get(u["label"], person) for u in boxes}
+        ideas = taught.similar([l for l, t in told.items() if not t], person) if not all(told.values()) else {}
+        out = []
+        for u in boxes:
+            fid = "taught:" + match._norm(u["label"])
+            t = told[u["label"]]
+            f = {"id": fid, "seen": u["label"], "label": u["label"], "label_box": u["label_box"], "input_box": u["input_box"],
+                 "input": "text", "help": dict.fromkeys(("en", "ar", "ur", "ml"), ""), "spec_options": [], "needs": None,
+                 "unknown": True, "vault": {"value": t["value"], "verified": True, "source": taught.SOURCE, "crop": None} if t else None}
+            if t and fid not in state["confirmed"] and any(_box_shows(shot[1], scale, monitor, u["input_box"], w, _shows)
+                                                           for w in _wanted(t["value"], {})):
+                state["confirmed"].add(fid)  # already holds it
+                f["prefilled"] = True
+            if (c := ideas.get(u["label"])):
+                f["suggest"] = {"concept": c, "value": taught.concepts(person)[c]}
+            f["confirmed"] = fid in state["confirmed"]
+            out.append(f)
+        return out
 
     def _field(field_id):
         f = state["fields"].get(field_id)
@@ -434,6 +474,29 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         ai.set_tier(body.tier)
         ai.prepare()  # download and load the new models now, so the next question isn't slow
         return get_models()
+
+    @app.post("/taught", dependencies=[Depends(auth)])
+    def teach(body: Teach):
+        """The person typed what goes in a box Sahl doesn't know; remember it under what the box is called."""
+        if not taught.allowed(body.label):
+            raise HTTPException(422, "Sahl never handles passwords or payment details")
+        return {"concept": taught.teach(body.label, body.value, body.person)}
+
+    @app.post("/taught/alias", dependencies=[Depends(auth)])
+    def teach_alias(body: TaughtAlias):
+        """The person agreed a box is one Sahl was already told about under another name."""
+        if not taught.allowed(body.label) or not taught.alias(body.label, body.concept):
+            raise HTTPException(404, "Sahl was not told about that")
+        return {"ok": True}
+
+    @app.get("/taught", dependencies=[Depends(auth)])
+    def list_taught(person: str | None = None):
+        return taught.listing(person)
+
+    @app.post("/taught/forget", dependencies=[Depends(auth)])
+    def forget_taught(body: TaughtRef):
+        taught.forget(body.concept)
+        return {"ok": True}
 
     @app.get("/improve", dependencies=[Depends(auth)])
     def get_improve():

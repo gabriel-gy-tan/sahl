@@ -391,6 +391,23 @@ export default function Panel() {
     if (guide && readWhenChosen.current) (readWhenChosen.current = false), void read(true);
   }, [guide, read]);
 
+  // boxes no guide knows: the person tells Sahl once and it remembers; a likely match is offered, never assumed
+  const [told, setTold] = useState("");
+  const [declined, setDeclined] = useState<string[]>([]);
+  useEffect(() => setTold(""), [reading?.next]); // what was typed belongs to the box it was typed for
+  const tell = async (path: "/taught" | "/taught/alias", body: object) => {
+    setBusy(true);
+    try {
+      await api(path, body);
+      setTold("");
+      await read();
+    } catch (e) {
+      fail(e);
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const act = async (path: "/fill" | "/confirm", fieldId: string) => {
     const wrote = path === "/fill";
     setNote(null);
@@ -899,6 +916,7 @@ export default function Panel() {
                           </figure>
                         )}
                         {!field.vault.verified && <p className="warn">{t("unverified")}</p>}
+                        {field.unknown && <p className="quiet">{t("taught_note")}</p>}
                       </>
                     ) : (
                       field.needs ? (
@@ -906,12 +924,31 @@ export default function Panel() {
                           <p className="quiet">{t("needs_doc", { doc: t(`doc_${field.needs}`) })}</p>
                           <button className="ghost" disabled={busy} onClick={addDoc}>{t("add_doc")}</button>
                         </div>
+                      ) : field.unknown ? (
+                        field.suggest && !declined.includes(field.id) ? (
+                          <div className="teach">
+                            <p>{t("same_q", { label: field.label, concept: field.suggest.concept })}</p>
+                            <div className="value"><code dir="auto">{field.suggest.value}</code></div>
+                            <div className="actions">
+                              <button className="primary" disabled={busy}
+                                onClick={() => void tell("/taught/alias", { label: field.label, concept: field.suggest!.concept })}>{t("same_yes")}</button>
+                              <button className="ghost" disabled={busy} onClick={() => setDeclined([...declined, field.id])}>{t("same_no")}</button>
+                            </div>
+                          </div>
+                        ) : (
+                          <form className="teach" onSubmit={(e) => (e.preventDefault(), void tell("/taught", { label: field.label, value: told, person: reading!.person }))}>
+                            <p dir="auto">{t("unknown_title", { label: field.label })}</p>
+                            <input value={told} dir="auto" autoFocus placeholder={t("unknown_ph")} aria-label={field.label}
+                              onChange={(e) => setTold(e.target.value)} />
+                            <button className="primary" type="submit" disabled={busy || !told.trim()}>{t("remember")}</button>
+                          </form>
+                        )
                       ) : (
                         <p className="quiet">{field.input === "text" || field.input === "date-parts" ? t("not_in_vault") : t("you_choose")}</p>
                       )
                     )}
                     <div className="actions">
-                      {canFill ? (
+                      {field.unknown && !field.vault ? null : canFill ? (
                         <button className="primary" disabled={busy} onClick={() => act("/fill", field.id)}>{t("yes_fill")}</button>
                       ) : (
                         <button className="primary" disabled={busy} onClick={() => act("/confirm", field.id)}>{t("done_next")}</button>
