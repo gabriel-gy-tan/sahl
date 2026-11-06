@@ -63,6 +63,7 @@ def test_passwords_and_payment_are_never_remembered():
     for label in ("Password", "Credit Card Number", "Card Verification Code", "Card Expiration Date", "PIN", "CVV"):
         assert not taught.allowed(label)
     assert taught.allowed("Company") and taught.allowed("Social Security Number")
+    assert taught.allowed("Card Customer Service Phone") and taught.allowed("Card Issuing Bank")  # about the bank, not the card
 
 
 def test_forgetting_one_and_everything():
@@ -89,8 +90,14 @@ def _form(*labels):
 @pytest.fixture
 def client():
     page, typed = _form("Full name", "Company", "Password"), []
-    app = server.create_app("t0k", screen=lambda: [(page, 1.0, (0, 0, 1600, page.shape[0]))],
-                            typer=lambda box, value: typed.append(value))
+    def typer(box, value):  # draws the value into the box, like a real page would show it
+        typed.append(value)
+        if not value.startswith("MISS"):
+            img = Image.fromarray(page)
+            ImageDraw.Draw(img).text((box[0] + 12, box[1] + 10), value, fill=0, font=ImageFont.load_default(28))
+            page[:] = np.array(img)
+
+    app = server.create_app("t0k", screen=lambda: [(page.copy(), 1.0, (0, 0, 1600, page.shape[0]))], typer=typer)
     c = TestClient(app, headers={"x-sahl-token": "t0k"})
     c.page, c.typed = page, typed
     c.read = lambda: c.post("/read", json={"guide": "any-form"}).json()
@@ -124,3 +131,37 @@ def test_the_same_detail_under_another_name_is_offered_then_used(client, monkeyp
     assert client.get("/taught").json() == [{"concept": "Company", "value": "Acme Ltd", "labels": ["company", "workplace"]}]
     client.post("/taught/forget", json={"concept": "Company"})
     assert client.get("/taught").json() == []
+
+
+def test_a_few_letters_that_ocr_cannot_read_still_land(client):
+    client.read()
+    client.post("/taught", json={"label": "Company", "value": "Mr."})
+    client.read()
+    assert client.post("/fill", json={"field_id": "taught:company"}).json()["landed"] is True  # the box visibly changed
+
+
+def test_a_click_that_missed_does_not_land(client):
+    client.read()
+    client.post("/taught", json={"label": "Company", "value": "MISS"})
+    client.read()
+    assert client.post("/fill", json={"field_id": "taught:company"}).json()["landed"] is False  # nothing was drawn
+
+
+def test_only_boxes_near_the_known_fields_are_asked_about():
+    from sahl import match
+    taken = [(300, 300, 500, 340)]
+    lines = [("Menu", (20, 10, 80, 30)), ("Company", (100, 360, 250, 390))]
+    gray = np.full((900, 900), 255, np.uint8)
+    for y in (30, 390):  # a box under each label
+        gray[y + 10:y + 12, 100:700] = gray[y + 50:y + 52, 100:700] = 150
+        gray[y + 10:y + 52, 100:102] = gray[y + 10:y + 52, 698:700] = 150
+    guide = {"fields": [{"aliases": ["Full name"]}]}
+    got = match.unknown_boxes(lines, guide, gray, set(), taken)
+    assert [u["label"] for u in got] == ["Company"]
+
+
+def test_a_label_that_wraps_is_one_label():
+    from sahl import match
+    lines = [("Card Customer Service", (100, 100, 400, 125)), ("Phone", (330, 130, 400, 155)),
+             ("Company", (100, 250, 250, 275)), ("Position", (100, 320, 250, 345))]  # rows a line apart stay apart
+    assert [t for t, _ in match._wrapped(lines)] == ["Card Customer Service Phone", "Company", "Position"]

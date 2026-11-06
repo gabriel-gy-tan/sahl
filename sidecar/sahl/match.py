@@ -672,17 +672,44 @@ def match(lines, guide, gray=None, scale=1.0, origin=(0, 0)):
     return out
 
 
-def _unmatched(lines, guide, gray, known: set[str]):
+def _own_box(gray, box) -> bool:
+    """Whether a box's border crosses the line of text's middle to its right: it has an input of its own on its row."""
+    cy, x0 = int((box[1] + box[3]) / 2), int(box[2]) + 4
+    row = gray[min(cy, gray.shape[0] - 1), x0:x0 + max(600, int(30 * (box[3] - box[1])))].astype(int)
+    return row.size > 1 and int((abs(np.diff(row)) >= 20).sum()) >= 2
+
+
+def _wrapped(lines, gray=None):
+    """Lines with a label that wraps onto a second line joined ("Card Customer Service" + "Phone"): a line directly
+    under another, tight against it and lined up with it on the right or the left (the other column's lines in
+    between don't matter). The joined label keeps the first line's box, which is the one the input sits beside."""
+    out = []
+    for text, box in sorted(lines, key=lambda l: (l[1][1], l[1][0])):
+        for i, (t, b) in enumerate(out):
+            h, gap = max(b[3] - b[1], 8), box[1] - b[3]
+            if -0.3 * h <= gap <= 1.2 * h and (abs(box[2] - b[2]) <= 1.5 * h or abs(box[0] - b[0]) <= 1.5 * h) \
+                    and len(text.split()) <= 3 and len((t + " " + text).split()) <= 5 \
+                    and (gray is None or not _own_box(gray, box)):  # a second line has no input beside it
+                out[i] = (t + " " + text, b)
+                break
+        else:
+            out.append((text, box))
+    return out
+
+
+def _unmatched(lines, guide, gray, known: set[str], numbered=False):
     """(text, box) of printed labels no alias of the guide matches.
 
-    Only short text with no digits that has an input border next to it (a value sits inside a box, not beside one),
-    and never text that is one of the person's own values (`known`, already normalised)."""
+    Only short text with no digits (but "Address line 1" when `numbered`) that has an input border next to it (a value
+    sits inside a box, not beside one), and never text that is one of the person's own values (`known`, already
+    normalised)."""
     if gray is None:
         return
     aliases = [a for f in guide["fields"] for a in f["aliases"]]
-    for text, box in lines:
+    for text, box in _wrapped(lines, gray):
         t = _norm(text)
-        if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", t) or _score(text, aliases) >= THRESHOLD:
+        digits = re.sub(r"(?<=\D)\s\d{1,2}$", "", t) if numbered else t
+        if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", digits) or _score(text, aliases) >= THRESHOLD:
             continue
         if any(t in k or k in t for k in known) or not (_below(gray, box) or _right(gray, box)):
             continue
@@ -703,17 +730,23 @@ def _overlap(a, b) -> float:
 def unknown_boxes(lines, guide, gray, known: set[str], taken, scale=1.0, origin=(0, 0)) -> list[dict]:
     """Boxes the guide doesn't know: [{label, label_box, input_box}] in screen points, top to bottom, left to right.
 
-    `taken` are the input boxes of the fields that did match; a box one of them already owns is not unknown."""
+    `taken` are the input boxes of the fields that did match; a box one of them already owns is not unknown, and
+    neither is text inside one (a value already typed in)."""
     to_pt = lambda b: tuple(round(v / scale + origin[i % 2], 1) for i, v in enumerate(b))
+    inside = lambda b, r: r[0] < (b[0] + b[2]) / 2 < r[2] and r[1] < (b[1] + b[3]) / 2 < r[3]
+    taken_px = [tuple((v - origin[i % 2]) * scale for i, v in enumerate(t)) for t in taken]
+    cands = [(text, box, _input_box(gray, box, "auto")) for text, box in _unmatched(lines, guide, gray, known, numbered=True)]
+    held = [[o for _, o in lines if o != box and inside(o, raw)] for _, box, raw in cands]
+    values = [h[0] for h in held if len(h) == 1]  # a box with one line of text in it: that line is its value, not a label
     out = []
-    for text, box in _unmatched(lines, guide, gray, known):
-        raw = _input_box(gray, box, "auto")
-        # a box with printed text inside is a panel around other fields (a heading's "box" is the card below it), or
-        # one that already holds something: either way Sahl has nothing to ask or type there
-        if any(raw[0] < (o[0] + o[2]) / 2 < raw[2] and raw[1] < (o[1] + o[3]) / 2 < raw[3] for _, o in lines if o != box):
-            continue
+    for (text, box, raw), inner in zip(cands, held):
+        if inner or any(inside(box, v) or box == v for v in values) or any(inside(box, t) for t in taken_px):
+            continue  # a panel around other fields, a box already filled, or text inside a box: a value
         found = to_pt(raw)
         if any(_overlap(found, t) > 0.3 for t in [*taken, *(u["input_box"] for u in out)]):
             continue
         out.append({"label": text.strip(" :*"), "label_box": to_pt(box), "input_box": found})
+    if taken:  # the form is where the known fields are: not the menu bar, tabs or navigation far above or below it
+        top, bottom = min(t[1] for t in taken) - 150, max(t[3] for t in taken) + 300
+        out = [u for u in out if top <= u["label_box"][1] <= bottom]
     return sorted(out, key=lambda u: (round(u["label_box"][1] / 12), u["label_box"][0]))

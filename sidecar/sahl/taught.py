@@ -14,7 +14,8 @@ from . import ai, match, vault
 SOURCE = "you told Sahl"
 SIMILAR = 85  # as close as a guide's alias must be (match.THRESHOLD); numbers must still agree: "Address line 1" is not "2"
 # Sahl never types into password or payment fields, so it never asks to remember them either
-NEVER = re.compile(r"pass(?:word|code|phrase)|\bpin\b|\botp\b|one.time|card|credit|debit|cvv|cvc|security code|iban|expir", re.I)
+NEVER = re.compile(r"pass(?:word|code|phrase)|\bpin\b|\botp\b|one.time|(?:credit|debit) card|card\s*(?:number|no|holder|user|verification|security|type)"
+                   r"|cvv|cvc|security code|iban|expir", re.I)
 
 
 def allowed(label: str) -> bool:

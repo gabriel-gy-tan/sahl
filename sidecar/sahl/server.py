@@ -271,12 +271,14 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         box = f["input_box"]  # screen points
         if sys.platform == "win32":  # pynput's SetCursorPos uses physical pixels once mss makes the process DPI-aware
             box = tuple(round(v * state["scale"]) for v in box)
+        short = len("".join(c for c in v["value"] if c.isalnum())) <= 4
+        before = _crop(f["input_box"]) if short else None  # OCR can't read a few letters ("Mr."): compare the box's pixels
         try:
             typer(box, v["value"])
         except Exception as e:  # no permission to type, or the form is elevated
             raise HTTPException(409, f"typing failed: {e}")
         time.sleep(0.3)
-        landed = _landed(f["input_box"], v["value"])
+        landed = _landed(f["input_box"], v["value"]) or (short and _inked(f["input_box"], before))
         if landed:  # only move on when the box visibly shows what was typed
             state["confirmed"].add(body.field_id)
         else:
@@ -416,6 +418,23 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             if tuple(mon) == tuple(state["monitor"]):
                 return _box_shows(gray, scale, mon, box, value)
         return False
+
+    def _crop(box):
+        """The pixels of one box (screen points) as they are now, or None."""
+        for gray, scale, mon in screen():
+            if tuple(mon) == tuple(state["monitor"]):
+                x0, y0, x1, y1 = ((v - mon[i % 2]) * scale for i, v in enumerate(box))
+                return gray[int(y0):int(y1), int(x0):int(x1)].astype(int)
+        return None
+
+    def _inked(box, before) -> bool:
+        """A few typed letters that OCR reads as nothing: the box now has marks it did not, and no other text."""
+        after = _crop(box)
+        if before is None or after is None or before.shape != after.shape or before.size == 0:
+            return False
+        if ocr.lines(after.astype(np.uint8)):  # OCR read something: that must be the value, not this fallback
+            return False
+        return bool((abs(after - before) > 60).mean() >= 0.02)
 
     @app.post("/vault/import", dependencies=[Depends(auth)])
     def vault_import(body: ImportDoc):
