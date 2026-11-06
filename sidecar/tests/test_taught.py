@@ -78,7 +78,7 @@ def test_forgetting_one_and_everything():
 
 def _form(*labels):
     """An invented form: each label with an empty box below it, like a portal's."""
-    im = Image.new("L", (1600, 120 + 140 * len(labels)), 255)
+    im = Image.new("L", (1600, 1000), 255)  # room to scroll in
     d, font = ImageDraw.Draw(im), ImageFont.load_default(28)
     for i, text in enumerate(labels):
         y = 60 + 140 * i
@@ -89,9 +89,10 @@ def _form(*labels):
 
 @pytest.fixture
 def client():
-    page, typed = _form("Full name", "Company", "Password"), []
+    page, typed, boxes = _form("Full name", "Company", "Password"), [], []
     def typer(box, value):  # draws the value into the box, like a real page would show it
         typed.append(value)
+        boxes.append(box)
         if not value.startswith("MISS"):
             img = Image.fromarray(page)
             ImageDraw.Draw(img).text((box[0] + 12, box[1] + 10), value, fill=0, font=ImageFont.load_default(28))
@@ -99,7 +100,7 @@ def client():
 
     app = server.create_app("t0k", screen=lambda: [(page.copy(), 1.0, (0, 0, 1600, page.shape[0]))], typer=typer)
     c = TestClient(app, headers={"x-sahl-token": "t0k"})
-    c.page, c.typed = page, typed
+    c.page, c.typed, c.boxes = page, typed, boxes
     c.read = lambda: c.post("/read", json={"guide": "any-form"}).json()
     return c
 
@@ -185,3 +186,35 @@ def test_a_short_value_does_not_hide_labels_that_contain_it():
     guide = {"fields": [{"aliases": ["Full name"]}]}
     for known in ({"v"}, {"mr"}, {"00000"}):  # a middle initial, a title, a code the person told Sahl
         assert [u["label"] for u in match.unknown_boxes(lines, guide, gray, known, [])] == ["State / Province"]
+
+
+def _scrolled(page, dy):
+    """The page with its content moved dy pixels down (up when negative), blank where nothing scrolled in."""
+    out = np.full_like(page, 255)
+    if dy >= 0:
+        out[dy:] = page[:page.shape[0] - dy]
+    else:
+        out[:dy] = page[-dy:]
+    return out
+
+
+@pytest.mark.parametrize("dy", [0, 37, -41, 140, -140, 3])
+def test_a_scroll_between_reading_and_filling_still_types_in_the_right_box(client, dy):
+    client.page[:] = _form("Full name", "Address Line 1", "Address Line 2")  # rows that differ by one character
+    client.read()
+    client.post("/taught", json={"label": "Address Line 2", "value": "Flat 2"})
+    f = _unknown(client.read())["Address Line 2"]
+    box = f["input_box"]
+    client.page[:] = _scrolled(client.page, dy)  # the person scrolls
+    r = client.post("/fill", json={"field_id": f["id"]})
+    assert r.status_code == 200 and r.json()["landed"] is True
+    assert client.boxes == [pytest.approx((box[0], box[1] + dy, box[2], box[3] + dy), abs=2)]  # clicked where the box is now
+
+
+def test_a_box_scrolled_out_of_sight_is_not_clicked(client):
+    client.read()
+    client.post("/taught", json={"label": "Company", "value": "Acme"})
+    f = _unknown(client.read())["Company"]
+    client.page[:] = _scrolled(client.page, -400)  # the label is gone
+    r = client.post("/fill", json={"field_id": f["id"]})
+    assert r.status_code == 409 and r.json()["detail"].startswith("moved") and client.boxes == []

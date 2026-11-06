@@ -4,7 +4,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## In progress
 
-- [ ] Teach Sahl unknown boxes: a box no guide knows gets "we don't know X, tell me so I can always remember it"; the answer is stored per person and reused under another name for the same detail (Company / Workplace) after a yes to the local model's suggestion; passwords and card fields never (`feat/teach-unknown-boxes`). Tested on drawn forms; not yet tried on a real portal. Still to do: a settings page to see and forget what Sahl was told one by one ("Delete everything" already clears it), dropdowns and date boxes that are unknown, and a form with no known label at all
+- [ ] Teach Sahl unknown boxes: a box no guide knows gets "we don't know X, tell me so I can always remember it"; the answer is stored per person and reused under another name for the same detail (Company / Workplace) after a yes to the local model's suggestion; passwords and card fields never (`feat/teach-unknown-boxes`). Tested on drawn forms; not yet tried on a real portal. Scrolling after a read is handled when you tap Yes, fill it: Sahl finds the label again and moves the boxes, or stops without clicking if it can't (the ring does not yet follow a scroll between taps). Still to do: a settings page to see and forget what Sahl was told one by one ("Delete everything" already clears it), dropdowns and date boxes that are unknown, and a form with no known label at all
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong. Labels for the ICP Emirates ID renewal guide were copied from the signed-in form and not yet tried on the live page
 
 ## Next

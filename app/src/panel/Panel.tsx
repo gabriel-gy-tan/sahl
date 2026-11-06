@@ -421,7 +421,10 @@ export default function Panel() {
       await read();
       if (r.landed === false) setError("missed"); // after read(), which clears errors
     } catch (e) {
-      fail(e);
+      if (e instanceof ApiError && e.status === 409 && e.message.startsWith("moved")) {
+        await read(); // the page was scrolled: look again, and say nothing was typed
+        setError("moved");
+      } else fail(e);
     } finally {
       if (wrote) setOpen(true);
       setBusy(false);

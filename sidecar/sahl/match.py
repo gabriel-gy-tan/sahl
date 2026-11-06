@@ -777,3 +777,24 @@ def reading_order(items: list[dict]) -> list[dict]:
         else:
             rows.append((y0, [f]))
     return [f for _, row in rows for f in sorted(row, key=lambda f: f["input_box"][0])]
+
+
+def find_shift(tpl, img, x0: int, y0: int) -> int | None:
+    """How many pixels down the picture `tpl` (cut from an older screenshot at x0, y0) is now in `img`: 0 if it has not
+    moved, None if it is not there or could be any of several places. Vertical only, as pages scroll up and down."""
+    h, w = tpl.shape
+    cols = img[:, x0:x0 + w]
+    n = cols.shape[0] - h + 1
+    if cols.shape[1] < w or n < 1:
+        return None
+    win = np.lib.stride_tricks.sliding_window_view(cols, h, axis=0)  # (n, w, h), no copy
+    t, diffs = tpl.astype(np.int16).T, np.empty(n)
+    for s in range(0, n, 300):
+        diffs[s:s + 300] = np.abs(win[s:s + 300].astype(np.int16) - t).mean(axis=(1, 2))
+    if y0 < n and diffs[y0] <= 1.5:  # identical pixels: even a one-character difference ("Line 1" for "Line 2") is more
+        return 0
+    best = int(diffs.argmin())
+    apart = np.ones(n, bool)
+    apart[max(best - h, 0):best + h + 1] = False  # another place that looks as much like it as the best does
+    other = diffs[apart].min() if apart.any() else 255
+    return best - y0 if diffs[best] <= 18 and other >= 1.5 * diffs[best] + 4 else None

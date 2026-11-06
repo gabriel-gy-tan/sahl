@@ -140,7 +140,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
                        allow_methods=["*"], allow_headers=["*"])
     guides = load_guides()
-    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0}
+    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0, "shot": None}
 
     def auth(x_sahl_token: str = Header("")):
         if not secrets.compare_digest(x_sahl_token, token):
@@ -208,6 +208,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         state["fields"] = {f["id"]: f for f in [*fields, *extra]}
         state["monitor"] = monitor
         state["scale"] = best_scale
+        state["shot"] = (shot[1], best_scale, monitor) if best else None  # what the boxes were found in, to spot a scroll
         report.record_read(g, fields, monitor, [u["label"] for u in extra] if report.enabled() else [])
         fields = match.reading_order([*fields, *extra])  # the order on the page, not the guide's
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
@@ -252,6 +253,29 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         state["confirmed"].add(body.field_id)
         return {"ok": True}
 
+    def _relocate(f):
+        """A scroll since the read moved every box. Find this field's label again in a fresh screenshot and move all the
+        boxes by the same amount; if it can't be found, stop before clicking anywhere."""
+        shot, box = state["shot"], f.get("label_box")
+        if not shot or not box:
+            return
+        old, scale, mon = shot
+        x0, y0, x1, y1 = (max(int((v - mon[i % 2]) * scale) + (-3 if i < 2 else 3), 0) for i, v in enumerate(box))
+        tpl = old[y0:y1, x0:x1]
+        if tpl.size == 0 or tpl.std() < 12:  # a blank or blanked-out label: nothing to recognise it by
+            return
+        now = next((g for g, _, m in screen() if tuple(m) == tuple(mon)), None)
+        dy = match.find_shift(tpl, now, x0, y0) if now is not None else None
+        if dy is None:
+            raise HTTPException(409, "moved: the page moved and this box is not where it was")
+        if dy:
+            for g in state["fields"].values():  # the whole page scrolled
+                for b in [g, *g.get("parts", []), *g.get("options", [])]:
+                    for k in ("input_box", "label_box", "box"):
+                        if k in b:
+                            b[k] = tuple(v + (dy / scale if i % 2 else 0) for i, v in enumerate(b[k]))
+            state["shot"] = (now, scale, mon)
+
     @app.post("/fill", dependencies=[Depends(auth)])
     def do_fill(body: FieldRef):
         f = _field(body.field_id)
@@ -262,6 +286,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             raise HTTPException(422, "Sahl only fills text boxes, dates, dropdowns and radio buttons")
         if not v or not v["verified"]:
             raise HTTPException(422, "no verified value for this box")
+        _relocate(f)
         if f["input"] == "radio":
             return _fill_radio(f, v["value"], body.field_id)
         if f["input"] == "select":
