@@ -165,3 +165,13 @@ def test_a_label_that_wraps_is_one_label():
     lines = [("Card Customer Service", (100, 100, 400, 125)), ("Phone", (330, 130, 400, 155)),
              ("Company", (100, 250, 250, 275)), ("Position", (100, 320, 250, 345))]  # rows a line apart stay apart
     assert [t for t, _ in match._wrapped(lines)] == ["Card Customer Service Phone", "Company", "Position"]
+
+
+def test_fields_go_in_the_order_they_are_on_the_page():
+    from sahl import match
+    box = lambda x, y: {"input_box": (x, y, x + 200, y + 40)}
+    two = [{"id": "r1", **box(600, 100)}, {"id": "l2", **box(100, 150)}, {"id": "l1", **box(100, 100)}, {"id": "l3", **box(100, 200)},
+           {"id": "r2", **box(600, 150)}, {"id": "r3", **box(610, 200)}, {"id": "stray", **box(380, 260)}]
+    assert [f["id"] for f in match.reading_order(two)] == ["l1", "l2", "l3", "r1", "r2", "r3", "stray"]  # down the left, then the right
+    rows = [{"id": "b", **box(400, 100)}, {"id": "a", **box(100, 102)}, {"id": "c", **box(100, 160)}]
+    assert [f["id"] for f in match.reading_order(rows)] == ["a", "b", "c"]  # short columns: row by row

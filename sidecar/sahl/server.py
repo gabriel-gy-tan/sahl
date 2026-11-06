@@ -209,7 +209,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         state["monitor"] = monitor
         state["scale"] = best_scale
         report.record_read(g, fields, monitor, [u["label"] for u in extra] if report.enabled() else [])
-        fields += extra
+        fields = match.reading_order([*fields, *extra])  # the order on the page, not the guide's
         nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
         return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
 

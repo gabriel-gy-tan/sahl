@@ -750,3 +750,30 @@ def unknown_boxes(lines, guide, gray, known: set[str], taken, scale=1.0, origin=
         top, bottom = min(t[1] for t in taken) - 150, max(t[3] for t in taken) + 300
         out = [u for u in out if top <= u["label_box"][1] <= bottom]
     return sorted(out, key=lambda u: (round(u["label_box"][1] / 12), u["label_box"][0]))
+
+
+def reading_order(items: list[dict]) -> list[dict]:
+    """Fields in the order a person fills them: down each column of boxes, left column first, when the form has
+    long columns (three boxes or more); otherwise row by row, left to right. By each field's `input_box`."""
+    items = sorted(items, key=lambda f: f["input_box"][0])
+    cols = []  # boxes whose left edges line up (within 60 points) are one column
+    for f in items:
+        if cols and f["input_box"][0] - cols[-1][0]["input_box"][0] <= 60:
+            cols[-1].append(f)
+        else:
+            cols.append([f])
+    tall = [c for c in cols if len(c) >= 3]
+    if len(tall) >= 2:
+        for c in cols:
+            if c not in tall:  # a short stray box joins the nearest long column
+                for f in c:
+                    min(tall, key=lambda t: abs(t[0]["input_box"][0] - f["input_box"][0])).append(f)
+        return [f for c in tall for f in sorted(c, key=lambda f: f["input_box"][1])]
+    rows = []
+    for f in sorted(items, key=lambda f: f["input_box"][1]):
+        y0, y1 = f["input_box"][1], f["input_box"][3]
+        if rows and y0 - rows[-1][0] <= 0.5 * (y1 - y0):
+            rows[-1][1].append(f)
+        else:
+            rows.append((y0, [f]))
+    return [f for _, row in rows for f in sorted(row, key=lambda f: f["input_box"][0])]
