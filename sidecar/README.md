@@ -25,18 +25,16 @@ cd app; npm install; npm run tauri dev
 The demo samples are already in `demo/samples/`; run `demo/make_samples.py` only to redraw them (the fonts
 differ per OS).
 
-For reading documents, run the local AI (Ollama, offline after the download). Install it on macOS with
-`brew install ollama`, or with the Windows installer, then:
+For reading documents, Sahl runs a local AI with llama.cpp's `llama-server` (offline after the download). The app carries its own;
+from a checkout, run `.venv/bin/python build.py llama` (Apple Silicon and Windows; the dev app also needs that `app/src-tauri/llama` folder to exist),
+or install it with `brew install llama.cpp`, or point `SAHL_LLAMA_SERVER` at any `llama-server`. Then start
+Sahl: the first time, the panel asks whether to download the models (a Hugging Face download of 3 to 25 GB depending on the size, shown
+first), resumes it if the connection drops, and checks each file's hash. They are kept in `models/` in Sahl's folder
+(`SAHL_MODELS` moves them). The vision model reads documents; the small text model works out which form someone means from what they type
+("the medical test for my visa"). Without it, Sahl only finds a form whose name is typed.
 
-```bash
-ollama serve
-ollama pull qwen3-vl:8b-instruct
-ollama pull qwen3:1.7b
-```
-
-`qwen3-vl:8b-instruct` reads documents; the small `qwen3:1.7b` works out which form someone means from what they type ("the medical test for my visa"). Without it, Sahl only finds a form whose name is typed.
-
-That pair is the **Standard** AI model in Settings → General. **Lighter** (`qwen3:0.6b` + `qwen3-vl:4b-instruct`) is faster on smaller computers; **Stronger** (`qwen3:8b` + `qwen3-vl:30b-a3b-instruct`) needs about 32 GB of memory. The panel shows the `ollama pull` line for a size that isn't downloaded yet.
+The **Standard** AI model in Settings → General is `Qwen3-VL-8B-Instruct` + `Qwen3-1.7B`. **Lighter** (`Qwen3-VL-4B-Instruct` + `Qwen3-0.6B`)
+is faster on smaller computers; **Stronger** (`Qwen3-VL-30B-A3B-Instruct` + `Qwen3-8B`) needs about 32 GB of memory. `MODELS` in `sahl/ai.py` lists the files.
 
 Without it Sahl still reads the machine-readable lines, but won't type names it can't confirm.
 
@@ -61,7 +59,7 @@ then `emirates_id.png`, and press **⌥ Space** (macOS) or **Ctrl+Alt+Space** (W
 
 ## Evals
 
-The form picker against real phrasings, with Ollama running (slow, so not in pytest):
+The form picker against real phrasings, with the models downloaded (slow, so not in pytest):
 
 ```bash
 cd sidecar && .venv/bin/python -m evals.picker all

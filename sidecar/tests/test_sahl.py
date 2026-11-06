@@ -42,7 +42,7 @@ def test_check_digit_icao_example():
     assert vault.check_digit("740812") == "2"
 
 
-# what the local vision model says about each invented document (tests don't need Ollama running)
+# what the local vision model says about each invented document (tests don't need llama.cpp running)
 def _answer(doc, name, nat, dob, pp="", eid="", exp=""):
     return {"doc_type": doc, "full_name": name, "nationality": nat, "date_of_birth": dob,
             "passport_number": pp, "emirates_id_number": eid, "expiry_date": exp}

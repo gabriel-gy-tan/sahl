@@ -1,4 +1,4 @@
-"""The form picker against real phrasings, with the local model running (Ollama). Not part of pytest: it is slow and
+"""The form picker against real phrasings, with the local model running (llama.cpp). Not part of pytest: it is slow and
 needs the model. Run from sidecar/:  .venv/bin/python -m evals.picker [dev|heldout|fresh|all]
 
 Each case is (message, kind wanted, guides that count as right). "dev" is what the picker was fixed against; "heldout"

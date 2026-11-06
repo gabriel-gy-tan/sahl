@@ -288,12 +288,13 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
             c.args(["-m", "sahl.server"]).current_dir(&root);
             c
         } else {
-            // release: the packed sidecar folder and the guides are in the app's resources
+            // release: the packed sidecar folder, llama-server and the guides are in the app's resources
             // (resource_dir() fails in this build, so work it out from the executable: Contents/Resources on macOS, beside it on Windows)
             let exe = std::env::current_exe().expect("app path");
             let dir = if cfg!(target_os = "macos") { exe.parent().unwrap().join("../Resources") } else { exe.parent().unwrap().to_path_buf() };
             let mut c = Command::new(dir.join("sidecar").join(if cfg!(windows) { "sahl-sidecar.exe" } else { "sahl-sidecar" }));
-            c.env("SAHL_GUIDES", dir.join("guides"));
+            c.env("SAHL_GUIDES", dir.join("guides"))
+                .env("SAHL_LLAMA_SERVER", dir.join("llama").join(if cfg!(windows) { "llama-server.exe" } else { "llama-server" }));
             c
         };
         cmd.env("SAHL_TOKEN", &s.token).stdout(Stdio::piped());
@@ -391,6 +392,18 @@ pub fn run() {
                 let s = app.state::<Sidecar>();
                 s.exiting.store(true, Ordering::SeqCst);
                 if let Some(mut c) = s.child.lock().unwrap().take() {
+                    // Ask first: told to stop, the sidecar stops the AI models it started, which a kill would leave running.
+                    // ponytail: Windows has no such request here, so a model server survives until the next launch stops it.
+                    #[cfg(unix)]
+                    {
+                        let _ = Command::new("kill").arg(c.id().to_string()).status();
+                        for _ in 0..30 {
+                            if matches!(c.try_wait(), Ok(Some(_))) {
+                                break;
+                            }
+                            std::thread::sleep(std::time::Duration::from_millis(100));
+                        }
+                    }
                     let _ = c.kill();
                 }
             }

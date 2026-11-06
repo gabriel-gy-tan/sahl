@@ -111,8 +111,15 @@
     "tier_light": "Lighter · faster on smaller computers",
     "tier_standard": "Standard",
     "tier_strong": "Stronger · needs 32 GB of memory",
-    "model_off": "Starting the local AI (Ollama)…",
-    "not_installed": "Downloading it now. This takes a few minutes, only once.",
+    "model_off": "Starting the local AI…",
+    "dl_title": "Download the AI model?",
+    "dl_body": "Sahl reads your documents and understands what you type with an AI model that runs only on this computer. It needs a one-time download of about {gb} GB, and you have {free} GB free. Sahl keeps working while it downloads.",
+    "dl_yes": "Download",
+    "dl_no": "Not now",
+    "dl_progress": "Downloading the AI model… {pct}%",
+    "dl_paused": "The download paused. Sahl will carry on by itself when it can.",
+    "dl_space": "Not enough space to download the AI model. Free up {gb} GB and Sahl will carry on.",
+    "dl_later": "Download the AI model (about {gb} GB)",
     "too_slow": "Taking too long? Try a lighter model",
     "improve": "Help improve Sahl",
     "improve_body": "Off unless you turn it on. After each form, Sahl saves a short report on this computer: which boxes it found, missed or never saw, with the form's labels and where its boxes are. Never your details. Nothing is sent: you choose whether to share a report.",
@@ -120,7 +127,7 @@
     "copy_report": "Copy for a GitHub issue",
     "open_folder": "Open the reports folder",
     "no_reports": "No reports yet. One appears after Sahl reads a form.",
-    "no_ollama": "Sahl needs Ollama, the free app that runs the AI on this computer. Install it from ollama.com, then reopen Sahl."
+    "no_runtime": "The AI engine that comes with Sahl can't be found. Reinstall Sahl."
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -233,8 +240,15 @@
     "tier_light": "أخف · أسرع على الحواسيب الأصغر",
     "tier_standard": "عادي",
     "tier_strong": "أقوى · يحتاج 32 غيغابايت من الذاكرة",
-    "model_off": "جارٍ تشغيل الذكاء الاصطناعي المحلي (Ollama)…",
-    "not_installed": "جارٍ التنزيل الآن. يستغرق بضع دقائق، مرة واحدة فقط.",
+    "model_off": "جارٍ تشغيل الذكاء الاصطناعي المحلي…",
+    "dl_title": "هل تريد تنزيل نموذج الذكاء الاصطناعي؟",
+    "dl_body": "يقرأ Sahl مستنداتك ويفهم ما تكتبه بنموذج ذكاء اصطناعي يعمل على هذا الحاسوب فقط. يحتاج إلى تنزيل لمرة واحدة بحجم {gb} غيغابايت تقريباً، والمتاح لديك {free} غيغابايت. يواصل Sahl العمل أثناء التنزيل.",
+    "dl_yes": "تنزيل",
+    "dl_no": "ليس الآن",
+    "dl_progress": "جارٍ تنزيل نموذج الذكاء الاصطناعي… {pct}%",
+    "dl_paused": "توقف التنزيل. سيواصل Sahl تلقائياً عندما يستطيع.",
+    "dl_space": "المساحة غير كافية لتنزيل نموذج الذكاء الاصطناعي. حرّر {gb} غيغابايت وسيواصل Sahl.",
+    "dl_later": "تنزيل نموذج الذكاء الاصطناعي (نحو {gb} غيغابايت)",
     "too_slow": "يستغرق وقتًا طويلًا؟ جرّب نموذجًا أخف",
     "improve": "ساعد في تحسين سهل",
     "improve_body": "مُطفأ ما لم تشغّله. بعد كل نموذج يحفظ سهل تقريرًا قصيرًا على هذا الحاسوب: الخانات التي وجدها أو أخطأها أو لم يرها، مع عناوين النموذج وأماكن خاناته. لا بياناتك أبدًا. لا يُرسل شيء: أنت تختار إن كنت تشارك التقرير.",
@@ -242,7 +256,7 @@
     "copy_report": "انسخ لبلاغ على GitHub",
     "open_folder": "افتح مجلد التقارير",
     "no_reports": "لا توجد تقارير بعد. يظهر تقرير بعد أن يقرأ سهل نموذجًا.",
-    "no_ollama": "يحتاج Sahl إلى Ollama، التطبيق المجاني الذي يشغّل الذكاء الاصطناعي على هذا الحاسوب. ثبّته من ollama.com ثم أعد فتح Sahl."
+    "no_runtime": "تعذّر العثور على محرّك الذكاء الاصطناعي المرفق مع Sahl. أعد تثبيت Sahl."
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -355,8 +369,15 @@
     "tier_light": "ہلکا · چھوٹے کمپیوٹرز پر تیز",
     "tier_standard": "معیاری",
     "tier_strong": "طاقتور · 32 GB میموری درکار",
-    "model_off": "مقامی AI (Ollama) شروع ہو رہا ہے…",
-    "not_installed": "اب ڈاؤن لوڈ ہو رہا ہے۔ چند منٹ لگتے ہیں، صرف ایک بار۔",
+    "model_off": "مقامی AI شروع ہو رہا ہے…",
+    "dl_title": "AI ماڈل ڈاؤن لوڈ کریں؟",
+    "dl_body": "Sahl آپ کے دستاویزات پڑھتا ہے اور جو آپ لکھتے ہیں اسے ایک AI ماڈل سے سمجھتا ہے جو صرف اسی کمپیوٹر پر چلتا ہے۔ اس کے لیے ایک بار تقریباً {gb} GB ڈاؤن لوڈ کرنا ہوگا، اور آپ کے پاس {free} GB خالی ہے۔ ڈاؤن لوڈ کے دوران Sahl کام کرتا رہتا ہے۔",
+    "dl_yes": "ڈاؤن لوڈ کریں",
+    "dl_no": "ابھی نہیں",
+    "dl_progress": "AI ماڈل ڈاؤن لوڈ ہو رہا ہے… {pct}%",
+    "dl_paused": "ڈاؤن لوڈ رک گیا۔ جب ممکن ہوگا Sahl خود جاری رکھے گا۔",
+    "dl_space": "AI ماڈل ڈاؤن لوڈ کرنے کے لیے جگہ کم ہے۔ {gb} GB خالی کریں، Sahl جاری رکھے گا۔",
+    "dl_later": "AI ماڈل ڈاؤن لوڈ کریں (تقریباً {gb} GB)",
     "too_slow": "بہت دیر لگ رہی ہے؟ ہلکا ماڈل آزمائیں",
     "improve": "سہل کو بہتر بنانے میں مدد کریں",
     "improve_body": "جب تک آپ آن نہ کریں، بند ہے۔ ہر فارم کے بعد سہل اس کمپیوٹر پر ایک مختصر رپورٹ محفوظ کرتا ہے: کون سے خانے ملے، چوک گئے یا نظر نہیں آئے، فارم کے لیبلز اور خانوں کی جگہ کے ساتھ۔ آپ کی تفصیلات کبھی نہیں۔ کچھ نہیں بھیجا جاتا: رپورٹ شیئر کرنا آپ کا فیصلہ ہے۔",
@@ -364,7 +385,7 @@
     "copy_report": "GitHub ایشو کے لیے کاپی کریں",
     "open_folder": "رپورٹس کا فولڈر کھولیں",
     "no_reports": "ابھی کوئی رپورٹ نہیں۔ سہل کے فارم پڑھنے کے بعد ایک رپورٹ آئے گی۔",
-    "no_ollama": "Sahl کو Ollama چاہیے، وہ مفت ایپ جو اس کمپیوٹر پر AI چلاتی ہے۔ ollama.com سے انسٹال کریں، پھر Sahl دوبارہ کھولیں۔"
+    "no_runtime": "Sahl کے ساتھ آنے والا AI انجن نہیں مل رہا۔ Sahl دوبارہ انسٹال کریں۔"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -477,8 +498,15 @@
     "tier_light": "ലഘു · ചെറിയ കമ്പ്യൂട്ടറുകളിൽ വേഗം",
     "tier_standard": "സാധാരണ",
     "tier_strong": "ശക്തം · 32 GB മെമ്മറി വേണം",
-    "model_off": "ലോക്കൽ AI (Ollama) ആരംഭിക്കുന്നു…",
-    "not_installed": "ഇപ്പോൾ ഡൗൺലോഡ് ചെയ്യുന്നു. കുറച്ച് മിനിറ്റ് എടുക്കും, ഒരിക്കൽ മാത്രം.",
+    "model_off": "ലോക്കൽ AI ആരംഭിക്കുന്നു…",
+    "dl_title": "AI മോഡൽ ഡൗൺലോഡ് ചെയ്യണോ?",
+    "dl_body": "ഈ കമ്പ്യൂട്ടറിൽ മാത്രം പ്രവർത്തിക്കുന്ന ഒരു AI മോഡൽ ഉപയോഗിച്ചാണ് Sahl നിങ്ങളുടെ രേഖകൾ വായിക്കുകയും നിങ്ങൾ ടൈപ്പ് ചെയ്യുന്നത് മനസ്സിലാക്കുകയും ചെയ്യുന്നത്. ഇതിന് ഒരു തവണ ഏകദേശം {gb} GB ഡൗൺലോഡ് വേണം, നിങ്ങൾക്ക് {free} GB ഒഴിവുണ്ട്. ഡൗൺലോഡ് നടക്കുമ്പോഴും Sahl പ്രവർത്തിക്കും.",
+    "dl_yes": "ഡൗൺലോഡ് ചെയ്യുക",
+    "dl_no": "ഇപ്പോൾ വേണ്ട",
+    "dl_progress": "AI മോഡൽ ഡൗൺലോഡ് ചെയ്യുന്നു… {pct}%",
+    "dl_paused": "ഡൗൺലോഡ് നിലച്ചു. സാധ്യമാകുമ്പോൾ Sahl സ്വയം തുടരും.",
+    "dl_space": "AI മോഡൽ ഡൗൺലോഡ് ചെയ്യാൻ സ്ഥലം പോരാ. {gb} GB ഒഴിവാക്കൂ, Sahl തുടരും.",
+    "dl_later": "AI മോഡൽ ഡൗൺലോഡ് ചെയ്യുക (ഏകദേശം {gb} GB)",
     "too_slow": "വൈകുന്നുണ്ടോ? ലഘുവായ മോഡൽ പരീക്ഷിക്കുക",
     "improve": "സഹലിനെ മെച്ചപ്പെടുത്താൻ സഹായിക്കുക",
     "improve_body": "നിങ്ങൾ ഓണാക്കുന്നതുവരെ ഓഫാണ്. ഓരോ ഫോമിനും ശേഷം സഹൽ ഈ കമ്പ്യൂട്ടറിൽ ഒരു ചെറിയ റിപ്പോർട്ട് സൂക്ഷിക്കും: ഏത് ബോക്സുകൾ കണ്ടെത്തി, തെറ്റി, കണ്ടില്ല എന്നതും ഫോമിലെ ലേബലുകളും ബോക്സുകളുടെ സ്ഥാനവും. നിങ്ങളുടെ വിവരങ്ങൾ ഒരിക്കലും ഇല്ല. ഒന്നും അയയ്ക്കില്ല: റിപ്പോർട്ട് പങ്കിടണോ എന്ന് നിങ്ങൾ തീരുമാനിക്കും.",
@@ -486,6 +514,6 @@
     "copy_report": "GitHub issue-നായി പകർത്തുക",
     "open_folder": "റിപ്പോർട്ട് ഫോൾഡർ തുറക്കുക",
     "no_reports": "ഇതുവരെ റിപ്പോർട്ടുകളില്ല. സഹൽ ഒരു ഫോം വായിച്ചശേഷം ഒന്ന് വരും.",
-    "no_ollama": "Sahl-ന് Ollama വേണം, ഈ കമ്പ്യൂട്ടറിൽ AI പ്രവർത്തിപ്പിക്കുന്ന സൗജന്യ ആപ്പ്. ollama.com-ൽ നിന്ന് ഇൻസ്റ്റാൾ ചെയ്ത് Sahl വീണ്ടും തുറക്കുക."
+    "no_runtime": "Sahl-നൊപ്പം വരുന്ന AI എഞ്ചിൻ കണ്ടെത്താനായില്ല. Sahl വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്യുക."
   }
 }
