@@ -575,7 +575,7 @@ def choices(lines, label, options, gray):
              "checked": bool(i in marks and marks[i][1])} for i, (o, b, _) in enumerate(found)]
 
 
-def _input_box(gray, label, hint):
+def _input_box(gray, label, hint, pre=None):
     """The input rectangle next to a label, found from its border lines or shading in the screenshot.
 
     "auto" (every guide uses it) looks below, to the right, to the left (right-to-left forms) and above the label and
@@ -586,7 +586,8 @@ def _input_box(gray, label, hint):
         return _guess(label, hint)
     sides = {"below": (_below, 0.0), "right": (_right, 0.0), "left": (_left, 1.0), "above": (_above, 1.5)}
     use = sides if hint in ("auto", None) else {hint: sides[hint]} if hint in sides else sides
-    found = [(r[0] + penalty, r[1]) for fn, penalty in use.values() if (r := fn(gray, label))]
+    found = [(r[0] + penalty, r[1]) for name, (fn, penalty) in use.items()
+             if (r := pre[name] if pre and name in pre else fn(gray, label))]  # `pre`: sides already looked at
     if not found:
         return _guess(label, hint)
     box = min(found)[1]
@@ -697,8 +698,8 @@ def _wrapped(lines, gray=None):
     return out
 
 
-def _unmatched(lines, guide, gray, known: set[str], numbered=False):
-    """(text, box) of printed labels no alias of the guide matches.
+def _unmatched(lines, guide, gray, known: set[str], numbered=False, skip=None):
+    """(text, box, sides) of printed labels no alias of the guide matches (`sides`: the borders already found for it).
 
     Only short text with no digits (but "Address line 1" when `numbered`) that has an input border next to it (a value
     sits inside a box, not beside one), and never text that is one of the person's own values (`known`, already
@@ -711,14 +712,17 @@ def _unmatched(lines, guide, gray, known: set[str], numbered=False):
         digits = re.sub(r"(?<=\D)\s\d{1,2}$", "", t) if numbered else t
         if not 3 <= len(t) <= 40 or len(t.split()) > 5 or re.search(r"\d", digits) or _score(text, aliases) >= THRESHOLD:
             continue
-        if any(t == k or (len(k) >= 4 and (t in k or k in t)) for k in known) or not (_below(gray, box) or _right(gray, box)):
+        if (skip and skip(box)) or any(t == k or (len(k) >= 4 and (t in k or k in t)) for k in known):
             continue
-        yield text, box
+        below = _below(gray, box)
+        right = None if below else _right(gray, box)
+        if below or right:
+            yield text, box, {"below": below} if below else {"below": None, "right": right}
 
 
 def unknown_labels(lines, guide, gray, known: set[str]) -> list[str]:
     """Printed labels no alias of the guide matches, to learn new aliases from."""
-    return [text.strip(" :*") for text, _ in _unmatched(lines, guide, gray, known)]
+    return [text.strip(" :*") for text, _, _ in _unmatched(lines, guide, gray, known)]
 
 
 def _overlap(a, b) -> float:
@@ -735,20 +739,21 @@ def unknown_boxes(lines, guide, gray, known: set[str], taken, scale=1.0, origin=
     to_pt = lambda b: tuple(round(v / scale + origin[i % 2], 1) for i, v in enumerate(b))
     inside = lambda b, r: r[0] < (b[0] + b[2]) / 2 < r[2] and r[1] < (b[1] + b[3]) / 2 < r[3]
     taken_px = [tuple((v - origin[i % 2]) * scale for i, v in enumerate(t)) for t in taken]
-    cands = [(text, box, _input_box(gray, box, "auto")) for text, box in _unmatched(lines, guide, gray, known, numbered=True)]
+    top = min((t[1] for t in taken_px), default=0) - 150 * scale  # the form is where the known fields are: not the menu
+    bottom = max((t[3] for t in taken_px), default=0) + 300 * scale  # bar, tabs or navigation far above or below it
+    skip = lambda b: (bool(taken_px) and not top <= b[1] <= bottom) or any(inside(b, t) for t in taken_px)  # or a value
+    cands = [(text, box, _input_box(gray, box, "auto", sides))
+             for text, box, sides in _unmatched(lines, guide, gray, known, numbered=True, skip=skip)]
     held = [[o for _, o in lines if o != box and inside(o, raw)] for _, box, raw in cands]
     values = [h[0] for h in held if len(h) == 1]  # a box with one line of text in it: that line is its value, not a label
     out = []
     for (text, box, raw), inner in zip(cands, held):
-        if inner or any(inside(box, v) or box == v for v in values) or any(inside(box, t) for t in taken_px):
+        if inner or any(inside(box, v) or box == v for v in values):
             continue  # a panel around other fields, a box already filled, or text inside a box: a value
         found = to_pt(raw)
         if any(_overlap(found, t) > 0.3 for t in [*taken, *(u["input_box"] for u in out)]):
             continue
         out.append({"label": text.strip(" :*"), "label_box": to_pt(box), "input_box": found})
-    if taken:  # the form is where the known fields are: not the menu bar, tabs or navigation far above or below it
-        top, bottom = min(t[1] for t in taken) - 150, max(t[3] for t in taken) + 300
-        out = [u for u in out if top <= u["label_box"][1] <= bottom]
     return sorted(out, key=lambda u: (round(u["label_box"][1] / 12), u["label_box"][0]))
 
 

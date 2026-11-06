@@ -11,6 +11,7 @@ from sahl import ai, server, taught, vault
 def home(monkeypatch, tmp_path):
     monkeypatch.setenv("SAHL_HOME", str(tmp_path / "home"))  # never the real vault
     monkeypatch.setenv("SAHL_LIBRARY", str(tmp_path / "library"))
+    taught._asked.clear()  # what the model proposed earlier belongs to the earlier test's vault
 
 
 def test_told_once_known_by_any_spelling_of_the_label():
@@ -125,6 +126,7 @@ def test_the_same_detail_under_another_name_is_offered_then_used(client, monkeyp
     client.post("/taught", json={"label": "Company", "value": "Acme Ltd"})
     client.page[:] = _form("Full name", "Workplace", "Password")
     monkeypatch.setattr(ai, "chat", lambda *a, **k: {"matches": [{"label": "Workplace", "means": "Company"}]})
+    monkeypatch.setattr(taught, "_spawn", lambda fn, *a: fn(*a))  # the model is asked in the background; here, at once
     f = _unknown(client.read())["Workplace"]
     assert f["vault"] is None and f["suggest"] == {"concept": "Company", "value": "Acme Ltd"}  # asked, not assumed
     assert client.post("/taught/alias", json={"label": "Workplace", "concept": "Company"}).status_code == 200
@@ -218,3 +220,27 @@ def test_a_box_scrolled_out_of_sight_is_not_clicked(client):
     client.page[:] = _scrolled(client.page, -400)  # the label is gone
     r = client.post("/fill", json={"field_id": f["id"]})
     assert r.status_code == 409 and r.json()["detail"].startswith("moved") and client.boxes == []
+
+
+def test_a_read_never_waits_for_the_model(client, monkeypatch):
+    client.post("/taught", json={"label": "Company", "value": "Acme Ltd"})
+    client.page[:] = _form("Full name", "Workplace", "Password")
+    asked = []
+    monkeypatch.setattr(taught, "_spawn", lambda fn, *a: asked.append(fn))  # a model that has not answered yet
+    monkeypatch.setattr(ai, "chat", lambda *a, **k: pytest.fail("a read called the model itself"))
+    assert "suggest" not in _unknown(client.read())["Workplace"] and len(asked) == 1
+    client.read()
+    assert len(asked) == 1  # asked once, not on every read
+
+
+def test_a_fill_answers_with_the_next_box_without_reading_the_screen_again(client):
+    client.read()
+    client.post("/taught", json={"label": "Company", "value": "Acme"})
+    r = client.read()
+    first = r["next"]
+    done = client.post("/fill", json={"field_id": "taught:company"}).json()
+    assert done["landed"] and done["reading"]["next"] != "taught:company"
+    assert [f["id"] for f in done["reading"]["fields"]] == [f["id"] for f in r["fields"]]  # same order, no new read
+    assert next(f for f in done["reading"]["fields"] if f["id"] == "taught:company")["confirmed"]
+    skipped = client.post("/confirm", json={"field_id": done["reading"]["next"]}).json()
+    assert skipped["reading"]["next"] not in (first, done["reading"]["next"])

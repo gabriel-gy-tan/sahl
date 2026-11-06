@@ -6,6 +6,7 @@ to a suggestion from the local model; the model's guess is never used on its own
 they count as verified. Stored in the vault database, per person (0 = told before any document was added).
 """
 import re
+import threading
 
 from rapidfuzz import fuzz
 
@@ -134,3 +135,25 @@ def similar(labels: list[str], person) -> dict[str, str]:
     got = out.get("matches") if isinstance(out, dict) else None
     return {m["label"]: m["means"] for m in got or []
             if isinstance(m, dict) and m.get("label") in labels and m.get("means") in known}  # only what it was shown
+
+
+_asked: dict[tuple, str] = {}  # (person, label, told names) -> the name the model proposed, "" for none; kept in memory
+_spawn = lambda fn, *args: threading.Thread(target=fn, args=args, daemon=True).start()  # tests run it at once
+
+
+def suggestions(labels: list[str], person) -> dict[str, str]:
+    """What the model has proposed for these labels so far. It is asked about new ones in the background, once each, so a
+    read never waits for it: the proposals show on the next read."""
+    names = tuple(sorted(concepts(person)))
+    key = lambda l: (_who(person), l, names)
+    fresh = [l for l in dict.fromkeys(labels) if key(l) not in _asked and not concept_for(l)]
+    if fresh and names:
+        for l in fresh:
+            _asked[key(l)] = ""
+        _spawn(_ask, fresh, person, key)
+    return {l: c for l in labels if (c := _asked.get(key(l)))}
+
+
+def _ask(labels, person, key):
+    for l, c in similar(labels, person).items():
+        _asked[key(l)] = c

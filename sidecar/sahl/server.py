@@ -140,7 +140,8 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
                        allow_methods=["*"], allow_headers=["*"])
     guides = load_guides()
-    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0, "shot": None}
+    state = {"guide": None, "fields": {}, "confirmed": set(), "monitor": None, "scale": 1.0, "shot": None,
+             "order": [], "person": None, "people": []}
 
     def auth(x_sahl_token: str = Header("")):
         if not secrets.compare_digest(x_sahl_token, token):
@@ -210,9 +211,18 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         state["scale"] = best_scale
         state["shot"] = (shot[1], best_scale, monitor) if best else None  # what the boxes were found in, to spot a scroll
         report.record_read(g, fields, monitor, [u["label"] for u in extra] if report.enabled() else [])
-        fields = match.reading_order([*fields, *extra])  # the order on the page, not the guide's
-        nxt = next((f["id"] for f in fields if not f["confirmed"]), None)
-        return {"fields": fields, "next": nxt, "monitor": monitor, "person": person, "people": everyone}
+        state.update(order=[f["id"] for f in match.reading_order([*fields, *extra])],  # the order on the page, not the guide's
+                     person=person, people=everyone)
+        return _payload()
+
+    def _payload():
+        """What the panel shows, from the last read: the fields in order, which are done, and the next one. Reads nothing
+        from the screen, so a fill or skip can answer with the next box at once."""
+        fields = [state["fields"][i] for i in state["order"]]
+        for f in fields:
+            f["confirmed"] = f["id"] in state["confirmed"]
+        return {"fields": fields, "next": next((f["id"] for f in fields if not f["confirmed"]), None),
+                "monitor": state["monitor"], "person": state["person"], "people": state["people"]}
 
     def _unknown_fields(shot, best, scale, monitor, g, person):
         """Boxes the guide doesn't know, as fields after the known ones: with what the person told Sahl before
@@ -223,7 +233,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         boxes = [u for u in match.unknown_boxes(shot[0], g, shot[1], known, [m["input_box"] for m in best], scale, monitor[:2])
                  if taught.allowed(u["label"])]
         told = {u["label"]: taught.get(u["label"], person) for u in boxes}
-        ideas = taught.similar([l for l, t in told.items() if not t], person) if not all(told.values()) else {}
+        ideas = taught.suggestions([l for l, t in told.items() if not t], person)
         out = []
         for u in boxes:
             fid = "taught:" + match._norm(u["label"])
@@ -251,7 +261,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def confirm(body: FieldRef):
         _field(body.field_id)
         state["confirmed"].add(body.field_id)
-        return {"ok": True}
+        return {"ok": True, "reading": _payload()}
 
     def _relocate(f):
         """A scroll since the read moved every box. Find this field's label again in a fresh screenshot and move all the
@@ -278,6 +288,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
 
     @app.post("/fill", dependencies=[Depends(auth)])
     def do_fill(body: FieldRef):
+        r = _fill_one(body)
+        # a box that took the value moves on at once; one that did not is read again by the panel
+        return {**r, "reading": _payload() if r.get("landed") else None}
+
+    def _fill_one(body: FieldRef):
         f = _field(body.field_id)
         v = f["vault"]
         if f["input"] == "checkbox":
@@ -302,8 +317,11 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
             typer(box, v["value"])
         except Exception as e:  # no permission to type, or the form is elevated
             raise HTTPException(409, f"typing failed: {e}")
-        time.sleep(0.3)
-        landed = _landed(f["input_box"], v["value"]) or (short and _inked(f["input_box"], before))
+        time.sleep(0.15)
+        landed = _landed(f["input_box"], v["value"])
+        if not landed:  # a slow page: look once more before calling it a miss
+            time.sleep(0.3)
+            landed = _landed(f["input_box"], v["value"]) or bool(short and _inked(f["input_box"], before))
         if landed:  # only move on when the box visibly shows what was typed
             state["confirmed"].add(body.field_id)
         else:

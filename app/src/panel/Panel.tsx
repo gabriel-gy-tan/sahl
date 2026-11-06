@@ -345,6 +345,20 @@ export default function Panel() {
     void WebviewWindow.getByLabel("overlay").then((o) => o?.hide());
   };
 
+  // shows a reading: the card for the next box, and the ring round it on the monitor the form is on
+  const present = async (r: Reading, overlay: WebviewWindow | null) => {
+    setReading(r);
+    setPeople(r.people);
+    const next = r.fields.find((f) => f.id === r.next);
+    if (next && r.monitor && overlay) {
+      const [mx, my, mw, mh] = r.monitor;
+      await overlay.setPosition(new LogicalPosition(mx, my));
+      await overlay.setSize(new LogicalSize(mw, mh));
+    }
+    await emitTo("overlay", "ring", next ? { box: next.input_box, label: next.label, origin: r.monitor!.slice(0, 2) } : null);
+    if (next) await overlay?.show();
+  };
+
   const read = useCallback(async (restart = false) => {
     if (!guide) return;
     setBusy(true);
@@ -357,17 +371,7 @@ export default function Panel() {
       const win = getCurrentWindow();
       const [pos, size, scale] = await Promise.all([win.outerPosition(), win.outerSize(), win.scaleFactor()]);
       const panel = [pos.x / scale, pos.y / scale, (pos.x + size.width) / scale, (pos.y + size.height) / scale];
-      const r = await api<Reading>("/read", { guide, person: person || null, exclude: [panel], restart });
-      setReading(r);
-      setPeople(r.people);
-      const next = r.fields.find((f) => f.id === r.next);
-      if (next && r.monitor && overlay) {
-        const [mx, my, mw, mh] = r.monitor; // cover the monitor the form is on
-        await overlay.setPosition(new LogicalPosition(mx, my));
-        await overlay.setSize(new LogicalSize(mw, mh));
-      }
-      await emitTo("overlay", "ring", next ? { box: next.input_box, label: next.label, origin: r.monitor!.slice(0, 2) } : null);
-      if (next) await overlay?.show();
+      await present(await api<Reading>("/read", { guide, person: person || null, exclude: [panel], restart }), overlay);
     } catch (e) {
       fail(e);
     } finally {
@@ -417,9 +421,15 @@ export default function Panel() {
       await new Promise((r) => setTimeout(r, FOLD_MS));
     }
     try {
-      const r = await api<{ landed?: boolean }>(path, { field_id: fieldId });
-      await read();
-      if (r.landed === false) setError("missed"); // after read(), which clears errors
+      const r = await api<{ landed?: boolean; reading?: Reading | null }>(path, { field_id: fieldId });
+      if (r.reading) {
+        setCopied(false);
+        setError(null);
+        await present(r.reading, await WebviewWindow.getByLabel("overlay")); // the next box, with nothing read again
+      } else {
+        await read();
+        if (r.landed === false) setError("missed"); // after read(), which clears errors
+      }
     } catch (e) {
       if (e instanceof ApiError && e.status === 409 && e.message.startsWith("moved")) {
         await read(); // the page was scrolled: look again, and say nothing was typed
