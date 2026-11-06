@@ -248,6 +248,7 @@ input::placeholder { color: #5d5d63; }
 .tile .icon { width: 17px; height: 17px; }
 .tile.general { background: #636366; }
 .tile.custom { background: #5e5ce6; }
+.tile.extension { background: #ff375f; }
 .tile.docs { background: #0a84ff; }
 .tile.telemetry { background: #30a46c; }
 .tile.license { background: #c27c0e; }
@@ -332,6 +333,11 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
 .warn { margin: 0; color: var(--warn); font-weight: 500; }
 .quiet { margin: 0; color: var(--muted); }
 .fine { margin: 0; font-size: calc(11.5px * var(--text)); color: var(--muted); }
+.extension-code { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.extension-code code {
+  font: 700 calc(22px * var(--text)) / 1 ui-monospace, "SF Mono", Consolas, monospace;
+  letter-spacing: 0.22em; color: var(--ink);
+}
 
 @media (prefers-reduced-motion: reduce) {
   .island, .content, .open .content { transition: none; }

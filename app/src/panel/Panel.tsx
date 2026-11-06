@@ -133,7 +133,7 @@ function FormSearch({ guides, lang, placeholder, empty, other, onPick, onCancel 
 
 const TEXT_SIZES = ["1", "1.15", "1.3"] as const;
 // the settings menu's pages, in order
-const PAGES = { general: "menu_general", custom: "menu_custom", docs: "menu_docs", telemetry: "menu_telemetry", license: "menu_license" } as const;
+const PAGES = { general: "menu_general", custom: "menu_custom", extension: "menu_extension", docs: "menu_docs", telemetry: "menu_telemetry", license: "menu_license" } as const;
 type Page = keyof typeof PAGES;
 
 /** Reads text aloud with the computer's own voices (on the device). The voice follows the text's script. */
@@ -157,6 +157,7 @@ function Speaker({ text, label }: { text: string; label: string }) {
 const ICONS = {
   general: "M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6",
   custom: "M4 7V4h16v3M9 20h6M12 4v16",
+  extension: "M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1L11 5M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1L13 19",
   docs: "M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5",
   telemetry: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",
   license: "M12 3v18M7 21h10M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z",
@@ -178,6 +179,7 @@ function Icon({ name }: { name: keyof typeof ICONS }) {
 const TIERS = ["light", "standard", "strong"] as const;
 type Improve = { on: boolean; reports: { file: string; guide: string; date: string; found: number; not_seen: number; missed: number; text: string }[] };
 type Models = { tier: (typeof TIERS)[number]; running: boolean; ollama: boolean; pulling: { model: string | null; done: number; total: number; error: boolean }; tiers: { id: string; text: string; vision: string; installed: boolean }[] };
+type Extension = { enabled: boolean; running: boolean; error: string; port: number; code: string; paired: boolean };
 
 function Palm({ leaving = false }: { leaving?: boolean }) {
   return (
@@ -206,7 +208,8 @@ export default function Panel() {
   const [copied, setCopied] = useState(false);
 
   const t = (k: Key, vars: Record<string, string | number> = {}) =>
-    Object.entries(vars).reduce((s, [a, b]) => s.replace(`{${a}}`, String(b)), strings[lang][k] ?? strings.en[k]);
+    Object.entries(vars).reduce((s, [a, b]) => s.replace(`{${a}}`, String(b)),
+      (strings[lang] as Partial<Record<Key, string>>)[k] ?? strings.en[k]);
   // "passport and Emirates ID", in the panel's language
   const docs = (types: Doc[]) => new Intl.ListFormat(lang, { type: "conjunction" }).format(types.map((d) => t(`doc_${d}`)));
 
@@ -510,6 +513,12 @@ export default function Panel() {
   const [copiedReport, setCopiedReport] = useState("");
   useEffect(() => void (page === "telemetry" && api<Improve>("/improve").then(setImprove).catch(() => {})), [page]);
 
+  // the browser companion: its loopback bridge, and the one-time code the extension asks for
+  const [extension, setExtension] = useState<Extension | null>(null);
+  const [copiedCode, setCopiedCode] = useState(false);
+  const loadExtension = () => api<Extension>("/extension").then(setExtension).catch(() => {});
+  useEffect(() => void (page === "extension" && loadExtension()), [page]);
+
   const [held, setHeld] = useState<Held | null>(null);
   const loadHeld = () => api<Held>("/vault/summary").then(setHeld).catch(() => {});
   useEffect(() => void (page === "docs" && loadHeld()), [page]);
@@ -725,6 +734,33 @@ export default function Panel() {
                       </button>
                     </div>
                   </section>
+                ) : page === "extension" ? (
+                  <>
+                    <p className="page-text">{t("extension_body")}</p>
+                    <section className="group" aria-label={t("menu_extension")}>
+                      <div className="row">
+                        <span className="label"><Icon name="extension" />{t("extension_status")}</span>
+                        <span className={extension?.running ? "held" : extension?.error ? "error" : "held"}>
+                          {!extension ? "…" : !extension.enabled ? t("extension_unavailable")
+                            : extension.running ? t("extension_running", { port: extension.port }) : t("extension_off", { error: extension.error })}
+                        </span>
+                      </div>
+                      <div className="row stacked">
+                        <span className="label"><Icon name="extension" />{t("extension_code")}</span>
+                        <div className="extension-code">
+                          <code dir="ltr">{extension?.code || "······"}</code>
+                          <button className="ghost" disabled={!extension?.code}
+                            onClick={() => {
+                              if (!extension?.code) return;
+                              navigator.clipboard.writeText(extension.code);
+                              setCopiedCode(true);
+                            }}>{copiedCode ? t("copied") : t("copy")}</button>
+                        </div>
+                        <p className="fine">{t("extension_steps")}</p>
+                      </div>
+                    </section>
+                    <p className="fine">{t("extension_local")}</p>
+                  </>
                 ) : page === "docs" ? (
                   <>
                     <section className="group" aria-label={t("documents")}>
