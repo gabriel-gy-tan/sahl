@@ -253,5 +253,6 @@ def test_similar_reaches_llama_server_as_a_schema_restricted_request(monkeypatch
     assert taught.similar(["Workplace"], "1") == {"Workplace": "Company"}
     sent = ai._request(seen[0])
     props = sent["response_format"]["json_schema"]["schema"]["properties"]["matches"]["items"]["properties"]
-    assert props["label"]["enum"] == ["Workplace"] and props["means"]["enum"] == ["Company", ""]
+    assert props["label"]["enum"] == ["Workplace"] and props["means"]["enum"] == ["none", "Company"]
     assert sent["stream"] is False and "keep_alive" not in sent
+    assert sent["response_format"]["json_schema"]["schema"]["properties"]["matches"]["maxItems"] == 1  # or it repeats itself until cut off

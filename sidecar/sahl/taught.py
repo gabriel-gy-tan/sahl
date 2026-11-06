@@ -105,7 +105,7 @@ A new form has boxes labelled:
 
 For each new label say which told name it means, only when it is the same kind of detail in other words
 (Company = Workplace = Employer; Cell phone = Mobile). Different details are not the same: Home phone is not Work
-phone, Address line 1 is not Address line 2, Date of birth is not Birth place. When unsure, answer "".
+phone, Address line 1 is not Address line 2, Date of birth is not Birth place. When unsure, or when it is a different detail, answer "none". Most labels are "none".
 """
 
 
@@ -119,13 +119,13 @@ def similar(labels: list[str], person) -> dict[str, str]:
         "model": ai.text_model(),
         "format": {
             "type": "object",
-            "properties": {"matches": {"type": "array", "items": {
+            "properties": {"matches": {"type": "array", "maxItems": len(labels), "items": {  # unbounded, the model repeats a match until it is cut off
                 "type": "object",
-                "properties": {"label": {"type": "string", "enum": labels}, "means": {"type": "string", "enum": [*known, ""]}},
+                "properties": {"label": {"type": "string", "enum": labels}, "means": {"type": "string", "enum": ["none", *known]}},
                 "required": ["label", "means"]}}},
             "required": ["matches"],
         },
-        "options": {"temperature": 0, "num_predict": 400},
+        "options": {"temperature": 0, "num_predict": 50 * len(labels) + 30},
         "messages": [{"role": "user", "content": ASK.format(known="\n".join(f"- {c}" for c in known),
                                                             labels="\n".join(f"- {l}" for l in labels))}],
     }, timeout=8, tries=1)
