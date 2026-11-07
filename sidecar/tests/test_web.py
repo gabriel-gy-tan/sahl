@@ -1,3 +1,8 @@
+import json
+import socket
+import time
+import urllib.request
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -92,3 +97,48 @@ def test_bridge_scan_then_values():
     assert {v["element_id"] for v in out["values"]} == {"f1", "f2"}
     assert c.post("/clear").json() == {"ok": True}
     assert c.post("/values", json={"element_ids": ["f1"]}).status_code == 409
+
+
+def _wait(ready, seconds=5):
+    deadline = time.monotonic() + seconds
+    while not ready() and time.monotonic() < deadline:
+        time.sleep(0.01)
+    assert ready()
+
+
+def _answers(port):
+    with urllib.request.urlopen(f"http://127.0.0.1:{port}/health", timeout=2) as r:
+        return json.load(r)["running"] is True
+
+
+def test_bridge_waits_for_a_busy_port_then_serves():
+    holder = socket.socket()
+    holder.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    holder.bind(("127.0.0.1", 0))
+    holder.listen()
+    port = holder.getsockname()[1]
+    state = bridge.State(GUIDES, token="c" * 64, port=port)
+    bridge.start(state, retry=0.01)
+    _wait(lambda: state.error)
+    assert not state.running
+    holder.close()
+    _wait(lambda: state.running and not state.error)
+    _wait(lambda: _answers(port))
+
+
+def test_bridge_starts_over_connections_left_by_a_closed_sahl():
+    old = socket.socket()
+    old.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    old.bind(("127.0.0.1", 0))
+    old.listen()
+    port = old.getsockname()[1]
+    client = socket.create_connection(("127.0.0.1", port))
+    accepted, _ = old.accept()
+    accepted.close()  # the server side closes first, so the port is left in TIME_WAIT with nothing listening
+    client.recv(1)
+    client.close()
+    old.close()
+    state = bridge.State(GUIDES, token="d" * 64, port=port)
+    bridge.start(state, retry=60)  # a retry would take a minute: it must bind at the first try
+    _wait(lambda: state.running)
+    assert not state.error
