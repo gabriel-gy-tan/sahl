@@ -7,6 +7,7 @@ import json
 import os
 import re
 import secrets
+import signal
 import socket
 import subprocess
 import sys
@@ -42,6 +43,10 @@ class Improve(BaseModel):
 
 class Tier(BaseModel):
     tier: Literal[tuple(ai.TIERS)]
+
+
+class Download(BaseModel):
+    answer: Literal["yes", "no"]
 
 
 class FieldRef(BaseModel):
@@ -526,16 +531,23 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
 
     @app.get("/models", dependencies=[Depends(auth)])
     def get_models():
-        """The model sizes to choose from, and whether this computer has each pair downloaded."""
-        have = ai.installed()
-        on = lambda m: any(n.startswith(m) for n in have)
-        return {"tier": ai.tier(), "running": ai.running(), "ollama": ai.binary() is not None, "pulling": ai.PULL, "tiers": [
-            {"id": i, "text": t, "vision": v, "installed": on(t) and on(v)} for i, (t, v) in ai.TIERS.items()]}
+        """The model sizes to choose from, whether this computer has each pair, and what the download would take."""
+        done, total = ai.progress()
+        return {"tier": ai.tier(), "running": ai.running(), "runtime": ai.binary() is not None,
+                "pulling": {**ai.PULL, "done": done, "total": total}, "consent": ai.consent(), "free_gb": ai.free_gb(), "tiers": [
+            {"id": i, "text": t, "vision": v, "installed": ai.have(t) and ai.have(v), "need_gb": ai.need_gb(i)}
+            for i, (t, v) in ai.TIERS.items()]}
 
     @app.post("/models", dependencies=[Depends(auth)])
     def set_models(body: Tier):
         ai.set_tier(body.tier)
-        ai.prepare()  # download and load the new models now, so the next question isn't slow
+        ai.prepare()  # starts the new text model now (and downloads the models if the person has agreed), so the next question isn't slow
+        return get_models()
+
+    @app.post("/models/download", dependencies=[Depends(auth)])
+    def set_download(body: Download):
+        """The person's answer to "download the AI model?"; remembered, and "no" stops one in progress."""
+        ai.set_consent(body.answer)
         return get_models()
 
     @app.get("/extension", dependencies=[Depends(auth)])
@@ -616,6 +628,8 @@ def main():
     print(f"SAHL_PORT={sock.getsockname()[1]}", flush=True)
     if "SAHL_TOKEN" not in os.environ:
         print(f"SAHL_TOKEN={token}", flush=True)
+    # Told to stop (Sahl quitting), stop the AI model servers too; uvicorn finishes its own shutdown, then raises this signal again.
+    signal.signal(signal.SIGTERM, lambda *a: (ai.stop_all(), os._exit(0)))
     ext = bridge.State(load_guides())
     bridge.start(ext)
     ai.prepare()

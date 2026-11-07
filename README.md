@@ -87,7 +87,7 @@ cd sidecar && .venv/bin/pip install -r requirements-build.txt && .venv/bin/pytho
 cd ../app && npm run tauri build -- --bundles dmg
 ```
 
-`build.py` packs the sidecar into a folder (not one file, which unpacks on every launch and takes about 40 seconds to start) that Tauri bundles as resources, beside the guides. The installers are not signed yet, so macOS and Windows warn on first open. The AI models download on first launch, after the person agrees.
+`build.py` packs the sidecar into a folder (not one file, which unpacks on every launch and takes about 40 seconds to start) and fetches llama.cpp's `llama-server`; Tauri bundles both as resources, beside the guides. The installers are not signed yet, so macOS and Windows warn on first open. The AI models download on first launch, after the person agrees.
 
 ## Licence
 

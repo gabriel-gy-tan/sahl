@@ -209,7 +209,6 @@ def pick(text: str, guides: dict, timeout: float = 20) -> dict:
     lines = "\n".join(f"{i}: {' / '.join(dict.fromkeys(_names(g)))} | {g.get('about', '')}" for i, g in near.items())
     out = ai.chat({
         "model": ai.text_model(),
-        "stream": False,
         "think": True,  # a short think is what tells "medical for my visa" apart from a new service
         "format": {
             "type": "object",
@@ -218,7 +217,6 @@ def pick(text: str, guides: dict, timeout: float = 20) -> dict:
                            "name": {"type": "string"}},
             "required": ["kind", "guide", "name"],
         },
-        "keep_alive": "30m",
         "options": {"temperature": 0, "num_predict": 600},
         "messages": [{"role": "user", "content": PICK.format(catalogue=lines or "(none)", text=text.replace('"', "'"),
                                                              missing=", ".join(missing) or "none")}],
@@ -279,10 +277,8 @@ def reply(turns: list[dict], guides: dict, held: dict | None = None) -> str:
                  "No particular form matches their message, so don't describe one.")
     out = ai.chat({
         "model": ai.text_model(),
-        "stream": False,
         "think": False,  # plain conversation; the offer is decided by pick()
         "format": {"type": "object", "properties": {"reply": {"type": "string"}}, "required": ["reply"]},
-        "keep_alive": "30m",
         "options": {"temperature": 0.3, "num_predict": 200},
         "messages": [{"role": "system", "content": TALK.format(catalogue=lines, held=_held(held), language=_language(turns[-1]["content"]))}, *turns],
     }, timeout=30, tries=1)
@@ -317,6 +313,6 @@ def talk(history: list[dict], guides: dict, held: dict | None = None) -> dict:
         return {"reply": "", **quick}
     if quick:
         return {"reply": reply(turns, guides, held), **quick}
-    with ThreadPoolExecutor(2) as pool:  # Ollama answers both at once when it can, so the wait is one call, not two
+    with ThreadPoolExecutor(2) as pool:  # llama-server answers both at once (two slots), so the wait is one call, not two
         offer, words = pool.submit(pick, last, guides), pool.submit(reply, turns, guides, held)
         return {"reply": words.result(), **offer.result()}

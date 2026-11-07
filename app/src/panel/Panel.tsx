@@ -178,7 +178,7 @@ function Icon({ name }: { name: keyof typeof ICONS }) {
 
 const TIERS = ["light", "standard", "strong"] as const;
 type Improve = { on: boolean; reports: { file: string; guide: string; date: string; found: number; not_seen: number; missed: number; text: string }[] };
-type Models = { tier: (typeof TIERS)[number]; running: boolean; ollama: boolean; pulling: { model: string | null; done: number; total: number; error: boolean }; tiers: { id: string; text: string; vision: string; installed: boolean }[] };
+type Models = { tier: (typeof TIERS)[number]; running: boolean; runtime: boolean; pulling: { model: string | null; done: number; total: number; error: boolean; reason: string }; consent: "ask" | "yes" | "no"; free_gb: number; tiers: { id: string; text: string; vision: string; installed: boolean; need_gb: number }[] };
 type Extension = { enabled: boolean; running: boolean; error: string; port: number; code: string; paired: boolean };
 
 function Palm({ leaving = false }: { leaving?: boolean }) {
@@ -490,13 +490,24 @@ export default function Panel() {
   const loadModels = () => api<Models>("/models").then(setModels).catch(() => {});
   useEffect(() => void ((page === "general" || !models) && loadModels()), [page]);
   const chosen = models?.tiers.find((x) => x.id === models.tier);
-  // Sahl starts Ollama and downloads the models itself; keep looking while that happens
-  const preparing = !!models && (!models.running || (!!chosen && !chosen.installed));
+  // Sahl downloads the models (once the person agrees) and starts the text one itself; keep looking while that happens
+  const preparing = !!models?.runtime && ((models.consent === "yes" && !!chosen && !chosen.installed) || (!!chosen?.installed && !models.running));
   useEffect(() => {
-    if (!preparing || !models?.ollama) return;
+    if (!preparing) return;
     const id = setInterval(loadModels, 3000);
     return () => clearInterval(id);
-  }, [preparing, models?.ollama]);
+  }, [preparing]);
+  // the download is the person's call: asked once, remembered, and it carries on by itself if the connection drops
+  const answerDownload = (answer: "yes" | "no") => void api<Models>("/models/download", { answer }).then(setModels).catch(fail);
+  const askDownload = !!models?.runtime && models.consent === "ask" && !!chosen && !chosen.installed;
+  const downloading = !!models?.runtime && models.consent === "yes" && !!chosen && !chosen.installed;
+  const downloadNote = downloading && (
+    <p className="fine" role="status">
+      {models!.pulling.error
+        ? models!.pulling.reason === "space" ? t("dl_space", { gb: chosen!.need_gb }) : t("dl_paused")
+        : t("dl_progress", { pct: models!.pulling.total ? Math.round((100 * models!.pulling.done) / models!.pulling.total) : 0 })}
+    </p>
+  );
   const [slow, setSlow] = useState(false);
   useEffect(() => {
     setSlow(false);
@@ -602,12 +613,14 @@ export default function Panel() {
   const keep = busy || thinking || readingDocs || dropping || !!field || focused;
   const keepRef = useRef(keep);
   keepRef.current = keep;
+  const typingRef = useRef(false);
+  typingRef.current = focused;
   const hovered = useRef(false);
   const fold = useRef<ReturnType<typeof setTimeout>>(undefined);
   const foldSoon = useCallback((ms: number) => {
     clearTimeout(fold.current);
     fold.current = setTimeout(() => {
-      if (!hovered.current && !keepRef.current) setOpen(false), setSheet(false);
+      if (!hovered.current && !keepRef.current && !(typingRef.current && document.hasFocus())) setOpen(false), setSheet(false);
     }, ms);
   }, []);
   useEffect(() => {
@@ -620,7 +633,12 @@ export default function Panel() {
   }, [foldSoon]);
   useEffect(() => {
     if (phase === "ready" && isOpen && !keep) foldSoon(hovered.current ? 500 : 5000); // after boot, stay a while for a first look
-  }, [phase, isOpen, keep, foldSoon]);
+  }, [phase, isOpen, keep, focused, foldSoon]);
+  useEffect(() => {
+    const away = () => (setFocused(false), foldSoon(500)); // the keyboard went to another app
+    window.addEventListener("blur", away);
+    return () => window.removeEventListener("blur", away);
+  }, [foldSoon]);
   useEffect(() => {
     if (isOpen) setHello(greeting());
     else inputRef.current?.blur();
@@ -696,13 +714,11 @@ export default function Panel() {
                         <Dropdown value={models?.tier ?? "standard"} label={t("model")} placeholder={t("tier_standard")}
                           options={TIERS.map((id) => ({ value: id, label: t(`tier_${id}`) }))}
                           onChange={(v) => void api<Models>("/models", { tier: v }).then(setModels).catch(fail)} />
-                        {models && !models.ollama && <p className="fine">{t("no_ollama")}</p>}
-                        {models?.ollama && !models.running && <p className="fine">{t("model_off")}</p>}
-                        {models?.running && chosen && !chosen.installed && (
-                          <p className="fine">
-                            {t("not_installed")}
-                            {models.pulling.total > 0 && ` ${Math.round((100 * models.pulling.done) / models.pulling.total)}%`}
-                          </p>
+                        {models && !models.runtime && <p className="fine">{t("no_runtime")}</p>}
+                        {models?.runtime && chosen?.installed && !models.running && <p className="fine">{t("model_off")}</p>}
+                        {downloadNote}
+                        {models?.runtime && models.consent !== "yes" && chosen && !chosen.installed && (
+                          <button className="link" onClick={() => answerDownload("yes")}>{t("dl_later", { gb: chosen.need_gb })}</button>
                         )}
                       </div>
                       {people.length > 1 && (
@@ -890,6 +906,17 @@ export default function Panel() {
                       </div>
                     );
                   })}
+                  {askDownload && (
+                    <section className="card" aria-live="polite">
+                      <h2>{t("dl_title")}</h2>
+                      <p className="help">{t("dl_body", { gb: chosen!.need_gb, free: models!.free_gb })}</p>
+                      <div className="actions">
+                        <button className="primary" onClick={() => answerDownload("yes")}>{t("dl_yes")}</button>
+                        <button className="link" onClick={() => answerDownload("no")}>{t("dl_no")}</button>
+                      </div>
+                    </section>
+                  )}
+                  {!askDownload && downloadNote}
                   {(thinking || error) && (
                     <div className="msg bot">
                       <img className="avatar" src="/palm-bold.png" alt="" />
