@@ -4,3 +4,4 @@ __pycache__/
 .DS_Store
 app/src-tauri/sidecar/
 app/src-tauri/llama/
+app/src-tauri/bundle/
