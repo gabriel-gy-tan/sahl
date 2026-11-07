@@ -1,5 +1,5 @@
 (() => {
-  const version = "4";
+  const version = "6";
   if (window.__sahlVersion === version) return;
   window.__sahlVersion = version;
   window.__sahlLoaded = true;
@@ -7,7 +7,8 @@
 
   const targets = new Map();
   const keys = new WeakMap();
-  const payment = /(?:cc-(?:name|number|exp|csc|type)|card\s*(?:number|no|holder)|cvv|cvc|security\s*code)/i;
+  // never read or filled: passwords, PINs, one-time codes, a card's security code (the same rule as the sidecar's taught.NEVER)
+  const never = /pass(?:word|code|phrase)|(?<![a-z])(?:pin|otp|cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)/i;
   const skipTypes = new Set(["hidden", "password", "file", "submit", "button", "reset", "image", "range", "color", "time"]);
   let seq = 0;
 
@@ -78,8 +79,8 @@
     const type = String(el.getAttribute("type") || "").toLowerCase();
     if (skipTypes.has(type) || el.tagName === "BUTTON" || el.readOnly || el.disabled) return true;
     if (el.tagName === "SELECT" && el.multiple) return true;
-    const bit = [el.getAttribute("autocomplete"), el.getAttribute("name"), el.id, ...(labels || [])].join(" ");
-    return Boolean(payment.test(bit));
+    const bit = [el.getAttribute("autocomplete"), el.getAttribute("name"), el.id, el.getAttribute("placeholder"), ...(labels || [])].join(" ");
+    return never.test(bit);
   };
   const labelOf = (labels) => labels.find((x) => !/^(day|month|year|dd|mm|yy|yyyy)$/i.test(x)) || labels[0] || "";
   const partOf = (el, labels) => {
@@ -156,11 +157,15 @@
       if (!chunks.has(d.group)) chunks.set(d.group, []);
       chunks.get(d.group).push(d);
     }
+    const loose = [];  // a month and a year with no day (a card's expiry): each is its own box
     for (const list of chunks.values()) {
       for (let i = 0; i < list.length; i += 3) {
         const three = list.slice(i, i + 3);
         const found = new Map(three.map((x) => [x.part, x]));
-        if (found.size !== 3) continue;
+        if (found.size !== 3) {
+          loose.push(...three);
+          continue;
+        }
         const parts = ["d", "m", "y"].map((p) => found.get(p));
         const first = parts[0].base;
         const box = parts[0].el.closest("fieldset");
@@ -174,6 +179,16 @@
         });
         targets.set(id, { kind: "date-parts", parts: parts.map((p) => ({ part: p.part, el: p.el })) });
       }
+    }
+    for (const { el, labels, part, base } of loose) {
+      const word = { d: "day", m: "month", y: "year" }[part];
+      const main = labels.find((x) => !/^(day|month|year|dd|mm|yy|yyyy)$/i.test(x));
+      base.label = main ? `${main} (${word})` : base.label || word;  // two boxes under one label are two details
+      if (el.tagName === "SELECT") {
+        base.options = [...el.options].filter((o) => !o.disabled).map((o) => ({ text: optionText(o), value: o.value, selected: o.selected }));
+      }
+      normal.push(base);
+      targets.set(base.element_id, { kind: base.tag === "select" ? "select" : "text", el, options: base.options || [] });
     }
 
     return {
@@ -244,7 +259,7 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
-    style.textContent = `.ring{position:absolute;box-sizing:border-box;border:2px solid #34c759;border-radius:8px;background:rgba(52,199,89,.08);box-shadow:0 0 0 2px rgba(52,199,89,.18);}.tag{position:absolute;left:0;bottom:100%;margin-bottom:5px;max-width:260px;padding:4px 7px;border-radius:6px;background:#10351d;color:#d8ffe2;font:600 11px/1.2 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 8px rgba(0,0,0,.25);}`;
+    style.textContent = `.ring{position:absolute;box-sizing:border-box;border:2px solid #34c759;border-radius:8px;background:rgba(52,199,89,.08);box-shadow:0 0 0 2px rgba(52,199,89,.18);}.tag{position:absolute;left:0;bottom:100%;margin-bottom:5px;max-width:260px;padding:4px 7px;border-radius:6px;background:#10351d;color:#d8ffe2;font:600 11px/1.2 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 8px rgba(0,0,0,.25);}.ask{border-style:dashed;border-color:#e0a800;background:rgba(242,193,78,.07);box-shadow:none;}.ask .tag{background:#3a2c05;color:#ffe9a8;}`;
     root = document.createElement("div");
     shadow.append(style, root);
     for (const f of fields) {
@@ -256,10 +271,11 @@
       if (!live.length) continue;
       for (const el of live) {
         const node = document.createElement("div");
-        node.className = "ring";
+        const ask = f.unknown && !f.told;  // a box Sahl doesn't know yet: dashed amber, until the person tells it
+        node.className = ask ? "ring ask" : "ring";
         const tag = document.createElement("span");
         tag.className = "tag";
-        tag.textContent = f.label;
+        tag.textContent = ask ? `Tell Sahl: ${f.label}` : f.label;
         node.append(tag);
         root.append(node);
         rings.push({ el, node });
@@ -293,7 +309,9 @@
     if (el instanceof HTMLSelectElement) {
       const o = el.options[el.selectedIndex];
       const label = text(o);
-      return !el.value || !o
+      // a menu with no "Select…" entry shows its first option until someone picks: that is not a value yet
+      const untouched = el.selectedIndex === 0 && ![...el.options].some((x) => x.defaultSelected);
+      return !el.value || !o || untouched
         || /^(?:select|choose|please select|--|none|m|d|y|mm|dd|yy|yyyy|month|day|year|select (?:month|day|year))$/i.test(label);
     }
     const value = String(el.value || "").trim();
@@ -325,12 +343,14 @@
           const choice = matchOption([...target.el.options].map((o) => ({ text: optionText(o), el: o })),
             part.texts?.length ? part.texts : part.value);
           if (!choice) { ok = false; continue; }
-          target.el.selectedIndex = [...target.el.options].indexOf(choice.el);
+          const at = [...target.el.options].indexOf(choice.el);
+          target.el.selectedIndex = at;
           set(target.el, choice.el.value);
+          ok = ok && target.el.selectedIndex === at;
         } else {
           set(target.el, part.value);
+          ok = ok && !empty(target.el);
         }
-        ok = ok && empty(target.el) === false;
       }
       return { element_id: v.element_id, ok };
     }
@@ -349,7 +369,7 @@
       if (at < 0) return { element_id: v.element_id, ok: false, reason: "no matching option" };
       t.el.selectedIndex = at;
       set(t.el, t.el.options[at].value);
-      return { element_id: v.element_id, ok: !empty(t.el) };
+      return { element_id: v.element_id, ok: t.el.selectedIndex === at };
     }
     if (!replace && !empty(t.el)) return { element_id: v.element_id, ok: true, skipped: "already has a value" };
     if (t.el.readOnly || t.el.disabled) return { element_id: v.element_id, ok: false, reason: "the page does not allow typing here" };
