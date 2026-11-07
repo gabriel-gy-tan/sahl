@@ -1,5 +1,5 @@
 ﻿const BASE = "http://127.0.0.1:8765";
-const VERSION = "4";
+const VERSION = "6";
 
 class BridgeError extends Error {
   constructor(message, code = "") {
@@ -98,6 +98,13 @@ async function fill(tabId, ids, person, replace) {
   return { results, missing: released.missing || [], needs_person: Boolean(released.needs_person) };
 }
 
+// a box no guide knows: what the person typed for it, or that it is a detail they told Sahl under another name
+async function tell(path, body) {
+  const token = await storedToken();
+  if (!token) throw new BridgeError("Pair with Sahl first.", "pair");
+  return call(path, body, token);
+}
+
 async function health() {
   try {
     return await call("/health");
@@ -126,6 +133,8 @@ async function handled(msg) {
   if (msg?.type === "pair") return pair(msg.code);
   if (msg?.type === "scan") return scan(msg.tabId, msg.person);
   if (msg?.type === "fill") return fill(msg.tabId, msg.ids || [], msg.person, msg.replace);
+  if (msg?.type === "tell") return tell("/taught", { element_id: msg.id, value: msg.value, person: msg.person || null });
+  if (msg?.type === "same") return tell("/taught/alias", { element_id: msg.id, concept: msg.concept });
   if (msg?.type === "clear") return clear(msg.tabId);
   if (msg?.type === "token") return { token: Boolean(await storedToken()) };
   throw new BridgeError("Unknown request", "internal");

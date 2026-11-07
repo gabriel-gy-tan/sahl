@@ -6,25 +6,23 @@ page's elements by their visible text. Values come from the same vault as the sc
 """
 import calendar
 import re
+from collections import Counter
 
 
-from . import intent, match, vault
+from . import intent, match, taught, vault
 
 THRESHOLD = 82
 UNSAFE_TYPES = {"password", "file", "hidden", "submit", "button", "reset", "image"}
-PAYMENT = re.compile(r"(?:cc-(?:name|number|exp|csc|type)|card\s*(?:number|no|holder)|cvv|cvc|security\s*code)", re.I)
 
 
 def _safe(field: dict) -> bool:
-    """Fields Sahl must never read values into: passwords, uploads and payment details."""
+    """Fields Sahl must never put a value in: passwords, PINs, one-time codes, a card's security code, uploads."""
     tag = str(field.get("tag", "")).lower()
     kind = str(field.get("type", "")).lower()
-    auto = str(field.get("autocomplete", "")).lower()
     if tag in ("button", "submit") or kind in UNSAFE_TYPES:
         return False
-    if auto.startswith("cc-") or PAYMENT.search(" ".join(str(x) for x in (field.get("name"), field.get("label"), field.get("autocomplete")))):
-        return False
-    return True
+    said = [field.get(k) for k in ("label", "name", "placeholder", "autocomplete")] + list(field.get("labels", []))
+    return taught.allowed(" ".join(str(x) for x in said if x))
 
 
 def _kind(field: dict) -> str:
@@ -139,11 +137,42 @@ def _fallback(fields: list[dict], guides: dict) -> tuple[dict, list[dict]] | Non
     return (generic, matched) if len(matched) >= 2 else None
 
 
+def _unknown_fields(fields: list[dict], matched: list[dict], person) -> list[dict]:
+    """Boxes no guide field matched, after the known ones: with what the person told Sahl before, a suggestion of which
+    told detail it is, or nothing, so the popup asks. Text boxes, dropdowns and radio buttons; never a secret."""
+    taken = {m["element_id"] for m in matched}
+    boxes = [f for f in fields if _safe(f) and _identity(f) not in taken and _kind(f) in ("text", "select", "radio")
+             and str(f.get("label", "")).strip(" :*")]
+    labels = [str(f["label"]).strip(" :*") for f in boxes]
+    shared = Counter(match._norm(x) for x in labels)
+    seen: Counter = Counter()
+    for i, label in enumerate(labels):  # boxes that share a label (a month and a year under "Expiry") are two details
+        if shared[match._norm(label)] > 1:
+            seen[match._norm(label)] += 1
+            labels[i] = f"{label} {seen[match._norm(label)]}"
+    told = {_identity(f): taught.get(label, person) for f, label in zip(boxes, labels)}
+    ideas = taught.suggestions([label for f, label in zip(boxes, labels) if not told[_identity(f)]], person)
+    out = []
+    for f, label in zip(boxes, labels):
+        item = {"element_id": _identity(f), "field_id": "taught:" + match._norm(label), "label": label, "seen": label,
+                "input": _kind(f), "kind": _kind(f), "confidence": 100, "help": {}, "needs": None, "unknown": True,
+                "told": bool(told[_identity(f)])}
+        if (c := ideas.get(label)):
+            item["suggest"] = c  # the told detail's name only: values leave the vault one box at a time, on a fill
+        out.append(item)
+    return out
+
+
+def _person(people: list[dict], person: str | None) -> str | None:
+    if person in {p["id"] for p in people}:
+        return person
+    return people[0]["id"] if len(people) == 1 else None
+
+
 def plan(page: dict, guides: dict, person: str | None = None) -> dict:
     """Match a page to a guide and return fields, without values."""
     people = vault.people()
-    if person not in {p["id"] for p in people}:
-        person = people[0]["id"] if len(people) == 1 else None
+    person = _person(people, person)
     guide, confidence = _guide_for(page, guides)
     fields = page.get("fields", [])
     matched = _match_fields(guide, fields) if guide else []
@@ -152,19 +181,36 @@ def plan(page: dict, guides: dict, person: str | None = None) -> dict:
         if fallback:
             guide, matched = fallback
             confidence = 0.5
-    if not guide:
+    unknown = _unknown_fields(fields, matched, person)
+    if not guide and not unknown:
         return {"guide": None, "confidence": 0, "fields": [], "person": person, "people": people,
                 "reason": "no guide matched this page"}
     return {
-        "guide": {"id": guide["id"], "name": guide["service"].get("en", guide["id"]), "about": guide.get("about", "")},
-        "confidence": round(confidence * 100),
-        "fields": matched,
+        "guide": {"id": guide["id"], "name": guide["service"].get("en", guide["id"]), "about": guide.get("about", "")}
+        if guide else None,
+        "confidence": round(confidence * 100) if guide else 0,
+        "fields": matched + unknown,
         "person": person,
         "people": people,
-        "reason": "" if matched else "the page has no fields this guide recognises",
+        "reason": "" if matched or unknown else "the page has no fields this guide recognises",
         "_guide": guide,
         "_fields": fields,
     }
+
+
+def teach(scan: dict, element_id: str, value: str, person: str | None = None) -> str | None:
+    """The person typed what goes in a box no guide knows: remember it under the box's label. None when the box is
+    not one the last scan asked about."""
+    f = next((x for x in scan.get("fields", []) if x["element_id"] == element_id and x.get("unknown")), None)
+    if not f or not taught.allowed(f["label"]):
+        return None
+    return taught.teach(f["label"], value, _person(scan.get("people", []), person) or scan.get("person"))
+
+
+def alias(scan: dict, element_id: str, concept: str) -> bool:
+    """The person agreed a box is a detail they told Sahl about under another name."""
+    f = next((x for x in scan.get("fields", []) if x["element_id"] == element_id and x.get("unknown")), None)
+    return bool(f and taught.allowed(f["label"]) and taught.alias(f["label"], concept))
 
 
 def _forms(value: str) -> set[str]:
@@ -190,6 +236,23 @@ def _option(options: list[dict], value: str) -> dict | None:
     return min(scored, key=lambda x: (x[0], x[1]))[2] if scored else None
 
 
+def _loose_part(label: str, value: str) -> list[str]:
+    """A told value for a box that is only a month or only a year (a card's expiry): the ways a menu may write it.
+    "March 2030", "03/30" and "3" all give month 3; "2030" and "30" give 2030."""
+    if label.endswith("(month)"):
+        word = next((i for i in range(1, 13) if re.search(rf"\b{calendar.month_abbr[i]}", value, re.I)), None)
+        num = re.match(r"\s*(\d{1,2})\b", value)
+        month = word or (int(num[1]) if num and 1 <= int(num[1]) <= 12 else None)
+        if month:
+            return [f"{month:02d}", str(month), calendar.month_abbr[month], calendar.month_name[month]]
+    if label.endswith("(year)"):
+        y = re.findall(r"\d{4}|\d{2}", value)
+        if y:
+            year = y[-1] if len(y[-1]) == 4 else f"20{y[-1]}"
+            return [year, year[2:]]
+    return [value]
+
+
 def _part_values(value: str) -> list[dict]:
     d, m, y = value.split("/")
     month = int(m)
@@ -201,26 +264,32 @@ def _part_values(value: str) -> list[dict]:
 
 
 def values(scan: dict, element_ids: list[str], person: str | None = None) -> dict:
-    """Verified values for the fields in a scan, by element id."""
-    guide = scan.get("_guide")
-    if not guide:
-        return {"values": [], "missing": [{"element_id": i, "reason": "no guide"} for i in element_ids], "needs_person": False}
-    pid = person if person in {p["id"] for p in scan.get("people", [])} else scan.get("person")
-    if not pid:
+    """Verified values for the fields in a scan, by element id: from documents for guide fields, from what the person
+    told Sahl for the rest. Whose values, when the vault holds more than one person, is the person's choice."""
+    people = scan.get("people", [])
+    pid = person if person in {p["id"] for p in people} else scan.get("person")
+    if not pid and len(people) > 1:
         return {"values": [], "missing": [{"element_id": i, "reason": "choose a person"} for i in element_ids], "needs_person": True}
     by_id = {m["element_id"]: m for m in scan.get("fields", [])}
-    specs = {f["id"]: f for f in guide["fields"]}
+    specs = {f["id"]: f for f in (scan.get("_guide") or {}).get("fields", [])}
     out, missing = [], []
     for element_id in element_ids:
         m = by_id.get(element_id)
         if not m:
             missing.append({"element_id": element_id, "reason": "field not in the last scan"})
             continue
-        spec = specs.get(m["field_id"])
-        if not spec or spec["input"] == "checkbox":
-            missing.append({"element_id": element_id, "reason": "Sahl never ticks this"})
-            continue
-        got = vault.get(spec["vault_key"], pid)
+        if m.get("unknown"):
+            told = taught.get(m["label"], pid) if taught.allowed(m["label"]) else None
+            if not told:
+                missing.append({"element_id": element_id, "reason": "not told yet"})
+                continue
+            got = {"value": told["value"], "verified": True}  # the person's own words
+        else:
+            spec = specs.get(m["field_id"])
+            if not spec or spec["input"] == "checkbox":
+                missing.append({"element_id": element_id, "reason": "Sahl never ticks this"})
+                continue
+            got = vault.get(spec["vault_key"], pid)
         if not got or not got.get("verified"):
             missing.append({"element_id": element_id, "reason": "no verified value", "needs": m.get("needs")})
             continue
@@ -236,7 +305,8 @@ def values(scan: dict, element_ids: list[str], person: str | None = None) -> dic
         if m["kind"] in ("select", "radio"):
             opts = next((f.get("options", []) for f in scan.get("_fields", [])
                          if str(f.get("id") or f.get("element_id")) == element_id), [])
-            choice = _option(opts, value)
+            forms = _loose_part(m["label"], value) if m.get("unknown") else [value]
+            choice = next((c for c in (_option(opts, f) for f in forms) if c), None)
             if not choice:
                 missing.append({"element_id": element_id, "reason": "no matching option", "options": [o.get("text") for o in opts]})
                 continue

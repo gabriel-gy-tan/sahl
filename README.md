@@ -15,7 +15,7 @@ To run it from a checkout, see [sidecar/README.md](sidecar/README.md). Rules for
 2. **Read** – local OCR (Indra, already working in Yahmi) finds labels and boxes; a small local vision model handles layout and unlabelled boxes. Accessibility-tree data is used first when the app exposes it.
 3. **Look up** – the form guide for the chosen service, then your own documents in the local vault.
 4. **Show** – voice and card in your language: next box, the value, and a photo of where it came from.
-5. **Stop** – never logs in, never handles UAE PASS or payment, never presses submit.
+5. **Stop** – never logs in, never handles UAE PASS, PINs or a card's security code, never presses submit.
 
 ### Modes
 - **Show only** – tells you what goes in the next box.

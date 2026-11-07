@@ -46,6 +46,53 @@ function choosePerson(people) {
   return chosen;
 }
 
+const asking = (f) => f.unknown && !f.told;
+const fillable = () => (plan?.fields || []).some((f) => !asking(f));
+const declined = new Set();  // boxes whose "same as …?" the person said no to: ask for the value instead
+
+// a box no guide knows: offer the told detail the local model thinks it is, or ask the person to type it once
+function askBox(f) {
+  const box = node("div", "teach");
+  const remember = async (type, extra) => {
+    if (busy) return;
+    try {
+      await send(type, { id: f.element_id, ...extra });
+      await scanPage();
+    } catch (e) {
+      note(e.message);
+    }
+  };
+  if (f.suggest && !declined.has(f.element_id)) {
+    box.append(node("p", "", `Is “${f.label}” the same as “${f.suggest}”?`));
+    const row = node("div", "teach-row");
+    const yes = node("button", "primary", "Yes, use it");
+    const no = node("button", "ghost", "No, it's different");
+    yes.type = no.type = "button";
+    yes.addEventListener("click", () => void remember("same", { concept: f.suggest }));
+    no.addEventListener("click", () => {
+      declined.add(f.element_id);
+      box.replaceWith(askBox(f));
+    });
+    row.append(yes, no);
+    box.append(row);
+    return box;
+  }
+  const form = node("form", "teach-row");
+  const input = document.createElement("input");
+  input.autocomplete = "off";
+  input.placeholder = "Type it here";
+  input.setAttribute("aria-label", `What goes in ${f.label}`);
+  const save = node("button", "primary", "Remember");
+  save.type = "submit";
+  form.append(input, save);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (input.value.trim()) void remember("tell", { value: input.value, person: $("person").value || null });
+  });
+  box.append(node("p", "", `Sahl doesn't know “${f.label}” yet. Tell it once and it will remember.`), form);
+  return box;
+}
+
 function listFields(fields) {
   const list = $("fields");
   list.replaceChildren();
@@ -59,7 +106,8 @@ function listFields(fields) {
     const label = node("label", "field");
     const check = document.createElement("input");
     check.type = "checkbox";
-    check.checked = true;
+    check.checked = !asking(f);
+    check.disabled = asking(f);
     check.dataset.id = f.element_id;
     check.setAttribute("aria-label", `Fill ${f.label}`);
     const text = node("span");
@@ -67,11 +115,13 @@ function listFields(fields) {
     const why = [];
     if (f.seen && f.seen !== f.label) why.push(f.seen);
     if (f.needs) why.push(`needs ${f.needs}`);
+    if (f.told) why.push("you told Sahl");
     if (f.confidence < 90) why.push(`${f.confidence}% match`);
     if (why.length) text.append(node("small", "", why.join(" · ")));
     const kind = node("em", "", f.kind === "date-parts" ? "date" : f.kind);
     label.append(check, text, kind);
     li.append(label);
+    if (asking(f)) li.append(askBox(f));
     list.append(li);
   }
 }
@@ -84,16 +134,22 @@ function showPlan(out) {
     g.append(node("strong", "", out.guide.name || out.guide.id));
     const sub = out.guide.about || "Matched from this page's fields.";
     g.append(node("span", "", sub));
+  } else if (out.fields?.length) {
+    g.append(node("strong", "", "No form guide for this page"));
+    g.append(node("span", "", "Sahl fills what you told it before, and asks about the rest."));
   } else {
     g.append(node("strong", "", "No guide matched this page"));
     g.append(node("span", "", out.reason || "Try Sahl's screen reader instead."));
   }
   const person = choosePerson(out.people || []);
-  listFields(out.fields || []);
-  $("fill").disabled = !(out.fields || []).length;
-  if (!out.people?.length) note("Add a passport or Emirates ID in Sahl before filling.");
-  else if (!out.fields?.length) note(out.reason || "Scroll to the form and scan again.");
-  else if (out.confidence < 55) note("This match is uncertain. Check the highlighted boxes before filling.");
+  const fields = out.fields || [];
+  listFields(fields);
+  $("fill").disabled = !fillable();
+  const asked = fields.filter(asking).length;
+  if (!out.people?.length && fields.some((f) => !f.unknown)) note("Add a passport or Emirates ID in Sahl to fill the document boxes.");
+  else if (!fields.length) note(out.reason || "Scroll to the form and scan again.");
+  else if (out.guide && out.confidence < 55) note("This match is uncertain. Check the highlighted boxes before filling.");
+  else if (asked) note(`Sahl doesn't know ${asked} ${asked === 1 ? "box" : "boxes"} yet (dashed on the page). Tell it once below.`);
   else note("");
   return person;
 }
@@ -124,7 +180,7 @@ async function scanPage() {
     busy = false;
     setReading(false);
     $("rescan").disabled = false;
-    $("fill").disabled = !(plan?.fields || []).length;
+    $("fill").disabled = !fillable();
   }
 }
 
@@ -167,7 +223,7 @@ async function fillChosen() {
   } finally {
     busy = false;
     $("rescan").disabled = false;
-    $("fill").disabled = !(plan?.fields || []).length;
+    $("fill").disabled = !fillable();
   }
 }
 

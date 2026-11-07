@@ -561,7 +561,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def teach(body: Teach):
         """The person typed what goes in a box Sahl doesn't know; remember it under what the box is called."""
         if not taught.allowed(body.label):
-            raise HTTPException(422, "Sahl never handles passwords or payment details")
+            raise HTTPException(422, "Sahl never handles passwords, PINs or security codes")
         return {"concept": taught.teach(body.label, body.value, body.person)}
 
     @app.post("/taught/alias", dependencies=[Depends(auth)])

@@ -43,6 +43,17 @@ class Values(BaseModel):
     person: str | None = None
 
 
+class Tell(BaseModel):
+    element_id: str = Field(max_length=100)
+    value: str = Field(min_length=1, max_length=500)
+    person: str | None = None
+
+
+class Same(BaseModel):
+    element_id: str = Field(max_length=100)
+    concept: str = Field(max_length=80)
+
+
 class State:
     def __init__(self, guides: dict, token: str | None = None, port: int = PORT):
         self.guides = guides
@@ -145,6 +156,23 @@ def create_app(state: State) -> FastAPI:
         if not scan:
             raise HTTPException(409, "scan the page first")
         return web.values(scan, body.element_ids, body.person)
+
+    @app.post("/taught")
+    def tell(body: Tell, token: str = Depends(auth)):
+        """The person typed what goes in a box from the last scan that no guide knows."""
+        if not body.value.strip():
+            raise HTTPException(422, "type what goes in this box")
+        concept = web.teach(state.scans.get(token) or {}, body.element_id, body.value.strip(), body.person)
+        if not concept:
+            raise HTTPException(404, "scan the page again")
+        return {"concept": concept}
+
+    @app.post("/taught/alias")
+    def same(body: Same, token: str = Depends(auth)):
+        """The person agreed a box from the last scan is a detail they told Sahl about under another name."""
+        if not web.alias(state.scans.get(token) or {}, body.element_id, body.concept):
+            raise HTTPException(404, "Sahl was not told about that")
+        return {"ok": True}
 
     @app.post("/clear")
     def clear(token: str = Depends(auth)):
