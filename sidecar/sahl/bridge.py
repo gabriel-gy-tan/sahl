@@ -182,30 +182,34 @@ def create_app(state: State) -> FastAPI:
     return app
 
 
-def start(state: State):
-    """Start the bridge on its fixed loopback port, if it is free. A failure is shown in settings."""
-    probe = socket.socket()
-    try:
-        probe.bind(("127.0.0.1", state.port))
-    except OSError as e:
-        state.error = str(e)
-        return False
-    finally:
-        probe.close()
+def _bind(state: State, retry: float) -> socket.socket:
+    """Waits for the fixed port, showing why in settings until it is free."""
+    while True:
+        sock = socket.socket()
+        if os.name == "posix":  # a just-closed Sahl's connections linger on the port; on Windows this would let us share a live one
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            sock.bind(("127.0.0.1", state.port))
+            return sock
+        except OSError as e:
+            sock.close()
+            state.error = str(e)
+            time.sleep(retry)
+
+
+def start(state: State, retry: float = 1.0):
+    """Start the bridge in the background on its fixed loopback port, as soon as that port is free."""
 
     def run():
         import uvicorn
+        sock = _bind(state, retry)
+        state.error = ""
         state.running = True
         try:
-            uvicorn.Server(uvicorn.Config(create_app(state), host="127.0.0.1", port=state.port, log_level="warning")).run()
+            uvicorn.Server(uvicorn.Config(create_app(state), log_level="warning")).run(sockets=[sock])
         except Exception as e:
             state.error = str(e)
         finally:
             state.running = False
 
     threading.Thread(target=run, name="sahl-extension-bridge", daemon=True).start()
-    for _ in range(50):
-        if state.running:
-            return True
-        time.sleep(0.02)
-    return state.running
