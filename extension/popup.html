@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sahl</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <span class="mark" aria-hidden>S</span>
+    <div>
+      <h1>Sahl</h1>
+      <p id="status" role="status">Checking Sahl…</p>
+    </div>
+  </header>
+
+  <div class="scanline" aria-hidden></div>
+
+  <main>
+    <section id="pair" hidden>
+      <p class="lead">Pair this browser once with the Sahl app on this computer.</p>
+      <form id="pair-form">
+        <label for="code">Pairing code</label>
+        <div class="pair-row">
+          <input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required>
+          <button class="primary" type="submit">Pair</button>
+        </div>
+      </form>
+      <p class="fine">Open Sahl, then Settings → Browser extension to see the code.</p>
+    </section>
+
+    <section id="work" hidden>
+      <div id="guide" class="guide"></div>
+      <label id="person-row" class="person" hidden>
+        <span>This form is for</span>
+        <select id="person"></select>
+      </label>
+      <ul id="fields" aria-label="Fields Sahl can fill"></ul>
+      <label class="replace"><input id="replace" type="checkbox"> Replace values already in the boxes</label>
+      <div class="actions">
+        <button id="clear" class="ghost" type="button">Clear marks</button>
+        <button id="rescan" class="ghost" type="button">Scan again</button>
+        <button id="fill" class="primary" type="button">Fill chosen</button>
+      </div>
+      <p id="note" class="fine" role="status"></p>
+    </section>
+
+    <section id="none" hidden>
+      <p class="lead" id="none-text"></p>
+      <button id="retry" class="primary" type="button">Try again</button>
+    </section>
+  </main>
+
+  <footer>Sahl never submits, pays or ticks a box for you.</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

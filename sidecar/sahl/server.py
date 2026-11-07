@@ -21,7 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from rapidfuzz import fuzz
 
-from . import ai, fill, intent, library, match, ocr, report, taught, vault
+from . import ai, bridge, fill, intent, library, match, ocr, report, taught, vault
 
 GUIDES = Path(os.environ.get("SAHL_GUIDES", Path(__file__).resolve().parents[2] / "guides"))
 
@@ -139,7 +139,8 @@ def _part_texts(kind, value):
 
 
 def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=fill.pick_from,
-               chooser=fill.open_and_type, clicker=fill.click_at, closer=fill.close_list) -> FastAPI:
+               chooser=fill.open_and_type, clicker=fill.click_at, closer=fill.close_list,
+               ext: bridge.State | None = None) -> FastAPI:
     app = FastAPI()
     # the Tauri webview's origins in dev and in a built app
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:1420", "tauri://localhost", "http://tauri.localhost"],
@@ -549,6 +550,13 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         ai.set_consent(body.answer)
         return get_models()
 
+    @app.get("/extension", dependencies=[Depends(auth)])
+    def get_extension():
+        """The browser extension's pairing code and whether its loopback bridge is up."""
+        if not ext:
+            return {"enabled": False, "running": False, "error": "", "port": bridge.PORT, "code": "", "paired": False}
+        return {"enabled": True, "running": ext.running, "error": ext.error, "port": ext.port, "code": ext.code,
+                "paired": bool(ext.token)}
     @app.post("/taught", dependencies=[Depends(auth)])
     def teach(body: Teach):
         """The person typed what goes in a box Sahl doesn't know; remember it under what the box is called."""
@@ -622,10 +630,12 @@ def main():
         print(f"SAHL_TOKEN={token}", flush=True)
     # Told to stop (Sahl quitting), stop the AI model servers too; uvicorn finishes its own shutdown, then raises this signal again.
     signal.signal(signal.SIGTERM, lambda *a: (ai.stop_all(), os._exit(0)))
+    ext = bridge.State(load_guides())
+    bridge.start(ext)
     ai.prepare()
     ocr.engine()  # load the model before the first read
     library.watch()  # read new documents in the background
-    uvicorn.Server(uvicorn.Config(create_app(token), log_level="warning")).run(sockets=[sock])
+    uvicorn.Server(uvicorn.Config(create_app(token, ext=ext), log_level="warning")).run(sockets=[sock])
 
 
 if __name__ == "__main__":

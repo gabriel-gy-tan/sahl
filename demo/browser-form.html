@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample form · Sahl browser test</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: #eef1f5; color: #1c2733; font: 16px/1.45 system-ui, sans-serif; }
+  header { background: #1f3447; color: #fff; padding: 16px 28px; }
+  header small { opacity: .72; }
+  main { max-width: 720px; margin: 22px auto 60px; background: #fff; border-radius: 10px; padding: 26px 30px 34px; box-shadow: 0 8px 34px rgba(20,40,60,.09); }
+  h1 { margin: 0 0 4px; font-size: 24px; }
+  h2 { margin: 30px 0 12px; font-size: 17px; border-bottom: 1px solid #e2e7ed; padding-bottom: 7px; }
+  label { display: block; margin: 15px 0 5px; font-weight: 600; font-size: 14px; }
+  input, select { box-sizing: border-box; width: 100%; padding: 9px 10px; border: 1px solid #adb8c4; border-radius: 5px; background: #fff; font: inherit; }
+  input[type=radio], input[type=checkbox] { width: auto; padding: 0; }
+  fieldset { border: 0; padding: 0; margin: 16px 0 0; }
+  legend { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+  .date { display: grid; grid-template-columns: 1.1fr 1.5fr 1.2fr; gap: 9px; }
+  .date label { margin-top: 0; font-weight: 500; font-size: 12px; color: #5d6d7c; }
+  .hidden { display: none; }
+  .actions { display: flex; gap: 10px; margin-top: 28px; }
+  button { padding: 10px 18px; border: 1px solid #9aa8b6; border-radius: 5px; background: #f6f8fa; font: inherit; cursor: pointer; }
+  button.primary { background: #1d6fbd; border-color: #1d6fbd; color: #fff; }
+  .note { color: #5d6d7c; font-size: 13px; margin-top: 18px; }
+</style>
+</head>
+<body>
+<header>sample-portal.example/form <small>Invented page for testing Sahl's browser companion</small></header>
+<main>
+  <h1>Applicant details</h1>
+  <p class="note">This page is invented. Nothing is sent or submitted.</p>
+
+  <h2>Personal details</h2>
+  <label for="full-name">Full name (as in passport)</label>
+  <input id="full-name" name="fullName" autocomplete="name">
+
+  <fieldset>
+    <legend>Date of birth</legend>
+    <div class="date">
+      <div><label for="dob-day">Day</label><select id="dob-day" name="dobDay"><option value="">Day</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>14</option><option>31</option></select></div>
+      <div><label for="dob-month">Month</label><select id="dob-month" name="dobMonth"><option value="">Month</option><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select></div>
+      <div><label for="dob-year">Year</label><input id="dob-year" name="dobYear" inputmode="numeric" autocomplete="off"></div>
+    </div>
+  </fieldset>
+
+  <label for="nationality">Nationality</label>
+  <select id="nationality" name="nationality"><option value="">Choose</option><option>India</option><option>Pakistan</option><option>United Kingdom</option><option>United Arab Emirates</option></select>
+
+  <fieldset id="sex">
+    <legend>Sex</legend>
+    <label><input type="radio" name="sex" value="female"> Female</label>
+    <label><input type="radio" name="sex" value="male"> Male</label>
+  </fieldset>
+
+  <h2>Passport</h2>
+  <label for="passport-number">Passport number</label>
+  <input id="passport-number" name="passportNumber" autocomplete="off">
+
+  <fieldset>
+    <legend>Passport expiry date</legend>
+    <div class="date">
+      <div><label for="expiry-day">Day</label><select id="expiry-day" name="expiryDay"><option value="">Day</option><option>1</option><option>2</option><option>3</option><option>6</option><option>17</option><option>28</option><option>31</option></select></div>
+      <div><label for="expiry-month">Month</label><select id="expiry-month" name="expiryMonth"><option value="">Month</option><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select></div>
+      <div><label for="expiry-year">Year</label><input id="expiry-year" name="expiryYear" inputmode="numeric" autocomplete="off"></div>
+    </div>
+  </fieldset>
+
+  <label for="emirates-id">Emirates ID number</label>
+  <input id="emirates-id" name="emiratesId" autocomplete="off">
+
+  <h2>Other</h2>
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" autocomplete="current-password">
+
+  <label for="card">Card number</label>
+  <input id="card" name="card" autocomplete="cc-number">
+
+  <label><input type="checkbox" name="agree"> I agree to the terms</label>
+
+  <div class="actions">
+    <button type="button" class="primary">Submit</button>
+    <button type="reset">Reset</button>
+  </div>
+  <p class="note">The Submit button does nothing. Sahl never presses it.</p>
+</main>
+</body>
+</html>

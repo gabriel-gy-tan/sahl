@@ -194,7 +194,7 @@ def _echoes(name: str, text: str) -> bool:
     return bool(words) and len(found) >= 0.5 * len(words)
 
 
-def pick(text: str, guides: dict) -> dict:
+def pick(text: str, guides: dict, timeout: float = 20) -> dict:
     """{kind: match|about|new|unsure, guide: best id or None, options: up to 3 ids, name: the service in their words
     for "new"}. "about" is a question about a form, so Sahl answers it and offers the form without choosing it."""
     text = text.strip()[:300]
@@ -220,7 +220,7 @@ def pick(text: str, guides: dict) -> dict:
         "options": {"temperature": 0, "num_predict": 600},
         "messages": [{"role": "user", "content": PICK.format(catalogue=lines or "(none)", text=text.replace('"', "'"),
                                                              missing=", ".join(missing) or "none")}],
-    }, timeout=20, tries=1)
+    }, timeout=timeout, tries=1)
     if not isinstance(out, dict):
         return _answer("unsure", [])
     kind, guide, name = out.get("kind"), out.get("guide"), str(out.get("name", "")).strip()[:60]
