@@ -8,7 +8,7 @@
   const targets = new Map();
   const keys = new WeakMap();
   // never read or filled: passwords, PINs, one-time codes, a card's security code (the same rule as the sidecar's taught.NEVER)
-  const never = /pass(?:word|code|phrase)|(?<![a-z])(?:pin|otp|cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)/i;
+  const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
   const skipTypes = new Set(["hidden", "password", "file", "submit", "button", "reset", "image", "range", "color", "time"]);
   let seq = 0;
 

@@ -62,9 +62,14 @@ def test_nothing_told_means_no_model_call(monkeypatch):
 
 def test_passwords_are_never_remembered():
     for label in ("Password", "Passcode", "PIN", "One-time code", "Card Verification Code", "CVV", "CVV2", "CVC",
-                  "Security code", "Verification code", "card_cvv", "cc-csc", "otp_input"):
+                  "Security code", "Verification code", "card_cvv", "cc-csc", "otp_input",
+                  "mPIN", "MPIN", "TPIN", "pinCode", "TOTP", "otpCode", "SMS code", "Enter the 6-digit code", "Passwd", "PWD",
+                  "Authentication code", "Access code", "الرمز السري", "الرقم السري", "رمز التحقق", "رمز التأكيد",
+                  "كلمة المرور", "كلمة السر", "رمز المرور لمرة واحدة"):
         assert not taught.allowed(label), label
     assert taught.allowed("Company") and taught.allowed("Social Security Number")
+    assert all(taught.allowed(x) for x in ("Spinning class", "Postcode", "Zip code", "Country code", "Area code", "Promo code",
+                                           "Topping", "Optional", "رقم الهوية", "رقم الجواز", "الاسم الكامل"))
     assert all(taught.allowed(x) for x in ("Credit Card Number", "Credit Card Type", "Card Expiration Date", "Card User Name",
                                            "Card Issuing Bank", "Card Customer Service Phone", "IBAN", "Shipping", "Opinion"))
 

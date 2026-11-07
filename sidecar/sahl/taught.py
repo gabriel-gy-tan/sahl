@@ -16,9 +16,12 @@ SOURCE = "you told Sahl"
 SIMILAR = 85  # as close as a guide's alias must be (match.THRESHOLD); numbers must still agree: "Address line 1" is not "2"
 # Sahl never types passwords, PINs, one-time codes or a card's security code, so it never asks to remember them either.
 # Other card details (number, expiry, name on card) are told like any other box. Letters only bound a word, so a field
-# named "card_cvv" or "cc-csc" is caught too.
-NEVER = re.compile(r"pass(?:word|code|phrase)|(?<![a-z])(?:pin|otp|cv[cv]\d?|csc)(?![a-z])|one.time"
-                   r"|card\s*verification|security\s*code|verification\s*(?:code|number|value)", re.I)
+# named "card_cvv" or "cc-csc" is caught too, and so are joined forms ("mPIN", "TOTP"), code boxes ("SMS code",
+# "6-digit code") and the Arabic labels on UAE portals. extension/content.js keeps an identical copy.
+NEVER = re.compile(r"pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])"
+                   r"|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification"
+                   r"|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code"
+                   r"|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة", re.I)
 
 
 def allowed(label: str) -> bool:
