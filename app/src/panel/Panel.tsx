@@ -642,7 +642,7 @@ export default function Panel() {
   });
   const [tucked, setTucked] = useState(false); // they folded it themselves while working on a form
   useEffect(() => setTucked(false), [reading, guide]);
-  const keep = busy || thinking || readingDocs || dropping || focused || setup || handoff || ((!!field || !!guide) && !tucked);
+  const keep = busy || thinking || readingDocs || dropping || focused || setup || ((!!field || !!guide) && !tucked);
   const keepRef = useRef(keep);
   keepRef.current = keep;
   const typingRef = useRef(false);
@@ -680,13 +680,12 @@ export default function Panel() {
       if (e.key !== "Escape" || e.defaultPrevented) return;
       if (page) back();
       else if (sheet) setSheet(false);
-      else if (handoff) setHandoff(false);
       else if (lookAt) setLookAt(false);
       else tuck();
     };
     window.addEventListener("keydown", esc);
     return () => window.removeEventListener("keydown", esc);
-  }, [page, sheet, lookAt, docView, handoff]);
+  }, [page, sheet, lookAt, docView]);
   function tuck() {
     setTucked(true);
     setOpen(false);
