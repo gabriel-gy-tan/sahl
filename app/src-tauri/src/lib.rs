@@ -323,6 +323,22 @@ fn spawn_sidecar(app: &tauri::AppHandle) {
     });
 }
 
+/// Whether the app in front when ⌥Space was pressed is a browser the Sahl extension runs in (Chromium-based), so the
+/// panel can point to the extension, which reads the page's own boxes, instead of reading the screen.
+fn browser_in_front() -> bool {
+    #[cfg(target_os = "macos")]
+    {
+        const BROWSERS: [&str; 7] = ["com.google.Chrome", "com.microsoft.edgemac", "com.brave.Browser", "com.vivaldi.Vivaldi",
+            "company.thebrowser.Browser", "com.operasoftware.Opera", "org.chromium.Chromium"];
+        let front = objc2_app_kit::NSWorkspace::sharedWorkspace().frontmostApplication();
+        let id = front.and_then(|a| a.bundleIdentifier()).map(|s| s.to_string()).unwrap_or_default();
+        return BROWSERS.iter().any(|b| id.starts_with(b)); // Chrome Beta/Canary, Edge Dev… share the prefix
+    }
+    // ponytail: Windows always reads the screen; check the foreground process name (chrome.exe, msedge.exe) when the port is tried
+    #[cfg(not(target_os = "macos"))]
+    false
+}
+
 /// Reads the form on screen. Alt+Space is the window menu on Windows, so it gets Ctrl+Alt+Space there.
 const SHORTCUT: &str = if cfg!(target_os = "macos") { "alt+space" } else { "ctrl+alt+space" };
 
@@ -336,7 +352,7 @@ pub fn run() {
                 .expect("shortcut")
                 .with_handler(|app, _, ev| {
                     if ev.state == ShortcutState::Pressed {
-                        let _ = app.emit_to("panel", "read", ());
+                        let _ = app.emit_to("panel", "read", browser_in_front());
                     }
                 })
                 .build(),

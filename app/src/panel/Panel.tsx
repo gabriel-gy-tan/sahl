@@ -377,16 +377,25 @@ export default function Panel() {
 
   // ⌥Space before a form is chosen: ask which form is on screen, then read it as soon as they pick one
   const [lookAt, setLookAt] = useState(false);
+  // ⌥Space over a browser the extension is paired with: the extension reads the page's own boxes, which beats the screen
+  const [handoff, setHandoff] = useState(false);
+  const [useExtension, setUseExtension] = useState<"on" | "off">(() => saved("handoff", "on"));
+  const paired = useRef(false);
+  const readScreen = () => {
+    setHandoff(false);
+    if (guide) void read(true);
+    else setLookAt(true);
+  };
   const readWhenChosen = useRef(false);
   useEffect(() => {
-    const un = listen("read", () => {
+    const un = listen<boolean>("read", (e) => {
       setOpen(true);
       setSheet(false);
-      if (guide) void read(true);
-      else setLookAt(true);
+      if (e.payload && paired.current && useExtension === "on") setHandoff(true);
+      else readScreen();
     });
     return () => void un.then((f) => f());
-  }, [read, guide]);
+  }, [read, guide, useExtension]);
   useEffect(() => {
     if (guide && readWhenChosen.current) (readWhenChosen.current = false), void read(true);
   }, [guide, read]);
@@ -522,6 +531,8 @@ export default function Panel() {
   const [extension, setExtension] = useState<Extension | null>(null);
   const [copiedCode, setCopiedCode] = useState(false);
   const loadExtension = () => api<Extension>("/extension").then(setExtension).catch(() => {});
+  useEffect(() => void loadExtension(), []); // is a browser paired, for the ⌥Space handoff
+  useEffect(() => void (paired.current = !!extension?.paired), [extension]);
   useEffect(() => void (page === "extension" && loadExtension()), [page]);
 
   const [held, setHeld] = useState<Held | null>(null);
@@ -784,6 +795,13 @@ export default function Panel() {
                         <i />
                       </button>
                     </div>
+                    <div className="row">
+                      <span className="label"><Icon name="extension" />{t("handoff_pref")}</span>
+                      <button role="switch" className="switch" aria-checked={useExtension === "on"} aria-label={t("handoff_pref")}
+                        onClick={() => { const v = useExtension === "on" ? "off" : "on"; setUseExtension(v); save("handoff", v); }}>
+                        <i />
+                      </button>
+                    </div>
                   </section>
                 ) : !page ? null : page === "extension" ? (
                   <>
@@ -936,6 +954,16 @@ export default function Panel() {
                     <p className="fine">{t("never_submits")}</p>
                   </>
                 )}
+              </div>
+            ) : handoff ? (
+              <div className="setup handoff" role="status">
+                <div className="eyebrow">{t("menu_extension")}</div>
+                <h1>{t("handoff_title")}</h1>
+                <p className="sub">{t("handoff_body")}</p>
+                <div className="actions">
+                  <button className="primary" onClick={() => setHandoff(false)}>{t("handoff_ok")}</button>
+                  <button className="ghost" onClick={readScreen}>{t("handoff_screen")}</button>
+                </div>
               </div>
             ) : !guide && lookAt ? (
               <div className="ask look" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
