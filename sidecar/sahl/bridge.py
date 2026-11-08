@@ -21,6 +21,8 @@ from . import vault, web
 
 PORT = 8765
 TOKEN_FILE = "extension-token"
+CODE_LIFE = 600  # seconds a pairing code stays usable
+MAX_MISSES = 5  # wrong guesses that burn a code
 EXTENSION = re.compile(r"^(?:chrome|moz)-extension://")
 
 
@@ -59,12 +61,22 @@ class State:
         self.guides = guides
         self.port = port
         self.token = token or _load_token()
-        self.code = f"{secrets.randbelow(1_000_000):06d}"
         self.scans: dict[str, dict] = {}
         self.attempts: deque[float] = deque()
         self.running = False
         self.error = ""
         self.lock = threading.Lock()
+        self.code, self.expires, self.misses = "", 0.0, 0
+        self.fresh_code()
+
+    def fresh_code(self) -> str:
+        """The code shown in Settings: works once, for CODE_LIFE seconds, and dies after MAX_MISSES wrong guesses."""
+        with self.lock:
+            if not self.code or time.monotonic() > self.expires:
+                self.code = f"{secrets.randbelow(1_000_000):06d}"
+                self.expires = time.monotonic() + CODE_LIFE
+                self.misses = 0
+            return self.code
 
     def pair(self, code: str) -> str:
         now = time.monotonic()
@@ -74,8 +86,12 @@ class State:
             if len(self.attempts) >= 8:
                 raise HTTPException(429, "too many pairing attempts")
             self.attempts.append(now)
-            if not secrets.compare_digest(code.strip(), self.code):
-                raise HTTPException(403, "wrong pairing code")
+            if not self.code or now > self.expires or not secrets.compare_digest(code.strip(), self.code):
+                self.misses += 1
+                if self.misses >= MAX_MISSES:
+                    self.code = ""  # guessing burns the code; Settings shows a new one when next opened
+                raise HTTPException(403, "wrong or expired pairing code: open Sahl's Settings for a new one")
+            self.code = ""  # one pairing per code
             self.attempts.clear()
             return self.token
 

@@ -90,6 +90,27 @@ def test_bridge_needs_pairing_and_rejects_other_origins():
     assert c.post("/pair", json={"code": state.code}, headers={"origin": "chrome-extension://abc"}).json()["token"] == "a" * 64
 
 
+def test_a_pairing_code_works_once_expires_and_is_burned_by_guessing(monkeypatch):
+    state = bridge.State(GUIDES, token="c" * 64)
+    c = TestClient(bridge.create_app(state))
+    code = state.fresh_code()
+    assert state.fresh_code() == code  # Settings shows the same code until it is used or expires
+    assert c.post("/pair", json={"code": code}).json()["token"] == "c" * 64
+    assert c.post("/pair", json={"code": code}).status_code == 403  # single use
+
+    code = state.fresh_code()
+    for _ in range(bridge.MAX_MISSES):
+        assert c.post("/pair", json={"code": "999999" if code != "999999" else "000000"}).status_code == 403
+    assert c.post("/pair", json={"code": code}).status_code == 403  # guessing burned it
+    assert state.fresh_code() != ""
+
+    code = state.fresh_code()
+    later = bridge.time.monotonic() + bridge.CODE_LIFE + 1
+    monkeypatch.setattr(bridge.time, "monotonic", lambda: later)
+    assert c.post("/pair", json={"code": code}).status_code == 403  # expired
+    assert state.fresh_code() != code
+
+
 def test_bridge_scan_then_values():
     state = bridge.State(GUIDES, token="b" * 64)
     c = TestClient(bridge.create_app(state), headers={"x-sahl-ext-token": "b" * 64})

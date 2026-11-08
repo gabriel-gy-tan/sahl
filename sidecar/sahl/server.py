@@ -555,7 +555,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         """The browser extension's pairing code and whether its loopback bridge is up."""
         if not ext:
             return {"enabled": False, "running": False, "error": "", "port": bridge.PORT, "code": "", "paired": False}
-        return {"enabled": True, "running": ext.running, "error": ext.error, "port": ext.port, "code": ext.code,
+        return {"enabled": True, "running": ext.running, "error": ext.error, "port": ext.port, "code": ext.fresh_code(),
                 "paired": bool(ext.token)}
     @app.post("/taught", dependencies=[Depends(auth)])
     def teach(body: Teach):

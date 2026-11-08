@@ -1,6 +1,7 @@
 """Types one confirmed value into one box. Never presses Enter, so nothing gets submitted."""
 import sys
 import time
+import unicodedata
 
 
 def _allowed():
@@ -12,6 +13,11 @@ def _allowed():
     lib.AXIsProcessTrusted.restype = ctypes.c_bool
     if not lib.AXIsProcessTrusted():
         raise PermissionError("Accessibility permission is off")
+
+
+def _plain(text: str) -> str:
+    """pynput types a newline as Enter and a tab as Tab, so control characters become spaces before anything is typed."""
+    return " ".join("".join(" " if unicodedata.category(c) == "Cc" else c for c in text).split())
 
 
 def type_into(box, value: str):
@@ -33,7 +39,7 @@ def type_into(box, value: str):
     with keys.pressed(mod):
         keys.tap("a")  # replace whatever is already in the box
     time.sleep(0.1)  # a still-held modifier eats the first typed character
-    for ch in value:
+    for ch in _plain(value):
         keys.type(ch)
         time.sleep(0.01)
 
@@ -56,7 +62,7 @@ def pick_from(box, text: str):
     time.sleep(0.5)
     keys.tap(Key.esc)  # an open list only highlights what you type; a closed, focused one selects it
     time.sleep(0.3)
-    for ch in text:
+    for ch in _plain(text):
         keys.type(ch)
         time.sleep(0.12)
     time.sleep(0.1)
@@ -81,7 +87,7 @@ def open_and_type(box, text: str):
     time.sleep(0.15)
     mouse.click(Button.left)
     time.sleep(0.5)
-    for ch in text:
+    for ch in _plain(text):
         keys.type(ch)
         time.sleep(0.08)
     time.sleep(0.4)  # a searchable list filters as you type
