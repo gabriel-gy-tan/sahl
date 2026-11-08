@@ -179,6 +179,7 @@ function Icon({ name }: { name: keyof typeof ICONS }) {
 const TIERS = ["light", "standard", "strong"] as const;
 type Improve = { on: boolean; reports: { file: string; guide: string; date: string; found: number; not_seen: number; missed: number; text: string }[] };
 type Models = { tier: (typeof TIERS)[number]; running: boolean; runtime: boolean; pulling: { model: string | null; done: number; total: number; error: boolean; reason: string }; consent: "ask" | "yes" | "no"; free_gb: number; tiers: { id: string; text: string; vision: string; installed: boolean; need_gb: number }[] };
+type Allowed = { screen: boolean; typing: boolean };
 type Extension = { enabled: boolean; running: boolean; error: string; port: number; code: string; paired: boolean };
 
 function Palm({ leaving = false }: { leaving?: boolean }) {
@@ -192,7 +193,7 @@ function Palm({ leaving = false }: { leaving?: boolean }) {
 
 export default function Panel() {
   const [lang, setLang] = useState<Lang>(() => saved("lang", "en"));
-  const [mode, setMode] = useState<"show" | "fill">(() => saved("mode", "show"));
+  const [mode, setMode] = useState<"show" | "fill">(() => saved("mode", "fill"));
   const [textSize, setTextSize] = useState<(typeof TEXT_SIZES)[number]>(() => saved("text", "1"));
   const [readAloud, setReadAloud] = useState<"on" | "off">(() => saved("speak", "off"));
   const openW = Math.round(WIDTH * (1 + (Number(textSize) - 1) * 0.6)); // bigger text gets a wider island too
@@ -534,6 +535,30 @@ export default function Panel() {
   const loadHeld = () => api<Held>("/vault/summary").then(setHeld).catch(() => {});
   useEffect(() => void (page === "docs" && loadHeld()), [page]);
 
+  // first run: documents, then what the OS must allow (asked up front, not after a read fails), then how to help
+  const [setup, setSetup] = useState(() => saved<string>("setup", "") !== "done");
+  const [step, setStep] = useState(0);
+  const [allowed, setAllowed] = useState<Allowed | null>(null);
+  const askAllow = useRef<boolean | null>(null); // decided once, so the steps don't shift when both get turned on
+  const loadAllowed = () => api<Allowed>("/permissions").then((a) => {
+    askAllow.current ??= !(a.screen && a.typing);
+    setAllowed(a);
+  }).catch(() => {});
+  const steps = ["docs", ...(askAllow.current ? ["allow"] : []), "mode"] as const;
+  const at = steps[Math.min(step, steps.length - 1)];
+  useEffect(() => void (setup && (loadAllowed(), loadHeld())), [setup]);
+  useEffect(() => { // the person turns these on in System Settings: notice when they have
+    if (!setup || at !== "allow") return;
+    const id = setInterval(loadAllowed, 2000);
+    return () => clearInterval(id);
+  }, [setup, at]);
+  const allow = (which: "screen" | "typing") => void api<Allowed>("/permissions", { which }).then(setAllowed).catch(fail);
+  const next = () => {
+    if (step < steps.length - 1) return setStep(step + 1);
+    save("setup", "done");
+    setSetup(false);
+  };
+
   // the island floats above every window, so a system dialog (picker, confirm) would open under it:
   // fold it out of the way while one is up, then bring it back
   const dialogUp = useRef(false);
@@ -610,7 +635,7 @@ export default function Panel() {
   useEffect(() => {
     if (focused && document.activeElement !== inputRef.current) setFocused(false);
   });
-  const keep = busy || thinking || readingDocs || dropping || !!field || focused;
+  const keep = busy || thinking || readingDocs || dropping || !!field || focused || setup;
   const keepRef = useRef(keep);
   keepRef.current = keep;
   const typingRef = useRef(false);
@@ -843,6 +868,75 @@ export default function Panel() {
                 <p>{progress?.total ? t("importing", { done: progress.done, total: progress.total }) : " "}</p>
                 {tooSlow}
               </div>
+            ) : setup ? (
+              <div className="setup">
+                <div className="eyebrow">{t("setup_step", { n: steps.indexOf(at) + 1, total: steps.length })}</div>
+                {at === "docs" ? (
+                  <>
+                    <h1>{t("setup_docs_title")}</h1>
+                    <p className="sub">{t("setup_docs_body")}</p>
+                    {!!held?.people.length && (
+                      <section className="group">
+                        {held.people.map((p) => (
+                          <div className="row" key={p.id}>
+                            <span className="label" dir="auto"><Icon name="user" />{p.name}</span>
+                            <span className="held">{docs(Object.keys(p.docs) as Doc[])}</span>
+                          </div>
+                        ))}
+                      </section>
+                    )}
+                    {note && <p className="quiet" role="status">{note}</p>}
+                    <div className="actions">
+                      <button className={held?.people.length ? "ghost" : "primary"} disabled={busy} onClick={addDoc}>{t("add_doc")}</button>
+                      {held?.people.length
+                        ? <button className="primary" onClick={next}>{t("setup_next")}</button>
+                        : <button className="link" onClick={next}>{t("setup_later")}</button>}
+                    </div>
+                    <p className="fine">{t("setup_docs_drop")}</p>
+                  </>
+                ) : at === "allow" ? (
+                  <>
+                    <h1>{t("setup_allow_title")}</h1>
+                    <p className="sub">{t("setup_allow_body")}</p>
+                    <section className="group">
+                      {(["screen", "typing"] as const).map((w) => (
+                        <div className="row" key={w}>
+                          <span className="stack">
+                            <span>{t(`allow_${w}`)}</span>
+                            <span className="fine">{t(`allow_${w}_why`)}</span>
+                          </span>
+                          {allowed?.[w]
+                            ? <span className="held on">✓ {t("allowed")}</span>
+                            : <button className="ghost" onClick={() => allow(w)}>{t("allow")}</button>}
+                        </div>
+                      ))}
+                    </section>
+                    {!allowed?.screen && <p className="fine">{t("allow_restart")}</p>}
+                    <div className="actions">
+                      {allowed?.screen && allowed.typing
+                        ? <button className="primary" onClick={next}>{t("setup_next")}</button>
+                        : <button className="link" onClick={next}>{t("setup_later")}</button>}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h1>{t("setup_mode_title")}</h1>
+                    <div className="modes" role="radiogroup" aria-label={t("setup_mode_title")}>
+                      {(["fill", "show"] as const).map((m) => (
+                        <button key={m} role="radio" aria-checked={mode === m} className="mode"
+                          onClick={() => (setMode(m), save("mode", m))}>
+                          <span>{t(m === "fill" ? "confirm_fill" : "show_only")}</span>
+                          <span className="fine">{t(m === "fill" ? "mode_fill_why" : "mode_show_why")}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <div className="actions">
+                      <button className="primary" onClick={next}>{t("setup_start")}</button>
+                    </div>
+                    <p className="fine">{t("never_submits")}</p>
+                  </>
+                )}
+              </div>
             ) : !guide && lookAt ? (
               <div className="ask look" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
                 <h1>{t("look_at")}</h1>
@@ -1055,6 +1149,9 @@ export default function Panel() {
                   </>
                 )}
                 {error && <p className="error" role="alert">{error in strings.en ? t(error as Key) : error}</p>}
+                {(error === "err_screen" || String(error).startsWith(t("err_type"))) && (
+                  <button className="ghost" onClick={() => allow(error === "err_screen" ? "screen" : "typing")}>{t("allow")}</button>
+                )}
               </div>
             )}
           </div>

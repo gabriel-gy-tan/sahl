@@ -4,14 +4,42 @@ import time
 import unicodedata
 
 
-def _allowed():
+_AX = "/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices"
+
+
+def can_type() -> bool:
     """macOS drops synthetic clicks and keys without a word unless the app has Accessibility permission."""
+    if sys.platform != "darwin":
+        return True
+    import ctypes
+    lib = ctypes.cdll.LoadLibrary(_AX)
+    lib.AXIsProcessTrusted.restype = ctypes.c_bool
+    return bool(lib.AXIsProcessTrusted())
+
+
+def ask_type():
+    """macOS's own "allow Sahl to control this computer?" prompt, which also lists Sahl under Accessibility."""
     if sys.platform != "darwin":
         return
     import ctypes
-    lib = ctypes.cdll.LoadLibrary("/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices")
-    lib.AXIsProcessTrusted.restype = ctypes.c_bool
-    if not lib.AXIsProcessTrusted():
+    ax, cf = ctypes.cdll.LoadLibrary(_AX), ctypes.cdll.LoadLibrary(
+        "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation")
+    key = ctypes.c_void_p.in_dll(ax, "kAXTrustedCheckOptionPrompt")
+    yes = ctypes.c_void_p.in_dll(cf, "kCFBooleanTrue")
+    cf.CFDictionaryCreate.restype = ctypes.c_void_p
+    cf.CFDictionaryCreate.argtypes = [ctypes.c_void_p] * 3 + [ctypes.c_long] + [ctypes.c_void_p] * 2
+    keys, values = (ctypes.c_void_p * 1)(key), (ctypes.c_void_p * 1)(yes)
+    options = cf.CFDictionaryCreate(None, keys, values, 1,
+                                    ctypes.addressof(ctypes.c_char.in_dll(cf, "kCFTypeDictionaryKeyCallBacks")),
+                                    ctypes.addressof(ctypes.c_char.in_dll(cf, "kCFTypeDictionaryValueCallBacks")))
+    ax.AXIsProcessTrustedWithOptions.argtypes = [ctypes.c_void_p]
+    ax.AXIsProcessTrustedWithOptions(options)
+    cf.CFRelease.argtypes = [ctypes.c_void_p]
+    cf.CFRelease(options)
+
+
+def _allowed():
+    if not can_type():
         raise PermissionError("Accessibility permission is off")
 
 

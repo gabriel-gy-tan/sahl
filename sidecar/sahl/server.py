@@ -49,6 +49,10 @@ class Download(BaseModel):
     answer: Literal["yes", "no"]
 
 
+class Allow(BaseModel):
+    which: Literal["screen", "typing"]
+
+
 class FieldRef(BaseModel):
     field_id: str
 
@@ -163,6 +167,20 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def search_guides(q: str = ""):
         """The form search box: ids, best first, for what is typed so far."""
         return intent.search(q, guides)
+
+    @app.get("/permissions", dependencies=[Depends(auth)])
+    def permissions():
+        """What the OS lets Sahl do, so first run can ask before a read or a fill fails."""
+        return {"screen": ocr.can_capture(), "typing": fill.can_type()}
+
+    @app.post("/permissions", dependencies=[Depends(auth)])
+    def allow(body: Allow):
+        """Shows the OS's own prompt and opens its Privacy page at the right list; the person turns it on there."""
+        if sys.platform == "darwin":
+            (ocr.ask_capture if body.which == "screen" else fill.ask_type)()
+            pane = "Privacy_ScreenCapture" if body.which == "screen" else "Privacy_Accessibility"
+            subprocess.run(["open", f"x-apple.systempreferences:com.apple.preference.security?{pane}"], check=False)
+        return permissions()
 
     @app.post("/chat", dependencies=[Depends(auth)])
     def chat(body: Chat):
