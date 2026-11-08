@@ -17,7 +17,7 @@ export default function Overlay() {
   const [x0, y0, x1, y1] = ring.box;
   const pad = 3;
   return (
-    <div className="ring" style={{ left: x0 - ox - pad, top: y0 - oy - pad, width: x1 - x0 + 2 * pad, height: y1 - y0 + 2 * pad }}>
+    <div className={y0 - oy - pad < 34 ? "ring below" : "ring"} style={{ left: x0 - ox - pad, top: y0 - oy - pad, width: x1 - x0 + 2 * pad, height: y1 - y0 + 2 * pad }}>
       <span className="ring-tag">{ring.label}</span>
     </div>
   );
