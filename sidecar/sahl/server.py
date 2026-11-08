@@ -89,6 +89,10 @@ class DocRef(BaseModel):
     path: str
 
 
+class Language(BaseModel):
+    lang: Literal[bridge.LANGS]
+
+
 class ImportDoc(BaseModel):
     path: str
 
@@ -593,7 +597,20 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         if not ext:
             return {"enabled": False, "running": False, "error": "", "port": bridge.PORT, "code": "", "paired": False}
         return {"enabled": True, "running": ext.running, "error": ext.error, "port": ext.port, "code": ext.fresh_code(),
-                "paired": bool(ext.token)}
+                "paired": ext.paired}
+
+    @app.post("/extension/unpair", dependencies=[Depends(auth)])
+    def unpair_extension():
+        if ext is None:
+            raise HTTPException(404, "no browser bridge in this build")
+        ext.unpair()
+        return get_extension()
+
+    @app.post("/lang", dependencies=[Depends(auth)])
+    def set_lang(body: Language):
+        """The panel's language, which the extension's popup and page marks follow."""
+        bridge.set_language(body.lang)
+        return {"lang": body.lang}
     @app.post("/taught", dependencies=[Depends(auth)])
     def teach(body: Teach):
         """The person typed what goes in a box Sahl doesn't know; remember it under what the box is called."""
