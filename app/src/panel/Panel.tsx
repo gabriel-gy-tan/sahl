@@ -871,6 +871,7 @@ export default function Panel() {
             ) : setup ? (
               <div className="setup">
                 <div className="eyebrow">{t("setup_step", { n: steps.indexOf(at) + 1, total: steps.length })}</div>
+                <div className="dots" aria-hidden>{steps.map((s) => <i key={s} className={s === at ? "on" : undefined} />)}</div>
                 {at === "docs" ? (
                   <>
                     <h1>{t("setup_docs_title")}</h1>
