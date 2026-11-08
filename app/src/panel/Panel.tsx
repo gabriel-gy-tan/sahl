@@ -19,7 +19,8 @@ const LANGS: { id: Lang; name: string }[] = [
 ];
 const RTL = new Set<Lang>(["ar", "ur"]);
 // the read-the-form shortcut (SHORTCUT in lib.rs): Alt+Space is the window menu on Windows
-const KEY = navigator.userAgent.includes("Mac") ? "⌥ Space" : "Ctrl Alt Space";
+const MAC = navigator.userAgent.includes("Mac");
+const KEY = MAC ? "⌥ Space" : "Ctrl Alt Space";
 const GENERIC = "any-form"; // the guide for forms Sahl has no guide for
 const WIDTH = 600; // the island when open, at normal text size
 const EAR = 12; // the concave corners that join the island to the top of the screen
@@ -195,17 +196,23 @@ export default function Panel() {
   const docs = (types: Doc[]) => new Intl.ListFormat(lang, { type: "conjunction" }).format(types.map((d) => t(`doc_${d}`)));
 
   useEffect(() => {
-    api<Guide[]>("/guides").then(setGuides).catch((e) => setError(String(e.message)));
+    api<Guide[]>("/guides").then(setGuides).catch(fail);
     api<Person[]>("/people").then(setPeople).catch(() => {});
     api<{ path: string }>("/library").then((r) => setLibrary(r.path)).catch(() => {});
   }, []);
 
+  // what went wrong, in words for the person; the sidecar's own message goes to the console for whoever debugs it
   const fail = (e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
-    if (e instanceof ApiError && e.status === 0) return setError("restarted");
-    // typing can fail for more than a missing permission, so show the real reason beside the usual hint
-    if (e instanceof ApiError && e.status === 409 && msg.startsWith("typing")) return setError(`${t("err_type")} (${msg})`);
-    setError(e instanceof ApiError && e.status === 409 ? "err_screen" : msg);
+    console.warn("sahl:", msg);
+    if (!(e instanceof ApiError)) return setError("err_generic");
+    if (e.status === 0) return setError("restarted");
+    if (e.status === 409 && /^(typing|clicking)/.test(msg)) return setError(MAC ? "err_type" : "err_type_win");
+    if (e.status === 409 && msg.startsWith("screen")) return setError(MAC ? "err_screen" : "err_screen_win");
+    if (msg.includes("Trash")) return setError("err_trash");
+    if (msg.startsWith("none of")) return setError("err_option");
+    if (msg.startsWith("field not on screen")) return setError("moved");
+    setError("err_generic");
   };
 
   // --- the island: boot palm, then open / folded into the notch ---
@@ -1133,8 +1140,8 @@ export default function Panel() {
                   </>
                 )}
                 {error && <p className="error" role="alert">{error in strings.en ? t(error as Key) : error}</p>}
-                {(error === "err_screen" || String(error).startsWith(t("err_type"))) && (
-                  <button className="ghost" onClick={() => allow(error === "err_screen" ? "screen" : "typing")}>{t("allow")}</button>
+                {(error === "err_screen" || error === "err_type") && (
+                  <button className="ghost start" onClick={() => allow(error === "err_screen" ? "screen" : "typing")}>{t("allow")}</button>
                 )}
               </div>
             )}
