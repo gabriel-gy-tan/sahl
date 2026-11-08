@@ -1,5 +1,5 @@
 (() => {
-  const version = "6";
+  const version = "7";
   if (window.__sahlVersion === version) return;
   window.__sahlVersion = version;
   window.__sahlLoaded = true;
@@ -7,6 +7,7 @@
 
   const targets = new Map();
   const keys = new WeakMap();
+  let byEl = new WeakMap();
   // never read or filled: passwords, PINs, one-time codes, a card's security code (the same rule as the sidecar's taught.NEVER)
   const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
   const skipTypes = new Set(["hidden", "password", "file", "submit", "button", "reset", "image", "range", "color", "time"]);
@@ -149,7 +150,7 @@
         placeholder: "", name: first.name || "", tag: "radio", type: "radio", autocomplete: "", rect: rect(first),
         options: options.map(({ element_id, text, selected }) => ({ element_id, text, selected })),
       });
-      targets.set(id, { kind: "radio", options });
+      targets.set(id, { kind: "radio", options, box: first.closest("fieldset") || first.closest("[role=radiogroup]") || first.parentElement });
     }
 
     const chunks = new Map();
@@ -202,6 +203,7 @@
   let shadow = null;
   let root = null;
   let rings = [];
+  let active = null;
   let frame = 0;
   let reading = false;
   let timer = 0;
@@ -210,6 +212,8 @@
     if (timer) clearTimeout(timer);
     timer = 0;
     rings = [];
+    active = null;
+    byEl = new WeakMap();
     if (root) root.replaceChildren();
     if (host) host.remove();
     host = shadow = root = null;
@@ -234,19 +238,54 @@
     document.documentElement.append(host);
     timer = setTimeout(() => { if (reading) clear(); }, 12000);
   };
+  const bounds = (els) => {
+    let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
+    for (const el of els) {
+      if (!el?.isConnected) continue;
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      left = Math.min(left, r.left);
+      top = Math.min(top, r.top);
+      right = Math.max(right, r.right);
+      bottom = Math.max(bottom, r.bottom);
+    }
+    return left === Infinity ? null : { left, top, right, bottom, width: right - left, height: bottom - top };
+  };
   const place = () => {
     frame = 0;
     if (!root) return;
-    for (const { el, node } of rings) {
-      const r = el.isConnected ? el.getBoundingClientRect() : null;
-      const on = r && r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth;
-      node.style.display = on ? "block" : "none";
+    let tipRing = null;
+    for (const ring of rings) {
+      const r = bounds(ring.els);
+      const on = r && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth;
+      ring.node.style.display = on ? "block" : "none";
       if (!on) continue;
-      node.style.left = `${Math.round(r.left - 3)}px`;
-      node.style.top = `${Math.round(r.top - 3)}px`;
-      node.style.width = `${Math.round(r.width + 6)}px`;
-      node.style.height = `${Math.round(r.height + 6)}px`;
+      ring.node.style.left = `${Math.round(r.left - 3)}px`;
+      ring.node.style.top = `${Math.round(r.top - 3)}px`;
+      ring.node.style.width = `${Math.round(r.width + 6)}px`;
+      ring.node.style.height = `${Math.round(r.height + 6)}px`;
+      ring.node.classList.toggle("active", ring === active);
+      if (ring === active) tipRing = { ring, r };
     }
+    const tip = root.querySelector(".tip");
+    if (!tip) return;
+    if (!tipRing) { tip.style.display = "none"; return; }
+    tip.className = tipRing.ring.ask ? "tip ask" : "tip";
+    tip.replaceChildren();
+    tip.append(document.createElement("b"));
+    tip.firstChild.textContent = tipRing.ring.label;
+    if (tipRing.ring.ask) {
+      const extra = document.createElement("span");
+      extra.textContent = ` · new field ${tipRing.ring.n}`;
+      tip.append(extra);
+    }
+    tip.style.display = "block";
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    const left = Math.min(Math.max(8, tipRing.r.left), innerWidth - w - 8);
+    let top = tipRing.r.top - h - 7;
+    if (top < 8) top = Math.min(innerHeight - h - 8, tipRing.r.bottom + 7);
+    tip.style.left = `${Math.round(left)}px`;
+    tip.style.top = `${Math.round(top)}px`;
   };
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(place);
@@ -259,29 +298,67 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
-    style.textContent = `.ring{position:absolute;box-sizing:border-box;border:2px solid #34c759;border-radius:8px;background:rgba(52,199,89,.08);box-shadow:0 0 0 2px rgba(52,199,89,.18);}.tag{position:absolute;left:0;bottom:100%;margin-bottom:5px;max-width:260px;padding:4px 7px;border-radius:6px;background:#10351d;color:#d8ffe2;font:600 11px/1.2 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 8px rgba(0,0,0,.25);}.ask{border-style:dashed;border-color:#e0a800;background:rgba(242,193,78,.07);box-shadow:none;}.ask .tag{background:#3a2c05;color:#ffe9a8;}`;
+    style.textContent = `
+      .ring{position:absolute;box-sizing:border-box;border:1px solid transparent;border-radius:9px;background:none;pointer-events:none;transition:border-color .16s ease,box-shadow .16s ease}
+      .ring.ask{border-color:rgba(242,193,78,.32)}
+      .ring.active{border-color:rgba(52,199,89,.7);box-shadow:0 0 0 2px rgba(52,199,89,.12)}
+      .ring.ask.active{border-color:rgba(242,193,78,.78);box-shadow:0 0 0 2px rgba(242,193,78,.13)}
+      .ring .dot{position:absolute;right:-4px;top:-4px;width:7px;height:7px;border-radius:50%;background:#34c759;box-shadow:0 0 0 2px rgba(52,199,89,.18)}
+      .ring .num{position:absolute;right:-9px;top:-9px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#f2c14e;color:#241a02;font:700 10px/1 system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+      .tip{position:absolute;z-index:2;max-width:260px;padding:6px 9px;border-radius:8px;background:#0d2b17;color:#d8ffe2;font:600 11.5px/1.3 system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(61,220,115,.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+      .tip.ask{background:#2b2107;color:#ffe9a8;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(242,193,78,.3)}
+      .tip span{opacity:.72}
+      .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2b2107;color:#ffe9a8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(242,193,78,.28);white-space:nowrap}
+      .summary i{width:6px;height:6px;border-radius:50%;background:#f2c14e;box-shadow:0 0 0 3px rgba(242,193,78,.12)}
+      @media (prefers-reduced-motion: reduce){.ring{transition:none}}
+    `;
     root = document.createElement("div");
     shadow.append(style, root);
+    const asked = fields.filter((f) => f.unknown && !f.told).length;
+    if (asked) {
+      const summary = document.createElement("div");
+      summary.className = "summary";
+      summary.append(document.createElement("i"), asked === 1 ? "1 new field · open Sahl" : `${asked} new fields · open Sahl`);
+      root.append(summary);
+    }
+    let askNo = 0;
     for (const f of fields) {
       const target = targets.get(f.element_id);
       if (!target) continue;
-      const els = target.kind === "date-parts" ? target.parts.map((p) => p.el)
-        : target.kind === "radio" ? target.options.map((o) => o.el) : [target.el];
+      const ask = f.unknown && !f.told;
+      if (ask) askNo++;
+      let els, hits;
+      if (target.kind === "date-parts") {
+        els = hits = target.parts.map((p) => p.el);
+      } else if (target.kind === "radio") {
+        els = [target.box || target.options[0]?.el];
+        hits = target.options.map((o) => o.el);
+      } else {
+        els = hits = [target.el];
+      }
       const live = els.filter((e) => e?.isConnected);
-      if (!live.length) continue;
-      for (const el of live) {
-        const node = document.createElement("div");
-        const ask = f.unknown && !f.told;  // a box Sahl doesn't know yet: dashed amber, until the person tells it
-        node.className = ask ? "ring ask" : "ring";
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = ask ? `Tell Sahl: ${f.label}` : f.label;
-        node.append(tag);
-        root.append(node);
-        rings.push({ el, node });
+      const liveHits = hits.filter((e) => e?.isConnected);
+      if (!live.length || !liveHits.length) continue;
+      const node = document.createElement("div");
+      node.className = ask ? "ring ask" : "ring";
+      const mark = document.createElement("span");
+      mark.className = ask ? "num" : "dot";
+      if (ask) mark.textContent = String(askNo);
+      node.append(mark);
+      root.append(node);
+      const ring = { els: live, node, label: f.label, ask, n: askNo };
+      rings.push(ring);
+      for (const el of live) byEl.set(el, ring);
+      for (const el of liveHits) {
+        byEl.set(el, ring);
+        for (const label of el.labels || []) byEl.set(label, ring);
       }
     }
     if (!rings.length) return clear();
+    const tip = document.createElement("div");
+    tip.className = "tip";
+    tip.style.display = "none";
+    root.append(tip);
     document.documentElement.append(host);
     place();
     return { ok: true };
@@ -397,6 +474,22 @@
     return results;
   };
 
+  const enter = (e) => {
+    const ring = byEl.get(e.target);
+    if (!ring || ring === active) return;
+    active = ring;
+    schedule();
+  };
+  const leave = (e) => {
+    if (!active || byEl.get(e.target) !== active) return;
+    if (byEl.get(e.relatedTarget) === active) return;
+    active = null;
+    schedule();
+  };
+  addEventListener("pointerover", enter, { capture: true, passive: true });
+  addEventListener("pointerout", leave, { capture: true, passive: true });
+  addEventListener("focusin", enter, true);
+  addEventListener("focusout", leave, true);
   addEventListener("scroll", schedule, { capture: true, passive: true });
   addEventListener("resize", schedule, { passive: true });
   chrome.runtime.onMessage.addListener((msg, _sender, reply) => {

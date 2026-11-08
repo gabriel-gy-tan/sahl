@@ -145,6 +145,14 @@ def test_card_details_are_asked_about_but_never_pins_passcodes_or_the_security_c
     assert all(f["unknown"] and not f["told"] for f in out["fields"])
 
 
+def test_unknown_fields_are_listed_in_the_order_they_appear_on_the_page():
+    page = {"url": "https://example.test/form", "title": "Demo", "fields": [
+        field("lower", "Lower field", rect=[10, 300, 100, 20]),
+        field("upper", "Upper field", rect=[10, 100, 100, 20])]}
+    out = web.plan(page, {})
+    assert [f["label"] for f in out["fields"]] == ["Upper field", "Lower field"]
+
+
 @pytest.fixture
 def ext():
     state = bridge.State({}, token="e" * 64)

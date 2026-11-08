@@ -71,7 +71,11 @@ function askBox(f) {
     yes.addEventListener("click", () => void remember("same", { concept: f.suggest }));
     no.addEventListener("click", () => {
       declined.add(f.element_id);
-      box.replaceWith(askBox(f));
+      const next = askBox(f);
+      next.id = box.id;
+      next.hidden = box.hidden;
+      box.replaceWith(next);
+      next.querySelector("input")?.focus();
     });
     row.append(yes, no);
     box.append(row);
@@ -101,15 +105,34 @@ function listFields(fields) {
     list.append(li);
     return;
   }
+  const asked = fields.filter(asking).length;
+  const hasAsk = asked > 0;
+  let askNo = 0;
+  let section = "";
   for (const f of fields) {
-    const li = node("li");
-    const label = node("label", "field");
-    const check = document.createElement("input");
-    check.type = "checkbox";
-    check.checked = !asking(f);
-    check.disabled = asking(f);
-    check.dataset.id = f.element_id;
-    check.setAttribute("aria-label", `Fill ${f.label}`);
+    const isAsk = asking(f);
+    if (isAsk) askNo++;
+    const wanted = isAsk ? "ask" : "ready";
+    if (wanted !== section && (isAsk || hasAsk)) {
+      section = wanted;
+      const head = node("li", "section");
+      head.append(node("span", "", isAsk ? "New fields" : "Ready to fill"));
+      if (isAsk) head.append(node("em", "", String(asked)));
+      list.append(head);
+    }
+    const li = node("li", isAsk ? "ask-row" : "");
+    const row = node(isAsk ? "div" : "label", isAsk ? "field ask" : "field");
+    let mark;
+    if (isAsk) {
+      mark = node("span", "num", String(askNo));
+      mark.setAttribute("aria-hidden", "true");
+    } else {
+      mark = document.createElement("input");
+      mark.type = "checkbox";
+      mark.checked = true;
+      mark.dataset.id = f.element_id;
+      mark.setAttribute("aria-label", `Fill ${f.label}`);
+    }
     const text = node("span");
     text.append(node("b", "", f.label));
     const why = [];
@@ -118,10 +141,34 @@ function listFields(fields) {
     if (f.told) why.push("you told Sahl");
     if (f.confidence < 90) why.push(`${f.confidence}% match`);
     if (why.length) text.append(node("small", "", why.join(" · ")));
+    if (isAsk && f.suggest) text.append(node("small", "ask-help", "Sahl may already know this one"));
     const kind = node("em", "", f.kind === "date-parts" ? "date" : f.kind);
-    label.append(check, text, kind);
-    li.append(label);
-    if (asking(f)) li.append(askBox(f));
+    if (isAsk) {
+      const toggle = node("button", "toggle", "Tell");
+      toggle.type = "button";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", `Tell Sahl about ${f.label}`);
+      const panel = askBox(f);
+      const id = `teach-${askNo}`;
+      panel.id = id;
+      panel.hidden = true;
+      toggle.setAttribute("aria-controls", id);
+      toggle.addEventListener("click", () => {
+        const current = document.getElementById(id);
+        if (!current) return;
+        const open = current.hidden;
+        current.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.textContent = open ? "Close" : "Tell";
+        toggle.setAttribute("aria-label", open ? `Close ${f.label} form` : `Tell Sahl about ${f.label}`);
+        if (open) current.querySelector("input, button")?.focus();
+      });
+      row.append(mark, text, kind, toggle);
+      li.append(row, panel);
+    } else {
+      row.append(mark, text, kind);
+      li.append(row);
+    }
     list.append(li);
   }
 }
@@ -149,7 +196,7 @@ function showPlan(out) {
   if (!out.people?.length && fields.some((f) => !f.unknown)) note("Add a passport or Emirates ID in Sahl to fill the document boxes.");
   else if (!fields.length) note(out.reason || "Scroll to the form and scan again.");
   else if (out.guide && out.confidence < 55) note("This match is uncertain. Check the highlighted boxes before filling.");
-  else if (asked) note(`Sahl doesn't know ${asked} ${asked === 1 ? "box" : "boxes"} yet (dashed on the page). Tell it once below.`);
+  else if (asked) note(`Sahl doesn't know ${asked} ${asked === 1 ? "field" : "fields"} yet (numbered on the page). Open one below to tell it once.`);
   else note("");
   return person;
 }
@@ -166,7 +213,7 @@ async function scanPage() {
     const out = await send("scan", { tabId, person: $("person").value || null });
     show("work");
     showPlan(out);
-    status("Ready. Check the marks on the page.");
+    status("Ready. Numbered fields are new.");
   } catch (e) {
     if (e.code === "pair") {
       show("pair");
