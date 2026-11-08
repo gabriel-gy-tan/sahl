@@ -73,11 +73,20 @@ def forget():
         _settings().unlink(missing_ok=True)
         return
     for p in lib.iterdir():
-        if p.name.startswith("."):
-            continue
-        if sys.platform == "darwin":
-            subprocess.run(["osascript", "-e", 'on run argv\ntell application "Finder" to delete (POSIX file (item 1 of argv) as alias)\nend run',
-                            str(p)], check=True, capture_output=True)
-        else:
-            from send2trash import send2trash
-            send2trash(str(p))
+        if not p.name.startswith("."):
+            trash(p)
+
+
+def owns(p: Path) -> bool:
+    """A file in Sahl's own documents folder (Sahl copied it there), not one in a folder the person chose."""
+    return p.resolve().is_relative_to(default().resolve()) and folder().resolve() == default().resolve()
+
+
+def trash(p: Path):
+    """To the Trash / Recycle Bin, so it can be put back."""
+    if sys.platform == "darwin":
+        subprocess.run(["osascript", "-e", 'on run argv\ntell application "Finder" to delete (POSIX file (item 1 of argv) as alias)\nend run',
+                        str(p)], check=True, capture_output=True)
+    else:
+        from send2trash import send2trash
+        send2trash(str(p))
