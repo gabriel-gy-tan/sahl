@@ -156,10 +156,11 @@ def _unknown_fields(fields: list[dict], matched: list[dict], person) -> list[dic
     for f, label in zip(boxes, labels):
         item = {"element_id": _identity(f), "field_id": "taught:" + match._norm(label), "label": label, "seen": label,
                 "input": _kind(f), "kind": _kind(f), "confidence": 100, "help": {}, "needs": None, "unknown": True,
-                "told": bool(told[_identity(f)])}
+                "told": bool(told[_identity(f)]), "rect": f.get("rect", [])}
         if (c := ideas.get(label)):
             item["suggest"] = c  # the told detail's name only: values leave the vault one box at a time, on a fill
         out.append(item)
+    out.sort(key=lambda x: ((x["rect"] or [0, 0])[1], (x["rect"] or [0, 0])[0]))
     return out
 
 

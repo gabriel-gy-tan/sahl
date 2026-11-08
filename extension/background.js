@@ -1,5 +1,5 @@
 ﻿const BASE = "http://127.0.0.1:8765";
-const VERSION = "6";
+const VERSION = "7";
 
 class BridgeError extends Error {
   constructor(message, code = "") {
