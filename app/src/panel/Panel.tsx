@@ -197,6 +197,7 @@ export default function Panel() {
 
   useEffect(() => {
     api<Guide[]>("/guides").then(setGuides).catch(fail);
+    api("/lang", { lang }).catch(() => {}); // the browser extension speaks the panel's language
     api<Person[]>("/people").then(setPeople).catch(() => {});
     api<{ path: string }>("/library").then((r) => setLibrary(r.path)).catch(() => {});
   }, []);
@@ -724,7 +725,7 @@ export default function Panel() {
                         <div className="seg" role="radiogroup" aria-label={t("language")}>
                           {LANGS.map((l) => (
                             <button key={l.id} role="radio" aria-checked={lang === l.id} lang={l.id}
-                              onClick={() => (setLang(l.id), save("lang", l.id))}>
+                              onClick={() => (setLang(l.id), save("lang", l.id), void api("/lang", { lang: l.id }).catch(() => {}))}>
                               {l.name}
                             </button>
                           ))}
@@ -794,6 +795,15 @@ export default function Panel() {
                           {!extension ? "…" : !extension.enabled ? t("extension_unavailable")
                             : extension.running ? t("extension_running", { port: extension.port }) : t("extension_off", { error: extension.error })}
                         </span>
+                      </div>
+                      <div className="row">
+                        <span className="label"><Icon name="user" />{t(extension?.paired ? "ext_paired" : "ext_not_paired")}</span>
+                        {extension?.paired && (
+                          <button className="ghost" onClick={async () => {
+                            if (await dialog(() => ask(t("unpair_ask"), { kind: "warning" })))
+                              setExtension(await api<Extension>("/extension/unpair", {}).catch((e) => (fail(e), extension)));
+                          }}>{t("unpair")}</button>
+                        )}
                       </div>
                       <div className="row stacked">
                         <span className="label"><Icon name="extension" />{t("extension_code")}</span>

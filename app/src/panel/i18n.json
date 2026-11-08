@@ -190,7 +190,11 @@
     "err_type_win": "I couldn't type into that box. If the form's app runs as administrator, I can't type into it.",
     "err_generic": "Something went wrong on my side. Try again.",
     "err_trash": "I couldn't move it to the Trash. Is the file open somewhere else?",
-    "err_option": "I couldn't find that value among the choices on screen. Pick it yourself."
+    "err_option": "I couldn't find that value among the choices on screen. Pick it yourself.",
+    "ext_paired": "Paired with your browser",
+    "ext_not_paired": "No browser paired yet",
+    "unpair": "Unpair",
+    "unpair_ask": "Unpair your browser? It will need a new code before I can fill forms there again."
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -382,7 +386,11 @@
     "extension_unavailable": "غير متاح في هذا الإصدار.",
     "extension_local": "لا يمكن الاتصال إلا لهذا المتصفح ولـ Sahl على هذا الحاسوب. ما في الصفحة لا يصل أبدًا إلى الذكاء الاصطناعي أو إلى أي موقع.",
     "err_trash": "لم أتمكن من نقله إلى سلة المهملات. هل الملف مفتوح في مكان آخر؟",
-    "err_option": "لم أجد هذه القيمة بين الخيارات الظاهرة. اخترها بنفسك."
+    "err_option": "لم أجد هذه القيمة بين الخيارات الظاهرة. اخترها بنفسك.",
+    "ext_paired": "مقترن بمتصفحك",
+    "ext_not_paired": "لا يوجد متصفح مقترن بعد",
+    "unpair": "إلغاء الاقتران",
+    "unpair_ask": "إلغاء اقتران متصفحك؟ سيحتاج إلى رمز جديد قبل أن أتمكن من تعبئة النماذج فيه مجددًا."
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -574,7 +582,11 @@
     "extension_unavailable": "اس ورژن میں دستیاب نہیں۔",
     "extension_local": "صرف یہ براؤزر اور اسی کمپیوٹر پر Sahl جڑ سکتے ہیں۔ صفحے پر جو ہے وہ کبھی AI یا کسی ویب سائٹ تک نہیں پہنچتا۔",
     "err_trash": "میں اسے ردی کی ٹوکری میں نہیں ڈال سکا۔ کیا فائل کہیں اور کھلی ہے؟",
-    "err_option": "مجھے اسکرین پر موجود انتخابات میں یہ قدر نہیں ملی۔ اسے خود چنیں۔"
+    "err_option": "مجھے اسکرین پر موجود انتخابات میں یہ قدر نہیں ملی۔ اسے خود چنیں۔",
+    "ext_paired": "آپ کے براؤزر سے جڑا ہوا",
+    "ext_not_paired": "ابھی کوئی براؤزر نہیں جڑا",
+    "unpair": "جوڑ ختم کریں",
+    "unpair_ask": "اپنے براؤزر کا جوڑ ختم کریں؟ وہاں دوبارہ فارم بھرنے کے لیے اسے نیا کوڈ درکار ہوگا۔"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -766,6 +778,10 @@
     "extension_unavailable": "ഈ പതിപ്പിൽ ലഭ്യമല്ല.",
     "extension_local": "ഈ ബ്രൗസറിനും ഈ കമ്പ്യൂട്ടറിലെ Sahl-നും മാത്രമേ കണക്റ്റ് ചെയ്യാനാകൂ. പേജിലുള്ളത് ഒരിക്കലും AI-യിലോ ഏതെങ്കിലും വെബ്സൈറ്റിലോ എത്തില്ല.",
     "err_trash": "അത് ട്രാഷിലേക്ക് നീക്കാനായില്ല. ഫയൽ മറ്റെവിടെയെങ്കിലും തുറന്നിട്ടുണ്ടോ?",
-    "err_option": "സ്ക്രീനിലെ ഓപ്ഷനുകളിൽ ആ മൂല്യം കണ്ടെത്താനായില്ല. നിങ്ങൾ തന്നെ തിരഞ്ഞെടുക്കുക."
+    "err_option": "സ്ക്രീനിലെ ഓപ്ഷനുകളിൽ ആ മൂല്യം കണ്ടെത്താനായില്ല. നിങ്ങൾ തന്നെ തിരഞ്ഞെടുക്കുക.",
+    "ext_paired": "നിങ്ങളുടെ ബ്രൗസറുമായി ജോടിയാക്കി",
+    "ext_not_paired": "ഇതുവരെ ഒരു ബ്രൗസറും ജോടിയാക്കിയിട്ടില്ല",
+    "unpair": "ജോടി ഒഴിവാക്കുക",
+    "unpair_ask": "ബ്രൗസറിന്റെ ജോടി ഒഴിവാക്കണോ? അവിടെ വീണ്ടും ഫോമുകൾ പൂരിപ്പിക്കാൻ പുതിയ കോഡ് വേണ്ടിവരും."
   }
 }
