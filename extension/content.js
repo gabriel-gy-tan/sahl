@@ -228,7 +228,7 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
-    style.textContent = `.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;background:#06221d;color:#d6fbf4;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.35)}.dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(43,184,163,.25);border-top-color:#2bb8a3;animation:sahl-spin .7s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}`;
+    style.textContent = `.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;background:#06221d;color:#d6fbf4;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.35)}.dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(43,184,163,.25);border-top-color:#2bb8a3;animation:sahl-spin .7s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion: reduce){.dot{animation:none}}`;
     root = document.createElement("div");
     const pill = document.createElement("div");
     pill.className = "pill";

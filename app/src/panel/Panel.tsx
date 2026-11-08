@@ -163,6 +163,11 @@ type Models = { tier: (typeof TIERS)[number]; running: boolean; runtime: boolean
 type Allowed = { screen: boolean; typing: boolean };
 type Extension = { enabled: boolean; running: boolean; error: string; port: number; code: string; paired: boolean };
 
+/** An error, the same in the conversation and beside a form: an icon, then what happened and what to do. */
+function Alert({ children }: { children: React.ReactNode }) {
+  return <p className="alert" role="alert"><Icon name="alert" /><span dir="auto">{children}</span></p>;
+}
+
 function Palm({ leaving = false }: { leaving?: boolean }) {
   return (
     <picture className={leaving ? "palm leaving" : "palm"}>
@@ -687,7 +692,7 @@ export default function Panel() {
         style={{ width: size.w, height: size.h, ["--notch" as string]: `${notch.height}px`, ["--max-h" as string]: `${window.screen.availHeight - 40}px`, ["--open-w" as string]: `${openW}px`,
           // the glow also traces a real notch; on a screen without one these are 0 and it only rounds the island
           ["--nw" as string]: `${notch.real ? notch.width : 0}px`, ["--nh" as string]: `${notch.real ? notch.height : 0}px` }}>
-        <div className={phase !== "ready" || thinking ? "glow on" : "glow"} aria-hidden />
+        <div className={phase !== "ready" || thinking || busy ? "glow on" : "glow"} aria-hidden />
         <div className="clip">
           {phase !== "ready" && !failedBoot && <div className="boot"><Palm leaving={phase === "leaving"} /></div>}
           {phase === "ready" && <img className="mini" src="/palm-mini.png" alt="" style={{ width: WING }} />}
@@ -1019,7 +1024,7 @@ export default function Panel() {
                         {thinking ? (
                           <><span className="typing" role="status" aria-label={t("thinking")}><i /><i /><i /></span>{tooSlow}</>
                         ) : (
-                          <p className="error" role="alert">{error && (error in strings.en ? t(error as Key) : error)}</p>
+                          <Alert>{error && (error in strings.en ? t(error as Key) : error)}</Alert>
                         )}
                       </div>
                     </div>
@@ -1150,7 +1155,7 @@ export default function Panel() {
                     {!reading && <p className="quiet">{t("open_form_hint", { key: KEY })}</p>}
                   </>
                 )}
-                {error && <p className="error" role="alert">{error in strings.en ? t(error as Key) : error}</p>}
+                {error && <Alert>{error in strings.en ? t(error as Key) : error}</Alert>}
                 {(error === "err_screen" || error === "err_type") && (
                   <button className="ghost start" onClick={() => allow(error === "err_screen" ? "screen" : "typing")}>{t("allow")}</button>
                 )}

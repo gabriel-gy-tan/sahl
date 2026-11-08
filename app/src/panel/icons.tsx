@@ -19,6 +19,7 @@ export const ICONS = {
   passport: "M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1M12 8.5a3 3 0 1 0 0 6a3 3 0 1 0 0-6M9 17.5h6",
   card: "M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM8 8.5a2 2 0 1 0 0 4a2 2 0 1 0 0-4M5.5 16.5c.6-1.8 4.4-1.8 5 0M13 10h5M13 14h4",
   chat: "M4 5h16v11H9l-5 4z",
+  alert: "M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M12 8v5M12 16v.5",
   heart: "M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z",
 } as const;
 export function Icon({ name }: { name: keyof typeof ICONS }) {

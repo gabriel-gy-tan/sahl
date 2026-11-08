@@ -343,6 +343,10 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
 }
 
 .error { margin: 10px 0 0; color: var(--danger); }
+/* an error is a card with an icon, so it reads as one thing in the chat and beside a form */
+.alert { margin: 0; display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 14px; background: rgba(255, 122, 112, 0.1); border: 1px solid rgba(255, 122, 112, 0.28); }
+.alert .icon { color: var(--danger); margin-top: 1px; }
+.alert span { min-width: 0; overflow-wrap: anywhere; }
 .warn { margin: 0; color: var(--warn); font-weight: 500; }
 .quiet { margin: 0; color: var(--muted); }
 .fine { margin: 0; font-size: calc(12px * var(--text)); color: var(--muted); }
@@ -352,12 +356,11 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
   letter-spacing: 0.22em; color: var(--ink);
 }
 
+/* reduced motion: nothing moves or fades, whichever element animates (the glow stays lit, still) */
 @media (prefers-reduced-motion: reduce) {
-  .island, .content, .open .content { transition: none; }
-  .msg, .typing i { animation: none; }
-  .glow { animation: none; }
-  .suggestions { animation: none; }
-  .hero { animation: none; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .palm.leaving img { opacity: 0; } /* the boot palm still goes, without travelling */
+}
 }
 
 /* first run: one step at a time, the same cards as the rest of the island */
