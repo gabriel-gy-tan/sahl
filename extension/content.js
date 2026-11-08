@@ -1,5 +1,5 @@
 (() => {
-  const version = "7";
+  const version = "8";
   if (window.__sahlVersion === version) return;
   window.__sahlVersion = version;
   window.__sahlLoaded = true;
@@ -218,6 +218,8 @@
     if (host) host.remove();
     host = shadow = root = null;
   };
+  let words = {}; // from the popup, in Sahl's language
+  const say = (k, fallback, n) => (words[k] || fallback).replaceAll("{n}", String(n ?? ""));
   const showReading = () => {
     clear();
     reading = true;
@@ -226,13 +228,13 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
-    style.textContent = `.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;background:#0d2b17;color:#d8ffe2;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(61,220,115,.35)}.dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(61,220,115,.25);border-top-color:#3ddc73;animation:sahl-spin .7s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}`;
+    style.textContent = `.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;background:#06221d;color:#d6fbf4;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.35)}.dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(43,184,163,.25);border-top-color:#2bb8a3;animation:sahl-spin .7s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}`;
     root = document.createElement("div");
     const pill = document.createElement("div");
     pill.className = "pill";
     const dot = document.createElement("span");
     dot.className = "dot";
-    pill.append(dot, "Sahl is reading this page…");
+    pill.append(dot, say("reading", "Reading this page…"));
     root.append(pill);
     shadow.append(style, root);
     document.documentElement.append(host);
@@ -276,7 +278,7 @@
     tip.firstChild.textContent = tipRing.ring.label;
     if (tipRing.ring.ask) {
       const extra = document.createElement("span");
-      extra.textContent = ` · new field ${tipRing.ring.n}`;
+      extra.textContent = ` · ${say("new", "new box {n}", tipRing.ring.n)}`;
       tip.append(extra);
     }
     tip.style.display = "block";
@@ -300,16 +302,16 @@
     const style = document.createElement("style");
     style.textContent = `
       .ring{position:absolute;box-sizing:border-box;border:1px solid transparent;border-radius:9px;background:none;pointer-events:none;transition:border-color .16s ease,box-shadow .16s ease}
-      .ring.ask{border-color:rgba(242,193,78,.32)}
-      .ring.active{border-color:rgba(52,199,89,.7);box-shadow:0 0 0 2px rgba(52,199,89,.12)}
-      .ring.ask.active{border-color:rgba(242,193,78,.78);box-shadow:0 0 0 2px rgba(242,193,78,.13)}
-      .ring .dot{position:absolute;right:-4px;top:-4px;width:7px;height:7px;border-radius:50%;background:#34c759;box-shadow:0 0 0 2px rgba(52,199,89,.18)}
-      .ring .num{position:absolute;right:-9px;top:-9px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#f2c14e;color:#241a02;font:700 10px/1 system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.35)}
-      .tip{position:absolute;z-index:2;max-width:260px;padding:6px 9px;border-radius:8px;background:#0d2b17;color:#d8ffe2;font:600 11.5px/1.3 system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(61,220,115,.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
-      .tip.ask{background:#2b2107;color:#ffe9a8;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(242,193,78,.3)}
+      .ring.ask{border-color:rgba(240,166,64,.32)}
+      .ring.active{border-color:rgba(43,184,163,.7);box-shadow:0 0 0 2px rgba(43,184,163,.12)}
+      .ring.ask.active{border-color:rgba(240,166,64,.78);box-shadow:0 0 0 2px rgba(240,166,64,.13)}
+      .ring .dot{position:absolute;right:-4px;top:-4px;width:7px;height:7px;border-radius:50%;background:#2bb8a3;box-shadow:0 0 0 2px rgba(43,184,163,.18)}
+      .ring .num{position:absolute;right:-9px;top:-9px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#f0a640;color:#241402;font:700 10px/1 system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+      .tip{position:absolute;z-index:2;max-width:260px;padding:6px 9px;border-radius:8px;background:#06221d;color:#d6fbf4;font:600 11.5px/1.3 system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+      .tip.ask{background:#2a1a06;color:#ffe2b8;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.3)}
       .tip span{opacity:.72}
-      .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2b2107;color:#ffe9a8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(242,193,78,.28);white-space:nowrap}
-      .summary i{width:6px;height:6px;border-radius:50%;background:#f2c14e;box-shadow:0 0 0 3px rgba(242,193,78,.12)}
+      .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2a1a06;color:#ffe2b8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.28);white-space:nowrap}
+      .summary i{width:6px;height:6px;border-radius:50%;background:#f0a640;box-shadow:0 0 0 3px rgba(240,166,64,.12)}
       @media (prefers-reduced-motion: reduce){.ring{transition:none}}
     `;
     root = document.createElement("div");
@@ -318,7 +320,7 @@
     if (asked) {
       const summary = document.createElement("div");
       summary.className = "summary";
-      summary.append(document.createElement("i"), asked === 1 ? "1 new field · open Sahl" : `${asked} new fields · open Sahl`);
+      summary.append(document.createElement("i"), asked === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", asked));
       root.append(summary);
     }
     let askNo = 0;
@@ -495,9 +497,9 @@
   chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
     const type = String(msg?.type || "");
     const mine = (name) => type === `sahl:v${version}:${name}`;
-    if (mine("scan")) { showReading(); reply(scan()); return true; }
+    if (mine("scan")) { words = msg.strings || words; showReading(); reply(scan()); return true; }
     if (mine("read-end")) { if (reading) clear(); reply({ ok: true }); return true; }
-    if (mine("render")) { reply(render(msg.fields || [])); return true; }
+    if (mine("render")) { words = msg.strings || words; reply(render(msg.fields || [])); return true; }
     if (mine("fill")) {
       fill(msg.values || [], Boolean(msg.replace)).then(reply, () => reply([]));
       return true;

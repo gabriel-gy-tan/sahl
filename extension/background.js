@@ -1,5 +1,5 @@
 ﻿const BASE = "http://127.0.0.1:8765";
-const VERSION = "7";
+const VERSION = "8";
 
 class BridgeError extends Error {
   constructor(message, code = "") {
@@ -53,13 +53,13 @@ async function endReading(tabId) {
   } catch {}
 }
 
-async function scan(tabId, person) {
+async function scan(tabId, person, strings) {
   const token = await storedToken();
   if (!token) throw new BridgeError("Pair with Sahl first.", "pair");
   await inject(tabId);
   let page;
   try {
-    page = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:scan` });
+    page = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:scan`, strings });
   } catch {
     await endReading(tabId);
     throw new BridgeError("Couldn't read this page. Reload it and try again.", "tab");
@@ -76,7 +76,7 @@ async function scan(tabId, person) {
     throw e;
   }
   try {
-    await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:render`, fields: plan.fields || [] });
+    await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:render`, fields: plan.fields || [], strings });
   } catch {
     await endReading(tabId);
   }
@@ -131,7 +131,7 @@ async function clear(tabId) {
 async function handled(msg) {
   if (msg?.type === "health") return health();
   if (msg?.type === "pair") return pair(msg.code);
-  if (msg?.type === "scan") return scan(msg.tabId, msg.person);
+  if (msg?.type === "scan") return scan(msg.tabId, msg.person, msg.strings || {});
   if (msg?.type === "fill") return fill(msg.tabId, msg.ids || [], msg.person, msg.replace);
   if (msg?.type === "tell") return tell("/taught", { element_id: msg.id, value: msg.value, person: msg.person || null });
   if (msg?.type === "same") return tell("/taught/alias", { element_id: msg.id, concept: msg.concept });

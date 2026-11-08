@@ -252,3 +252,19 @@ def test_bridge_starts_over_connections_left_by_a_closed_sahl():
     bridge.start(state, retry=60)  # a retry would take a minute: it must bind at the first try
     _wait(lambda: state.running)
     assert not state.error
+
+
+def test_unpair_locks_out_every_browser_and_the_extension_follows_the_panels_language():
+    state = bridge.State(GUIDES, token="d" * 64)
+    c = TestClient(bridge.create_app(state))
+    assert not state.paired
+    c.post("/pair", json={"code": state.fresh_code()})
+    assert state.paired
+    state.unpair()
+    assert not state.paired and state.token != "d" * 64 and len(state.token) == 64
+    assert c.post("/clear", json={}, headers={"x-sahl-ext-token": "d" * 64}).status_code == 403  # the old token is dead
+    assert bridge._load_token() == state.token  # and the new one survives a restart
+
+    assert c.get("/health").json()["lang"] == "en"
+    bridge.set_language("ar")
+    assert c.get("/health").json()["lang"] == "ar"

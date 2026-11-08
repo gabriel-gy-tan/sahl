@@ -21,6 +21,9 @@ from . import vault, web
 
 PORT = 8765
 TOKEN_FILE = "extension-token"
+PAIRED_FILE = "extension-paired"  # a browser was given the token; gone after Unpair
+LANG_FILE = "lang"  # the panel's language, so the extension speaks the same one
+LANGS = ("en", "ar", "ur", "ml")
 CODE_LIFE = 600  # seconds a pairing code stays usable
 MAX_MISSES = 5  # wrong guesses that burn a code
 EXTENSION = re.compile(r"^(?:chrome|moz)-extension://")
@@ -93,27 +96,60 @@ class State:
                 raise HTTPException(403, "wrong or expired pairing code: open Sahl's Settings for a new one")
             self.code = ""  # one pairing per code
             self.attempts.clear()
+            _paired_path().touch()
             return self.token
+
+    @property
+    def paired(self) -> bool:
+        return _paired_path().exists()
+
+    def unpair(self):
+        """Every paired browser loses access: a new token, and a new code for the next pairing."""
+        with self.lock:
+            self.token = _new_token()
+            self.scans.clear()
+            self.code = ""
+            _paired_path().unlink(missing_ok=True)
+        self.fresh_code()
 
 
 def _token_path():
     return vault.home() / TOKEN_FILE
 
 
-def _load_token() -> str:
+def _paired_path():
+    return vault.home() / PAIRED_FILE
+
+
+def _new_token() -> str:
+    token = secrets.token_hex(32)
     p = _token_path()
     try:
-        token = p.read_text(encoding="ascii").strip()
+        p.write_text(token, encoding="ascii")
+        os.chmod(p, 0o600)
+    except OSError:
+        pass
+    return token
+
+
+def _load_token() -> str:
+    try:
+        token = _token_path().read_text(encoding="ascii").strip()
     except OSError:
         token = ""
-    if not re.fullmatch(r"[0-9a-f]{64}", token):
-        token = secrets.token_hex(32)
-        try:
-            p.write_text(token, encoding="ascii")
-            os.chmod(p, 0o600)
-        except OSError:
-            pass
-    return token
+    return token if re.fullmatch(r"[0-9a-f]{64}", token) else _new_token()
+
+
+def language() -> str:
+    try:
+        lang = (vault.home() / LANG_FILE).read_text(encoding="ascii").strip()
+    except OSError:
+        lang = ""
+    return lang if lang in LANGS else "en"
+
+
+def set_language(lang: str):
+    (vault.home() / LANG_FILE).write_text(lang, encoding="ascii")
 
 
 def _origin(origin: str = Header("")):
@@ -154,7 +190,7 @@ def create_app(state: State) -> FastAPI:
 
     @app.get("/health")
     def health():
-        return {"app": "Sahl", "port": state.port, "running": state.running}
+        return {"app": "Sahl", "port": state.port, "running": state.running, "lang": language()}
 
     @app.post("/pair")
     def pair(body: Pairing, _: None = Depends(_origin)):
