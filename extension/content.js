@@ -1,5 +1,5 @@
 (() => {
-  const version = "8";
+  const version = "9";
   if (window.__sahlVersion === version) return;
   window.__sahlVersion = version;
   window.__sahlLoaded = true;
@@ -332,6 +332,11 @@
       .ring.done{border:1px solid rgba(43,184,163,.75);box-shadow:none}
       .ring.done .dot{right:-7px;top:-7px;width:14px;height:14px;background:#2bb8a3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%2303120f'%3E%3Cpath d='M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z'/%3E%3C/svg%3E") center/9px no-repeat;box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 1px 4px rgba(0,0,0,.25);animation:sahl-pop .3s cubic-bezier(.3,1.4,.5,1)}
       @keyframes sahl-pop{from{transform:scale(.4);opacity:0}}
+      .toast,.toast *{pointer-events:auto}
+      .toast{position:fixed;z-index:3;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:8px 8px 8px 12px;border-radius:999px;background:rgba(10,10,11,.92);color:#ededef;font:500 12px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 30px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);max-width:min(560px,92vw)}
+      .toast i{flex:none;width:6px;height:6px;border-radius:50%;background:#2bb8a3}
+      .toast button{flex:none;border:0;border-radius:999px;padding:5px 10px;background:rgba(255,255,255,.1);color:#ededef;font:inherit;cursor:pointer}
+      .toast button:hover{background:rgba(255,255,255,.18)}
       @media (prefers-reduced-motion: reduce){.ring,.ring .dot{transition:none;animation:none}}
     `;
     root = document.createElement("div");
@@ -343,6 +348,7 @@
       summary.className = "summary";
       summary.append(document.createElement("i"), asked === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", asked));
       root.append(summary);
+      unknowns = asked;
     }
     let askNo = first;
     for (const f of fields) {
@@ -369,7 +375,7 @@
       if (ask) mark.textContent = String(askNo);
       node.append(mark);
       root.append(node);
-      const ring = { id: f.element_id, els: live, node, label: f.label, ask, n: askNo };
+      const ring = { id: f.element_id, els: live, node, label: f.label, ask, n: askNo, target };
       rings.push(ring);
       for (const el of live) byEl.set(el, ring);
       for (const el of liveHits) {
@@ -516,6 +522,8 @@
   // a filled box's ring turns teal with a tick, one box after another, so the person sees each one go in
   const done = (id, ok) => rings.find((r) => r.id === id)?.node.classList.toggle("done", ok);
   const fill = async (values, replace) => {
+    filling = true; // Sahl's own typing is not the person answering a box
+    setTimeout(() => (filling = false), 400);
     const pace = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 90;
     const results = [];
     for (const v of values) {
@@ -550,6 +558,73 @@
     }
     return results;
   };
+
+  // --- a box Sahl doesn't know, answered on the page itself: remember it, say so, and offer Undo ---
+  // Not tick boxes (Sahl never ticks), not day/month/year boxes (not filled yet), not long free text (not a reusable detail).
+  let filling = false;
+  let unknowns = 0;
+  const answer = (ring) => {
+    const t = ring.target;
+    if (t.kind === "radio") return t.options.find((o) => o.el?.checked)?.text || "";
+    if (t.kind === "select") {
+      const o = t.el.selectedOptions?.[0];
+      return o && o.value !== "" && o.index !== 0 ? (o.textContent || "").trim() : ""; // the first entry is usually "Select…"
+    }
+    if (t.kind !== "text" || t.el.tagName === "TEXTAREA" || ["checkbox", "radio"].includes(t.el.type)) return "";
+    return String(t.el.value || "").trim();
+  };
+  const showAsk = (ring, ask) => {
+    ring.ask = ask;
+    ring.node.className = ask ? "ring ask" : "ring";
+    const mark = ring.node.firstChild;
+    mark.className = ask ? "num" : "dot";
+    mark.textContent = ask ? String(ring.n) : "";
+    unknowns += ask ? 1 : -1;
+    const summary = root?.querySelector(".summary");
+    if (summary) {
+      summary.lastChild.textContent = unknowns === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", unknowns);
+      summary.style.display = unknowns > 0 ? "" : "none";
+    }
+    schedule();
+  };
+  let toastTimer = 0;
+  const toast = (text, undo) => {
+    if (!root) return;
+    root.querySelector(".toast")?.remove();
+    clearTimeout(toastTimer);
+    const box = document.createElement("div");
+    box.className = "toast";
+    box.append(document.createElement("i"), text);
+    if (undo) {
+      const b = document.createElement("button");
+      b.textContent = say("undo", "Undo");
+      b.addEventListener("click", () => (box.remove(), undo()));
+      box.append(b);
+    }
+    root.append(box);
+    const later = () => (toastTimer = setTimeout(() => box.remove(), 10000));
+    box.addEventListener("pointerenter", () => clearTimeout(toastTimer)); // stays while the pointer is on it
+    box.addEventListener("pointerleave", later);
+    later();
+  };
+  const learn = async (ring) => {
+    const value = answer(ring);
+    if (!value || value.length > 200) return;
+    showAsk(ring, false); // teal at once; back to amber if Sahl couldn't keep it
+    let out;
+    try {
+      out = await chrome.runtime.sendMessage({ type: "learn", id: ring.id, value });
+    } catch {}
+    if (!out?.ok || !out.concept) return showAsk(ring, true);
+    toast(say("learned", "I'll remember {label}: {value}").replace("{label}", () => ring.label).replace("{value}", () => value), async () => {
+      const back = await chrome.runtime.sendMessage({ type: "unlearn", concept: out.concept }).catch(() => null);
+      if (back?.ok) showAsk(ring, true), toast(say("forgotten", "Forgotten."));
+    });
+  };
+  addEventListener("change", (e) => {
+    const ring = byEl.get(e.target);
+    if (ring?.ask && !filling && e.isTrusted) void learn(ring);
+  }, true);
 
   const enter = (e) => {
     const ring = byEl.get(e.target);
