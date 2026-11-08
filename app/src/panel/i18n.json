@@ -194,7 +194,12 @@
     "ext_paired": "Paired with your browser",
     "ext_not_paired": "No browser paired yet",
     "unpair": "Unpair",
-    "unpair_ask": "Unpair your browser? It will need a new code before I can fill forms there again."
+    "unpair_ask": "Unpair your browser? It will need a new code before I can fill forms there again.",
+    "handoff_title": "This form is in your browser",
+    "handoff_body": "Click Sahl in your browser's toolbar. There I read the page's own boxes, which is more reliable than reading the screen.",
+    "handoff_ok": "Got it",
+    "handoff_screen": "Read from the screen instead",
+    "handoff_pref": "In the browser, use the extension"
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -390,7 +395,12 @@
     "ext_paired": "مقترن بمتصفحك",
     "ext_not_paired": "لا يوجد متصفح مقترن بعد",
     "unpair": "إلغاء الاقتران",
-    "unpair_ask": "إلغاء اقتران متصفحك؟ سيحتاج إلى رمز جديد قبل أن أتمكن من تعبئة النماذج فيه مجددًا."
+    "unpair_ask": "إلغاء اقتران متصفحك؟ سيحتاج إلى رمز جديد قبل أن أتمكن من تعبئة النماذج فيه مجددًا.",
+    "handoff_title": "هذا النموذج في متصفحك",
+    "handoff_body": "انقر Sahl في شريط أدوات المتصفح. هناك أقرأ خانات الصفحة نفسها، وهذا أدق من قراءة الشاشة.",
+    "handoff_ok": "حسنًا",
+    "handoff_screen": "اقرأ من الشاشة بدلًا من ذلك",
+    "handoff_pref": "في المتصفح، استخدم الإضافة"
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -586,7 +596,12 @@
     "ext_paired": "آپ کے براؤزر سے جڑا ہوا",
     "ext_not_paired": "ابھی کوئی براؤزر نہیں جڑا",
     "unpair": "جوڑ ختم کریں",
-    "unpair_ask": "اپنے براؤزر کا جوڑ ختم کریں؟ وہاں دوبارہ فارم بھرنے کے لیے اسے نیا کوڈ درکار ہوگا۔"
+    "unpair_ask": "اپنے براؤزر کا جوڑ ختم کریں؟ وہاں دوبارہ فارم بھرنے کے لیے اسے نیا کوڈ درکار ہوگا۔",
+    "handoff_title": "یہ فارم آپ کے براؤزر میں ہے",
+    "handoff_body": "براؤزر کی ٹول بار میں Sahl پر کلک کریں۔ وہاں میں صفحے کے اپنے خانے پڑھتا ہوں، جو اسکرین پڑھنے سے زیادہ قابل اعتماد ہے۔",
+    "handoff_ok": "ٹھیک ہے",
+    "handoff_screen": "اس کی بجائے اسکرین سے پڑھیں",
+    "handoff_pref": "براؤزر میں ایکسٹینشن استعمال کریں"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -782,6 +797,11 @@
     "ext_paired": "നിങ്ങളുടെ ബ്രൗസറുമായി ജോടിയാക്കി",
     "ext_not_paired": "ഇതുവരെ ഒരു ബ്രൗസറും ജോടിയാക്കിയിട്ടില്ല",
     "unpair": "ജോടി ഒഴിവാക്കുക",
-    "unpair_ask": "ബ്രൗസറിന്റെ ജോടി ഒഴിവാക്കണോ? അവിടെ വീണ്ടും ഫോമുകൾ പൂരിപ്പിക്കാൻ പുതിയ കോഡ് വേണ്ടിവരും."
+    "unpair_ask": "ബ്രൗസറിന്റെ ജോടി ഒഴിവാക്കണോ? അവിടെ വീണ്ടും ഫോമുകൾ പൂരിപ്പിക്കാൻ പുതിയ കോഡ് വേണ്ടിവരും.",
+    "handoff_title": "ഈ ഫോം നിങ്ങളുടെ ബ്രൗസറിലാണ്",
+    "handoff_body": "ബ്രൗസറിന്റെ ടൂൾബാറിൽ Sahl ക്ലിക്ക് ചെയ്യുക. അവിടെ ഞാൻ പേജിലെ ബോക്സുകൾ നേരിട്ട് വായിക്കും, സ്ക്രീൻ വായിക്കുന്നതിനേക്കാൾ കൃത്യമാണ് അത്.",
+    "handoff_ok": "ശരി",
+    "handoff_screen": "പകരം സ്ക്രീനിൽ നിന്ന് വായിക്കുക",
+    "handoff_pref": "ബ്രൗസറിൽ എക്സ്റ്റൻഷൻ ഉപയോഗിക്കുക"
   }
 }
