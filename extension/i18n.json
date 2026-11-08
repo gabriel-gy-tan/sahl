@@ -43,8 +43,8 @@
     "need_docs": "Add your passport or Emirates ID in Sahl (top of your screen → My documents) to fill these boxes.",
     "scroll": "Scroll to the form and read again.",
     "uncertain": "I'm not sure about this match. Check the marked boxes before filling.",
-    "asked_one": "I don't know 1 box yet (numbered on the page). Open it below to tell me once.",
-    "asked_many": "I don't know {n} boxes yet (numbered on the page). Open one below to tell me once.",
+    "asked_one": "I don't know 1 box yet (numbered on the page). Just answer it on the page and I'll remember it, or tell me below.",
+    "asked_many": "I don't know {n} boxes yet (numbered on the page). Just answer them on the page and I'll remember them, or tell me below.",
     "reading": "Reading the page…",
     "ready_status": "Ready.",
     "cant_read": "I couldn't read this page.",
@@ -77,7 +77,10 @@
     "page_reading": "Reading this page…",
     "page_new": "new box {n}",
     "page_summary_one": "1 new box · open Sahl",
-    "page_summary_many": "{n} new boxes · open Sahl"
+    "page_summary_many": "{n} new boxes · open Sahl",
+    "page_learned": "I'll remember {label}: {value}",
+    "page_undo": "Undo",
+    "page_forgotten": "Forgotten."
   },
   "ar": {
     "checking": "أبحث عن Sahl…",
@@ -122,8 +125,8 @@
     "need_docs": "أضف جواز سفرك أو هويتك الإماراتية في Sahl (أعلى الشاشة ← مستنداتي) لتعبئة هذه الخانات.",
     "scroll": "مرّر إلى النموذج واقرأ مجددًا.",
     "uncertain": "لست متأكدًا من هذه المطابقة. راجع الخانات المعلّمة قبل التعبئة.",
-    "asked_one": "لا أعرف خانة واحدة بعد (مرقّمة في الصفحة). افتحها أدناه وأخبرني مرة واحدة.",
-    "asked_many": "لا أعرف {n} خانات بعد (مرقّمة في الصفحة). افتح واحدة أدناه وأخبرني مرة واحدة.",
+    "asked_one": "لا أعرف خانة واحدة بعد (مرقّمة في الصفحة). أجب عنها في الصفحة وسأتذكّرها، أو أخبرني أدناه.",
+    "asked_many": "لا أعرف {n} خانات بعد (مرقّمة في الصفحة). أجب عنها في الصفحة وسأتذكّرها، أو أخبرني أدناه.",
     "reading": "جارٍ قراءة الصفحة…",
     "ready_status": "جاهز.",
     "cant_read": "لم أتمكن من قراءة هذه الصفحة.",
@@ -156,7 +159,10 @@
     "page_reading": "جارٍ قراءة هذه الصفحة…",
     "page_new": "خانة جديدة {n}",
     "page_summary_one": "خانة جديدة واحدة · افتح Sahl",
-    "page_summary_many": "{n} خانات جديدة · افتح Sahl"
+    "page_summary_many": "{n} خانات جديدة · افتح Sahl",
+    "page_learned": "سأتذكّر {label}: {value}",
+    "page_undo": "تراجع",
+    "page_forgotten": "نُسي."
   },
   "ur": {
     "checking": "Sahl تلاش کر رہا ہوں…",
@@ -201,8 +207,8 @@
     "need_docs": "یہ خانے بھرنے کے لیے Sahl میں اپنا پاسپورٹ یا ایمریٹس آئی ڈی شامل کریں (اسکرین کے اوپر ← میری دستاویزات)۔",
     "scroll": "فارم تک اسکرول کریں اور دوبارہ پڑھیں۔",
     "uncertain": "مجھے اس میل پر یقین نہیں۔ بھرنے سے پہلے نشان زدہ خانے چیک کریں۔",
-    "asked_one": "میں ابھی 1 خانہ نہیں جانتا (صفحے پر نمبر لگا ہے)۔ نیچے کھول کر ایک بار بتا دیں۔",
-    "asked_many": "میں ابھی {n} خانے نہیں جانتا (صفحے پر نمبر لگے ہیں)۔ نیچے کوئی ایک کھول کر ایک بار بتا دیں۔",
+    "asked_one": "میں ابھی 1 خانہ نہیں جانتا (صفحے پر نمبر لگا ہے)۔ اسے صفحے پر ہی بھر دیں، میں یاد رکھوں گا، یا نیچے بتا دیں۔",
+    "asked_many": "میں ابھی {n} خانے نہیں جانتا (صفحے پر نمبر لگے ہیں)۔ انہیں صفحے پر ہی بھر دیں، میں یاد رکھوں گا، یا نیچے بتا دیں۔",
     "reading": "صفحہ پڑھ رہا ہوں…",
     "ready_status": "تیار۔",
     "cant_read": "میں یہ صفحہ نہیں پڑھ سکا۔",
@@ -235,7 +241,10 @@
     "page_reading": "یہ صفحہ پڑھ رہا ہوں…",
     "page_new": "نیا خانہ {n}",
     "page_summary_one": "1 نیا خانہ · Sahl کھولیں",
-    "page_summary_many": "{n} نئے خانے · Sahl کھولیں"
+    "page_summary_many": "{n} نئے خانے · Sahl کھولیں",
+    "page_learned": "میں یاد رکھوں گا {label}: {value}",
+    "page_undo": "واپس لیں",
+    "page_forgotten": "بھلا دیا۔"
   },
   "ml": {
     "checking": "Sahl തിരയുന്നു…",
@@ -280,8 +289,8 @@
     "need_docs": "ഈ ബോക്സുകൾ പൂരിപ്പിക്കാൻ Sahl-ൽ പാസ്‌പോർട്ടോ എമിറേറ്റ്സ് ഐഡിയോ ചേർക്കുക (സ്ക്രീനിന്റെ മുകളിൽ → എന്റെ രേഖകൾ).",
     "scroll": "ഫോമിലേക്ക് സ്ക്രോൾ ചെയ്ത് വീണ്ടും വായിക്കുക.",
     "uncertain": "ഈ പൊരുത്തത്തെക്കുറിച്ച് എനിക്ക് ഉറപ്പില്ല. പൂരിപ്പിക്കും മുമ്പ് അടയാളപ്പെടുത്തിയ ബോക്സുകൾ പരിശോധിക്കുക.",
-    "asked_one": "1 ബോക്സ് എനിക്ക് ഇതുവരെ അറിയില്ല (പേജിൽ നമ്പറിട്ടത്). താഴെ തുറന്ന് ഒരിക്കൽ പറയുക.",
-    "asked_many": "{n} ബോക്സുകൾ എനിക്ക് ഇതുവരെ അറിയില്ല (പേജിൽ നമ്പറിട്ടവ). താഴെ ഒന്ന് തുറന്ന് ഒരിക്കൽ പറയുക.",
+    "asked_one": "1 ബോക്സ് എനിക്ക് ഇതുവരെ അറിയില്ല (പേജിൽ നമ്പറിട്ടത്). പേജിൽ തന്നെ ഉത്തരം നൽകിയാൽ ഞാൻ ഓർത്തുവയ്ക്കും, അല്ലെങ്കിൽ താഴെ പറയുക.",
+    "asked_many": "{n} ബോക്സുകൾ എനിക്ക് ഇതുവരെ അറിയില്ല (പേജിൽ നമ്പറിട്ടവ). പേജിൽ തന്നെ ഉത്തരം നൽകിയാൽ ഞാൻ ഓർത്തുവയ്ക്കും, അല്ലെങ്കിൽ താഴെ പറയുക.",
     "reading": "പേജ് വായിക്കുന്നു…",
     "ready_status": "തയ്യാർ.",
     "cant_read": "ഈ പേജ് വായിക്കാനായില്ല.",
@@ -314,6 +323,9 @@
     "page_reading": "ഈ പേജ് വായിക്കുന്നു…",
     "page_new": "പുതിയ ബോക്സ് {n}",
     "page_summary_one": "1 പുതിയ ബോക്സ് · Sahl തുറക്കുക",
-    "page_summary_many": "{n} പുതിയ ബോക്സുകൾ · Sahl തുറക്കുക"
+    "page_summary_many": "{n} പുതിയ ബോക്സുകൾ · Sahl തുറക്കുക",
+    "page_learned": "ഞാൻ ഓർത്തുവയ്ക്കും {label}: {value}",
+    "page_undo": "പഴയപടിയാക്കുക",
+    "page_forgotten": "മറന്നു."
   }
 }

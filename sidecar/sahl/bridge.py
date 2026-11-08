@@ -48,6 +48,10 @@ class Values(BaseModel):
     person: str | None = None
 
 
+class Forget(BaseModel):
+    concept: str = Field(min_length=1, max_length=80)
+
+
 class Tell(BaseModel):
     element_id: str = Field(max_length=100)
     value: str = Field(min_length=1, max_length=500)
@@ -224,6 +228,12 @@ def create_app(state: State) -> FastAPI:
         """The person agreed a box from the last scan is a detail they told Sahl about under another name."""
         if not web.alias(state.scans.get(token) or {}, body.element_id, body.concept):
             raise HTTPException(404, "Sahl was not told about that")
+        return {"ok": True}
+
+    @app.post("/taught/forget")
+    def forget(body: Forget, token: str = Depends(auth)):
+        """Undo of an answer remembered from the page: forgets it for the person this page is for."""
+        web.forget(state.scans.get(token) or {}, body.concept)
         return {"ok": True}
 
     @app.post("/clear")

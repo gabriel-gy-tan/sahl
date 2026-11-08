@@ -1,5 +1,5 @@
 ﻿const BASE = "http://127.0.0.1:8765";
-const VERSION = "8";
+const VERSION = "9";
 
 class BridgeError extends Error {
   constructor(message, code = "") {
@@ -135,6 +135,9 @@ async function handled(msg) {
   if (msg?.type === "fill") return fill(msg.tabId, msg.ids || [], msg.person, msg.replace);
   if (msg?.type === "tell") return tell("/taught", { element_id: msg.id, value: msg.value, person: msg.person || null });
   if (msg?.type === "same") return tell("/taught/alias", { element_id: msg.id, concept: msg.concept });
+  // the person answered an amber box on the page itself: remember it, or forget it again on Undo
+  if (msg?.type === "learn") return tell("/taught", { element_id: msg.id, value: msg.value, person: null });
+  if (msg?.type === "unlearn") return tell("/taught/forget", { concept: msg.concept });
   if (msg?.type === "clear") return clear(msg.tabId);
   if (msg?.type === "token") return { token: Boolean(await storedToken()) };
   throw new BridgeError("Unknown request", "internal");

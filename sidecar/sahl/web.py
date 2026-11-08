@@ -208,6 +208,11 @@ def teach(scan: dict, element_id: str, value: str, person: str | None = None) ->
     return taught.teach(f["label"], value, _person(scan.get("people", []), person) or scan.get("person"))
 
 
+def forget(scan: dict, concept: str, person: str | None = None):
+    """Forgets a told value for the person the scanned page is for (or the one told before any person existed)."""
+    taught.forget(concept, _person(scan.get("people", []), person) or scan.get("person") or "0")
+
+
 def alias(scan: dict, element_id: str, concept: str) -> bool:
     """The person agreed a box is a detail they told Sahl about under another name."""
     f = next((x for x in scan.get("fields", []) if x["element_id"] == element_id and x.get("unknown")), None)
