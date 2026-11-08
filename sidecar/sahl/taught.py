@@ -87,10 +87,31 @@ def alias(label: str, concept: str) -> bool:
     return True
 
 
-def forget(concept: str):
+def forget(concept: str, person=None):
+    """Forgets a told value: one person's (or the one told before any person existed), or everyone's. The labels
+    that mean it go once no one has a value for it."""
     with vault._db() as db:
-        db.execute("delete from taught_values where concept=?", (concept,))
-        db.execute("delete from taught_labels where concept=?", (concept,))
+        if person is None:
+            db.execute("delete from taught_values where concept=?", (concept,))
+        else:
+            db.execute("delete from taught_values where concept=? and person=?", (concept, _who(person)))
+        if not db.execute("select 1 from taught_values where concept=?", (concept,)).fetchone():
+            db.execute("delete from taught_labels where concept=?", (concept,))
+
+
+def change(concept: str, value: str, person) -> bool:
+    """A new value for something the person told Sahl, from the Documents page."""
+    with vault._db() as db:
+        return db.execute("update taught_values set value=? where concept=? and person=?",
+                          (value.strip(), concept, _who(person))).rowcount > 0
+
+
+def everything() -> list[dict]:
+    """[{person, concept, value, labels}] for every told value; person "0" was told before any person existed."""
+    db = vault._db()
+    return [{"person": str(pid), "concept": c, "value": v,
+             "labels": [r[0] for r in db.execute("select label from taught_labels where concept=? order by label", (c,))]}
+            for pid, c, v in db.execute("select person, concept, value from taught_values order by concept")]
 
 
 def listing(person) -> list[dict]:

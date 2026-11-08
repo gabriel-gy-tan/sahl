@@ -88,6 +88,10 @@ def _db():
     # what the person told Sahl about boxes no guide knows: a value per person per concept, and the labels that mean it
     db.execute("create table if not exists taught_values (person int, concept text, value text, primary key (person, concept))")
     db.execute("create table if not exists taught_labels (label text primary key, concept text)")
+    # what the person changed on the Documents page: kept apart from what was read, so a re-read never undoes it
+    db.execute("create table if not exists corrections (path text, key text, value text, primary key (path, key))")
+    # documents the person removed from a folder they chose: Sahl leaves the file alone and stops reading it
+    db.execute("create table if not exists hidden (path text primary key)")
     return db
 
 
@@ -413,11 +417,12 @@ def sync(folder) -> tuple[list[int], list[str]]:
 def _sync(root: Path) -> tuple[list[int], list[str]]:
     files = sorted(f for f in root.rglob("*") if f.suffix.lower() in DOCUMENTS and not f.name.startswith("."))
     with _db() as db:
+        hidden = {p for (p,) in db.execute("select path from hidden")}
+        files = [f for f in files if str(f) not in hidden]
         known = {p: (s, m) for p, s, m in db.execute("select path, size, mtime from files")}
         pending = {p for (p,) in db.execute("select path from files where ai_pending")}
         for p in set(known) - {str(f) for f in files}:  # removed from the folder (or from an older location)
-            db.execute("delete from readings where path=?", (p,))
-            db.execute("delete from files where path=?", (p,))
+            _drop(db, p)
         db.execute("delete from people where id not in (select person from files where person is not null)")
     retry = pending if pending and ai.available() else set()  # the AI failed on these before: try again now it answers
     todo = [f for f in files if known.get(str(f)) != (f.stat().st_size, int(f.stat().st_mtime)) or str(f) in retry]
@@ -431,6 +436,58 @@ def _sync(root: Path) -> tuple[list[int], list[str]]:
         PROGRESS["done"] += 1
     found = [r[0] for r in _db().execute("select distinct person from files where person is not null")]
     return found, skipped
+
+
+def _drop(db, path: str):
+    for t in ("readings", "files", "corrections"):
+        db.execute(f"delete from {t} where path=?", (path,))
+
+
+def details() -> list[dict]:
+    """Every document Sahl read, with what it read and what the person changed, for the Documents page.
+    Values go to the panel on this computer only, like a field card's."""
+    db = _db()
+    out = []
+    for path, pid, doc in db.execute("select path, person, doc_type from files order by doc_type, path").fetchall():
+        rows = db.execute("select r.key, r.value, r.verified, c.value from readings r left join corrections c"
+                          " on c.path = r.path and c.key = r.key where r.path=? order by r.rowid", (path,)).fetchall()
+        out.append({"path": path, "file": Path(path).name, "person": None if pid is None else str(pid), "type": doc,
+                    "fields": [{"key": k.split(".")[-1], "id": k, "value": c if c is not None else v, "read": v,
+                                "verified": bool(ok) or c is not None, "edited": c is not None} for k, v, ok, c in rows]})
+    return out
+
+
+def correct(path: str, key: str, value: str | None) -> bool:
+    """The person's own value for something read from a document; None goes back to what was read.
+    Counts as verified, like a value they told Sahl: they typed it."""
+    value = (value or "").strip() or None
+    with _db() as db:
+        if not db.execute("select 1 from readings where path=? and key=?", (path, key)).fetchone():
+            return False
+        if value is None:
+            db.execute("delete from corrections where path=? and key=?", (path, key))
+        else:
+            db.execute("insert or replace into corrections values (?, ?, ?)", (path, key, value))
+    return True
+
+
+def remove(path: str, hide: bool) -> bool:
+    """Forgets one document. hide: the file stays where it is (a folder the person chose), so don't read it again."""
+    with _IMPORT_LOCK, _db() as db:
+        if not db.execute("select 1 from files where path=?", (path,)).fetchone():
+            return False
+        _drop(db, path)
+        if hide:
+            db.execute("insert or replace into hidden values (?)", (path,))
+        db.execute("delete from people where id not in (select person from files where person is not null)")
+    return True
+
+
+def unhide(path: str):
+    """A document dropped on Sahl again is read again."""
+    with _db() as db:
+        inside = str(Path(path)) + os.sep  # a dropped folder: everything in it
+        db.execute("delete from hidden where path=? or substr(path, 1, length(?)) = ?", (str(Path(path)), inside, inside))
 
 
 def people() -> list[dict]:
@@ -467,8 +524,10 @@ def get(keys, person):
     keys = [keys] if isinstance(keys, str) else keys
     rows = []
     for k in keys:
-        rows += _db().execute("select r.value, r.verified, r.path, r.crop from readings r join files f using (path)"
-                              " where f.person=? and r.key=? order by r.verified desc, f.mtime desc",
+        # what the person changed wins, then what a check digit or the page confirmed
+        rows += _db().execute("select coalesce(c.value, r.value), r.verified or c.value is not null, r.path, r.crop"
+                              " from readings r join files f using (path) left join corrections c on c.path = r.path and c.key = r.key"
+                              " where f.person=? and r.key=? order by c.value is not null desc, r.verified desc, f.mtime desc",
                               (int(person), k)).fetchall()
     if not rows:
         return None
@@ -480,6 +539,6 @@ def get(keys, person):
 def forget_all():
     """Deletes every stored reading and person (not the documents themselves)."""
     with _db() as db:
-        for t in ("readings", "files", "people", "taught_values", "taught_labels"):
+        for t in ("readings", "files", "people", "taught_values", "taught_labels", "corrections", "hidden"):
             db.execute(f"delete from {t}")
     shutil.rmtree(home() / "crops", ignore_errors=True)  # where older versions kept crop images
