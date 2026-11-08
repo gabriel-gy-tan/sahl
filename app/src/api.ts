@@ -22,6 +22,11 @@ export type Person = { id: string; name: string };
 export type Doc = "passport" | "eid" | "other";
 /** What Sahl holds, by person and document type: counts, never values. */
 export type Held = { people: { id: string; name: string; docs: Partial<Record<Doc, number>> }[]; unmatched: number };
+/** The Documents page: what was read from each document (values stay on this computer) and what the person told Sahl. */
+export type DocField = { key: string; id: string; value: string; read: string; verified: boolean; edited: boolean };
+export type DocEntry = { path: string; file: string; person: string | null; type: Doc; fields: DocField[] };
+export type Told = { person: string; concept: string; value: string; labels: string[] };
+export type Library = { people: Person[]; documents: DocEntry[]; told: Told[] };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
 /** requirements: lists read from the official service page (in English), dated by checked. */
 export type Guide = {

@@ -378,3 +378,43 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
 }
 .tuck:hover { color: var(--ink); background: var(--field); }
 .tuck .chevron { rotate: 225deg; margin-top: 4px; border-color: currentColor; }
+
+/* Documents: each person's documents as rows that open; a document's values edit in place */
+.group-title { margin: 6px 4px 6px; font-size: calc(12px * var(--text)); font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.docs-top { display: flex; }
+.docs-top .primary { display: inline-flex; align-items: center; gap: 8px; flex: none; }
+.docs-top .primary .icon { width: 16px; height: 16px; }
+.tile.doc { color: #fff; }
+.tile.doc.passport { background: #0a84ff; }
+.tile.doc.eid { background: #30a46c; }
+.tile.doc.other { background: #636366; }
+.tile.doc.told { background: #5e5ce6; }
+.label .two { display: flex; flex-direction: column; min-width: 0; }
+.label .two .fine { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row.nav .label { flex: 1; }
+.row > .status, .status { flex: none; font-size: calc(11.5px * var(--text)); font-weight: 500; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.status.checked { color: var(--accent); background: rgba(43, 184, 163, 0.12); }
+.status.check { color: var(--warn); background: rgba(240, 166, 64, 0.12); }
+.status.edited, .status.told { color: #a5a3ff; background: rgba(94, 92, 230, 0.18); }
+.doc-head { display: flex; align-items: center; gap: 12px; }
+.doc-head .tile { width: 40px; height: 40px; border-radius: 10px; }
+.doc-head .tile .icon { width: 22px; height: 22px; }
+.doc-head h3, .doc-title { margin: 0; font-size: calc(16px * var(--text)); font-weight: 600; }
+.doc-head > div { min-width: 0; }
+.value-row { gap: 6px; }
+.value-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.value-label { font-size: calc(12.5px * var(--text)); color: var(--muted); }
+.value-row .value code { flex: 1; }
+.icon-text { display: inline-flex; align-items: center; gap: 6px; }
+.icon-text .icon { width: 15px; height: 15px; }
+.edit { display: flex; align-items: center; gap: 8px; }
+.edit input {
+  flex: 1; min-width: 0; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--accent); background: var(--island); outline: none;
+}
+.edit .primary { flex: none; }
+.link.start { align-self: flex-start; }
+.link.remove { margin: -6px 16px 10px; color: var(--danger); }
+.empty { padding: 8px 4px; }
+.status.none { color: var(--muted); background: rgba(255, 255, 255, 0.06); }
+/* in a list, a value reads as text, not as the field card's box */
+.value-row .value code { background: none; border: 0; padding: 0; font-size: calc(15px * var(--text)); font-weight: 500; letter-spacing: 0.01em; }

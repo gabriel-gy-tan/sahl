@@ -70,6 +70,23 @@ class TaughtAlias(BaseModel):
 
 class TaughtRef(BaseModel):
     concept: str = Field(max_length=80)
+    person: str | None = None  # one person's value; everyone's when left out
+
+
+class TaughtChange(BaseModel):
+    concept: str = Field(max_length=80)
+    value: str = Field(min_length=1, max_length=500)
+    person: str
+
+
+class Correction(BaseModel):
+    path: str
+    key: str = Field(max_length=40)
+    value: str | None = Field(None, max_length=500)  # None: back to what was read
+
+
+class DocRef(BaseModel):
+    path: str
 
 
 class ImportDoc(BaseModel):
@@ -515,6 +532,8 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
         before = vault.documents()  # before the copy, so a background read of it still counts as this import's
         if not p.resolve().is_relative_to(lib.resolve()):
             library.add(p)
+        else:
+            vault.unhide(str(p))  # removed earlier from a folder they chose, and dropped again: read it again
         return _sync(before)
 
     def _sync(before=None):
@@ -595,7 +614,13 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
 
     @app.post("/taught/forget", dependencies=[Depends(auth)])
     def forget_taught(body: TaughtRef):
-        taught.forget(body.concept)
+        taught.forget(body.concept, body.person)
+        return {"ok": True}
+
+    @app.post("/taught/change", dependencies=[Depends(auth)])
+    def change_taught(body: TaughtChange):
+        if not taught.change(body.concept, body.value, body.person):
+            raise HTTPException(404, "Sahl was not told about that")
         return {"ok": True}
 
     @app.get("/improve", dependencies=[Depends(auth)])
@@ -620,6 +645,33 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     @app.get("/vault/summary", dependencies=[Depends(auth)])
     def vault_summary():
         return vault.summary()
+
+    @app.get("/vault/documents", dependencies=[Depends(auth)])
+    def vault_documents():
+        """The Documents page: each document with what was read from it, and what the person told Sahl."""
+        return {"people": vault.people(), "documents": vault.details(), "told": taught.everything()}
+
+    @app.post("/vault/correct", dependencies=[Depends(auth)])
+    def vault_correct(body: Correction):
+        if not vault.correct(body.path, body.key, body.value):
+            raise HTTPException(404, "Sahl didn't read that from this document")
+        return vault_documents()
+
+    @app.post("/vault/remove", dependencies=[Depends(auth)])
+    def vault_remove(body: DocRef):
+        """One document: a file Sahl copied into its own folder goes to the Trash; one in a folder the person
+        chose stays put and is no longer read."""
+        p = Path(body.path)
+        if body.path not in vault.documents():
+            raise HTTPException(404, "Sahl doesn't have that document")
+        mine = library.owns(p)
+        if mine and p.exists():
+            try:
+                library.trash(p)
+            except (OSError, subprocess.SubprocessError):
+                raise HTTPException(409, "couldn't move the document to the Trash")
+        vault.remove(body.path, hide=not mine)
+        return vault_documents()
 
     @app.get("/people", dependencies=[Depends(auth)])
     def list_people():
