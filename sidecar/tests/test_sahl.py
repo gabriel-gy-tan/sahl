@@ -519,3 +519,10 @@ def test_checkbox_is_found_but_never_ticked(fake_ai, monkeypatch, tmp_path):
     box = fields["confirm"]["input_box"]
     assert abs(box[0] - 100) <= 3 and abs(box[2] - 127) <= 3 and fields["confirm"]["checked"] is False
     assert c.post("/fill", json={"field_id": "confirm"}).status_code == 422
+
+
+def test_permissions_say_what_the_os_allows(client, monkeypatch):
+    monkeypatch.setattr(server.ocr, "can_capture", lambda: False)
+    monkeypatch.setattr(server.fill, "can_type", lambda: True)
+    assert client.get("/permissions").json() == {"screen": False, "typing": True}
+    assert client.post("/permissions", json={"which": "mouse"}).status_code == 422

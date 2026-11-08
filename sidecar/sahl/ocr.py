@@ -8,6 +8,24 @@ import numpy as np
 _INDRA = None
 
 
+def _cg():
+    import ctypes
+    lib = ctypes.cdll.LoadLibrary("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics")
+    lib.CGPreflightScreenCaptureAccess.restype = lib.CGRequestScreenCaptureAccess.restype = ctypes.c_bool
+    return lib
+
+
+def can_capture() -> bool:
+    """Without Screen Recording, macOS hands back only the wallpaper and menu bar, so Sahl would see no form."""
+    return sys.platform != "darwin" or bool(_cg().CGPreflightScreenCaptureAccess())
+
+
+def ask_capture():
+    """macOS's own prompt the first time; it also lists Sahl under Screen Recording. It takes effect after a restart."""
+    if sys.platform == "darwin":
+        _cg().CGRequestScreenCaptureAccess()
+
+
 def engine():
     """Indra (local, CPU, ONNX), loaded once. The weights download on first use and are not shipped with Sahl."""
     global _INDRA

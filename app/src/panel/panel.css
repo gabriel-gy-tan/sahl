@@ -346,3 +346,19 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
   .suggestions { animation: none; }
   .hero { animation: none; }
 }
+
+/* first run: one step at a time, the same cards as the rest of the island */
+.setup { display: flex; flex-direction: column; gap: 12px; padding-inline-end: 34px; animation: rise 0.45s both var(--spring); }
+.setup h1 { margin: 0; font-size: calc(22px * var(--text)); font-weight: 600; letter-spacing: -0.015em; }
+.setup .sub { margin-top: -4px; }
+.setup .actions { align-items: center; }
+.setup .actions .link { flex: none; padding: 0 8px; }
+.row .stack { gap: 2px; }
+.held.on { color: var(--accent); }
+.modes { display: flex; flex-direction: column; gap: 8px; }
+.mode {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px; text-align: start; padding: 12px 16px; border-radius: 14px;
+  border: 1px solid var(--line); background: var(--field); cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.mode span:first-child { font-weight: 500; }
+.mode[aria-checked="true"] { border-color: var(--accent); background: rgba(43, 184, 163, 0.1); }
