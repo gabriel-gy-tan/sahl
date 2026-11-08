@@ -303,7 +303,7 @@ button.ghost:hover { background: var(--field); }
 button.ghost.danger { color: var(--danger); }
 
 .work { display: flex; flex-direction: column; gap: 14px; }
-.work > .line:first-child { padding-inline-end: 34px; } /* room for the ··· button */
+.work > .line:first-child { padding-inline-end: 78px; } /* room for the hide and ··· buttons */
 .card { background: var(--field); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
 .eyebrow { font-size: calc(11.5px * var(--text)); letter-spacing: 0.02em; color: var(--accent); font-weight: 600; text-transform: uppercase; }
 .card h2 { margin: 0; font-size: calc(18px * var(--text)); line-height: 1.3; }
@@ -362,3 +362,19 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
 }
 .mode span:first-child { font-weight: 500; }
 .mode[aria-checked="true"] { border-color: var(--accent); background: rgba(43, 184, 163, 0.1); }
+
+/* the island never runs past the screen: what doesn't fit scrolls inside it */
+.content { max-height: var(--max-h, 100vh); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3a3a3c transparent; }
+/* folded mid-form: how far along, in the wing opposite the palm */
+.mini-status {
+  position: absolute; right: 4px; top: 0; height: var(--notch); display: grid; place-items: center; font-size: 11px; font-weight: 600;
+  color: var(--accent); font-variant-numeric: tabular-nums; opacity: 1; transition: opacity 0.25s 0.35s ease; pointer-events: none;
+}
+.open .mini-status { opacity: 0; transition: none; }
+/* put the island away while working on a form; it comes back on hover or ⌥Space */
+.tuck {
+  position: absolute; z-index: 3; top: calc(var(--notch) + 14px); inset-inline-end: 58px; width: 36px; height: 36px; display: grid; place-items: center;
+  border: 0; border-radius: 10px; background: none; color: var(--muted); cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.tuck:hover { color: var(--ink); background: var(--field); }
+.tuck .chevron { rotate: 225deg; margin-top: 4px; border-color: currentColor; }

@@ -133,7 +133,7 @@ function FormSearch({ guides, lang, placeholder, empty, other, onPick, onCancel 
 
 const TEXT_SIZES = ["1", "1.15", "1.3"] as const;
 // the settings menu's pages, in order
-const PAGES = { general: "menu_general", custom: "menu_custom", extension: "menu_extension", docs: "menu_docs", telemetry: "menu_telemetry", license: "menu_license" } as const;
+const PAGES = { general: "menu_general", docs: "menu_docs", extension: "menu_extension", telemetry: "menu_telemetry", license: "menu_license" } as const;
 type Page = keyof typeof PAGES;
 
 /** Reads text aloud with the computer's own voices (on the device). The voice follows the text's script. */
@@ -635,7 +635,9 @@ export default function Panel() {
   useEffect(() => {
     if (focused && document.activeElement !== inputRef.current) setFocused(false);
   });
-  const keep = busy || thinking || readingDocs || dropping || !!field || focused || setup;
+  const [tucked, setTucked] = useState(false); // they folded it themselves while working on a form
+  useEffect(() => setTucked(false), [reading, guide]);
+  const keep = busy || thinking || readingDocs || dropping || focused || setup || ((!!field || !!guide) && !tucked);
   const keepRef = useRef(keep);
   keepRef.current = keep;
   const typingRef = useRef(false);
@@ -669,26 +671,39 @@ export default function Panel() {
     else inputRef.current?.blur();
   }, [isOpen]);
   useEffect(() => {
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && (setOpen(false), setSheet(false));
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || e.defaultPrevented) return;
+      if (page) setPage(null);
+      else if (sheet) setSheet(false);
+      else if (lookAt) setLookAt(false);
+      else tuck();
+    };
     window.addEventListener("keydown", esc);
     return () => window.removeEventListener("keydown", esc);
-  }, []);
+  }, [page, sheet, lookAt]);
+  function tuck() {
+    setTucked(true);
+    setOpen(false);
+    setSheet(false);
+  }
 
   return (
     <div className="stage" dir={RTL.has(lang) ? "rtl" : "ltr"} lang={lang} style={{ ["--text" as string]: textSize }}>
       <div className={`island${shownOpen ? " open" : ""}${notch.real ? "" : " virtual"}`}
-        style={{ width: size.w, height: size.h, ["--notch" as string]: `${notch.height}px`, ["--open-w" as string]: `${openW}px`,
+        style={{ width: size.w, height: size.h, ["--notch" as string]: `${notch.height}px`, ["--max-h" as string]: `${window.screen.availHeight - 40}px`, ["--open-w" as string]: `${openW}px`,
           // the glow also traces a real notch; on a screen without one these are 0 and it only rounds the island
           ["--nw" as string]: `${notch.real ? notch.width : 0}px`, ["--nh" as string]: `${notch.real ? notch.height : 0}px` }}>
         <div className={phase !== "ready" || thinking ? "glow on" : "glow"} aria-hidden />
         <div className="clip">
           {phase !== "ready" && !failedBoot && <div className="boot"><Palm leaving={phase === "leaving"} /></div>}
           {phase === "ready" && <img className="mini" src="/palm-mini.png" alt="" style={{ width: WING }} />}
+          {phase === "ready" && field && <span className="mini-status" style={{ width: WING }}>{index}/{reading!.fields.length}</span>}
 
           <div className="content" ref={contentRef} inert={!shownOpen}>
             {dropping && <div className="drop">{t("drop_here")}</div>}
-            <button className={sheet ? "more open" : "more"} aria-label={sheet ? t("close") : t("settings")} aria-expanded={sheet}
-              onClick={() => setSheet(!sheet)}>
+            {guide && !sheet && <button className="tuck" aria-label={t("tuck")} title={`${t("tuck")} (Esc)`} onClick={tuck}><span className="chevron" aria-hidden /></button>}
+            <button className={sheet ? "more open" : "more"} aria-label={sheet ? t("close") : t("settings")} title={sheet ? t("close") : t("settings")}
+              aria-expanded={sheet} onClick={() => setSheet(!sheet)}>
               <i /><i /><i />
             </button>
 
@@ -756,7 +771,8 @@ export default function Panel() {
                       )}
                     </section>
                   </>
-                ) : page === "custom" ? (
+                ) : null}
+                {page === "general" ? (
                   <section className="group" aria-label={t("menu_custom")}>
                     <div className="row">
                       <span className="label"><Icon name="custom" />{t("text_size")}</span>
@@ -775,7 +791,7 @@ export default function Panel() {
                       </button>
                     </div>
                   </section>
-                ) : page === "extension" ? (
+                ) : !page ? null : page === "extension" ? (
                   <>
                     <p className="page-text">{t("extension_body")}</p>
                     <section className="group" aria-label={t("menu_extension")}>

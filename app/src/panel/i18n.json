@@ -101,10 +101,10 @@
     "unmatched": "{n} not matched to anyone yet",
     "no_docs": "No documents yet. Add one, or drop it on the island.",
     "menu_general": "General",
-    "menu_custom": "Customization",
-    "menu_extension": "Browser",
+    "menu_custom": "Display",
+    "menu_extension": "Browser extension",
     "menu_docs": "Documents",
-    "menu_telemetry": "Telemetry",
+    "menu_telemetry": "Privacy & reports",
     "menu_license": "License",
     "extension_body": "Fill a form in Chrome or Edge with Sahl. Sahl reads the page's labels, matches a guide, and fills only the verified values you choose.",
     "extension_status": "Browser bridge",
@@ -155,7 +155,8 @@
     "setup_mode_title": "How should I help?",
     "mode_fill_why": "I show you each value, then type it in when you say yes.",
     "mode_show_why": "I show you each value, and you type it yourself.",
-    "setup_start": "Start"
+    "setup_start": "Start",
+    "tuck": "Hide for now"
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -258,9 +259,9 @@
     "unmatched": "{n} غير منسوبة لأي شخص بعد",
     "no_docs": "لا توجد مستندات بعد. أضف مستندًا أو اسحبه إلى هنا.",
     "menu_general": "عام",
-    "menu_custom": "التخصيص",
+    "menu_custom": "العرض",
     "menu_docs": "المستندات",
-    "menu_telemetry": "بيانات الاستخدام",
+    "menu_telemetry": "الخصوصية والتقارير",
     "menu_license": "الترخيص",
     "telemetry_body": "لا يرسل سهل أي شيء إلى أي مكان: لا بيانات استخدام ولا تقارير أعطال ولا تحليلات. مستنداتك وما يقرؤه سهل منها ومحادثاتك تبقى على هذا الحاسوب. زر الميكروفون يستخدم الإملاء المدمج في حاسوبك، وقد يستعين بخوادم الشركة المصنّعة لبعض اللغات.",
     "license_body": "سهل مفتوح المصدر بموجب رخصة أباتشي، الإصدار 2.0. نماذج التعرّف على النص والذكاء الاصطناعي التي يشغّلها على هذا الحاسوب لها تراخيصها الخاصة.",
@@ -303,7 +304,9 @@
     "setup_mode_title": "كيف أساعدك؟",
     "mode_fill_why": "أعرض عليك كل قيمة، ثم أكتبها عندما توافق.",
     "mode_show_why": "أعرض عليك كل قيمة، وتكتبها أنت.",
-    "setup_start": "ابدأ"
+    "setup_start": "ابدأ",
+    "tuck": "إخفاء الآن",
+    "menu_extension": "إضافة المتصفح"
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -406,9 +409,9 @@
     "unmatched": "{n} ابھی کسی سے نہیں ملیں",
     "no_docs": "ابھی کوئی دستاویز نہیں۔ ایک شامل کریں یا یہاں چھوڑیں۔",
     "menu_general": "عمومی",
-    "menu_custom": "تخصیص",
+    "menu_custom": "ڈسپلے",
     "menu_docs": "دستاویزات",
-    "menu_telemetry": "ٹیلی میٹری",
+    "menu_telemetry": "رازداری اور رپورٹس",
     "menu_license": "لائسنس",
     "telemetry_body": "سہل کہیں کچھ نہیں بھیجتا: نہ استعمال کا ڈیٹا، نہ کریش رپورٹس، نہ اینالیٹکس۔ آپ کی دستاویزات، ان سے پڑھی گئی معلومات اور آپ کی گفتگو اسی کمپیوٹر پر رہتی ہیں۔ مائیک بٹن آپ کے کمپیوٹر کی اپنی ڈکٹیشن استعمال کرتا ہے، جو کچھ زبانوں کے لیے بنانے والی کمپنی کے سرور استعمال کر سکتی ہے۔",
     "license_body": "سہل اوپن سورس ہے، اپاچی لائسنس ورژن 2.0 کے تحت۔ اس کمپیوٹر پر چلنے والے OCR اور AI ماڈلز کے اپنے لائسنس ہیں۔",
@@ -451,7 +454,9 @@
     "setup_mode_title": "میں کیسے مدد کروں؟",
     "mode_fill_why": "میں ہر قدر دکھاتا ہوں، پھر آپ کے ہاں کہنے پر لکھ دیتا ہوں۔",
     "mode_show_why": "میں ہر قدر دکھاتا ہوں، اور آپ خود لکھتے ہیں۔",
-    "setup_start": "شروع کریں"
+    "setup_start": "شروع کریں",
+    "tuck": "ابھی چھپائیں",
+    "menu_extension": "براؤزر ایکسٹینشن"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -554,9 +559,9 @@
     "unmatched": "{n} എണ്ണം ആരുമായും ബന്ധിപ്പിച്ചിട്ടില്ല",
     "no_docs": "ഇതുവരെ രേഖകളൊന്നുമില്ല. ഒന്ന് ചേർക്കുക, അല്ലെങ്കിൽ ഇവിടെ ഇടുക.",
     "menu_general": "പൊതുവായത്",
-    "menu_custom": "ഇഷ്ടാനുസൃതമാക്കൽ",
+    "menu_custom": "ഡിസ്‌പ്ലേ",
     "menu_docs": "രേഖകൾ",
-    "menu_telemetry": "ടെലിമെട്രി",
+    "menu_telemetry": "സ്വകാര്യതയും റിപ്പോർട്ടുകളും",
     "menu_license": "ലൈസൻസ്",
     "telemetry_body": "സഹൽ ഒന്നും എവിടേക്കും അയയ്ക്കുന്നില്ല: ഉപയോഗ വിവരങ്ങളോ ക്രാഷ് റിപ്പോർട്ടുകളോ അനലിറ്റിക്സോ ഇല്ല. നിങ്ങളുടെ രേഖകളും അവയിൽ നിന്ന് വായിച്ചതും സംഭാഷണങ്ങളും ഈ കമ്പ്യൂട്ടറിൽ തന്നെ നിൽക്കും. മൈക്ക് ബട്ടൺ കമ്പ്യൂട്ടറിന്റെ സ്വന്തം ഡിക്റ്റേഷൻ ഉപയോഗിക്കുന്നു; ചില ഭാഷകൾക്ക് അത് നിർമ്മാതാവിന്റെ സെർവറുകൾ ഉപയോഗിച്ചേക്കാം.",
     "license_body": "സഹൽ Apache License, Version 2.0 പ്രകാരം ഓപ്പൺ സോഴ്സ് ആണ്. ഈ കമ്പ്യൂട്ടറിൽ പ്രവർത്തിക്കുന്ന OCR, AI മോഡലുകൾക്ക് അവയുടേതായ ലൈസൻസുകളുണ്ട്.",
@@ -599,6 +604,8 @@
     "setup_mode_title": "ഞാൻ എങ്ങനെ സഹായിക്കണം?",
     "mode_fill_why": "ഓരോ മൂല്യവും കാണിച്ച്, നിങ്ങൾ സമ്മതിക്കുമ്പോൾ ഞാൻ ടൈപ്പ് ചെയ്യും.",
     "mode_show_why": "ഓരോ മൂല്യവും ഞാൻ കാണിക്കും, നിങ്ങൾ തന്നെ ടൈപ്പ് ചെയ്യും.",
-    "setup_start": "തുടങ്ങാം"
+    "setup_start": "തുടങ്ങാം",
+    "tuck": "ഇപ്പോൾ മറയ്ക്കുക",
+    "menu_extension": "ബ്രൗസർ എക്സ്റ്റൻഷൻ"
   }
 }
