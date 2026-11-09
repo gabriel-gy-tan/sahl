@@ -315,3 +315,29 @@ def test_unpair_locks_out_every_browser_and_the_extension_follows_the_panels_lan
     assert c.get("/health").json()["lang"] == "en"
     bridge.set_language("ar")
     assert c.get("/health").json()["lang"] == "ar"
+
+
+ANY = json.loads((Path(__file__).parents[2] / "guides" / "any-form.json").read_text())
+
+
+def test_a_plain_name_box_is_known_even_when_the_page_has_its_own_guide(monkeypatch):
+    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "EDEN VIJAY REBELLO", "verified": True})
+    scan = web.plan({"url": "https://example.test", "guide": "demo-form",
+                     "fields": [field("a", "Name in English"), field("b", "Name")]}, {**GUIDES, "any-form": ANY}, "p1")
+    by = {f["element_id"]: f for f in scan["fields"]}
+    assert by["a"]["field_id"] == "full_name" and not by["a"].get("unknown")
+    assert by["b"].get("unknown")  # "Name" alone is not "Name in English": it is asked about
+    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "EDEN VIJAY REBELLO"
+
+
+def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
+    monkeypatch.setitem(VALUES, "passport.name", ("EDEN VIJAY REBELLO", True))
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "عدن فيجاي ريبيلو"})
+    web._arabic_names.clear()
+    scan = web.plan({"url": "https://example.test", "guide": "demo-form",
+                     "fields": [field("a", "Name in English"), field("c", "Name in Arabic")]}, {**GUIDES, "any-form": ANY}, "p1")
+    assert {f["element_id"]: f["field_id"] for f in scan["fields"]} == {"a": "full_name", "c": "full_name_ar"}
+    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "عدن فيجاي ريبيلو"
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Eden"})  # not Arabic: nothing is typed
+    web._arabic_names.clear()
+    assert web.values(scan, ["c"], "p1")["missing"]

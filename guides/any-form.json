@@ -45,6 +45,30 @@
       }
     },
     {
+      "id": "full_name_ar",
+      "vault_key": "ar:passport.name",
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Name in Arabic",
+        "Full name in Arabic",
+        "Arabic name",
+        "Name (Arabic)",
+        "Applicant name in Arabic",
+        "Name as per Emirates ID (Arabic)",
+        "الاسم بالعربية",
+        "الاسم باللغة العربية",
+        "الاسم (عربي)",
+        "الاسم الكامل بالعربية"
+      ],
+      "help": {
+        "en": "Your name in Arabic letters. I write it from your name in English, so check it.",
+        "ar": "اسمك بالحروف العربية. أكتبه من اسمك بالإنجليزية، فراجعه.",
+        "ur": "آپ کا نام عربی حروف میں۔ میں اسے آپ کے انگریزی نام سے لکھتا ہوں، اس لیے دیکھ لیں۔",
+        "ml": "നിങ്ങളുടെ പേര് അറബി അക്ഷരങ്ങളിൽ. ഇംഗ്ലീഷ് പേരിൽ നിന്നാണ് ഞാൻ എഴുതുന്നത്, അതിനാൽ പരിശോധിക്കുക."
+      }
+    },
+    {
       "id": "surname",
       "vault_key": [
         "passport.surname",
