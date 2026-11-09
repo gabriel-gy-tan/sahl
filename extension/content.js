@@ -1,5 +1,5 @@
 (() => {
-  const version = "8";
+  const version = "9";
   if (window.__sahlVersion === version) return;
   window.__sahlVersion = version;
   window.__sahlLoaded = true;
@@ -312,6 +312,10 @@
       .tip span{opacity:.72}
       .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2a1a06;color:#ffe2b8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.28);white-space:nowrap}
       .summary i{width:6px;height:6px;border-radius:50%;background:#f0a640;box-shadow:0 0 0 3px rgba(240,166,64,.12)}
+      .toast{position:fixed;z-index:3;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:8px 8px 8px 12px;border-radius:999px;background:#06221d;color:#d6fbf4;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.35);pointer-events:auto;max-width:min(560px,92vw)}
+      .toast i{flex:none;width:6px;height:6px;border-radius:50%;background:#2bb8a3}
+      .toast button{flex:none;border:0;border-radius:999px;padding:5px 10px;background:rgba(43,184,163,.18);color:#d6fbf4;font:inherit;cursor:pointer}
+      .toast button:hover{background:rgba(43,184,163,.3)}
       @media (prefers-reduced-motion: reduce){.ring{transition:none}}
     `;
     root = document.createElement("div");
@@ -322,6 +326,7 @@
       summary.className = "summary";
       summary.append(document.createElement("i"), asked === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", asked));
       root.append(summary);
+      unknowns = asked;
     }
     let askNo = 0;
     for (const f of fields) {
@@ -348,7 +353,7 @@
       if (ask) mark.textContent = String(askNo);
       node.append(mark);
       root.append(node);
-      const ring = { els: live, node, label: f.label, ask, n: askNo };
+      const ring = { els: live, node, label: f.label, ask, n: askNo, id: f.element_id, target };
       rings.push(ring);
       for (const el of live) byEl.set(el, ring);
       for (const el of liveHits) {
@@ -456,6 +461,8 @@
     return { element_id: v.element_id, ok: String(t.el.value ?? "") === String(v.value ?? "") };
   };
   const fill = async (values, replace) => {
+    filling = true; // Sahl's own typing is not the person answering a box
+    setTimeout(() => (filling = false), 400);
     const results = values.map((v) => fillOne(v, replace));
     await new Promise((done) => setTimeout(done, 60));
     for (let i = 0; i < results.length; i++) {
@@ -475,6 +482,73 @@
     }
     return results;
   };
+
+  // --- a box Sahl doesn't know, answered on the page itself: remember it, say so, and offer Undo ---
+  // Not tick boxes (Sahl never ticks), not day/month/year boxes (not filled yet), not long free text (not a reusable detail).
+  let filling = false;
+  let unknowns = 0;
+  const answer = (ring) => {
+    const t = ring.target;
+    if (t.kind === "radio") return t.options.find((o) => o.el?.checked)?.text || "";
+    if (t.kind === "select") {
+      const o = t.el.selectedOptions?.[0];
+      return o && o.value !== "" && o.index !== 0 ? (o.textContent || "").trim() : ""; // the first entry is usually "Select…"
+    }
+    if (t.kind !== "text" || t.el.tagName === "TEXTAREA" || ["checkbox", "radio"].includes(t.el.type)) return "";
+    return String(t.el.value || "").trim();
+  };
+  const showAsk = (ring, ask) => {
+    ring.ask = ask;
+    ring.node.className = ask ? "ring ask" : "ring";
+    const mark = ring.node.firstChild;
+    mark.className = ask ? "num" : "dot";
+    mark.textContent = ask ? String(ring.n) : "";
+    unknowns += ask ? 1 : -1;
+    const summary = root?.querySelector(".summary");
+    if (summary) {
+      summary.lastChild.textContent = unknowns === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", unknowns);
+      summary.style.display = unknowns > 0 ? "" : "none";
+    }
+    schedule();
+  };
+  let toastTimer = 0;
+  const toast = (text, undo) => {
+    if (!root) return;
+    root.querySelector(".toast")?.remove();
+    clearTimeout(toastTimer);
+    const box = document.createElement("div");
+    box.className = "toast";
+    box.append(document.createElement("i"), text);
+    if (undo) {
+      const b = document.createElement("button");
+      b.textContent = say("undo", "Undo");
+      b.addEventListener("click", () => (box.remove(), undo()));
+      box.append(b);
+    }
+    root.append(box);
+    const later = () => (toastTimer = setTimeout(() => box.remove(), 10000));
+    box.addEventListener("pointerenter", () => clearTimeout(toastTimer)); // stays while the pointer is on it
+    box.addEventListener("pointerleave", later);
+    later();
+  };
+  const learn = async (ring) => {
+    const value = answer(ring);
+    if (!value || value.length > 200) return;
+    showAsk(ring, false); // teal at once; back to amber if Sahl couldn't keep it
+    let out;
+    try {
+      out = await chrome.runtime.sendMessage({ type: "learn", id: ring.id, value });
+    } catch {}
+    if (!out?.ok || !out.concept) return showAsk(ring, true);
+    toast(say("learned", "I'll remember {label}: {value}").replace("{label}", () => ring.label).replace("{value}", () => value), async () => {
+      const back = await chrome.runtime.sendMessage({ type: "unlearn", concept: out.concept }).catch(() => null);
+      if (back?.ok) showAsk(ring, true), toast(say("forgotten", "Forgotten."));
+    });
+  };
+  addEventListener("change", (e) => {
+    const ring = byEl.get(e.target);
+    if (ring?.ask && !filling && e.isTrusted) void learn(ring);
+  }, true);
 
   const enter = (e) => {
     const ring = byEl.get(e.target);

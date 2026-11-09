@@ -268,3 +268,12 @@ def test_unpair_locks_out_every_browser_and_the_extension_follows_the_panels_lan
     assert c.get("/health").json()["lang"] == "en"
     bridge.set_language("ar")
     assert c.get("/health").json()["lang"] == "ar"
+
+
+def test_an_answer_remembered_from_the_page_can_be_undone(ext):
+    ext.post("/page", json=card_page())
+    concept = ext.post("/taught", json={"element_id": "c14", "value": "Acme Ltd"}).json()["concept"]
+    assert {f["element_id"]: f for f in ext.post("/page", json=card_page()).json()["fields"]}["c14"]["told"]
+    assert ext.post("/taught/forget", json={"concept": concept}).json() == {"ok": True}
+    assert not {f["element_id"]: f for f in ext.post("/page", json=card_page()).json()["fields"]}["c14"]["told"]
+    assert ext.post("/taught/forget", json={"concept": concept}, headers={"x-sahl-ext-token": "0" * 64}).status_code == 403
