@@ -9,7 +9,7 @@ import re
 from collections import Counter
 
 
-from . import ai, intent, match, taught, vault
+from . import ai, fieldtype, intent, match, taught, vault
 
 THRESHOLD = 82
 SHARED = 95  # a second box that reads exactly like a guide field's label gets the same value
@@ -51,9 +51,13 @@ def _texts(field: dict) -> list[str]:
     return [x for x in dict.fromkeys(str(t).strip() for t in out) if x]
 
 
-def _field_score(field: dict, aliases: list[str]) -> float:
-    texts = _texts(field)
-    return max((match._score(t, aliases) for t in texts), default=0.0)
+def _field_score(field: dict, spec: dict) -> float:
+    """How well a box fits a guide field: its words against the aliases, or what the box asks for (fieldtype)."""
+    fuzzy = max((match._score(t, spec["aliases"]) for t in _texts(field)), default=0.0)
+    meant = fieldtype.score(field, spec)
+    if meant < 0:  # about someone else: only a label the guide itself spells out can say otherwise
+        return fuzzy if fuzzy >= SHARED else 0.0
+    return max(fuzzy, meant)
 
 
 def _page_text(page: dict) -> str:
@@ -94,7 +98,7 @@ def _match_fields(guide: dict, fields: list[dict]) -> list[dict]:
     # equal scores: the longer label wins the guide field; a box that reads exactly like one of its labels shares it,
     # so "Name" and "Name in English" both get the name
     pairs = sorted(
-        ((_field_score(field, spec["aliases"]), len(match._norm(str(field.get("label", "")))), gi, fi)
+        ((_field_score(field, spec), len(match._norm(str(field.get("label", "")))), gi, fi)
          for fi, field in enumerate(safe) for gi, spec in enumerate(guide["fields"])),
         reverse=True)
     used_spec, used_field, hits = set(), set(), []

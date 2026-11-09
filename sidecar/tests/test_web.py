@@ -341,3 +341,26 @@ def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
     monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Eden"})  # not Arabic: nothing is typed
     web._arabic_names.clear()
     assert web.values(scan, ["c"], "p1")["missing"]
+
+
+@pytest.mark.parametrize("label,field_id", [
+    ("Applicant full name", "full_name"), ("Name in English", "full_name"), ("Name", "full_name"),
+    ("Full legal name (as in passport)", "full_name"), ("Name in Arabic", "full_name_ar"), ("الاسم بالعربية", "full_name_ar"),
+    ("Birth date", "dob"), ("Passport No", "passport_number"),
+])
+def test_a_box_is_recognised_by_what_it_asks_for(label, field_id):
+    scan = web.plan({"url": "https://example.test", "guide": "any-form", "fields": [field("x", label)]}, {"any-form": ANY}, "p1")
+    assert [f["field_id"] for f in scan["fields"] if not f.get("unknown")] == [field_id]
+
+
+@pytest.mark.parametrize("label", ["Father's name", "Mother name", "Account Owner Name", "Spouse full name", "Company name",
+                                   "Sponsor name", "Middle name", "Place of birth", "Username"])
+def test_a_box_about_someone_else_is_never_filled_with_the_persons_own_detail(label):
+    scan = web.plan({"url": "https://example.test", "guide": "any-form", "fields": [field("x", label)]}, {"any-form": ANY}, "p1")
+    assert not [f for f in scan["fields"] if not f.get("unknown")]
+
+
+def test_the_browsers_own_hint_decides_when_the_label_is_odd():
+    scan = web.plan({"url": "https://example.test", "guide": "any-form",
+                     "fields": [field("x", "Who are you?", autocomplete="family-name")]}, {"any-form": ANY}, "p1")
+    assert [f["field_id"] for f in scan["fields"]] == ["surname"]
