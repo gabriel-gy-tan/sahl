@@ -188,7 +188,7 @@ def _person(people: list[dict], person: str | None) -> str | None:
     return people[0]["id"] if len(people) == 1 else None
 
 
-def plan(page: dict, guides: dict, person: str | None = None) -> dict:
+def plan(page: dict, guides: dict, person: str | None = None, lang: str = "en") -> dict:
     """Match a page to a guide and return fields, without values."""
     people = vault.people()
     person = _person(people, person)
@@ -204,12 +204,27 @@ def plan(page: dict, guides: dict, person: str | None = None) -> dict:
     if guide and generic and guide is not generic:  # a box this guide lacks may still be a plain one: a name, a date of birth
         taken = {m["element_id"] for m in matched}
         matched += _match_fields(generic, [f for f in fields if _identity(f) not in taken])
+    specs = {f["id"]: f for g in (guide, generic) if g for f in g.get("fields", [])}
+    for m in matched:  # whether a value is there to fill (never the value itself), and whether the AI wrote it
+        key = specs.get(m["field_id"], {}).get("vault_key")
+        m["ai"] = isinstance(key, str) and key.startswith("ar:")
+        if not person:
+            m["has_value"] = False
+        elif m["ai"]:  # written from the English name when filled; needs that name and the text model
+            got = vault.get(key[3:], person)
+            m["has_value"] = bool(got and got.get("verified")) and ai.have(ai.text_model())
+        else:
+            got = vault.get(key, person) if key else None
+            m["has_value"] = bool(got and got.get("verified"))
     unknown = _unknown_fields(fields, matched, person)
+    for u in unknown:
+        u["has_value"] = bool(u.get("told"))
     if not guide and not unknown:
         return {"guide": None, "confidence": 0, "fields": [], "person": person, "people": people,
                 "reason": "no guide matched this page"}
     return {
-        "guide": {"id": guide["id"], "name": guide["service"].get("en", guide["id"]), "about": guide.get("about", "")}
+        "guide": {"id": guide["id"], "name": guide["service"].get(lang) or guide["service"].get("en", guide["id"]),
+                  "about": guide.get("about", "")}
         if guide else None,
         "confidence": round(confidence * 100) if guide else 0,
         "fields": matched + unknown,
@@ -217,7 +232,7 @@ def plan(page: dict, guides: dict, person: str | None = None) -> dict:
         "people": people,
         "reason": "" if matched or unknown else "the page has no fields this guide recognises",
         "_guide": guide,
-        "_specs": {f["id"]: f for g in (guide, generic) if g for f in g.get("fields", [])},
+        "_specs": specs,
         "_fields": fields,
     }
 

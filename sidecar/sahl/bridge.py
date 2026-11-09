@@ -207,7 +207,7 @@ def create_app(state: State) -> FastAPI:
 
     @app.post("/page")
     def page(body: Page, token: str = Depends(auth)):
-        scan = web.plan(body.model_dump(), state.guides, body.person)
+        scan = web.plan(body.model_dump(), state.guides, body.person, language())
         state.scans[token] = scan
         return _public(scan)
 
