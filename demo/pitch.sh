@@ -20,9 +20,12 @@ case "$(uname)" in
 esac
 export SAHL_HOME="$demo/home" SAHL_LIBRARY="$demo/library" SAHL_MODELS="$models"
 
-# the sample portal, served over http so the browser extension can read it
-(cd "$here" && python3 -m http.server 8000 >/dev/null 2>&1 &)
-echo "Sample portal: http://localhost:8000/refund-portal.html"
+# the sample portal, served over http so the browser extension can read it (8077: 8000 is often taken already)
+port=8077
+url="http://127.0.0.1:$port/refund-portal.html"
+curl -fs -o /dev/null "$url" || (python3 -m http.server "$port" --bind 127.0.0.1 --directory "$here" >/dev/null 2>&1 &)
+sleep 1
+if curl -fs -o /dev/null "$url"; then echo "Sample portal: $url"; else echo "Couldn't serve the sample portal on port $port: something else is using it." >&2; fi
 
 if [ -d /Applications/Sahl.app ] && [ "$1" != dev ] && [ "$2" != dev ]; then
   open -n -a /Applications/Sahl.app --env SAHL_HOME="$SAHL_HOME" --env SAHL_LIBRARY="$SAHL_LIBRARY" --env SAHL_MODELS="$SAHL_MODELS"

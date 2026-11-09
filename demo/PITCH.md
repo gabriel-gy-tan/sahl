@@ -10,7 +10,7 @@ Everything on screen is invented: the documents, the person and the portal. Noth
    `/Applications/Sahl.app`.
 3. The Documents page shows Mohammed Rafeeq Kunnummal with a passport and an Emirates ID, read in a few seconds and
    confirmed by their check digits, with no AI model needed.
-4. In Chrome, open `http://localhost:8000/refund-portal.html`, open the Sahl extension and pair it once
+4. In Chrome, open `http://127.0.0.1:8077/refund-portal.html`, open the Sahl extension and pair it once
    (Settings → Browser extension shows the code). Pairing is per browser, so do it before the pitch.
 5. If the Arabic name should be filled, the local text model has to be downloaded already (Settings → General).
 6. Reload the portal page so it starts empty.
