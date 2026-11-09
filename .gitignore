@@ -5,3 +5,4 @@ __pycache__/
 app/src-tauri/sidecar/
 app/src-tauri/llama/
 app/src-tauri/bundle/
+dist/

@@ -1,7 +1,10 @@
+import hashlib
+import hmac
 import json
 import socket
 import time
 import urllib.request
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -234,6 +237,50 @@ def test_bridge_waits_for_a_busy_port_then_serves():
     holder.close()
     _wait(lambda: state.running and not state.error)
     _wait(lambda: _answers(port))
+
+
+def _free_ports(n):
+    socks = [socket.socket() for _ in range(n)]
+    for k in socks:
+        k.bind(("127.0.0.1", 0))
+    ports = [k.getsockname()[1] for k in socks]
+    for k in socks:
+        k.close()
+    return ports
+
+
+def test_bridge_takes_the_next_free_port_when_the_first_is_busy():
+    busy, free = _free_ports(2)
+    holder = socket.socket()
+    holder.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    holder.bind(("127.0.0.1", busy))
+    holder.listen()
+    try:
+        state = bridge.State(GUIDES, token="f" * 64, ports=(busy, free))
+        bridge.start(state, retry=60)  # a retry would take a minute: the second port must be used at once
+        _wait(lambda: state.running)
+        assert state.port == free and not state.error
+        _wait(lambda: _answers(free))
+    finally:
+        holder.close()
+
+
+def test_bridge_ports_are_the_range_the_extension_looks_through():
+    manifest = json.loads((Path(__file__).parents[2] / "extension" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["host_permissions"] == [f"http://127.0.0.1:{p}/*" for p in bridge.PORTS]
+    assert bridge.PORT == bridge.PORTS[0]
+
+
+def test_health_proves_it_holds_the_token_only_when_asked():
+    state = bridge.State(GUIDES, token="a" * 64)
+    c = TestClient(bridge.create_app(state))
+    assert "proof" not in c.get("/health").json()
+    proof = c.get("/health", params={"nonce": "00ff"}).json()["proof"]
+    assert proof == hmac.new(b"a" * 64, b"00ff", hashlib.sha256).hexdigest()
+    other = TestClient(bridge.create_app(bridge.State(GUIDES, token="b" * 64)))
+    assert other.get("/health", params={"nonce": "00ff"}).json()["proof"] != proof  # another Sahl cannot fake it
+    assert c.get("/health", params={"nonce": "zz"}).status_code == 422
+    assert c.get("/health", params={"nonce": "0" * 65}).status_code == 422
 
 
 def test_bridge_starts_over_connections_left_by_a_closed_sahl():

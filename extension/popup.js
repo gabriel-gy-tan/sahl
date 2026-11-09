@@ -362,7 +362,7 @@ async function boot() {
     if (h.app !== "Sahl") throw Object.assign(new Error("not Sahl"), { code: "closed" });
     useLanguage(h.lang || "en");
     const t = await send("token");
-    if (!t.token) {
+    if (!t.token || !h.verified) {  // never paired, or the Sahl answering isn't the one this browser was paired with
       show("pair");
       status(T("not_paired"));
       $("code").focus();

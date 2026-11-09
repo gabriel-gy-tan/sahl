@@ -193,7 +193,7 @@
     }
 
     return {
-      url: location.href, title: document.title,
+      url: location.origin + location.pathname, title: document.title,
       headings: [...document.querySelectorAll("h1, h2, h3")].map(text).filter(Boolean).slice(0, 10).join(" | "),
       fields: normal,
     };
@@ -222,6 +222,7 @@
   const say = (k, fallback, n) => (words[k] || fallback).replaceAll("{n}", String(n ?? ""));
   const showReading = () => {
     clear();
+    if (window !== window.top) return; // one pill per tab
     reading = true;
     host = document.createElement("div");
     host.setAttribute("data-sahl-overlay", "1");
