@@ -12,6 +12,7 @@ from collections import Counter
 from . import ai, intent, match, taught, vault
 
 THRESHOLD = 82
+SHARED = 95  # a second box that reads exactly like a guide field's label gets the same value
 UNSAFE_TYPES = {"password", "file", "hidden", "submit", "button", "reset", "image"}
 
 
@@ -90,25 +91,24 @@ def _identity(field: dict) -> str:
 
 def _match_fields(guide: dict, fields: list[dict]) -> list[dict]:
     safe = [f for f in fields if _safe(f)]
-    # equal scores: the longer label wins, so "Name in English" takes the name before a bare "Name" can
+    # equal scores: the longer label wins the guide field; a box that reads exactly like one of its labels shares it,
+    # so "Name" and "Name in English" both get the name
     pairs = sorted(
         ((_field_score(field, spec["aliases"]), len(match._norm(str(field.get("label", "")))), gi, fi)
          for fi, field in enumerate(safe) for gi, spec in enumerate(guide["fields"])),
         reverse=True)
-    used_spec, used_field, hits = set(), set(), {}
+    used_spec, used_field, hits = set(), set(), []
     for score, _, gi, fi in pairs:
         if score < THRESHOLD:
             break
-        if gi in used_spec or fi in used_field:
+        if fi in used_field or (gi in used_spec and score < SHARED):
             continue
         used_spec.add(gi)
         used_field.add(fi)
-        hits[gi] = (fi, score)
+        hits.append((gi, fi, score))
     out = []
-    for gi, spec in enumerate(guide["fields"]):
-        if gi not in hits:
-            continue
-        fi, score = hits[gi]
+    for gi, fi, score in sorted(hits, key=lambda h: (h[0], h[1])):
+        spec = guide["fields"][gi]
         field = safe[fi]
         kind = _kind(field)
         if kind == "checkbox":
