@@ -133,6 +133,17 @@ def is_question(text: str) -> bool:
     return bool(QUESTION.search(text)) and not REQUEST.search(text)
 
 
+_vocabs: dict[int, tuple[dict, set, set]] = {}
+
+
+def _vocab(g: dict) -> tuple[set, set]:
+    """A guide's name words and about words, worked out once per loaded guide."""
+    hit = _vocabs.get(id(g))
+    if hit is None or hit[0] is not g:  # the same id can come back for a new dict once the old one is gone
+        hit = _vocabs[id(g)] = (g, set(_words(" ".join([*_names(g), *g.get("aliases", [])]))), set(_words(g.get("about", ""))))
+    return hit[1], hit[2]
+
+
 def rank(text: str, guides: dict) -> list[tuple[float, str]]:
     """Guides by how much of the message's weight their words cover (0..1), best first. Rare words weigh more, so
     "car" beats "registration"; a word no guide has (a service Sahl doesn't know) still weighs, keeping scores low.
@@ -142,22 +153,25 @@ def rank(text: str, guides: dict) -> list[tuple[float, str]]:
     q = list(dict.fromkeys(_words(text)))
     if not q:
         return []
-    named = {i: set(_words(" ".join([*_names(g), *g.get("aliases", [])]))) for i, g in guides.items()}
-    about = {i: set(_words(g.get("about", ""))) for i, g in guides.items()}
-    has = {w: {i for i in guides if any(_same(w, x) for x in named[i] | about[i])} for w in q}
+    named = {i: _vocab(g)[0] for i, g in guides.items()}
+    about = {i: _vocab(g)[1] for i, g in guides.items()}
+    # each message word is compared with the catalogue's distinct words once, not with every guide's words
+    vocab = set().union(*named.values(), *about.values()) if guides else set()
+    like = {w: {x for x in vocab if _same(w, x)} for w in q}
+    has = {w: {i for i in guides if like[w] & (named[i] | about[i])} for w in q}
     idf = {w: math.log(1 + len(guides) / (1 + len(has[w]))) for w in q}
     total = sum(idf.values())
     # a word in a guide's own name counts in full; one only in what it is for counts half ("birth certificate" names
     # the birth certificate, and is only mentioned by the age estimation certificate)
-    weight = lambda w, i: 1.0 if any(_same(w, x) for x in named[i]) else 0.5
+    weight = lambda w, i: 1.0 if like[w] & named[i] else 0.5
     t = " ".join(q)
 
     def tie(g: dict) -> float:  # equal cover: the guide whose own name is closest to the message, with fewest extra words
         return max(fuzz.token_sort_ratio(n.casefold(), t) for n in [*_names(g), *g.get("aliases", [])])
     # equal cover: a federal guide (it serves every emirate) before one emirate's own, then the closest name
-    scored = [(sum(idf[w] * weight(w, i) for w in q if i in has[w]) / total, guides[i].get("authority") not in EMIRATE_OF,
-               tie(guides[i]), i) for i in guides]
-    return [(s, i) for s, _, _, i in sorted(scored, reverse=True) if s > 0]
+    cover = {i: sum(idf[w] * weight(w, i) for w in q if i in has[w]) / total for i in set().union(*has.values())}
+    scored = [(s, guides[i].get("authority") not in EMIRATE_OF, tie(guides[i]), i) for i, s in cover.items() if s > 0]
+    return [(s, i) for s, _, _, i in sorted(scored, reverse=True)]
 
 
 def _shortlist(text: str, guides: dict, n: int = 8) -> dict:

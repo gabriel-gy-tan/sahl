@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bank information</title>
+<!-- shown inside refund-portal.html in a frame; invented, nothing is sent -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 14px 18px; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1d2733; background: #fff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+  .row { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 10px; min-height: 46px; }
+  label { font-size: 14px; color: #5f6c7a; }
+  .req::after { content: " *"; color: #c0392b; }
+  input, select { width: 100%; padding: 9px 10px; border: 1px solid #b9c3ce; border-radius: 5px; background: #fff; font: inherit; }
+  .iban { display: grid; grid-template-columns: 52px 1fr; }
+  .iban span { display: grid; place-items: center; border: 1px solid #b9c3ce; border-right: 0; border-radius: 5px 0 0 5px; background: #f1f3f6; color: #5f6c7a; }
+  .iban input { border-radius: 0 5px 5px 0; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="row"><label for="iban" class="req">IBAN</label><div class="iban"><span>AE</span><input id="iban" name="iban" placeholder="21 digits"></div></div>
+    <div class="row"><label for="bank" class="req">Bank name</label>
+      <select id="bank" name="bankName"><option value="">Please select</option><option>Abu Dhabi Commercial Bank</option><option>Ajman Bank</option>
+        <option>Emirates NBD</option><option>First Abu Dhabi Bank</option><option>Mashreq</option></select></div>
+    <div class="row"><label for="swift" class="req">SWIFT code</label><input id="swift" name="swift"></div>
+    <div class="row"><label for="owner" class="req">Account owner name</label><input id="owner" name="accountOwner"></div>
+    <div class="row"><label for="branch">Branch</label><input id="branch" name="branch"></div>
+  </div>
+</body>
+</html>

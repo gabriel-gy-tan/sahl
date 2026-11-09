@@ -21,8 +21,18 @@
     if (!id) keys.set(el, (id = `e${++seq}`));
     return id;
   };
-  const rect = (el) => {
+  // what the person sees for a box: a menu that a widget (Select2, Chosen…) hid at 1px is seen as the widget beside it
+  const face = (el) => {
     const r = el.getBoundingClientRect();
+    if (el.tagName !== "SELECT" || (r.width > 4 && r.height > 4)) return el;
+    for (let x = el.nextElementSibling; x; x = x.nextElementSibling) {
+      const b = x.getBoundingClientRect();
+      if (b.width > 10 && b.height > 10) return x;
+    }
+    return el;
+  };
+  const rect = (el) => {
+    const r = face(el).getBoundingClientRect();
     return [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)];
   };
   const shown = (el) => {
@@ -295,7 +305,7 @@
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(place);
   };
-  const render = (fields) => {
+  const render = (fields, total, first = 0) => {
     clear();
     if (!fields.length) return;
     host = document.createElement("div");
@@ -315,18 +325,23 @@
       .tip span{opacity:.72}
       .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2a1a06;color:#ffe2b8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.28);white-space:nowrap}
       .summary i{width:6px;height:6px;border-radius:50%;background:#f0a640;box-shadow:0 0 0 3px rgba(240,166,64,.12)}
-      @media (prefers-reduced-motion: reduce){.ring{transition:none}}
+      .ring.done{border-color:rgba(43,184,163,.85);box-shadow:0 0 0 3px rgba(43,184,163,.16)}
+      .ring.done .dot{right:-8px;top:-8px;width:16px;height:16px;background:#2bb8a3;box-shadow:0 2px 8px rgba(0,0,0,.3);animation:sahl-pop .32s cubic-bezier(.3,1.4,.5,1)}
+      .ring.done .dot::after{content:"";position:absolute;left:5.5px;top:3px;width:3.5px;height:7px;border:solid #00110e;border-width:0 2px 2px 0;transform:rotate(45deg)}
+      @keyframes sahl-pop{from{transform:scale(.4);opacity:0}}
+      @media (prefers-reduced-motion: reduce){.ring,.ring .dot{transition:none;animation:none}}
     `;
     root = document.createElement("div");
     shadow.append(style, root);
-    const asked = fields.filter((f) => f.unknown && !f.told).length;
-    if (asked) {
+    // one summary for the tab, on the page itself, counting the boxes in its frames too
+    const asked = typeof total === "number" ? total : fields.filter((f) => f.unknown && !f.told).length;
+    if (asked && window === window.top) {
       const summary = document.createElement("div");
       summary.className = "summary";
       summary.append(document.createElement("i"), asked === 1 ? say("one", "1 new box · open Sahl") : say("many", "{n} new boxes · open Sahl", asked));
       root.append(summary);
     }
-    let askNo = 0;
+    let askNo = first;
     for (const f of fields) {
       const target = targets.get(f.element_id);
       if (!target) continue;
@@ -339,7 +354,7 @@
         els = [target.box || target.options[0]?.el];
         hits = target.options.map((o) => o.el);
       } else {
-        els = hits = [target.el];
+        els = hits = [face(target.el)];
       }
       const live = els.filter((e) => e?.isConnected);
       const liveHits = hits.filter((e) => e?.isConnected);
@@ -351,7 +366,7 @@
       if (ask) mark.textContent = String(askNo);
       node.append(mark);
       root.append(node);
-      const ring = { els: live, node, label: f.label, ask, n: askNo };
+      const ring = { id: f.element_id, els: live, node, label: f.label, ask, n: askNo };
       rings.push(ring);
       for (const el of live) byEl.set(el, ring);
       for (const el of liveHits) {
@@ -479,9 +494,18 @@
     return false;
   };
   const shown2 = (o) => { const r = o.getBoundingClientRect(); return r.width >= 1 && r.height >= 1 && !o.classList.contains("select2-results__message"); };
+  // a filled box's ring turns teal with a tick, one box after another, so the person sees each one go in
+  const done = (id, ok) => rings.find((r) => r.id === id)?.node.classList.toggle("done", ok);
   const fill = async (values, replace) => {
-    const results = values.map((v) => fillOne(v, replace));
-    await new Promise((done) => setTimeout(done, 60));
+    const pace = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 90;
+    const results = [];
+    for (const v of values) {
+      const r = fillOne(v, replace);
+      results.push(r);
+      if (r.ok && !r.skipped) done(v.element_id, true);
+      if (pace) await new Promise((next) => setTimeout(next, pace));
+    }
+    await new Promise((next) => setTimeout(next, 60));
     for (let i = 0; i < results.length; i++) {
       const result = results[i];
       const value = values[i];
@@ -493,14 +517,16 @@
         if (await pickEntry(target.el, want)) continue;
         result.ok = false;
         result.reason = "no matching option";
+        done(value.element_id, false);
         continue;
       }
       if (String(target.el.value ?? "") === want) continue;
       typeText(target.el, want);
-      await new Promise((done) => setTimeout(done, 30));
+      await new Promise((next) => setTimeout(next, 30));
       if (String(target.el.value ?? "") !== want) {
         result.ok = false;
         result.reason = "the page did not keep the value";
+        done(value.element_id, false);
       }
     }
     return results;
@@ -529,7 +555,7 @@
     const mine = (name) => type === `sahl:v${version}:${name}`;
     if (mine("scan")) { words = msg.strings || words; showReading(); reply(scan()); return true; }
     if (mine("read-end")) { if (reading) clear(); reply({ ok: true }); return true; }
-    if (mine("render")) { words = msg.strings || words; reply(render(msg.fields || [])); return true; }
+    if (mine("render")) { words = msg.strings || words; reply(render(msg.fields || [], msg.asked, Number(msg.first) || 0)); return true; }
     if (mine("fill")) {
       fill(msg.values || [], Boolean(msg.replace)).then(reply, () => reply([]));
       return true;

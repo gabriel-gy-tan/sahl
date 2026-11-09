@@ -146,14 +146,17 @@ async function scan(tabId, person, strings) {
   }
   const fields = plan.fields || [];
   const asked = fields.filter((f) => f.unknown && !f.told).length;
+  let first = 0; // the page's boxes are numbered first, then each frame's, as the popup lists them
   for (const { frameId } of pages) {
+    const mine = fields.filter((f) => frameOf(f.element_id) === frameId);
     try {
       await chrome.tabs.sendMessage(tabId, {
-        type: `sahl:v${VERSION}:render`, fields: bare(fields.filter((f) => frameOf(f.element_id) === frameId)), asked, strings,
+        type: `sahl:v${VERSION}:render`, fields: bare(mine), asked, first, strings,
       }, { frameId });
     } catch {
       if (frameId === 0) await endReading(tabId);
     }
+    first += mine.filter((f) => f.unknown && !f.told).length;
   }
   return plan;
 }
