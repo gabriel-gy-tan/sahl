@@ -10,12 +10,9 @@
   <!-- text is filled from i18n.json in the panel's language (data-t keys); the English here shows only if that fails -->
   <header>
     <span class="mark" aria-hidden><img src="palm.png" alt=""></span>
-    <div>
-      <h1>Sahl</h1>
-      <p id="status" role="status" data-t="checking">Looking for Sahl…</p>
-    </div>
+    <h1>Sahl</h1>
+    <p id="status" role="status" data-t="checking">Looking for Sahl…</p>
   </header>
-
   <div class="scanline" aria-hidden></div>
 
   <main>
@@ -39,12 +36,6 @@
       </label>
       <ul id="fields" data-t-label="fields_label" aria-label="Boxes I found on this page"></ul>
       <label class="replace"><input id="replace" type="checkbox"> <span data-t="replace">Replace values already in the boxes</span></label>
-      <div class="actions">
-        <button id="clear" class="ghost" type="button" data-t="hide_marks">Hide marks</button>
-        <button id="rescan" class="ghost" type="button" data-t="read_again">Read again</button>
-        <button id="fill" class="primary" type="button" data-t="fill">Fill selected</button>
-      </div>
-      <p id="note" class="fine" role="status"></p>
     </section>
 
     <section id="none" hidden>
@@ -53,7 +44,18 @@
     </section>
   </main>
 
-  <footer data-t="footer">I never log in, pay, submit or tick a box for you.</footer>
+  <!-- the dock stays at the bottom while the list scrolls, so the note and the fill button are never cut off -->
+  <footer>
+    <div id="dock" class="dock" hidden>
+      <p id="note" class="note" role="status"></p>
+      <div class="actions">
+        <button id="clear" class="quiet" type="button" data-t="hide_marks">Hide marks</button>
+        <button id="rescan" class="quiet" type="button" data-t="read_again">Read again</button>
+        <button id="fill" class="primary" type="button"><span data-t="fill">Fill selected</span><span id="count" class="count"></span></button>
+      </div>
+    </div>
+    <p class="promise" data-t="footer">I never log in, pay, submit or tick a box for you.</p>
+  </footer>
   <script src="popup.js"></script>
 </body>
 </html>
