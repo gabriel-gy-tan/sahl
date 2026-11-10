@@ -76,12 +76,25 @@ def _guide_for(page: dict, guides: dict) -> tuple[dict | None, float]:
         return guides[ranked[0][1]], ranked[0][0]
     if not ranked or ranked[0][0] < 0.3:
         return None, 0.0  # nothing on the page resembles a guide: use the generic fields, don't wake the model
-    picked = intent.pick(text, guides, timeout=8)
-    picked_id = picked.get("guide") if isinstance(picked, dict) else None
+    # in between: the closest guide now, and the local model's pick in the background for the next read of this page,
+    # so a read never waits for the model to load (it took up to 8 s)
+    where = str(page.get("url", "")).split("?")[0].split("#")[0]
+    picked_id = _picked.get(where)
+    if where not in _picked:
+        _picked[where] = None
+        taught._spawn(_pick_later, where, text, guides)
     if picked_id in guides:
         score = dict((i, s) for s, i in ranked).get(picked_id, 0.0)
         return guides[picked_id], score
     return guides[ranked[0][1]], ranked[0][0]
+
+
+_picked: dict[str, str | None] = {}  # page address -> the guide the local model picked for it (None while it thinks)
+
+
+def _pick_later(where: str, text: str, guides: dict):
+    picked = intent.pick(text, guides, timeout=60)
+    _picked[where] = picked.get("guide") if isinstance(picked, dict) else None
 
 
 def _needs(key) -> str | None:

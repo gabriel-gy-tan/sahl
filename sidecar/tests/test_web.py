@@ -364,3 +364,17 @@ def test_the_browsers_own_hint_decides_when_the_label_is_odd():
     scan = web.plan({"url": "https://example.test", "guide": "any-form",
                      "fields": [field("x", "Who are you?", autocomplete="family-name")]}, {"any-form": ANY}, "p1")
     assert [f["field_id"] for f in scan["fields"]] == ["surname"]
+
+
+def test_a_page_like_a_guide_is_answered_now_and_the_model_picks_for_next_time(monkeypatch):
+    other = {**GUIDE, "id": "other-form", "service": {"en": "Other form"}}
+    calls = []
+    monkeypatch.setattr(web.intent, "rank", lambda text, guides: [(0.5, "demo-form"), (0.45, "other-form")])
+    monkeypatch.setattr(web.intent, "pick", lambda text, guides, timeout=20: calls.append(1) or {"guide": "other-form"})
+    monkeypatch.setattr(web.taught, "_spawn", lambda fn, *a: fn(*a))  # the background pick, here at once
+    web._picked.clear()
+    page = {"url": "https://example.test/form?session=1", "title": "Demo", "fields": [field("f1", "Full name")]}
+    assert web.plan(page, {"demo-form": GUIDE, "other-form": other})["guide"]["id"] == "demo-form"  # the closest, at once
+    assert calls == [1]  # asked once, in the background (tests run it at once)
+    assert web.plan(page, {"demo-form": GUIDE, "other-form": other})["guide"]["id"] == "other-form"  # then the model's pick
+    assert calls == [1]

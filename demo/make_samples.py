@@ -68,6 +68,33 @@ def emirates_id(file="emirates_id.png", number="784-1985-0000001-0", name="MOHAM
     img.save(OUT / file)
 
 
+def emirates_id_card(file="emirates_id_card.png", number="784198500000010", doc="104582367", name="MOHAMMED RAFEEQ KUNNUMMAL",
+                     surname="KUNNUMMAL", given="MOHAMMED RAFEEQ", dob="850314", sex="M", exp="290618", born="14/03/1985"):
+    """Both sides of an Emirates ID on one page, as people scan them: the back's machine-readable lines (TD1) let Sahl
+    confirm the number, date of birth and nationality by their check digits, with no AI. Used by demo/pitch.sh."""
+    l1 = "IDARE" + doc + check(doc) + number
+    l1 += "<" * (30 - len(l1))
+    opt = "<" * 11
+    l2 = dob + check(dob) + sex + exp + check(exp) + "IND" + opt
+    l2 += check(l1[5:30] + l2[0:7] + l2[8:15] + l2[18:29])
+    l3 = (surname + "<<" + given.replace(" ", "<"))[:30]
+    l3 += "<" * (30 - len(l3))
+    img = Image.new("RGB", (1400, 1240), "#e8f0ee")
+    d = ImageDraw.Draw(img)
+    d.text((60, 40), "RESIDENT IDENTITY CARD", fill="#333", font=font(40))
+    d.text((60, 95), "SAMPLE · INVENTED · NOT A REAL DOCUMENT", fill="#b33", font=font(28))
+    d.rectangle((60, 170, 400, 600), fill="#cfdcd8")
+    shown = f"{number[:3]}-{number[3:7]}-{number[7:14]}-{number[14]}"
+    for i, (k, v) in enumerate([("ID Number", shown), ("Name", name), ("Nationality", "INDIAN"), ("Date of Birth", born)]):
+        d.text((450, 180 + i * 110), k, fill="#666", font=font(24))
+        d.text((450, 210 + i * 110), v, fill="#111", font=font(40 if i == 0 else 34))
+    d.line((40, 700, 1360, 700), fill="#9fb3ad", width=3)  # the back of the card
+    d.text((60, 740), "BACK", fill="#666", font=font(24))
+    for i, line in enumerate((l1, l2, l3)):
+        d.text((60, 900 + i * 80), line, fill="#111", font=font(52, mono=True))
+    img.save(OUT / file)
+
+
 def visa_form(file="visa_form.png"):
     """A US-style visa application page: surname first, comma, given names."""
     img = Image.new("RGB", (1400, 900), "#ffffff")
@@ -92,4 +119,5 @@ if __name__ == "__main__":
     # his father: the father's name also appears inside the son's Emirates ID name
     passport("passport_3.png", "KUNNUMMAL", "ABDULLA", "Y1112223<", "550210", "10 FEB 1955", "M", "300606", "06 JUN 2030")
     visa_form()
+    emirates_id_card()
     print("wrote", *sorted(p.name for p in OUT.iterdir()))

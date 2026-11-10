@@ -110,6 +110,16 @@ def test_passport_needs_no_ai_but_an_id_front_does(monkeypatch):
     assert calls and front["eid.number"][1] is False and "eid.name" not in front  # nothing backs it without the AI
 
 
+def test_the_demo_id_card_is_confirmed_by_its_back_with_no_ai(monkeypatch):
+    # demo/pitch.sh relies on this: both sides of the card on one page, the back's TD1 lines checked by their digits
+    from sahl import ai
+    monkeypatch.setattr(ai, "read_page", lambda g: pytest.fail("no AI call for a card with its back"))
+    doc, got, _ = vault.read_document(ROOT / "demo/samples/emirates_id_card.png")
+    assert doc == "eid"
+    assert got["eid.number"][:2] == ("784-1985-0000001-0", True) and got["eid.dob"][:2] == ("14/03/1985", True)
+    assert got["eid.name"][:2] == ("MOHAMMED RAFEEQ KUNNUMMAL", True) and got["eid.nationality"][1]
+
+
 def test_split_name_boxes_are_found():
     # DS-160 style: separate Surnames / Given Names boxes, and a native-alphabet name that isn't ours to fill
     import json

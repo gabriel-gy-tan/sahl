@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refund of guarantee · Sample services portal</title>
+<!-- An invented portal for showing Sahl. Nothing here is a real service; nothing is sent or submitted.
+     Serve it over http so the browser extension can read it: cd demo && python3 -m http.server 8000,
+     then open http://localhost:8000/refund-portal.html -->
+<style>
+  :root { color-scheme: light; --ink: #1d2733; --quiet: #5f6c7a; --line: #d6dce3; --brand: #22405e; --req: #c0392b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eef1f5; color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; align-items: center; gap: 14px; padding: 14px 32px; background: var(--brand); color: #fff; }
+  header b { font-size: 17px; }
+  header span { opacity: .7; font-size: 13px; }
+  .crumbs { max-width: 920px; margin: 18px auto 0; color: var(--quiet); font-size: 13px; padding: 0 4px; }
+  main { max-width: 920px; margin: 10px auto 60px; }
+  h1 { margin: 0 0 14px; font-size: 24px; padding: 0 4px; }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
+  section > h2 { margin: 0; padding: 11px 18px; font-size: 15px; background: #f5f7fa; border-bottom: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; padding: 14px 18px 18px; }
+  .row { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 10px; min-height: 46px; }
+  .row.wide { grid-column: 1 / -1; grid-template-columns: 170px 1fr; }
+  label, .label { font-size: 14px; color: var(--quiet); }
+  .req::after { content: " *"; color: var(--req); }
+  input, select, textarea { width: 100%; padding: 9px 10px; border: 1px solid #b9c3ce; border-radius: 5px; background: #fff; font: inherit; color: inherit; }
+  input:focus, select:focus { outline: 2px solid #8fb4dc; outline-offset: 0; border-color: #6c98c6; }
+  .date { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 6px; }
+  .radios { display: flex; gap: 18px; }
+  .radios label { display: flex; align-items: center; gap: 6px; color: var(--ink); }
+  .radios input { width: auto; }
+  iframe { display: block; width: 100%; height: 196px; border: 0; }
+  .declare { display: flex; gap: 10px; align-items: flex-start; padding: 14px 18px; color: var(--ink); }
+  .declare input { width: auto; margin-top: 3px; }
+  .actions { display: flex; justify-content: flex-end; gap: 10px; }
+  button.submit { padding: 10px 26px; border: 0; border-radius: 5px; background: var(--brand); color: #fff; font: 600 15px/1 system-ui, sans-serif; cursor: pointer; }
+  .fine { color: var(--quiet); font-size: 12px; padding: 0 4px; }
+
+  /* a searchable dropdown built the way Select2 builds one: the real <select> is hidden, a widget stands in for it */
+  .select2-hidden-accessible { border: 0 !important; clip: rect(0 0 0 0) !important; height: 1px !important; margin: -1px !important;
+    overflow: hidden !important; padding: 0 !important; position: absolute !important; width: 1px !important; }
+  .select2 { position: relative; display: block; }
+  .select2-selection { display: flex; align-items: center; justify-content: space-between; min-height: 40px; padding: 0 10px;
+    border: 1px solid #b9c3ce; border-radius: 5px; background: #fff; cursor: pointer; }
+  .select2-selection .placeholder { color: #8a96a3; }
+  .select2-selection::after { content: ""; width: 7px; height: 7px; border: solid #6a7784; border-width: 0 1.5px 1.5px 0; rotate: 45deg; margin-top: -4px; }
+  .select2-dropdown { position: absolute; z-index: 5; top: calc(100% + 2px); left: 0; right: 0; padding: 6px; border: 1px solid #b9c3ce;
+    border-radius: 5px; background: #fff; box-shadow: 0 8px 24px rgba(20, 40, 60, .15); }
+  .select2-results { list-style: none; margin: 6px 0 0; padding: 0; max-height: 180px; overflow: auto; }
+  .select2-results__option { padding: 7px 9px; border-radius: 4px; cursor: pointer; }
+  .select2-results__option:hover { background: #2f6fb0; color: #fff; }
+</style>
+</head>
+<body>
+<header><b>Sample services portal</b><span>Invented for demonstrations. Not a real government service.</span></header>
+<div class="crumbs">Services / Residency / Refund of guarantee</div>
+<main>
+  <h1>Refund of guarantee</h1>
+
+  <section>
+    <h2>Applicant information</h2>
+    <div class="grid">
+      <div class="row"><label for="nameEn" class="req">Name in English</label><input id="nameEn" name="applicantNameEn"></div>
+      <div class="row"><label for="nameAr" class="req">Name in Arabic</label><input id="nameAr" name="applicantNameAr" dir="rtl"></div>
+      <div class="row">
+        <span class="label req" id="dob-label">Date of birth</span>
+        <div class="date" role="group" aria-labelledby="dob-label">
+          <select name="dobDay" aria-label="Day"><option value="">Day</option></select>
+          <select name="dobMonth" aria-label="Month"><option value="">Month</option></select>
+          <select name="dobYear" aria-label="Year"><option value="">Year</option></select>
+        </div>
+      </div>
+      <div class="row"><label for="nationality" class="req">Nationality</label>
+        <select id="nationality" name="nationality" class="searchable" data-placeholder="Please select">
+          <option value=""></option><option>Egypt</option><option>India</option><option>Jordan</option><option>Pakistan</option>
+          <option>Philippines</option><option>United Arab Emirates</option><option>United Kingdom</option>
+        </select>
+      </div>
+      <div class="row"><span class="label req">Sex</span>
+        <div class="radios" role="radiogroup" aria-label="Sex">
+          <label><input type="radio" name="sex" value="M"> Male</label>
+          <label><input type="radio" name="sex" value="F"> Female</label>
+        </div>
+      </div>
+      <div class="row"><label for="eid" class="req">Emirates ID number</label><input id="eid" name="emiratesIdNo" placeholder="784-XXXX-XXXXXXX-X"></div>
+      <div class="row"><label for="ppno" class="req">Passport number</label><input id="ppno" name="passportNo"></div>
+      <div class="row"><label for="ppexp" class="req">Passport expiry date</label><input id="ppexp" name="passportExpiry" type="date"></div>
+      <div class="row"><label for="mobile" class="req">Mobile number</label><input id="mobile" name="mobile" placeholder="05X XXX XXXX"></div>
+      <div class="row"><label for="req" class="req">Request number</label><input id="req" name="requestNo"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sponsor and family</h2>
+    <div class="grid">
+      <div class="row"><label for="father">Father's name</label><input id="father" name="fatherName"></div>
+      <div class="row"><label for="sponsor">Sponsor name</label><input id="sponsor" name="sponsorName"></div>
+      <div class="row"><label for="relation" class="req">Relationship to sponsor</label>
+        <select id="relation" name="relationship" class="searchable" data-placeholder="Please select">
+          <option value=""></option><option>Self</option><option>Spouse</option><option>Son</option><option>Daughter</option><option>Parent</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Bank information</h2>
+    <!-- the bank's own form, in a frame like many portals embed it -->
+    <iframe src="refund-bank.html" title="Bank information"></iframe>
+  </section>
+
+  <section>
+    <h2>Verification</h2>
+    <div class="grid">
+      <div class="row"><label for="pw" class="req">Account password</label><input id="pw" name="password" type="password" autocomplete="current-password"></div>
+      <div class="row"><label for="otp" class="req">One-time code (SMS)</label><input id="otp" name="otp" inputmode="numeric" autocomplete="one-time-code"></div>
+    </div>
+    <label class="declare"><input type="checkbox" name="declare"> I declare that the information given is correct and complete.</label>
+  </section>
+
+  <div class="actions"><button type="button" class="submit" onclick="alert('This sample page never submits.')">Submit</button></div>
+  <p class="fine">Sahl reads this page, fills what it knows from your documents, asks about the rest, and leaves the password,
+    the one-time code, the declaration and Submit to you.</p>
+</main>
+
+<script>
+  // fill the date menus
+  const day = document.querySelector("[name=dobDay]"), month = document.querySelector("[name=dobMonth]"), year = document.querySelector("[name=dobYear]");
+  for (let d = 1; d <= 31; d++) day.add(new Option(String(d)));
+  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    .forEach((m, i) => month.add(new Option(m, String(i + 1))));
+  for (let y = 2008; y >= 1940; y--) year.add(new Option(String(y)));
+
+  // a Select2-style searchable dropdown: hides the real <select>, shows a widget, and follows the select's change event
+  for (const select of document.querySelectorAll("select.searchable")) {
+    select.classList.add("select2-hidden-accessible");
+    const box = document.createElement("span");
+    box.className = "select2 select2-container";
+    box.innerHTML = '<span class="select2-selection" role="combobox" tabindex="0" aria-haspopup="listbox"></span>';
+    const shown = box.firstChild;
+    const show = () => {
+      const o = select.options[select.selectedIndex];
+      shown.innerHTML = "";
+      const t = document.createElement("span");
+      t.textContent = o && o.value ? o.text : select.dataset.placeholder;
+      if (!(o && o.value)) t.className = "placeholder";
+      shown.append(t);
+    };
+    const close = () => box.querySelector(".select2-dropdown")?.remove();
+    const open = () => {
+      if (box.querySelector(".select2-dropdown")) return close();
+      const drop = document.createElement("span");
+      drop.className = "select2-dropdown";
+      drop.innerHTML = '<input class="select2-search__field" type="search" aria-label="Search"><ul class="select2-results" role="listbox"></ul>';
+      const search = drop.querySelector("input"), list = drop.querySelector("ul");
+      const draw = () => {
+        list.innerHTML = "";
+        for (const o of select.options) {
+          if (!o.value || !o.text.toLowerCase().includes(search.value.toLowerCase())) continue;
+          const li = document.createElement("li");
+          li.className = "select2-results__option";
+          li.setAttribute("role", "option");
+          li.textContent = o.text;
+          li.addEventListener("mouseup", () => { select.value = o.value; select.dispatchEvent(new Event("change", { bubbles: true })); close(); });
+          list.append(li);
+        }
+      };
+      search.addEventListener("input", draw);
+      draw();
+      box.append(drop);
+      search.focus();
+    };
+    shown.addEventListener("click", open);
+    select.addEventListener("change", show);
+    document.addEventListener("click", (e) => { if (!box.contains(e.target)) close(); });
+    select.after(box);
+    show();
+  }
+</script>
+</body>
+</html>
