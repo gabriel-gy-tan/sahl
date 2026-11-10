@@ -33,6 +33,7 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 
 ## Done
 
+- [x] Arabic name quality and popup notes (`fix/arabic-name-and-popup-notes`): the Arabic name prompt has worked examples and strips vowel marks, and falls back to the 8B text model (when downloaded) if the person's own model writes mixed scripts; ready boxes no longer say "needs your passport"; no "not sure about this match" for the common-details guide. Still to do: a passport name read with `<` fillers as letters ("NAMEKNAME") reaches the form and the Arabic prompt
 - [x] ICP entry permit (visa) issuance: the 40 box labels of the signed-in form added to `icp-visa-issue` (`feat/icp-entry-permit-form`). Your passport details fill the name, nationality, date of birth and passport boxes; the mother's name, address and menus are left for you. Not yet tried on the live form
 
 - [x] Security audit fixes (`fix/security-audit-findings`): the extension pairing code works once, lasts 10 minutes and is burned by 5 wrong guesses; the never-ask rule catches joined (mPIN, TOTP), code-box (SMS code, 6-digit code) and Arabic password/PIN/OTP labels; a newline or tab in a value is typed as a space, never Enter or Tab ([#23](https://github.com/gabriel-gy-tan/sahl/pull/23))

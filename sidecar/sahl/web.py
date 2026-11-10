@@ -304,7 +304,16 @@ def _part_values(value: str) -> list[dict]:
 
 _arabic_names: dict[str, str] = {}
 TRANSLATE = """Write this person's name in Arabic letters, the way it is sounded (a transliteration, not a meaning).
-Keep every name part in order, add nothing. Name: {name}"""
+Keep every name part in order, add nothing, and use only Arabic letters. Use the usual Arabic spelling of common names
+(Mohammed and Muhammad are محمد, Ahmed is أحمد, Abdullah is عبد الله, Ali is علي, Fatima is فاطمة, Hussain is حسين, Khan is خان).
+Examples:
+Name: AHMED YOUSUF SALIM -> أحمد يوسف سالم
+Name: FATIMA ALI HASSAN -> فاطمة علي حسن
+Name: JOHN PAUL MILLER -> جون بول ميلر
+Name: PRIYA RAMESH NAIR -> بريا راميش نير
+Name: {name} ->"""
+STRONGER_TEXT = "qwen3-8b"  # tried when the person's own text model writes something that isn't a clean Arabic name
+_MARKS = re.compile("[\u064b-\u0652\u0640]")  # vowel marks and the stretching line: a form wants the plain letters
 
 
 def _arabic(key: str, person) -> dict | None:
@@ -315,17 +324,22 @@ def _arabic(key: str, person) -> dict | None:
         return None
     name = " ".join(re.sub(r"[^A-Za-z' .-]", " ", en["value"]).split())
     if name not in _arabic_names:
-        out = ai.chat({
-            "model": ai.text_model(),
-            "format": {"type": "object", "properties": {"arabic": {"type": "string"}}, "required": ["arabic"]},
-            "options": {"temperature": 0, "num_predict": 120},
-            "messages": [{"role": "user", "content": TRANSLATE.format(name=name)}],
-        }, timeout=60, tries=1)
-        ar = " ".join(str(out.get("arabic", "")).split()) if isinstance(out, dict) else ""
-        # only Arabic letters and spaces, and as many words as the English name
-        if not re.fullmatch(r"[\u0621-\u064a ]+", ar) or len(ar.split()) != len(name.split()):
+        models = [ai.text_model()] + ([STRONGER_TEXT] if STRONGER_TEXT != ai.text_model() and ai.have(STRONGER_TEXT) else [])
+        for model in models:
+            out = ai.chat({
+                "model": model,
+                "format": {"type": "object", "properties": {"arabic": {"type": "string"}}, "required": ["arabic"]},
+                "options": {"temperature": 0, "num_predict": 120},
+                "messages": [{"role": "user", "content": TRANSLATE.format(name=name)}],
+            }, timeout=60, tries=1)
+            ar = _MARKS.sub("", " ".join(str(out.get("arabic", "")).split())) if isinstance(out, dict) else ""
+            # only Arabic letters and spaces, and as many words as the English name (a name like Al Mansoori may be
+            # written as one word or two, so the stronger model gets a chance when the count is off)
+            if re.fullmatch(r"[\u0621-\u064a ]+", ar) and len(ar.split()) == len(name.split()):
+                _arabic_names[name] = ar
+                break
+        else:
             return None
-        _arabic_names[name] = ar
     return {"value": _arabic_names[name], "verified": True, "source": "written from your name in English"}
 
 
