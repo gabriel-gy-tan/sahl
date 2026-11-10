@@ -2,9 +2,9 @@ html, body, #root { margin: 0; height: 100%; background: transparent; overflow: 
 
 .ring {
   position: fixed;
-  border: 3px solid #0f9d8a;
+  border: 3px solid #2bb8a3;
   border-radius: 10px;
-  box-shadow: 0 0 0 6px rgba(15, 157, 138, 0.18), 0 0 24px rgba(15, 157, 138, 0.35);
+  box-shadow: 0 0 0 6px rgba(43, 184, 163, 0.18), 0 0 24px rgba(43, 184, 163, 0.35);
   animation: breathe 1.8s ease-in-out infinite;
   pointer-events: none;
 }
@@ -15,14 +15,17 @@ html, body, #root { margin: 0; height: 100%; background: transparent; overflow: 
   right: -3px;
   padding: 3px 10px;
   border-radius: 999px;
-  background: #0f9d8a;
-  color: #fff;
+  background: #2bb8a3;
+  color: #00110e; /* 7.8:1 on the teal */
   font: 600 12px/18px -apple-system, "Segoe UI", sans-serif;
   white-space: nowrap;
 }
 
+/* a box at the top of the screen has no room above it for the label */
+.ring.below .ring-tag { top: auto; bottom: -30px; }
+
 @keyframes breathe {
-  50% { box-shadow: 0 0 0 10px rgba(15, 157, 138, 0.1), 0 0 32px rgba(15, 157, 138, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(43, 184, 163, 0.1), 0 0 32px rgba(43, 184, 163, 0.45); }
 }
 
 @media (prefers-reduced-motion: reduce) {
