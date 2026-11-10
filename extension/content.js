@@ -9,7 +9,7 @@
   const keys = new WeakMap();
   let byEl = new WeakMap();
   // never read or filled: passwords, PINs, one-time codes, a card's security code (the same rule as the sidecar's taught.NEVER)
-  const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
+  const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*(?:code|answer|question)|card\s*security\s*number|personal\s*identification|pass\W?word|maiden|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
   const skipTypes = new Set(["hidden", "password", "file", "submit", "button", "reset", "image", "range", "color", "time"]);
   let seq = 0;
 
@@ -91,7 +91,8 @@
     if (skipTypes.has(type) || el.tagName === "BUTTON" || el.readOnly || el.disabled) return true;
     if (el.tagName === "SELECT" && el.multiple) return true;
     const bit = [el.getAttribute("autocomplete"), el.getAttribute("name"), el.id, el.getAttribute("placeholder"), ...(labels || [])].join(" ");
-    return never.test(bit);
+    // as taught.allowed reads it: compatibility forms folded, zero-width characters dropped, "userPin" split
+    return never.test(bit.normalize("NFKC").replace(/\p{Cf}/gu, "").replace(/([a-z])([A-Z])/g, "$1 $2"));
   };
   // what a menu says when it has no real name ("Select box", "Please select"): the label beside it is the better name
   const generic = /^(?:please\s+)?(?:select|choose)(?:\s+(?:box|one|an? option|option))?\.{0,3}$|^(?:select|dropdown|combobox|search|--.*--)$/i;
@@ -241,7 +242,7 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
-    style.textContent = `.pill{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border-radius:999px;background:#06221d;color:#d6fbf4;font:600 12px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.35)}.dot{width:13px;height:13px;border-radius:50%;border:2px solid rgba(43,184,163,.25);border-top-color:#2bb8a3;animation:sahl-spin .7s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion: reduce){.dot{animation:none}}`;
+    style.textContent = `*{pointer-events:none}.pill{position:fixed;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px 8px 10px;border-radius:999px;background:rgba(10,10,11,.92);color:#ededef;font:500 12px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.005em;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 30px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);animation:sahl-in .2s cubic-bezier(.2,.8,.2,1)}.dot{width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(43,184,163,.22);border-top-color:#2bb8a3;animation:sahl-spin .8s linear infinite}@keyframes sahl-spin{to{transform:rotate(360deg)}}@keyframes sahl-in{from{opacity:0;transform:translate(-50%,-4px)}}@media (prefers-reduced-motion: reduce){.pill,.dot{animation:none}}`;
     root = document.createElement("div");
     const pill = document.createElement("div");
     pill.className = "pill";
@@ -313,21 +314,23 @@
     host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
     shadow = host.attachShadow({ mode: "closed" });
     const style = document.createElement("style");
+    // quiet until the pointer or focus reaches a box; never takes a click (the host and everything in it ignore the pointer)
+    // the filled tick is Phosphor's "check" icon (bold weight, MIT licence)
     style.textContent = `
-      .ring{position:absolute;box-sizing:border-box;border:1px solid transparent;border-radius:9px;background:none;pointer-events:none;transition:border-color .16s ease,box-shadow .16s ease}
-      .ring.ask{border-color:rgba(240,166,64,.32)}
-      .ring.active{border-color:rgba(43,184,163,.7);box-shadow:0 0 0 2px rgba(43,184,163,.12)}
-      .ring.ask.active{border-color:rgba(240,166,64,.78);box-shadow:0 0 0 2px rgba(240,166,64,.13)}
-      .ring .dot{position:absolute;right:-4px;top:-4px;width:7px;height:7px;border-radius:50%;background:#2bb8a3;box-shadow:0 0 0 2px rgba(43,184,163,.18)}
-      .ring .num{position:absolute;right:-9px;top:-9px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#f0a640;color:#241402;font:700 10px/1 system-ui,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.35)}
-      .tip{position:absolute;z-index:2;max-width:260px;padding:6px 9px;border-radius:8px;background:#06221d;color:#d6fbf4;font:600 11.5px/1.3 system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(43,184,163,.25);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
-      .tip.ask{background:#2a1a06;color:#ffe2b8;box-shadow:0 8px 26px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.3)}
-      .tip span{opacity:.72}
-      .summary{position:fixed;z-index:1;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#2a1a06;color:#ffe2b8;font:600 11.5px/1.2 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 1px rgba(240,166,64,.28);white-space:nowrap}
-      .summary i{width:6px;height:6px;border-radius:50%;background:#f0a640;box-shadow:0 0 0 3px rgba(240,166,64,.12)}
-      .ring.done{border-color:rgba(43,184,163,.85);box-shadow:0 0 0 3px rgba(43,184,163,.16)}
-      .ring.done .dot{right:-8px;top:-8px;width:16px;height:16px;background:#2bb8a3;box-shadow:0 2px 8px rgba(0,0,0,.3);animation:sahl-pop .32s cubic-bezier(.3,1.4,.5,1)}
-      .ring.done .dot::after{content:"";position:absolute;left:5.5px;top:3px;width:3.5px;height:7px;border:solid #00110e;border-width:0 2px 2px 0;transform:rotate(45deg)}
+      *{pointer-events:none}
+      .ring{position:absolute;box-sizing:border-box;border:1px solid transparent;border-radius:8px;transition:border-color .18s ease,box-shadow .18s ease}
+      .ring.ask{border:1px dashed rgba(240,166,64,.55)}
+      .ring.active{border-color:rgba(43,184,163,.8);box-shadow:0 0 0 3px rgba(43,184,163,.14)}
+      .ring.ask.active{border-style:solid;border-color:rgba(240,166,64,.85);box-shadow:0 0 0 3px rgba(240,166,64,.14)}
+      .ring .dot{position:absolute;right:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:#2bb8a3;box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
+      .ring .num{position:absolute;right:-8px;top:-8px;min-width:16px;height:16px;padding:0 4px;box-sizing:border-box;border-radius:999px;display:grid;place-items:center;background:#f0a640;color:#241402;font:650 10px/1 system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums;box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 1px 4px rgba(0,0,0,.25)}
+      .tip{position:absolute;z-index:2;max-width:260px;padding:6px 10px;border-radius:8px;background:rgba(10,10,11,.94);color:#ededef;font:500 11.5px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 8px 24px rgba(0,0,0,.3);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .tip b{font-weight:600}
+      .tip span{color:#f0a640}
+      .summary{position:fixed;z-index:1;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px 8px 12px;border-radius:999px;background:rgba(10,10,11,.92);color:#ededef;font:500 12px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 30px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);white-space:nowrap}
+      .summary i{width:6px;height:6px;border-radius:50%;background:#f0a640;box-shadow:0 0 0 3px rgba(240,166,64,.18)}
+      .ring.done{border:1px solid rgba(43,184,163,.75);box-shadow:none}
+      .ring.done .dot{right:-7px;top:-7px;width:14px;height:14px;background:#2bb8a3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256' fill='%2303120f'%3E%3Cpath d='M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z'/%3E%3C/svg%3E") center/9px no-repeat;box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 1px 4px rgba(0,0,0,.25);animation:sahl-pop .3s cubic-bezier(.3,1.4,.5,1)}
       @keyframes sahl-pop{from{transform:scale(.4);opacity:0}}
       @media (prefers-reduced-motion: reduce){.ring,.ring .dot{transition:none;animation:none}}
     `;
@@ -427,9 +430,25 @@
       return n && wants.some((w) => n.includes(w) || w.includes(n));
     });
   };
+  // checked again at fill time, because a page can hide, cover or relabel a box after it was read: a value only goes
+  // into a box the person can see (on screen once scrolled to, at least 8px, not faded out, not under another element)
+  // whose label still isn't one Sahl never fills
+  const reachable = (el) => {
+    if (!el?.isConnected || secret(el, labelled(el))) return false;
+    const seen = face(el);
+    seen.scrollIntoView({ block: "nearest", inline: "nearest" });
+    const r = seen.getBoundingClientRect();
+    if (r.width < 8 || r.height < 8) return false;
+    for (let x = seen; x; x = x.parentElement) if (Number(getComputedStyle(x).opacity) < 0.5) return false;
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    if (!hit) return false;
+    return hit === seen || seen.contains(hit) || hit === el || [...(el.labels || [])].some((l) => l === hit || l.contains(hit));
+  };
+  const boxesOf = (t) => t.kind === "date-parts" ? t.parts.map((p) => p.el) : t.kind === "radio" ? t.options.map((o) => o.el) : [t.el];
   const fillOne = (v, replace) => {
     const t = targets.get(v.element_id);
     if (!t) return { element_id: v.element_id, ok: false, reason: "field is no longer on the page" };
+    if (!boxesOf(t).every(reachable)) return { element_id: v.element_id, ok: false, reason: "the box is hidden or covered" };
     if (t.kind === "date-parts") {
       if (!replace && t.parts.some((p) => !empty(p.el))) return { element_id: v.element_id, ok: true, skipped: "already has a value" };
       let ok = true;

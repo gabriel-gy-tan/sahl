@@ -25,7 +25,8 @@ async function probe(port, token) {
     const r = await fetch(`http://127.0.0.1:${port}/health?nonce=${nonce}`, { signal: AbortSignal.timeout(PROBE_MS) });
     const data = await r.json();
     if (!r.ok || data?.app !== "Sahl") return null;
-    const verified = Boolean(token) && typeof data.proof === "string" && data.proof === (await proofOf(token, nonce));
+    // the proof covers the port we asked, so a program on another port can't relay Sahl's answer as its own
+    const verified = Boolean(token) && typeof data.proof === "string" && data.proof === (await proofOf(token, `${nonce}:${port}`));
     return { port, base: `http://127.0.0.1:${port}`, data, verified };
   } catch {
     return null;
@@ -198,21 +199,15 @@ async function health() {
   return { ...hit.data, verified: hit.verified };
 }
 
+// the code's last digit names the port of the Sahl that showed it; the code goes there and nowhere else
 async function pair(code) {
-  const found = await servers("");
-  if (!found.length) throw closed();
-  let last;
-  for (const { base } of found) {  // each Sahl in turn: the code belongs to one of them
-    try {
-      const out = await request(base, "/pair", { code: String(code || "").trim(), name: "Sahl browser" });
-      await chrome.storage.local.set({ token: out.token });
-      return { ok: true };
-    } catch (e) {
-      last = e;
-      if (e.code !== "pair") throw e;
-    }
-  }
-  throw last;
+  code = String(code || "").trim();
+  if (!/^\d{6}$/.test(code)) throw new BridgeError("A pairing code is 6 digits.", "pair");
+  const hit = await probe(PORTS[0] + Number(code.slice(-1)), "");
+  if (!hit) throw closed();
+  const out = await request(hit.base, "/pair", { code, name: "Sahl browser" });
+  await chrome.storage.local.set({ token: out.token });
+  return { ok: true };
 }
 
 async function clear(tabId) {

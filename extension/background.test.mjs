@@ -13,7 +13,7 @@ function load(servers, token) {
     if (!s) throw new Error("refused");
     const nonce = u.searchParams.get("nonce");
     const body = { app: s.app ?? "Sahl", port: Number(u.port), lang: "en" };
-    if (nonce && s.token) body.proof = createHmac("sha256", s.token).update(nonce).digest("hex");
+    if (nonce && s.token) body.proof = createHmac("sha256", s.token).update(`${nonce}:${s.as ?? u.port}`).digest("hex");
     return { ok: true, json: async () => body };
   };
   const ctx = {
@@ -52,4 +52,11 @@ test("element ids are qualified per frame and unqualified for the page", async (
   assert.equal(c.bare(f)[0].element_id, "e1");
   assert.equal(c.frameOf("3:e1"), 3);
   assert.equal(c.frameOf("e1"), 0);
+});
+
+test("a proof relayed from another port is not trusted", async () => {
+  // a program on 8765 passes on the answer of the real Sahl on 8766: the proof names 8766, so 8765 isn't verified
+  const c = load({ 8765: { token: TOKEN, as: 8766 } }, TOKEN);
+  const h = await c.health();
+  assert.equal(h.verified, false);
 });

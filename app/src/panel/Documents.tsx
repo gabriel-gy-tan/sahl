@@ -50,8 +50,8 @@ function Value({ label, value, status, note, onSave, onUndo, t }: {
       {draft === null ? (
         <div className="value">
           <code dir="ltr">{value}</code>
-          <button className="ghost icon-text" onClick={() => setDraft(value)} aria-label={`${t("edit")} ${label}`}>
-            <Icon name="pencil" />{t("edit")}
+          <button className="icon-button" onClick={() => setDraft(value)} aria-label={`${t("edit")} ${label}`} title={t("edit")}>
+            <Icon name="pencil" />
           </button>
         </div>
       ) : (
@@ -185,7 +185,7 @@ export default function Documents({ t, view, setView, busy, library, onAdd, onCh
                   {d.fields.length
                     ? <span className={n ? "status check" : "status checked"}>{n ? t("docs_check", { n }) : t("docs_all_checked")}</span>
                     : <span className="status none">{t("docs_nothing")}</span>}
-                  <span className="chevron" aria-hidden />
+                  <Icon name="next" />
                 </button>
               );
             })}
@@ -196,7 +196,7 @@ export default function Documents({ t, view, setView, busy, library, onAdd, onCh
                   <span>{t("docs_told")}</span>
                 </span>
                 <span className="held">{g.told.length}</span>
-                <span className="chevron" aria-hidden />
+                <Icon name="next" />
               </button>
             )}
           </div>

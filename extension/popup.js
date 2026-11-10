@@ -23,7 +23,10 @@ function useLanguage(l) {
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" || lang === "ur" ? "rtl" : "ltr";
   for (const el of document.querySelectorAll("[data-t]")) el.textContent = T(el.dataset.t);
-  for (const el of document.querySelectorAll("[data-t-label]")) el.setAttribute("aria-label", T(el.dataset.tLabel));
+  for (const el of document.querySelectorAll("[data-t-label]")) {
+    el.setAttribute("aria-label", T(el.dataset.tLabel));
+    if (el.hasAttribute("title")) el.title = T(el.dataset.tLabel); // icon buttons show their name on hover
+  }
 }
 // what the page overlay says, in the same language
 const pageStrings = () => ({ reading: T("page_reading"), new: T("page_new"), one: T("page_summary_one"), many: T("page_summary_many") });
@@ -31,12 +34,14 @@ const pageStrings = () => ({ reading: T("page_reading"), new: T("page_new"), one
 // errors from the helper carry a code; each code has words for people (the raw message goes to the console)
 function words(e) {
   console.warn("sahl:", e.message);
-  return { closed: T("err_closed"), tab: T("err_tab"), empty: T("err_empty") }[e.code] || T("err_generic");
+  return { closed: T("err_closed"), tab: T("err_tab"), empty: T("err_empty"), changed: T("err_changed"), reload: T("err_reload") }[e.code]
+    || T("err_generic");
 }
 const docName = (d) => T(`doc_${d}`);
 
 function show(which) {
   for (const id of ["pair", "work", "none"]) $(id).hidden = id !== which;
+  $("none").classList.remove("checking");
   $("dock").hidden = which !== "work";
 }
 
@@ -55,6 +60,16 @@ function node(tag, cls, text) {
   if (cls) n.className = cls;
   if (text !== undefined) n.textContent = text;
   return n;
+}
+// an icon from the sprite in popup.html
+function icon(name) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "i");
+  svg.setAttribute("aria-hidden", "true");
+  const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+  use.setAttribute("href", `#i-${name}`);
+  svg.append(use);
+  return svg;
 }
 // text from the page or a guide, in whatever script: isolated, so it sits at the popup's start and keeps its own punctuation
 function iso(tag, cls, text) {
@@ -80,17 +95,23 @@ async function currentTab() {
   tabId = tab.id;
 }
 
+// with more than one person, nobody is picked for them: the person chooses, and nothing fills until they do
 function choosePerson(people) {
   const select = $("person");
-  select.replaceChildren(...people.map((p) => new Option(p.name, p.id)));
-  const chosen = plan?.person && people.some((p) => p.id === plan.person) ? plan.person : people[0]?.id || "";
+  const known = plan?.person && people.some((p) => p.id === plan.person);
+  select.replaceChildren(...(known || people.length < 2 ? [] : [new Option(T("choose_first"), "")]),
+    ...people.map((p) => new Option(p.name, p.id)));
+  const chosen = known ? plan.person : people.length === 1 ? people[0].id : "";
   select.value = chosen;
   $("person-row").hidden = people.length < 2;
   return chosen;
 }
 
 const asking = (f) => f.unknown && !f.told;
-const fillable = () => (plan?.fields || []).some((f) => !asking(f));
+// a box Sahl knows but has no value for yet (no document for it, or the AI model isn't there to write it)
+const waiting = (f) => !asking(f) && f.has_value === false;
+const fillable = () => Boolean(!$("person-row").hidden ? $("person").value : true)
+  && (plan?.fields || []).some((f) => !asking(f) && !waiting(f));
 
 // "No, it's different" is remembered, so the same guess isn't offered every time the popup opens
 let declined = new Set();
@@ -157,12 +178,15 @@ function listFields(fields) {
   const list = $("fields");
   list.replaceChildren();
   if (!fields.length) {
-    list.append(node("li", "empty", T("no_fields")));
+    const empty = node("li", "empty");
+    empty.append(icon("magnifying-glass"), node("span", "", T("no_fields")));
+    list.append(empty);
     count();
     return;
   }
   // two groups: what I can fill (the main action, first), then the boxes I need to be told about, numbered as on the page
   const ready = node("ol");
+  const later = node("ol");
   const ask = node("ol");
   let askNo = 0;
   for (const f of fields) {
@@ -174,12 +198,17 @@ function listFields(fields) {
       mark = node("span", "num", String(++askNo));
       mark.setAttribute("aria-hidden", "true");
     } else {
-      mark = document.createElement("input");
-      mark.type = "checkbox";
-      mark.checked = true;
-      mark.dataset.id = f.element_id;
-      mark.setAttribute("aria-label", T("fill_box", { label: f.label }));
-      mark.addEventListener("change", count);
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      box.checked = !waiting(f);
+      box.disabled = waiting(f);
+      box.dataset.id = f.element_id;
+      box.setAttribute("aria-label", T("fill_box", { label: f.label }));
+      box.addEventListener("change", count);
+      const drawn = node("span");
+      drawn.append(icon("check"));
+      mark = node("span", "check");
+      mark.append(box, drawn);
     }
     const text = node("span");
     text.append(iso("b", "", f.label));
@@ -189,8 +218,11 @@ function listFields(fields) {
     if (f.told) why.push(T("told"));
     if (why.length) text.append(node("small", "", why.join(", ")));
     if (isAsk && f.suggest) text.append(node("small", "ask-help", T("may_know")));
+    if (f.ai) text.append(node("small", "ask-help", T(waiting(f) && !f.needs ? "need_model" : "ai_written")));
     if (isAsk) {
-      const toggle = node("button", "toggle", T("tell"));
+      const toggle = node("button", "toggle");
+      const word = node("span", "", T("tell"));
+      toggle.append(icon("pencil-simple"), word);
       toggle.type = "button";
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", T("tell_about", { label: f.label }));
@@ -205,7 +237,7 @@ function listFields(fields) {
         const open = current.hidden;
         current.hidden = !open;
         toggle.setAttribute("aria-expanded", String(open));
-        toggle.textContent = T(open ? "close" : "tell");
+        word.textContent = T(open ? "close" : "tell");
         toggle.setAttribute("aria-label", T(open ? "close_about" : "tell_about", { label: f.label }));
         if (open) current.querySelector("input, button")?.focus();
       });
@@ -215,10 +247,10 @@ function listFields(fields) {
     } else {
       row.append(mark, text);
       li.append(row);
-      ready.append(li);
+      (waiting(f) ? later : ready).append(li);
     }
   }
-  for (const [ol, key, cls] of [[ready, "ready", ""], [ask, "new_fields", "ask"]]) {
+  for (const [ol, key, cls] of [[ready, "ready", ""], [ask, "new_fields", "ask"], [later, "needs_group", "later"]]) {
     if (!ol.children.length) continue;
     const group = node("li", "group");
     const head = node("div", `section ${cls}`.trim());
@@ -305,6 +337,7 @@ const FAILS = {
   "no matching option": "fail_option",
   "the page does not allow typing here": "fail_locked",
   "the page did not keep the value": "fail_kept",
+  "the box is hidden or covered": "fail_hidden",
 };
 const labelOf = (id) => plan?.fields?.find((f) => f.element_id === id)?.label;
 
@@ -355,6 +388,7 @@ async function boot() {
   await Promise.all([loadStrings(), loadDeclined()]);
   useLanguage(navigator.language.slice(0, 2)); // until Sahl says which
   show("none");
+  $("none").classList.add("checking");
   $("none-text").textContent = T("checking");
   try {
     const h = await send("health");
@@ -396,6 +430,18 @@ $("pair-form").addEventListener("submit", async (e) => {
     if (button) button.disabled = false;
   }
 });
+// the six cells under the one code input: digits only, and the next cell lit while typing
+function drawCode() {
+  const input = $("code");
+  const digits = input.value.replace(/\D/g, "").slice(0, 6);
+  if (input.value !== digits) input.value = digits;
+  const focused = document.activeElement === input;
+  document.querySelectorAll(".cells i").forEach((cell, i) => {
+    cell.textContent = digits[i] || "";
+    cell.classList.toggle("on", focused && i === Math.min(digits.length, 5));
+  });
+}
+for (const type of ["input", "focus", "blur"]) $("code").addEventListener(type, drawCode);
 $("rescan").addEventListener("click", () => void scanPage());
 $("retry").addEventListener("click", () => void boot());
 $("fill").addEventListener("click", () => void fillChosen());
@@ -404,4 +450,5 @@ $("clear").addEventListener("click", async () => {
   note(T("marks_hidden"));
 });
 
+$("person").addEventListener("change", () => void scanPage());
 void boot();

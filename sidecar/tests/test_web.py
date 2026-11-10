@@ -33,8 +33,10 @@ def vault(monkeypatch, tmp_path):
     monkeypatch.setenv("SAHL_LIBRARY", str(tmp_path / "library"))
     taught._asked.clear()
     monkeypatch.setattr(web.vault, "people", lambda: [{"id": "p1", "name": "Demo Person"}])
-    monkeypatch.setattr(web.vault, "get", lambda key, person: {
-        "value": VALUES[key][0], "verified": VALUES[key][1], "source": "passport"} if key in VALUES else None)
+    def get(key, person):  # like vault.get: one key, or the first of several that has a value
+        key = next((k for k in key if k in VALUES), None) if isinstance(key, list) else key
+        return {"value": VALUES[key][0], "verified": VALUES[key][1], "source": "passport"} if key in VALUES else None
+    monkeypatch.setattr(web.vault, "get", get)
 
 
 def page(**extra):
@@ -276,7 +278,7 @@ def test_health_proves_it_holds_the_token_only_when_asked():
     c = TestClient(bridge.create_app(state))
     assert "proof" not in c.get("/health").json()
     proof = c.get("/health", params={"nonce": "00ff"}).json()["proof"]
-    assert proof == hmac.new(b"a" * 64, b"00ff", hashlib.sha256).hexdigest()
+    assert proof == hmac.new(b"a" * 64, f"00ff:{state.port}".encode(), hashlib.sha256).hexdigest()  # bound to the port
     other = TestClient(bridge.create_app(bridge.State(GUIDES, token="b" * 64)))
     assert other.get("/health", params={"nonce": "00ff"}).json()["proof"] != proof  # another Sahl cannot fake it
     assert c.get("/health", params={"nonce": "zz"}).status_code == 422
@@ -378,3 +380,22 @@ def test_a_page_like_a_guide_is_answered_now_and_the_model_picks_for_next_time(m
     assert calls == [1]  # asked once, in the background (tests run it at once)
     assert web.plan(page, {"demo-form": GUIDE, "other-form": other})["guide"]["id"] == "other-form"  # then the model's pick
     assert calls == [1]
+
+
+def test_each_box_says_whether_there_is_a_value_and_whether_the_ai_writes_it(monkeypatch):
+    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "LAYLA HADDAD", "verified": True}
+                        if key in ("passport.name", ["passport.name", "eid.name", "other.name"]) else None)
+    monkeypatch.setattr(web.ai, "have", lambda model: False)
+    scan = web.plan({"url": "https://example.test", "guide": "any-form", "fields": [
+        field("a", "Name in English"), field("b", "Name in Arabic"), field("c", "Passport number")]}, {"any-form": ANY}, "p1")
+    by = {f["element_id"]: f for f in scan["fields"]}
+    assert by["a"]["has_value"] and not by["a"]["ai"]
+    assert by["b"]["ai"] and not by["b"]["has_value"]  # no text model on this computer: nothing to write it with
+    assert not by["c"]["has_value"]  # no passport number in the vault
+    assert "value" not in by["a"]  # whether there is one, never the value itself
+
+
+def test_the_pairing_code_names_the_port_it_was_shown_for():
+    for port in (bridge.PORTS[0], bridge.PORTS[3]):
+        state = bridge.State(GUIDES, token="a" * 64, port=port)
+        assert state.fresh_code()[-1] == str(port - bridge.PORTS[0])

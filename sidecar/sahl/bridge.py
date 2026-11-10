@@ -80,7 +80,9 @@ class State:
         """The code shown in Settings: works once, for CODE_LIFE seconds, and dies after MAX_MISSES wrong guesses."""
         with self.lock:
             if not self.code or time.monotonic() > self.expires:
-                self.code = f"{secrets.randbelow(1_000_000):06d}"
+                # the last digit names this bridge's port (8765 + digit), so the extension sends the code only to the
+                # Sahl that showed it, never to another program answering on a nearby port
+                self.code = f"{secrets.randbelow(100_000):05d}{(self.port - PORTS[0]) % 10}"
                 self.expires = time.monotonic() + CODE_LIFE
                 self.misses = 0
             return self.code
@@ -198,7 +200,8 @@ def create_app(state: State) -> FastAPI:
         paired extension only sends its token and page details to the real one, whichever port it found it on."""
         out = {"app": "Sahl", "port": state.port, "running": state.running, "lang": language()}
         if nonce:
-            out["proof"] = hmac.new(state.token.encode(), nonce.encode(), hashlib.sha256).hexdigest()
+            # bound to this port: a program on another port can't pass Sahl's answer on as its own
+            out["proof"] = hmac.new(state.token.encode(), f"{nonce}:{state.port}".encode(), hashlib.sha256).hexdigest()
         return out
 
     @app.post("/pair")
@@ -207,7 +210,7 @@ def create_app(state: State) -> FastAPI:
 
     @app.post("/page")
     def page(body: Page, token: str = Depends(auth)):
-        scan = web.plan(body.model_dump(), state.guides, body.person)
+        scan = web.plan(body.model_dump(), state.guides, body.person, language())
         state.scans[token] = scan
         return _public(scan)
 
@@ -254,6 +257,9 @@ def _bind(state: State, retry: float) -> socket.socket:
             try:
                 sock.bind(("127.0.0.1", port))
                 state.port = port
+                with state.lock:
+                    state.code = ""  # a code made before the bind named the first port of the range
+                state.fresh_code()
                 return sock
             except OSError as e:
                 sock.close()

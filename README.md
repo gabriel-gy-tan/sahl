@@ -28,6 +28,7 @@ English, العربية, اردو, മലയാളം (first set; more later).
 
 `extension/` is a Manifest V3 Chrome extension that reads the form on a web page, rings the boxes and fills verified values through the app's loopback bridge. It does nothing without the Sahl app running. The bridge takes the first free port from 8765 to 8774 and the extension looks through the same ten; a paired browser only sends its token and the page's details to the Sahl that proves it holds the same token. The page's address is sent without its query or fragment; forms inside frames are read too.
 
+- Privacy: [PRIVACY.md](PRIVACY.md) says what the app and the extension read, keep and send.
 - Try it from a checkout: Chrome → Extensions → Developer mode → Load unpacked → `extension/`, then open Settings → Browser extension in the app for the pairing code.
 - Demo: `sh demo/pitch.sh` runs Sahl on invented documents only (your own vault is untouched) and serves `demo/refund-portal.html`, a sample portal with every case on one page; [demo/PITCH.md](demo/PITCH.md) is the run-sheet.
 - Checks: `node --test extension/`; `python3 extension/package.py` writes the Chrome Web Store zip to `dist/`; `sidecar/.venv/bin/python extension/make_icons.py` redraws the icons from `extension/palm.png`.
