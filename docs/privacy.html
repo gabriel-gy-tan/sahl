@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sahl privacy policy</title>
+<meta name="description" content="How the Sahl desktop app and Chrome extension handle your information: everything stays on your computer.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfaf7;
+    --text: #1c1f1e;
+    --muted: #5b6360;
+    --rule: #e3e0d8;
+    --code: #efece4;
+    --accent: #137a6b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111413;
+      --text: #e6e9e7;
+      --muted: #9aa39f;
+      --rule: #2a302e;
+      --code: #1d2321;
+      --accent: #4fd1bb;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 3rem 1rem 4rem; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .25rem; letter-spacing: -.01em; }
+  .effective { color: var(--muted); margin: 0 0 2rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  p, ul { margin: 0 0 1rem; }
+  ul { padding-left: 1.25rem; }
+  li { margin: .35rem 0; }
+  code {
+    font: .88em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--code);
+    padding: .1em .35em;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+  }
+  a { color: var(--accent); overflow-wrap: anywhere; }
+  .lead { font-size: 1.08rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Sahl privacy policy</h1>
+<p class="effective">Effective: 2026-11-10</p>
+
+<p class="lead">Sahl is a desktop app and a Chrome extension ("Sahl browser companion") that help you fill in forms. Your documents and details stay on your computer. There are no Sahl servers, accounts, analytics or ads.</p>
+
+<h2>What the app keeps</h2>
+<ul>
+  <li>Documents are read on your computer, with local text recognition and local AI. Files you add are copied to <code>~/Documents/Sahl</code>, unless you pick your own folder.</li>
+  <li>What Sahl reads from them (with a small image of where each value came from), your corrections, and details you tell it are stored in a local SQLite file, <code>vault.db</code>, in Sahl's folder: <code>~/Library/Application Support/Sahl</code> on macOS, <code>%APPDATA%\Sahl</code> on Windows. Settings, the pairing token and AI models are kept there too.</li>
+  <li>To read a form on screen, the app takes a screenshot when you ask. It is not saved.</li>
+</ul>
+
+<h2>What the extension reads</h2>
+<p>Only when you open the Sahl popup on a tab, it reads the form on that page and its frames:</p>
+<ul>
+  <li>each box's label, name, placeholder, type, autocomplete hint and position;</li>
+  <li>the choices in menus and radio groups, and which menu choice is selected;</li>
+  <li>the page title, up to ten headings, and the page address without its query string or fragment.</li>
+</ul>
+<p>It does not send what is already typed in the boxes. It never reads or fills password, PIN, one-time code or card security code boxes, nor hidden, file or button elements.</p>
+
+<h2>Where the extension sends it</h2>
+<p>Only to the Sahl app on the same computer, at <code>127.0.0.1</code> on a port from 8765 to 8774. Nothing goes anywhere else.</p>
+<p>You pair the extension once, with a six-digit, one-time code shown in the app's Settings. Before each request the app must prove it holds the same pairing token, by signing a random challenge; only then does the extension send the token and page details. The app keeps page details in memory until the next read and does not save them.</p>
+<p>The app returns values for the boxes you choose, and the extension types them in. A detail you type into the popup for an unknown box is saved in the vault, with the box's label, for next time.</p>
+<p>Sahl never submits a form and never ticks a checkbox. You check and submit.</p>
+
+<h2>What the extension stores</h2>
+<p>In <code>chrome.storage.local</code>, on your computer:</p>
+<ul>
+  <li><code>token</code>: the pairing token;</li>
+  <li><code>declined</code>: your "No, it's different" answers (box label and the suggestion you turned down, the latest 200).</li>
+</ul>
+
+<h2>Network use</h2>
+<p>Sahl connects to nothing outside your computer, except:</p>
+<ul>
+  <li><strong>AI model download.</strong> Only after you agree, Sahl downloads model files from Hugging Face and checks each against the SHA-256 hash Hugging Face gives. Nothing about you is sent.</li>
+  <li><strong>Dictation.</strong> The mic button hands over to your operating system's own dictation (macOS Dictation, Windows Voice Typing). Sahl never handles the audio. For some languages, Apple or Microsoft may process the speech on their servers.</li>
+</ul>
+<p>No analytics, tracking, crash reports, ads or accounts. We never receive your data, so we never sell or share it.</p>
+
+<h2>Help improve Sahl</h2>
+<p>Off unless you turn it on (Settings, Privacy &amp; reports). When on, Sahl saves a short report per form in Sahl's <code>reports</code> folder: which boxes it found or missed, the labels it matched, short unrecognised labels (never with digits or your values) and box positions. Never your details. Sahl sends nothing; you choose whether to share a report.</p>
+
+<h2>Deleting your data</h2>
+<ul>
+  <li><strong>Settings, Documents, Forget all</strong> deletes every reading, person and told detail, and moves Sahl's copies of your documents to the Trash or Recycle Bin. A folder you chose yourself is left alone.</li>
+  <li><strong>Settings, Browser extension, Unpair</strong> cuts off every paired browser.</li>
+  <li><strong>Removing the extension</strong> deletes its stored token and answers.</li>
+  <li><strong>Deleting Sahl's folder</strong> and documents folder after uninstalling removes everything else, including models and reports.</li>
+</ul>
+
+<h2>Chrome Web Store Limited Use</h2>
+<p>The use of information received from Chrome APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements. Page information is used only to fill the form you are on, goes only to the Sahl app on your computer, and is never used for ads or read by people.</p>
+
+<h2>Children</h2>
+<p>Sahl is not directed at children under 13 and collects nothing from anyone. Documents a parent adds for a child stay on the computer like any others.</p>
+
+<h2>Changes</h2>
+<p>Changes are published on this page and in <code>PRIVACY.md</code> in the Sahl repository, with a new effective date.</p>
+
+<h2>Contact</h2>
+<p>Open an issue at <a href="https://github.com/gabriel-gy-tan/sahl/issues">github.com/gabriel-gy-tan/sahl/issues</a>. Please leave personal details out.</p>
+</main>
+</body>
+</html>
