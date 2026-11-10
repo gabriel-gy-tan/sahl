@@ -83,7 +83,8 @@
     "ai_written": "Written by AI from your English name. Check the spelling.",
     "need_model": "Download the AI model in Sahl (Settings → General) to write this.",
     "err_changed": "The page changed since I read it. Press Read again, then fill.",
-    "err_reload": "Reload this page, then open me again."
+    "err_reload": "Reload this page, then open me again.",
+    "fail_hidden": "It's hidden or covered on the page, so I left it alone."
   },
   "ar": {
     "checking": "أبحث عن Sahl…",
@@ -168,7 +169,8 @@
     "ai_written": "كتبه الذكاء الاصطناعي من اسمك بالإنجليزية. راجع الإملاء.",
     "need_model": "نزّل نموذج الذكاء الاصطناعي في Sahl (الإعدادات ← عام) لكتابة هذا.",
     "err_changed": "تغيّرت الصفحة بعد أن قرأتها. اضغط «اقرأ مجددًا» ثم املأ.",
-    "err_reload": "أعد تحميل هذه الصفحة، ثم افتحني مجددًا."
+    "err_reload": "أعد تحميل هذه الصفحة، ثم افتحني مجددًا.",
+    "fail_hidden": "إنها مخفية أو مغطاة في الصفحة، فتركتها"
   },
   "ur": {
     "checking": "Sahl تلاش کر رہا ہوں…",
@@ -253,7 +255,8 @@
     "ai_written": "اے آئی نے آپ کے انگریزی نام سے لکھا ہے۔ ہجے دیکھ لیں۔",
     "need_model": "اسے لکھنے کے لیے Sahl میں اے آئی ماڈل ڈاؤن لوڈ کریں (ترتیبات ← عمومی)۔",
     "err_changed": "میرے پڑھنے کے بعد صفحہ بدل گیا۔ «دوبارہ پڑھیں» دبائیں، پھر بھریں۔",
-    "err_reload": "یہ صفحہ دوبارہ لوڈ کریں، پھر مجھے دوبارہ کھولیں۔"
+    "err_reload": "یہ صفحہ دوبارہ لوڈ کریں، پھر مجھے دوبارہ کھولیں۔",
+    "fail_hidden": "یہ صفحے پر چھپا یا ڈھکا ہوا ہے، اس لیے میں نے اسے نہیں چھیڑا"
   },
   "ml": {
     "checking": "Sahl തിരയുന്നു…",
@@ -338,6 +341,7 @@
     "ai_written": "നിങ്ങളുടെ ഇംഗ്ലീഷ് പേരിൽ നിന്ന് AI എഴുതിയത്. അക്ഷരങ്ങൾ പരിശോധിക്കുക.",
     "need_model": "ഇത് എഴുതാൻ Sahl-ൽ AI മോഡൽ ഡൗൺലോഡ് ചെയ്യുക (ക്രമീകരണങ്ങൾ → പൊതുവായത്).",
     "err_changed": "ഞാൻ വായിച്ചതിനുശേഷം പേജ് മാറി. «വീണ്ടും വായിക്കുക» അമർത്തി പൂരിപ്പിക്കുക.",
-    "err_reload": "ഈ പേജ് വീണ്ടും ലോഡ് ചെയ്യുക, എന്നിട്ട് എന്നെ വീണ്ടും തുറക്കുക."
+    "err_reload": "ഈ പേജ് വീണ്ടും ലോഡ് ചെയ്യുക, എന്നിട്ട് എന്നെ വീണ്ടും തുറക്കുക.",
+    "fail_hidden": "ഇത് പേജിൽ മറഞ്ഞിരിക്കുകയോ മൂടിയിരിക്കുകയോ ആണ്, അതിനാൽ ഞാൻ തൊട്ടില്ല"
   }
 }

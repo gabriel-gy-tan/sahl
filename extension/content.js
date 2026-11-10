@@ -9,7 +9,7 @@
   const keys = new WeakMap();
   let byEl = new WeakMap();
   // never read or filled: passwords, PINs, one-time codes, a card's security code (the same rule as the sidecar's taught.NEVER)
-  const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
+  const never = /pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification|security\s*(?:code|answer|question)|card\s*security\s*number|personal\s*identification|pass\W?word|maiden|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة/i;
   const skipTypes = new Set(["hidden", "password", "file", "submit", "button", "reset", "image", "range", "color", "time"]);
   let seq = 0;
 
@@ -91,7 +91,8 @@
     if (skipTypes.has(type) || el.tagName === "BUTTON" || el.readOnly || el.disabled) return true;
     if (el.tagName === "SELECT" && el.multiple) return true;
     const bit = [el.getAttribute("autocomplete"), el.getAttribute("name"), el.id, el.getAttribute("placeholder"), ...(labels || [])].join(" ");
-    return never.test(bit);
+    // as taught.allowed reads it: compatibility forms folded, zero-width characters dropped, "userPin" split
+    return never.test(bit.normalize("NFKC").replace(/\p{Cf}/gu, "").replace(/([a-z])([A-Z])/g, "$1 $2"));
   };
   // what a menu says when it has no real name ("Select box", "Please select"): the label beside it is the better name
   const generic = /^(?:please\s+)?(?:select|choose)(?:\s+(?:box|one|an? option|option))?\.{0,3}$|^(?:select|dropdown|combobox|search|--.*--)$/i;
@@ -429,9 +430,25 @@
       return n && wants.some((w) => n.includes(w) || w.includes(n));
     });
   };
+  // checked again at fill time, because a page can hide, cover or relabel a box after it was read: a value only goes
+  // into a box the person can see (on screen once scrolled to, at least 8px, not faded out, not under another element)
+  // whose label still isn't one Sahl never fills
+  const reachable = (el) => {
+    if (!el?.isConnected || secret(el, labelled(el))) return false;
+    const seen = face(el);
+    seen.scrollIntoView({ block: "nearest", inline: "nearest" });
+    const r = seen.getBoundingClientRect();
+    if (r.width < 8 || r.height < 8) return false;
+    for (let x = seen; x; x = x.parentElement) if (Number(getComputedStyle(x).opacity) < 0.5) return false;
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    if (!hit) return false;
+    return hit === seen || seen.contains(hit) || hit === el || [...(el.labels || [])].some((l) => l === hit || l.contains(hit));
+  };
+  const boxesOf = (t) => t.kind === "date-parts" ? t.parts.map((p) => p.el) : t.kind === "radio" ? t.options.map((o) => o.el) : [t.el];
   const fillOne = (v, replace) => {
     const t = targets.get(v.element_id);
     if (!t) return { element_id: v.element_id, ok: false, reason: "field is no longer on the page" };
+    if (!boxesOf(t).every(reachable)) return { element_id: v.element_id, ok: false, reason: "the box is hidden or covered" };
     if (t.kind === "date-parts") {
       if (!replace && t.parts.some((p) => !empty(p.el))) return { element_id: v.element_id, ok: true, skipped: "already has a value" };
       let ok = true;

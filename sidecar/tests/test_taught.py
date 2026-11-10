@@ -65,7 +65,10 @@ def test_passwords_are_never_remembered():
                   "Security code", "Verification code", "card_cvv", "cc-csc", "otp_input",
                   "mPIN", "MPIN", "TPIN", "pinCode", "TOTP", "otpCode", "SMS code", "Enter the 6-digit code", "Passwd", "PWD",
                   "Authentication code", "Access code", "الرمز السري", "الرقم السري", "رمز التحقق", "رمز التأكيد",
-                  "كلمة المرور", "كلمة السر", "رمز المرور لمرة واحدة"):
+                  "كلمة المرور", "كلمة السر", "رمز المرور لمرة واحدة",
+                  # spellings that slipped past before: spelt out, spaced, joined, or hidden with a zero-width space
+                  "Personal Identification Number", "Pass word", "Card security number", "Security answer",
+                  "Security question", "Mother's maiden name", "userPin", "Pass\u200bword"):
         assert not taught.allowed(label), label
     assert taught.allowed("Company") and taught.allowed("Social Security Number")
     assert all(taught.allowed(x) for x in ("Spinning class", "Postcode", "Zip code", "Country code", "Area code", "Promo code",

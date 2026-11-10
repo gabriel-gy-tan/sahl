@@ -337,6 +337,7 @@ const FAILS = {
   "no matching option": "fail_option",
   "the page does not allow typing here": "fail_locked",
   "the page did not keep the value": "fail_kept",
+  "the box is hidden or covered": "fail_hidden",
 };
 const labelOf = (id) => plan?.fields?.find((f) => f.element_id === id)?.label;
 

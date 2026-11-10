@@ -7,6 +7,11 @@
 set -e
 here=$(cd "$(dirname "$0")" && pwd)
 demo="$HOME/SahlDemo"
+# a Sahl already running holds your real vault, and a paired browser would fill from it on the projector
+if pgrep -f "sahl.server" >/dev/null 2>&1 || pgrep -f "Sahl.app/Contents/MacOS" >/dev/null 2>&1; then
+  echo "Quit your own Sahl first (and stop any 'npm run tauri dev'), so only the demo one runs." >&2
+  exit 1
+fi
 [ "$1" = reset ] && rm -rf "$demo"
 mkdir -p "$demo/home" "$demo/library"
 

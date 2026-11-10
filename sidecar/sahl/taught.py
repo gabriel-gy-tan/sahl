@@ -7,6 +7,7 @@ they count as verified. Stored in the vault database, per person (0 = told befor
 """
 import re
 import threading
+import unicodedata
 
 from rapidfuzz import fuzz
 
@@ -20,12 +21,20 @@ SIMILAR = 85  # as close as a guide's alias must be (match.THRESHOLD); numbers m
 # "6-digit code") and the Arabic labels on UAE portals. extension/content.js keeps an identical copy.
 NEVER = re.compile(r"pass(?:word|code|phrase)|passwd|(?<![a-z])pwd(?![a-z])|(?<![a-z])[mt]?pin(?:code)?(?![a-z])"
                    r"|(?<![a-z])t?otp(?:code)?(?![a-z])|(?<![a-z])(?:cv[cv]\d?|csc)(?![a-z])|one.time|card\s*verification"
-                   r"|security\s*code|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code"
+                   r"|security\s*(?:code|answer|question)|card\s*security\s*number|personal\s*identification|pass\W?word|maiden|verification\s*(?:code|number|value)|(?:sms|auth(?:entication)?|access|\d+.?digit)\s*code"
                    r"|كلمة\s*(?:ال)?(?:مرور|سر)|(?:ال)?(?:رقم|رمز)\s*(?:ال)?(?:سري|تحقق|تأكيد|مرور)|لمرة\s*واحدة", re.I)
 
 
+def _plain(label: str) -> str:
+    """The label as the rule reads it: compatibility forms folded, invisible format characters (zero-width space)
+    dropped, and joined words split ("userPin" -> "user Pin") so a word boundary still shows."""
+    s = unicodedata.normalize("NFKC", label)
+    s = "".join(c for c in s if unicodedata.category(c) != "Cf")
+    return re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
+
+
 def allowed(label: str) -> bool:
-    return not NEVER.search(label)
+    return not NEVER.search(_plain(label))
 
 
 def _who(person) -> int:

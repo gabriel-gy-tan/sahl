@@ -111,7 +111,7 @@ def pdf_page(path, i: int) -> np.ndarray:
 def image(path) -> np.ndarray:
     """A photo or scan, turned upright, in grayscale."""
     from PIL import Image, ImageOps
-    return np.array(ImageOps.exif_transpose(Image.open(path)).convert("L"))
+    return np.array(ImageOps.exif_transpose(Image.open(path, formats=["PNG", "JPEG"])).convert("L"))
 
 
 def _windows_scale(mon) -> float:
