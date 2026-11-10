@@ -34,7 +34,8 @@ const pageStrings = () => ({ reading: T("page_reading"), new: T("page_new"), one
 // errors from the helper carry a code; each code has words for people (the raw message goes to the console)
 function words(e) {
   console.warn("sahl:", e.message);
-  return { closed: T("err_closed"), tab: T("err_tab"), empty: T("err_empty") }[e.code] || T("err_generic");
+  return { closed: T("err_closed"), tab: T("err_tab"), empty: T("err_empty"), changed: T("err_changed"), reload: T("err_reload") }[e.code]
+    || T("err_generic");
 }
 const docName = (d) => T(`doc_${d}`);
 
@@ -94,17 +95,23 @@ async function currentTab() {
   tabId = tab.id;
 }
 
+// with more than one person, nobody is picked for them: the person chooses, and nothing fills until they do
 function choosePerson(people) {
   const select = $("person");
-  select.replaceChildren(...people.map((p) => new Option(p.name, p.id)));
-  const chosen = plan?.person && people.some((p) => p.id === plan.person) ? plan.person : people[0]?.id || "";
+  const known = plan?.person && people.some((p) => p.id === plan.person);
+  select.replaceChildren(...(known || people.length < 2 ? [] : [new Option(T("choose_first"), "")]),
+    ...people.map((p) => new Option(p.name, p.id)));
+  const chosen = known ? plan.person : people.length === 1 ? people[0].id : "";
   select.value = chosen;
   $("person-row").hidden = people.length < 2;
   return chosen;
 }
 
 const asking = (f) => f.unknown && !f.told;
-const fillable = () => (plan?.fields || []).some((f) => !asking(f));
+// a box Sahl knows but has no value for yet (no document for it, or the AI model isn't there to write it)
+const waiting = (f) => !asking(f) && f.has_value === false;
+const fillable = () => Boolean(!$("person-row").hidden ? $("person").value : true)
+  && (plan?.fields || []).some((f) => !asking(f) && !waiting(f));
 
 // "No, it's different" is remembered, so the same guess isn't offered every time the popup opens
 let declined = new Set();
@@ -179,6 +186,7 @@ function listFields(fields) {
   }
   // two groups: what I can fill (the main action, first), then the boxes I need to be told about, numbered as on the page
   const ready = node("ol");
+  const later = node("ol");
   const ask = node("ol");
   let askNo = 0;
   for (const f of fields) {
@@ -192,7 +200,8 @@ function listFields(fields) {
     } else {
       const box = document.createElement("input");
       box.type = "checkbox";
-      box.checked = true;
+      box.checked = !waiting(f);
+      box.disabled = waiting(f);
       box.dataset.id = f.element_id;
       box.setAttribute("aria-label", T("fill_box", { label: f.label }));
       box.addEventListener("change", count);
@@ -209,6 +218,7 @@ function listFields(fields) {
     if (f.told) why.push(T("told"));
     if (why.length) text.append(node("small", "", why.join(", ")));
     if (isAsk && f.suggest) text.append(node("small", "ask-help", T("may_know")));
+    if (f.ai) text.append(node("small", "ask-help", T(waiting(f) && !f.needs ? "need_model" : "ai_written")));
     if (isAsk) {
       const toggle = node("button", "toggle");
       const word = node("span", "", T("tell"));
@@ -237,10 +247,10 @@ function listFields(fields) {
     } else {
       row.append(mark, text);
       li.append(row);
-      ready.append(li);
+      (waiting(f) ? later : ready).append(li);
     }
   }
-  for (const [ol, key, cls] of [[ready, "ready", ""], [ask, "new_fields", "ask"]]) {
+  for (const [ol, key, cls] of [[ready, "ready", ""], [ask, "new_fields", "ask"], [later, "needs_group", "later"]]) {
     if (!ol.children.length) continue;
     const group = node("li", "group");
     const head = node("div", `section ${cls}`.trim());
@@ -439,4 +449,5 @@ $("clear").addEventListener("click", async () => {
   note(T("marks_hidden"));
 });
 
+$("person").addEventListener("change", () => void scanPage());
 void boot();

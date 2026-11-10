@@ -357,3 +357,6 @@ footer { flex: none; border-top: 1px solid var(--line); background: var(--bg); }
   body.reading .mark::after { opacity: .6; }
   body.reading .scanline::after { left: 0; width: 100%; opacity: .5; }
 }
+
+/* boxes waiting for a document: shown, not ticked, quieter */
+.section.later + ol .field { opacity: .6; cursor: default; }
