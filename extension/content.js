@@ -83,7 +83,9 @@
     const bit = [el.getAttribute("autocomplete"), el.getAttribute("name"), el.id, el.getAttribute("placeholder"), ...(labels || [])].join(" ");
     return never.test(bit);
   };
-  const labelOf = (labels) => labels.find((x) => !/^(day|month|year|dd|mm|yy|yyyy)$/i.test(x)) || labels[0] || "";
+  // what a menu says when it has no real name ("Select box", "Please select"): the label beside it is the better name
+  const generic = /^(?:please\s+)?(?:select|choose)(?:\s+(?:box|one|an? option|option))?\.{0,3}$|^(?:select|dropdown|combobox|search|--.*--)$/i;
+  const labelOf = (labels) => labels.find((x) => !/^(day|month|year|dd|mm|yy|yyyy)$/i.test(x) && !generic.test(x)) || labels.find((x) => !generic.test(x)) || labels[0] || "";
   const partOf = (el, labels) => {
     const raw = [el.getAttribute("name"), el.id, el.getAttribute("placeholder")].filter(Boolean).join(" ")
       .replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_\-\[\].]+/g, " ")
@@ -193,7 +195,7 @@
     }
 
     return {
-      url: location.href, title: document.title,
+      url: location.origin + location.pathname, title: document.title,
       headings: [...document.querySelectorAll("h1, h2, h3")].map(text).filter(Boolean).slice(0, 10).join(" | "),
       fields: normal,
     };
@@ -222,6 +224,7 @@
   const say = (k, fallback, n) => (words[k] || fallback).replaceAll("{n}", String(n ?? ""));
   const showReading = () => {
     clear();
+    if (window !== window.top) return; // one pill per tab
     reading = true;
     host = document.createElement("div");
     host.setAttribute("data-sahl-overlay", "1");
@@ -455,6 +458,27 @@
     typeText(t.el, v.value);
     return { element_id: v.element_id, ok: String(t.el.value ?? "") === String(v.value ?? "") };
   };
+  // a custom dropdown (Select2, Chosen, ARIA combobox): typing only filters its list, so the matching entry is clicked too
+  const customMenu = (el) => el instanceof HTMLInputElement && Boolean(
+    el.matches('[role=combobox], [aria-haspopup=listbox], [aria-autocomplete]')
+    || el.closest('.select2, .select2-container, .select2-dropdown, .chosen-container, .choices, .ui-selectmenu-menu, .dropdown, .bootstrap-select, [class*=select-box], [class*=selectbox]'));
+  const OPTIONS = '[role=option], .select2-results__option, .chosen-results li, .choices__item--choice, .ui-menu-item, .dropdown-menu li, ul[role=listbox] li';
+  const pickEntry = async (el, want) => {
+    const w = norm(want);
+    for (let tries = 0; tries < 12; tries++) {
+      const hit = [...document.querySelectorAll(OPTIONS)].filter(shown2).find((o) => norm(text(o)) === w)
+        || [...document.querySelectorAll(OPTIONS)].filter(shown2).find((o) => norm(text(o)).includes(w));
+      if (hit) {
+        for (const type of ["mouseover", "mousedown", "mouseup", "click"]) {
+          hit.dispatchEvent(new MouseEvent(type, { bubbles: true, cancelable: true, composed: true, view: window }));
+        }
+        return true;
+      }
+      await new Promise((done) => setTimeout(done, 100));
+    }
+    return false;
+  };
+  const shown2 = (o) => { const r = o.getBoundingClientRect(); return r.width >= 1 && r.height >= 1 && !o.classList.contains("select2-results__message"); };
   const fill = async (values, replace) => {
     const results = values.map((v) => fillOne(v, replace));
     await new Promise((done) => setTimeout(done, 60));
@@ -465,6 +489,12 @@
       const target = targets.get(value.element_id);
       if (!target || target.kind !== "text") continue;
       const want = String(value.value ?? "");
+      if (customMenu(target.el)) {
+        if (await pickEntry(target.el, want)) continue;
+        result.ok = false;
+        result.reason = "no matching option";
+        continue;
+      }
       if (String(target.el.value ?? "") === want) continue;
       typeText(target.el, want);
       await new Promise((done) => setTimeout(done, 30));

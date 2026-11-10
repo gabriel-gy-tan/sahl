@@ -9,9 +9,10 @@ import re
 from collections import Counter
 
 
-from . import intent, match, taught, vault
+from . import ai, fieldtype, intent, match, taught, vault
 
 THRESHOLD = 82
+SHARED = 95  # a second box that reads exactly like a guide field's label gets the same value
 UNSAFE_TYPES = {"password", "file", "hidden", "submit", "button", "reset", "image"}
 
 
@@ -50,9 +51,13 @@ def _texts(field: dict) -> list[str]:
     return [x for x in dict.fromkeys(str(t).strip() for t in out) if x]
 
 
-def _field_score(field: dict, aliases: list[str]) -> float:
-    texts = _texts(field)
-    return max((match._score(t, aliases) for t in texts), default=0.0)
+def _field_score(field: dict, spec: dict) -> float:
+    """How well a box fits a guide field: its words against the aliases, or what the box asks for (fieldtype)."""
+    fuzzy = max((match._score(t, spec["aliases"]) for t in _texts(field)), default=0.0)
+    meant = fieldtype.score(field, spec)
+    if meant < 0:  # about someone else: only a label the guide itself spells out can say otherwise
+        return fuzzy if fuzzy >= SHARED else 0.0
+    return max(fuzzy, meant)
 
 
 def _page_text(page: dict) -> str:
@@ -80,7 +85,7 @@ def _guide_for(page: dict, guides: dict) -> tuple[dict | None, float]:
 
 
 def _needs(key) -> str | None:
-    first = (key if isinstance(key, str) else (key or [""])[0]).split(".")[0]
+    first = (key if isinstance(key, str) else (key or [""])[0]).removeprefix("ar:").split(".")[0]
     return first if first in ("passport", "eid") else None
 
 
@@ -90,24 +95,24 @@ def _identity(field: dict) -> str:
 
 def _match_fields(guide: dict, fields: list[dict]) -> list[dict]:
     safe = [f for f in fields if _safe(f)]
+    # equal scores: the longer label wins the guide field; a box that reads exactly like one of its labels shares it,
+    # so "Name" and "Name in English" both get the name
     pairs = sorted(
-        ((_field_score(field, spec["aliases"]), gi, fi)
+        ((_field_score(field, spec), len(match._norm(str(field.get("label", "")))), gi, fi)
          for fi, field in enumerate(safe) for gi, spec in enumerate(guide["fields"])),
         reverse=True)
-    used_spec, used_field, hits = set(), set(), {}
-    for score, gi, fi in pairs:
+    used_spec, used_field, hits = set(), set(), []
+    for score, _, gi, fi in pairs:
         if score < THRESHOLD:
             break
-        if gi in used_spec or fi in used_field:
+        if fi in used_field or (gi in used_spec and score < SHARED):
             continue
         used_spec.add(gi)
         used_field.add(fi)
-        hits[gi] = (fi, score)
+        hits.append((gi, fi, score))
     out = []
-    for gi, spec in enumerate(guide["fields"]):
-        if gi not in hits:
-            continue
-        fi, score = hits[gi]
+    for gi, fi, score in sorted(hits, key=lambda h: (h[0], h[1])):
+        spec = guide["fields"][gi]
         field = safe[fi]
         kind = _kind(field)
         if kind == "checkbox":
@@ -182,6 +187,10 @@ def plan(page: dict, guides: dict, person: str | None = None) -> dict:
         if fallback:
             guide, matched = fallback
             confidence = 0.5
+    generic = guides.get(intent.GENERIC)
+    if guide and generic and guide is not generic:  # a box this guide lacks may still be a plain one: a name, a date of birth
+        taken = {m["element_id"] for m in matched}
+        matched += _match_fields(generic, [f for f in fields if _identity(f) not in taken])
     unknown = _unknown_fields(fields, matched, person)
     if not guide and not unknown:
         return {"guide": None, "confidence": 0, "fields": [], "person": person, "people": people,
@@ -195,6 +204,7 @@ def plan(page: dict, guides: dict, person: str | None = None) -> dict:
         "people": people,
         "reason": "" if matched or unknown else "the page has no fields this guide recognises",
         "_guide": guide,
+        "_specs": {f["id"]: f for g in (guide, generic) if g for f in g.get("fields", [])},
         "_fields": fields,
     }
 
@@ -264,6 +274,33 @@ def _part_values(value: str) -> list[dict]:
     ]
 
 
+_arabic_names: dict[str, str] = {}
+TRANSLATE = """Write this person's name in Arabic letters, the way it is sounded (a transliteration, not a meaning).
+Keep every name part in order, add nothing. Name: {name}"""
+
+
+def _arabic(key: str, person) -> dict | None:
+    """The person's name from `key` in Arabic letters, written by the local text model from the English one. It is a
+    transliteration, so the popup says so (help text) and the person checks it; the form is never submitted."""
+    en = vault.get(key, person)
+    if not en or not en.get("verified"):
+        return None
+    name = " ".join(re.sub(r"[^A-Za-z' .-]", " ", en["value"]).split())
+    if name not in _arabic_names:
+        out = ai.chat({
+            "model": ai.text_model(),
+            "format": {"type": "object", "properties": {"arabic": {"type": "string"}}, "required": ["arabic"]},
+            "options": {"temperature": 0, "num_predict": 120},
+            "messages": [{"role": "user", "content": TRANSLATE.format(name=name)}],
+        }, timeout=60, tries=1)
+        ar = " ".join(str(out.get("arabic", "")).split()) if isinstance(out, dict) else ""
+        # only Arabic letters and spaces, and as many words as the English name
+        if not re.fullmatch(r"[\u0621-\u064a ]+", ar) or len(ar.split()) != len(name.split()):
+            return None
+        _arabic_names[name] = ar
+    return {"value": _arabic_names[name], "verified": True, "source": "written from your name in English"}
+
+
 def values(scan: dict, element_ids: list[str], person: str | None = None) -> dict:
     """Verified values for the fields in a scan, by element id: from documents for guide fields, from what the person
     told Sahl for the rest. Whose values, when the vault holds more than one person, is the person's choice."""
@@ -272,7 +309,7 @@ def values(scan: dict, element_ids: list[str], person: str | None = None) -> dic
     if not pid and len(people) > 1:
         return {"values": [], "missing": [{"element_id": i, "reason": "choose a person"} for i in element_ids], "needs_person": True}
     by_id = {m["element_id"]: m for m in scan.get("fields", [])}
-    specs = {f["id"]: f for f in (scan.get("_guide") or {}).get("fields", [])}
+    specs = scan.get("_specs") or {f["id"]: f for f in (scan.get("_guide") or {}).get("fields", [])}
     out, missing = [], []
     for element_id in element_ids:
         m = by_id.get(element_id)
@@ -290,7 +327,7 @@ def values(scan: dict, element_ids: list[str], person: str | None = None) -> dic
             if not spec or spec["input"] == "checkbox":
                 missing.append({"element_id": element_id, "reason": "Sahl never ticks this"})
                 continue
-            got = vault.get(spec["vault_key"], pid)
+            got = _arabic(spec["vault_key"][3:], pid) if str(spec["vault_key"]).startswith("ar:") else vault.get(spec["vault_key"], pid)
         if not got or not got.get("verified"):
             missing.append({"element_id": element_id, "reason": "no verified value", "needs": m.get("needs")})
             continue

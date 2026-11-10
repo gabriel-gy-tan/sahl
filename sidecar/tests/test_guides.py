@@ -12,7 +12,7 @@ GOV = (".ae", ".abudhabi", ".gov")  # official hosts only; tamm.abudhabi has no 
 def official(host: str) -> bool:
     return host.endswith(GOV) or ".gov." in host or host.endswith(".gov.uk")
 KEYS = {f"{d}.{k}" for d in ("passport", "eid", "other") for k in ("name", "given", "surname", "dob", "nationality")} | {
-    "passport.number", "passport.expiry", "eid.number", "eid.expiry", "profile.mobile"}
+    "passport.number", "passport.expiry", "eid.number", "eid.expiry", "profile.mobile", "ar:passport.name"}
 
 
 @pytest.mark.parametrize("g", GUIDES.values(), ids=list(GUIDES))

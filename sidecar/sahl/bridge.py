@@ -4,6 +4,8 @@ The extension holds a long-lived token from a one-time pairing code shown in Sah
 metadata only; this bridge matches a guide and releases values from the local vault per field, never the page's
 own values or the whole vault.
 """
+import hashlib
+import hmac
 import os
 import re
 import secrets
@@ -12,14 +14,15 @@ import threading
 import time
 from collections import deque
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from . import vault, web
 
-PORT = 8765
+PORTS = tuple(range(8765, 8775))  # the first free one is used; the extension looks through all of them (its host permissions list the same)
+PORT = PORTS[0]
 TOKEN_FILE = "extension-token"
 PAIRED_FILE = "extension-paired"  # a browser was given the token; gone after Unpair
 LANG_FILE = "lang"  # the panel's language, so the extension speaks the same one
@@ -60,9 +63,10 @@ class Same(BaseModel):
 
 
 class State:
-    def __init__(self, guides: dict, token: str | None = None, port: int = PORT):
+    def __init__(self, guides: dict, token: str | None = None, port: int | None = None, ports: tuple[int, ...] = PORTS):
         self.guides = guides
-        self.port = port
+        self.ports = (port,) if port else tuple(ports)
+        self.port = self.ports[0]  # the one in use, once bound
         self.token = token or _load_token()
         self.scans: dict[str, dict] = {}
         self.attempts: deque[float] = deque()
@@ -189,8 +193,13 @@ def create_app(state: State) -> FastAPI:
         return _auth(state, token)
 
     @app.get("/health")
-    def health():
-        return {"app": "Sahl", "port": state.port, "running": state.running, "lang": language()}
+    def health(nonce: str = Query("", max_length=64, pattern="^[0-9a-f]*$")):
+        """Who answers. With a nonce, also a proof that this bridge holds the extension's token (an HMAC of the nonce), so a
+        paired extension only sends its token and page details to the real one, whichever port it found it on."""
+        out = {"app": "Sahl", "port": state.port, "running": state.running, "lang": language()}
+        if nonce:
+            out["proof"] = hmac.new(state.token.encode(), nonce.encode(), hashlib.sha256).hexdigest()
+        return out
 
     @app.post("/pair")
     def pair(body: Pairing, _: None = Depends(_origin)):
@@ -235,22 +244,26 @@ def create_app(state: State) -> FastAPI:
 
 
 def _bind(state: State, retry: float) -> socket.socket:
-    """Waits for the fixed port, showing why in settings until it is free."""
+    """Takes the first free port of the range; when every one is busy, says why in settings and tries again."""
     while True:
-        sock = socket.socket()
-        if os.name == "posix":  # a just-closed Sahl's connections linger on the port; on Windows this would let us share a live one
-            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        try:
-            sock.bind(("127.0.0.1", state.port))
-            return sock
-        except OSError as e:
-            sock.close()
-            state.error = str(e)
-            time.sleep(retry)
+        why = ""
+        for port in state.ports:
+            sock = socket.socket()
+            if os.name == "posix":  # a just-closed Sahl's connections linger on the port; on Windows this would let us share a live one
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                sock.bind(("127.0.0.1", port))
+                state.port = port
+                return sock
+            except OSError as e:
+                sock.close()
+                why = str(e)
+        state.error = why
+        time.sleep(retry)
 
 
 def start(state: State, retry: float = 1.0):
-    """Start the bridge in the background on its fixed loopback port, as soon as that port is free."""
+    """Start the bridge in the background on the first free loopback port, as soon as there is one."""
 
     def run():
         import uvicorn

@@ -1,4 +1,6 @@
-﻿const BASE = "http://127.0.0.1:8765";
+// Sahl's bridge takes the first free port of this range (sidecar/sahl/bridge.py PORTS); manifest.json lists the same ones
+const PORTS = [8765, 8766, 8767, 8768, 8769, 8770, 8771, 8772, 8773, 8774];
+const PROBE_MS = 1500;
 const VERSION = "8";
 
 class BridgeError extends Error {
@@ -8,20 +10,59 @@ class BridgeError extends Error {
   }
 }
 
-async function call(path, body, token) {
+const hex = (bytes) => [...new Uint8Array(bytes)].map((b) => b.toString(16).padStart(2, "0")).join("");
+
+async function proofOf(token, nonce) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(token), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  return hex(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(nonce)));
+}
+
+// Asks one port who answers. A real Sahl says so; with our token it also proves it holds the same one (an HMAC of a nonce only
+// we chose), so the token and the page's details only go to the Sahl this browser was paired with.
+async function probe(port, token) {
+  const nonce = hex(crypto.getRandomValues(new Uint8Array(16)));
+  try {
+    const r = await fetch(`http://127.0.0.1:${port}/health?nonce=${nonce}`, { signal: AbortSignal.timeout(PROBE_MS) });
+    const data = await r.json();
+    if (!r.ok || data?.app !== "Sahl") return null;
+    const verified = Boolean(token) && typeof data.proof === "string" && data.proof === (await proofOf(token, nonce));
+    return { port, base: `http://127.0.0.1:${port}`, data, verified };
+  } catch {
+    return null;
+  }
+}
+
+const servers = async (token) => (await Promise.all(PORTS.map((p) => probe(p, token)))).filter(Boolean);
+let lastPort = 0; // the port that answered last, tried first
+
+const closed = () => new BridgeError("Sahl isn't running, or its browser bridge is blocked. Open Sahl and try again.", "closed");
+
+async function request(base, path, body, token) {
   let r;
   try {
-    r = await fetch(BASE + path, {
+    r = await fetch(base + path, {
       method: body === undefined ? "GET" : "POST",
       headers: { "content-type": "application/json", ...(token ? { "x-sahl-ext-token": token } : {}) },
       body: body === undefined ? undefined : JSON.stringify(body),
     });
   } catch {
-    throw new BridgeError("Sahl isn't running, or its browser bridge is blocked. Open Sahl and try again.", "closed");
+    throw closed();
   }
   const data = await r.json().catch(() => ({}));
   if (!r.ok) throw new BridgeError(data.detail || `Sahl returned ${r.status}`, r.status === 403 ? "pair" : "");
   return data;
+}
+
+// a call with our token: only to the Sahl that proves it holds that token, wherever in the range it started
+async function call(path, body, token) {
+  let hit = lastPort ? await probe(lastPort, token) : null;
+  if (!hit?.verified) {
+    const found = await servers(token);
+    hit = found.find((h) => h.verified);
+    if (!hit) throw found.length ? new BridgeError("Sahl doesn't know this browser. Pair it again.", "pair") : closed();
+  }
+  lastPort = hit.port;
+  return request(hit.base, path, body, token);
 }
 
 async function storedToken() {
@@ -29,11 +70,27 @@ async function storedToken() {
   return token || "";
 }
 
+// A box in a frame other than the page's own is named "<frame>:<id>", so ids stay unique across the tab's frames.
+const named = (frame, v) => Array.isArray(v) ? v.map((x) => named(frame, x))
+  : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) =>
+    [k, k === "element_id" && typeof x === "string" && frame ? `${frame}:${x}` : named(frame, x)])) : v;
+const bare = (v) => Array.isArray(v) ? v.map(bare)
+  : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) =>
+    [k, k === "element_id" && typeof x === "string" ? x.replace(/^\d+:/, "") : bare(x)])) : v;
+const frameOf = (id) => Number(/^(\d+):/.exec(String(id))?.[1] || 0);
+
+// the page and every frame we may read (a frame we have no access to is left out); the page itself is frame 0
 async function inject(tabId) {
   try {
-    await chrome.scripting.executeScript({ target: { tabId }, files: ["content.js"] });
+    const out = await chrome.scripting.executeScript({ target: { tabId, allFrames: true }, files: ["content.js"] });
+    return [...new Set(out.map((r) => r.frameId))].sort((a, b) => a - b);
   } catch {
-    throw new BridgeError("This page can't be read. Open a normal web page, not a browser settings page.", "tab");
+    try {
+      await chrome.scripting.executeScript({ target: { tabId }, files: ["content.js"] });
+      return [0];
+    } catch {
+      throw new BridgeError("This page can't be read. Open a normal web page, not a browser settings page.", "tab");
+    }
   }
 }
 
@@ -56,29 +113,47 @@ async function endReading(tabId) {
 async function scan(tabId, person, strings) {
   const token = await storedToken();
   if (!token) throw new BridgeError("Pair with Sahl first.", "pair");
-  await inject(tabId);
-  let page;
-  try {
-    page = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:scan`, strings });
-  } catch {
-    await endReading(tabId);
-    throw new BridgeError("Couldn't read this page. Reload it and try again.", "tab");
+  const frames = await inject(tabId);
+  const pages = [];
+  for (const frameId of frames) {
+    try {
+      const page = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:scan`, strings }, { frameId });
+      if (page && (frameId === 0 || page.fields?.length)) pages.push({ frameId, page });
+    } catch {
+      if (frameId === 0) {
+        await endReading(tabId);
+        throw new BridgeError("Couldn't read this page. Reload it and try again.", "tab");
+      }
+    }
   }
-  if (!page) {
+  if (!pages.length) {
     await endReading(tabId);
     throw new BridgeError("This page has no form Sahl can read.", "empty");
   }
+  // the page's own address, title and headings stand for the tab; frames add their boxes (listed after the page's own)
+  const top = (pages.find((p) => p.frameId === 0) || pages[0]).page;
+  const merged = {
+    url: top.url, title: top.title, headings: top.headings,
+    fields: pages.flatMap(({ frameId, page }, i) => named(frameId, page.fields || []).map((f) =>
+      i && Array.isArray(f.rect) ? { ...f, rect: [f.rect[0], f.rect[1] + 100000 * i, ...f.rect.slice(2)] } : f)),
+  };
   let plan;
   try {
-    plan = await call("/page", { ...metadata(page), person: person || null }, token);
+    plan = await call("/page", { ...metadata(merged), person: person || null }, token);
   } catch (e) {
     await endReading(tabId);
     throw e;
   }
-  try {
-    await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:render`, fields: plan.fields || [], strings });
-  } catch {
-    await endReading(tabId);
+  const fields = plan.fields || [];
+  const asked = fields.filter((f) => f.unknown && !f.told).length;
+  for (const { frameId } of pages) {
+    try {
+      await chrome.tabs.sendMessage(tabId, {
+        type: `sahl:v${VERSION}:render`, fields: bare(fields.filter((f) => frameOf(f.element_id) === frameId)), asked, strings,
+      }, { frameId });
+    } catch {
+      if (frameId === 0) await endReading(tabId);
+    }
   }
   return plan;
 }
@@ -87,10 +162,16 @@ async function fill(tabId, ids, person, replace) {
   const token = await storedToken();
   if (!token) throw new BridgeError("Pair with Sahl first.", "pair");
   const released = await call("/values", { element_ids: ids, person: person || null }, token);
-  let results = [];
-  if (released.values?.length) {
+  const byFrame = new Map();
+  for (const v of released.values || []) {
+    const frame = frameOf(v.element_id);
+    byFrame.set(frame, [...(byFrame.get(frame) || []), v]);
+  }
+  const results = [];
+  for (const [frameId, values] of byFrame) {
     try {
-      results = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:fill`, values: released.values, replace: Boolean(replace) });
+      const done = await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:fill`, values: bare(values), replace: Boolean(replace) }, { frameId });
+      results.push(...named(frameId, done || []));
     } catch {
       throw new BridgeError("The page changed. Scan it again.", "tab");
     }
@@ -105,18 +186,30 @@ async function tell(path, body) {
   return call(path, body, token);
 }
 
+// who answers, in whichever port of the range Sahl took; verified: it holds the token this browser was paired with
 async function health() {
-  try {
-    return await call("/health");
-  } catch (e) {
-    return { error: e.message, code: e.code };
-  }
+  const found = await servers(await storedToken());
+  if (!found.length) return { error: closed().message, code: "closed" };
+  const hit = found.find((h) => h.verified) || found[0];
+  lastPort = hit.port;
+  return { ...hit.data, verified: hit.verified };
 }
 
 async function pair(code) {
-  const out = await call("/pair", { code: String(code || "").trim(), name: "Sahl browser" });
-  await chrome.storage.local.set({ token: out.token });
-  return { ok: true };
+  const found = await servers("");
+  if (!found.length) throw closed();
+  let last;
+  for (const { base } of found) {  // each Sahl in turn: the code belongs to one of them
+    try {
+      const out = await request(base, "/pair", { code: String(code || "").trim(), name: "Sahl browser" });
+      await chrome.storage.local.set({ token: out.token });
+      return { ok: true };
+    } catch (e) {
+      last = e;
+      if (e.code !== "pair") throw e;
+    }
+  }
+  throw last;
 }
 
 async function clear(tabId) {

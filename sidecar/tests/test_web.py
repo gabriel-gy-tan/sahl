@@ -1,7 +1,10 @@
+import hashlib
+import hmac
 import json
 import socket
 import time
 import urllib.request
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -236,6 +239,50 @@ def test_bridge_waits_for_a_busy_port_then_serves():
     _wait(lambda: _answers(port))
 
 
+def _free_ports(n):
+    socks = [socket.socket() for _ in range(n)]
+    for k in socks:
+        k.bind(("127.0.0.1", 0))
+    ports = [k.getsockname()[1] for k in socks]
+    for k in socks:
+        k.close()
+    return ports
+
+
+def test_bridge_takes_the_next_free_port_when_the_first_is_busy():
+    busy, free = _free_ports(2)
+    holder = socket.socket()
+    holder.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    holder.bind(("127.0.0.1", busy))
+    holder.listen()
+    try:
+        state = bridge.State(GUIDES, token="f" * 64, ports=(busy, free))
+        bridge.start(state, retry=60)  # a retry would take a minute: the second port must be used at once
+        _wait(lambda: state.running)
+        assert state.port == free and not state.error
+        _wait(lambda: _answers(free))
+    finally:
+        holder.close()
+
+
+def test_bridge_ports_are_the_range_the_extension_looks_through():
+    manifest = json.loads((Path(__file__).parents[2] / "extension" / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["host_permissions"] == [f"http://127.0.0.1:{p}/*" for p in bridge.PORTS]
+    assert bridge.PORT == bridge.PORTS[0]
+
+
+def test_health_proves_it_holds_the_token_only_when_asked():
+    state = bridge.State(GUIDES, token="a" * 64)
+    c = TestClient(bridge.create_app(state))
+    assert "proof" not in c.get("/health").json()
+    proof = c.get("/health", params={"nonce": "00ff"}).json()["proof"]
+    assert proof == hmac.new(b"a" * 64, b"00ff", hashlib.sha256).hexdigest()
+    other = TestClient(bridge.create_app(bridge.State(GUIDES, token="b" * 64)))
+    assert other.get("/health", params={"nonce": "00ff"}).json()["proof"] != proof  # another Sahl cannot fake it
+    assert c.get("/health", params={"nonce": "zz"}).status_code == 422
+    assert c.get("/health", params={"nonce": "0" * 65}).status_code == 422
+
+
 def test_bridge_starts_over_connections_left_by_a_closed_sahl():
     old = socket.socket()
     old.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -268,3 +315,52 @@ def test_unpair_locks_out_every_browser_and_the_extension_follows_the_panels_lan
     assert c.get("/health").json()["lang"] == "en"
     bridge.set_language("ar")
     assert c.get("/health").json()["lang"] == "ar"
+
+
+ANY = json.loads((Path(__file__).parents[2] / "guides" / "any-form.json").read_text())
+
+
+def test_name_and_name_in_english_are_both_filled_even_when_the_page_has_its_own_guide(monkeypatch):
+    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "EDEN VIJAY REBELLO", "verified": True})
+    scan = web.plan({"url": "https://example.test", "guide": "demo-form",
+                     "fields": [field("a", "Name in English"), field("b", "Name")]}, {**GUIDES, "any-form": ANY}, "p1")
+    by = {f["element_id"]: f for f in scan["fields"]}
+    assert by["a"]["field_id"] == "full_name" and not by["a"].get("unknown")
+    assert by["b"]["field_id"] == "full_name"  # "Name" and "Name in English" are the same detail: both get the name
+    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "EDEN VIJAY REBELLO"
+
+
+def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
+    monkeypatch.setitem(VALUES, "passport.name", ("EDEN VIJAY REBELLO", True))
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "عدن فيجاي ريبيلو"})
+    web._arabic_names.clear()
+    scan = web.plan({"url": "https://example.test", "guide": "demo-form",
+                     "fields": [field("a", "Name in English"), field("c", "Name in Arabic")]}, {**GUIDES, "any-form": ANY}, "p1")
+    assert {f["element_id"]: f["field_id"] for f in scan["fields"]} == {"a": "full_name", "c": "full_name_ar"}
+    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "عدن فيجاي ريبيلو"
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Eden"})  # not Arabic: nothing is typed
+    web._arabic_names.clear()
+    assert web.values(scan, ["c"], "p1")["missing"]
+
+
+@pytest.mark.parametrize("label,field_id", [
+    ("Applicant full name", "full_name"), ("Name in English", "full_name"), ("Name", "full_name"),
+    ("Full legal name (as in passport)", "full_name"), ("Name in Arabic", "full_name_ar"), ("الاسم بالعربية", "full_name_ar"),
+    ("Birth date", "dob"), ("Passport No", "passport_number"),
+])
+def test_a_box_is_recognised_by_what_it_asks_for(label, field_id):
+    scan = web.plan({"url": "https://example.test", "guide": "any-form", "fields": [field("x", label)]}, {"any-form": ANY}, "p1")
+    assert [f["field_id"] for f in scan["fields"] if not f.get("unknown")] == [field_id]
+
+
+@pytest.mark.parametrize("label", ["Father's name", "Mother name", "Account Owner Name", "Spouse full name", "Company name",
+                                   "Sponsor name", "Middle name", "Place of birth", "Username"])
+def test_a_box_about_someone_else_is_never_filled_with_the_persons_own_detail(label):
+    scan = web.plan({"url": "https://example.test", "guide": "any-form", "fields": [field("x", label)]}, {"any-form": ANY}, "p1")
+    assert not [f for f in scan["fields"] if not f.get("unknown")]
+
+
+def test_the_browsers_own_hint_decides_when_the_label_is_odd():
+    scan = web.plan({"url": "https://example.test", "guide": "any-form",
+                     "fields": [field("x", "Who are you?", autocomplete="family-name")]}, {"any-form": ANY}, "p1")
+    assert [f["field_id"] for f in scan["fields"]] == ["surname"]

@@ -1,7 +1,8 @@
-.venv/
+.venv
 __pycache__/
 .pytest_cache/
 .DS_Store
 app/src-tauri/sidecar/
 app/src-tauri/llama/
 app/src-tauri/bundle/
+dist/
