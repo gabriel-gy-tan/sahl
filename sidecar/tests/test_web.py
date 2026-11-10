@@ -345,6 +345,21 @@ def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
     assert web.values(scan, ["c"], "p1")["missing"]
 
 
+def test_the_arabic_name_falls_back_to_the_stronger_model_and_drops_vowel_marks(monkeypatch):
+    monkeypatch.setitem(VALUES, "passport.name", ("NOOR AHMAD KHALIL", True))
+    asked = []
+    def chat(body, timeout, tries=2):
+        asked.append(body["model"])
+        return {"arabic": "نور أحمد Khalil"} if len(asked) == 1 else {"arabic": "نُورْ أَحْمَد خَلِيل"}  # Latin letters, then marked
+    monkeypatch.setattr(web.ai, "chat", chat)
+    monkeypatch.setattr(web.ai, "have", lambda model: True)
+    web._arabic_names.clear()
+    scan = web.plan({"url": "https://example.test", "guide": "demo-form",
+                     "fields": [field("a", "Name in English"), field("c", "Name in Arabic")]}, {**GUIDES, "any-form": ANY}, "p1")
+    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "نور أحمد خليل"
+    assert asked == [web.ai.text_model(), web.STRONGER_TEXT]
+
+
 @pytest.mark.parametrize("label,field_id", [
     ("Applicant full name", "full_name"), ("Name in English", "full_name"), ("Name", "full_name"),
     ("Full legal name (as in passport)", "full_name"), ("Name in Arabic", "full_name_ar"), ("الاسم بالعربية", "full_name_ar"),

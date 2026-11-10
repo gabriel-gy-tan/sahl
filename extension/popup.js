@@ -214,7 +214,7 @@ function listFields(fields) {
     text.append(iso("b", "", f.label));
     const why = [];
     if (f.seen && f.seen !== f.label) why.push(f.seen);
-    if (f.needs) why.push(T("needs", { doc: docName(f.needs) }));
+    if (f.needs && waiting(f)) why.push(T("needs", { doc: docName(f.needs) }));  // only when the value is really missing
     if (f.told) why.push(T("told"));
     if (why.length) text.append(node("small", "", why.join(", ")));
     if (isAsk && f.suggest) text.append(node("small", "ask-help", T("may_know")));
@@ -291,7 +291,7 @@ function showPlan(out) {
   const asked = fields.filter(asking).length;
   if (!out.people?.length && fields.some((f) => !f.unknown)) note(T("need_docs"));
   else if (!fields.length) note(out.guide ? T("scroll") : "");
-  else if (out.guide && out.confidence < 55) note(T("uncertain"));
+  else if (out.guide && out.guide.id !== "any-form" && out.confidence < 55) note(T("uncertain"));  // the common-details guide is a fallback, not a guess
   else if (asked) note(asked === 1 ? T("asked_one") : T("asked_many", { n: asked }));
   else note("");
   return person;
