@@ -4,7 +4,7 @@
 
 A free, open-source desktop helper that looks at the form on your screen, tells you in your language which box comes next, and helps you autofill and confirm the details. Fill a form in seconds to minutes. Everything runs on your own computer: completely local AI. The government side changes nothing.
 
-> Status: working on macOS and running on Windows, in testing. The app reads a form on screen, rings the next box, and types verified values after you confirm. In Chrome and Edge a browser extension reads the page's real fields instead of the screenshot. Boxes no guide knows are asked about once and remembered per person. It is not signed or notarized, it has not yet been tried on live UAE portals See [TODO.md](TODO.md).
+> Status: working on macOS and running on Windows, in testing. The app reads a form on screen, rings the next box, and types verified values after you confirm. In Chrome and Edge a browser extension reads the page's real fields instead of the screenshot. Boxes no guide knows are asked about once and remembered per person. It is not signed or notarized, it has not yet been tried on live UAE portals. See [TODO.md](TODO.md).
 > (Early planning documents call this project "Handover".)
 
 To run it from a checkout, see [sidecar/README.md](sidecar/README.md). Rules for contributors and agents, and how the code fits together, are in [AGENTS.md](AGENTS.md).
