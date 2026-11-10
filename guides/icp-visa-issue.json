@@ -18,7 +18,7 @@
   ],
   "source": "https://icp.gov.ae/en/services-details/?serviceid=64afe3c1035448005bd52e60",
   "checked": "2026-11-02",
-  "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Translations not reviewed by native speakers.",
+  "note": "Requirements read from the official ICP service page on the checked date. ICP does not publish its field labels; the fields here were copied from the signed-in entry permit form (labels only). Where Sahl has no verified value, it leaves a box alone and asks. Translations not reviewed by native speakers.",
   "requirements": {
     "eligibility": [
       "Applied for by a sponsor or entity: relative or friend host, tourism firm, healthcare facility, employer or university",
@@ -49,5 +49,657 @@
       "an ICP Customer Happiness Centre"
     ]
   },
-  "fields": []
+  "fields": [
+    {
+      "id": "unified_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Unified Number",
+        "الرقم الموحد"
+      ],
+      "help": {
+        "en": "The beneficiary's Unified Number, if they have one. Sahl does not know it unless you tell it.",
+        "ar": "الرقم الموحد للمستفيد إن وجد. لا يعرفه سهل إلا إذا أخبرته به.",
+        "ur": "The beneficiary's Unified Number, if they have one. Sahl does not know it unless you tell it.",
+        "ml": "The beneficiary's Unified Number, if they have one. Sahl does not know it unless you tell it."
+      }
+    },
+    {
+      "id": "visa_department",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "The department from which you want to issue the visa",
+        "الإدارة التي ترغب في إصدار التأشيرة منها"
+      ],
+      "help": {
+        "en": "Choose the department that will issue the visa. Your choice does not affect where in the UAE the person can enter or live.",
+        "ar": "اختر الإدارة التي ستصدر التأشيرة. اختيارك لا يؤثر على دخول الشخص أو إقامته في أي إمارة.",
+        "ur": "Choose the department that will issue the visa. Your choice does not affect where in the UAE the person can enter or live.",
+        "ml": "Choose the department that will issue the visa. Your choice does not affect where in the UAE the person can enter or live."
+      }
+    },
+    {
+      "id": "visa_category",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Category",
+        "الفئة"
+      ],
+      "help": {
+        "en": "The kind of visa: visit, tourism, treatment and so on. Choose it yourself.",
+        "ar": "نوع التأشيرة: زيارة أو سياحة أو علاج وغيرها. اختره بنفسك.",
+        "ur": "The kind of visa: visit, tourism, treatment and so on. Choose it yourself.",
+        "ml": "The kind of visa: visit, tourism, treatment and so on. Choose it yourself."
+      }
+    },
+    {
+      "id": "request_reason",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Reason for request",
+        "سبب الطلب"
+      ],
+      "help": {
+        "en": "Why the visa is needed. Choose it yourself.",
+        "ar": "سبب طلب التأشيرة. اختره بنفسك.",
+        "ur": "Why the visa is needed. Choose it yourself.",
+        "ml": "Why the visa is needed. Choose it yourself."
+      }
+    },
+    {
+      "id": "full_name_english",
+      "vault_key": [
+        "passport.name",
+        "eid.name",
+        "other.name"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Full Name (English)",
+        "الاسم الكامل (إنجليزي)"
+      ],
+      "help": {
+        "en": "The beneficiary's full name exactly as printed on their passport.",
+        "ar": "الاسم الكامل للمستفيد كما هو مكتوب في جواز سفره.",
+        "ur": "The beneficiary's full name exactly as printed on their passport.",
+        "ml": "The beneficiary's full name exactly as printed on their passport."
+      }
+    },
+    {
+      "id": "full_name_arabic",
+      "vault_key": "ar:passport.name",
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Full Name (Arabic)",
+        "الاسم الكامل (عربي)"
+      ],
+      "help": {
+        "en": "The name in Arabic letters. Sahl writes it from the English name with the local AI model, so check the spelling.",
+        "ar": "الاسم بالأحرف العربية. يكتبه سهل من الاسم الإنجليزي بالذكاء الاصطناعي المحلي، فراجع الإملاء.",
+        "ur": "The name in Arabic letters. Sahl writes it from the English name with the local AI model, so check the spelling.",
+        "ml": "The name in Arabic letters. Sahl writes it from the English name with the local AI model, so check the spelling."
+      }
+    },
+    {
+      "id": "current_nationality",
+      "vault_key": [
+        "passport.nationality",
+        "eid.nationality"
+      ],
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Current Nationality",
+        "الجنسية الحالية"
+      ],
+      "help": {
+        "en": "The nationality on the passport.",
+        "ar": "الجنسية كما في جواز السفر.",
+        "ur": "The nationality on the passport.",
+        "ml": "The nationality on the passport."
+      }
+    },
+    {
+      "id": "previous_nationality",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Previous Nationality",
+        "الجنسية السابقة"
+      ],
+      "help": {
+        "en": "Only if the person had another nationality before. Choose it yourself.",
+        "ar": "فقط إذا كانت للشخص جنسية سابقة. اختره بنفسك.",
+        "ur": "Only if the person had another nationality before. Choose it yourself.",
+        "ml": "Only if the person had another nationality before. Choose it yourself."
+      }
+    },
+    {
+      "id": "occupation",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Occupation",
+        "المهنة"
+      ],
+      "help": {
+        "en": "The person's job. Search and choose it yourself.",
+        "ar": "مهنة الشخص. ابحث عنها واخترها بنفسك.",
+        "ur": "The person's job. Search and choose it yourself.",
+        "ml": "The person's job. Search and choose it yourself."
+      }
+    },
+    {
+      "id": "gender",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Gender",
+        "الجنس"
+      ],
+      "help": {
+        "en": "Male or female, as on the passport. Choose it yourself.",
+        "ar": "ذكر أو أنثى كما في جواز السفر. اخترها بنفسك.",
+        "ur": "Male or female, as on the passport. Choose it yourself.",
+        "ml": "Male or female, as on the passport. Choose it yourself."
+      }
+    },
+    {
+      "id": "date_of_birth",
+      "vault_key": [
+        "passport.dob",
+        "eid.dob",
+        "other.dob"
+      ],
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Date of Birth",
+        "تاريخ الميلاد"
+      ],
+      "help": {
+        "en": "Day, month and year, as DD/MM/YYYY.",
+        "ar": "اليوم والشهر والسنة بصيغة يوم/شهر/سنة.",
+        "ur": "Day, month and year, as DD/MM/YYYY.",
+        "ml": "Day, month and year, as DD/MM/YYYY."
+      }
+    },
+    {
+      "id": "country_of_birth",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Country of Birth",
+        "بلد الميلاد"
+      ],
+      "help": {
+        "en": "The country where the person was born. Choose it yourself.",
+        "ar": "البلد الذي وُلد فيه الشخص. اخترها بنفسك.",
+        "ur": "The country where the person was born. Choose it yourself.",
+        "ml": "The country where the person was born. Choose it yourself."
+      }
+    },
+    {
+      "id": "city_of_birth_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "English City Of Birth",
+        "مدينة الميلاد (إنجليزي)"
+      ],
+      "help": {
+        "en": "The city of birth in English letters, as on the passport.",
+        "ar": "مدينة الميلاد بالأحرف الإنجليزية كما في جواز السفر.",
+        "ur": "The city of birth in English letters, as on the passport.",
+        "ml": "The city of birth in English letters, as on the passport."
+      }
+    },
+    {
+      "id": "city_of_birth_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Arabic City Of Birth",
+        "مدينة الميلاد (عربي)"
+      ],
+      "help": {
+        "en": "The city of birth in Arabic letters.",
+        "ar": "مدينة الميلاد بالأحرف العربية.",
+        "ur": "The city of birth in Arabic letters.",
+        "ml": "The city of birth in Arabic letters."
+      }
+    },
+    {
+      "id": "passport_number",
+      "vault_key": "passport.number",
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Passport No.",
+        "رقم جواز السفر"
+      ],
+      "help": {
+        "en": "The passport number printed on the passport page.",
+        "ar": "رقم جواز السفر المطبوع في صفحة الجواز.",
+        "ur": "The passport number printed on the passport page.",
+        "ml": "The passport number printed on the passport page."
+      }
+    },
+    {
+      "id": "passport_type",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Passport Type",
+        "نوع جواز السفر"
+      ],
+      "help": {
+        "en": "Usually Ordinary Passport. Choose it yourself.",
+        "ar": "عادةً جواز سفر عادي. اخترها بنفسك.",
+        "ur": "Usually Ordinary Passport. Choose it yourself.",
+        "ml": "Usually Ordinary Passport. Choose it yourself."
+      }
+    },
+    {
+      "id": "passport_issue_place_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Passport Issue Place (English)",
+        "مكان إصدار الجواز (إنجليزي)"
+      ],
+      "help": {
+        "en": "The place of issue printed on the passport, in English letters.",
+        "ar": "مكان الإصدار المطبوع في الجواز بالأحرف الإنجليزية.",
+        "ur": "The place of issue printed on the passport, in English letters.",
+        "ml": "The place of issue printed on the passport, in English letters."
+      }
+    },
+    {
+      "id": "passport_issue_place_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Passport Issue Place (Arabic)",
+        "مكان إصدار الجواز (عربي)"
+      ],
+      "help": {
+        "en": "The place of issue in Arabic letters.",
+        "ar": "مكان الإصدار بالأحرف العربية.",
+        "ur": "The place of issue in Arabic letters.",
+        "ml": "The place of issue in Arabic letters."
+      }
+    },
+    {
+      "id": "passport_issue_country",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Country of Issue",
+        "بلد الإصدار"
+      ],
+      "help": {
+        "en": "The country that issued the passport. Choose it yourself.",
+        "ar": "البلد الذي أصدر الجواز. اخترها بنفسك.",
+        "ur": "The country that issued the passport. Choose it yourself.",
+        "ml": "The country that issued the passport. Choose it yourself."
+      }
+    },
+    {
+      "id": "passport_issue_date",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Date of Issue",
+        "تاريخ الإصدار"
+      ],
+      "help": {
+        "en": "The passport's issue date, as DD/MM/YYYY.",
+        "ar": "تاريخ إصدار الجواز بصيغة يوم/شهر/سنة.",
+        "ur": "The passport's issue date, as DD/MM/YYYY.",
+        "ml": "The passport's issue date, as DD/MM/YYYY."
+      }
+    },
+    {
+      "id": "passport_expiry",
+      "vault_key": "passport.expiry",
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Expiry Date",
+        "تاريخ الانتهاء"
+      ],
+      "help": {
+        "en": "The passport's expiry date, as DD/MM/YYYY. The portal often calculates it, and Sahl leaves a box alone when it already shows the right value.",
+        "ar": "تاريخ انتهاء الجواز بصيغة يوم/شهر/سنة. غالبًا ما يحسبه الموقع، ولا يغيّر سهل خانة تحمل القيمة الصحيحة.",
+        "ur": "The passport's expiry date, as DD/MM/YYYY. The portal often calculates it, and Sahl leaves a box alone when it already shows the right value.",
+        "ml": "The passport's expiry date, as DD/MM/YYYY. The portal often calculates it, and Sahl leaves a box alone when it already shows the right value."
+      }
+    },
+    {
+      "id": "religion",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Religion",
+        "الديانة"
+      ],
+      "help": {
+        "en": "Choose it yourself.",
+        "ar": "اخترها بنفسك.",
+        "ur": "Choose it yourself.",
+        "ml": "Choose it yourself."
+      }
+    },
+    {
+      "id": "faith",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Faith",
+        "الطائفة"
+      ],
+      "help": {
+        "en": "Choose it yourself.",
+        "ar": "اخترها بنفسك.",
+        "ur": "Choose it yourself.",
+        "ml": "Choose it yourself."
+      }
+    },
+    {
+      "id": "marital_status",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Marital Status",
+        "الحالة الاجتماعية"
+      ],
+      "help": {
+        "en": "Choose it yourself.",
+        "ar": "اخترها بنفسك.",
+        "ur": "Choose it yourself.",
+        "ml": "Choose it yourself."
+      }
+    },
+    {
+      "id": "qualification",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Qualification",
+        "المؤهل"
+      ],
+      "help": {
+        "en": "The person's highest qualification. Choose it yourself.",
+        "ar": "أعلى مؤهل للشخص. اخترها بنفسك.",
+        "ur": "The person's highest qualification. Choose it yourself.",
+        "ml": "The person's highest qualification. Choose it yourself."
+      }
+    },
+    {
+      "id": "mother_first_name_english",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mother's First Name (English)",
+        "اسم الأم الأول (إنجليزي)"
+      ],
+      "help": {
+        "en": "The mother's first name in English letters. It is about someone else, so Sahl asks you.",
+        "ar": "الاسم الأول للأم بالأحرف الإنجليزية. هذه معلومة عن شخص آخر لذلك يسألك سهل.",
+        "ur": "The mother's first name in English letters. It is about someone else, so Sahl asks you.",
+        "ml": "The mother's first name in English letters. It is about someone else, so Sahl asks you."
+      }
+    },
+    {
+      "id": "mother_first_name_arabic",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mother's First Name (Arabic)",
+        "اسم الأم الأول (عربي)"
+      ],
+      "help": {
+        "en": "The mother's first name in Arabic letters. It is about someone else, so Sahl asks you.",
+        "ar": "الاسم الأول للأم بالأحرف العربية. هذه معلومة عن شخص آخر لذلك يسألك سهل.",
+        "ur": "The mother's first name in Arabic letters. It is about someone else, so Sahl asks you.",
+        "ml": "The mother's first name in Arabic letters. It is about someone else, so Sahl asks you."
+      }
+    },
+    {
+      "id": "email",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Email",
+        "البريد الإلكتروني"
+      ],
+      "help": {
+        "en": "An email address that will receive messages about the request. Tell Sahl once and it remembers.",
+        "ar": "بريد إلكتروني لاستلام رسائل الطلب. أخبر سهل مرة واحدة وسيتذكره.",
+        "ur": "An email address that will receive messages about the request. Tell Sahl once and it remembers.",
+        "ml": "An email address that will receive messages about the request. Tell Sahl once and it remembers."
+      }
+    },
+    {
+      "id": "address_emirate",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Emirate",
+        "الإمارة"
+      ],
+      "help": {
+        "en": "The emirate of the address in the UAE. Choose it yourself.",
+        "ar": "إمارة العنوان داخل الدولة. اخترها بنفسك.",
+        "ur": "The emirate of the address in the UAE. Choose it yourself.",
+        "ml": "The emirate of the address in the UAE. Choose it yourself."
+      }
+    },
+    {
+      "id": "address_city",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "City",
+        "المدينة"
+      ],
+      "help": {
+        "en": "Choose it after the emirate.",
+        "ar": "اخترها بعد اختيار الإمارة.",
+        "ur": "Choose it after the emirate.",
+        "ml": "Choose it after the emirate."
+      }
+    },
+    {
+      "id": "address_area",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Area",
+        "المنطقة"
+      ],
+      "help": {
+        "en": "Choose it after the city.",
+        "ar": "اخترها بعد اختيار المدينة.",
+        "ur": "Choose it after the city.",
+        "ml": "Choose it after the city."
+      }
+    },
+    {
+      "id": "detailed_address",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Detailed Address",
+        "العنوان التفصيلي"
+      ],
+      "help": {
+        "en": "Street and landmark of the address in the UAE.",
+        "ar": "الشارع وأقرب معلم للعنوان داخل الدولة.",
+        "ur": "Street and landmark of the address in the UAE.",
+        "ml": "Street and landmark of the address in the UAE."
+      }
+    },
+    {
+      "id": "building_hotel",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Building / Hotel",
+        "المبنى / الفندق"
+      ],
+      "help": {
+        "en": "The building or hotel name and number.",
+        "ar": "اسم ورقم المبنى أو الفندق.",
+        "ur": "The building or hotel name and number.",
+        "ml": "The building or hotel name and number."
+      }
+    },
+    {
+      "id": "po_box",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "P.O. BOX",
+        "ص.ب"
+      ],
+      "help": {
+        "en": "The P.O. box, if there is one.",
+        "ar": "رقم صندوق البريد إن وجد.",
+        "ur": "The P.O. box, if there is one.",
+        "ml": "The P.O. box, if there is one."
+      }
+    },
+    {
+      "id": "residence_tel",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Residence Tel",
+        "هاتف السكن"
+      ],
+      "help": {
+        "en": "A landline at the UAE address, if there is one.",
+        "ar": "هاتف أرضي في العنوان داخل الدولة إن وجد.",
+        "ur": "A landline at the UAE address, if there is one.",
+        "ml": "A landline at the UAE address, if there is one."
+      }
+    },
+    {
+      "id": "office_tel",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Office Tel",
+        "هاتف المكتب"
+      ],
+      "help": {
+        "en": "An office landline, if there is one.",
+        "ar": "هاتف المكتب إن وجد.",
+        "ur": "An office landline, if there is one.",
+        "ml": "An office landline, if there is one."
+      }
+    },
+    {
+      "id": "uae_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Mobile No.",
+        "رقم الهاتف المتحرك"
+      ],
+      "help": {
+        "en": "A mobile number inside the UAE, without the 00971 prefix. Tell Sahl once and it remembers.",
+        "ar": "رقم هاتف متحرك داخل الدولة بدون 00971. أخبر سهل مرة واحدة وسيتذكره.",
+        "ur": "A mobile number inside the UAE, without the 00971 prefix. Tell Sahl once and it remembers.",
+        "ml": "A mobile number inside the UAE, without the 00971 prefix. Tell Sahl once and it remembers."
+      }
+    },
+    {
+      "id": "permanent_country",
+      "vault_key": null,
+      "input": "select",
+      "box": "auto",
+      "aliases": [
+        "Permanent Country",
+        "بلد الإقامة الدائمة"
+      ],
+      "help": {
+        "en": "The country where the person lives permanently. Choose it yourself.",
+        "ar": "البلد الذي يقيم فيه الشخص بشكل دائم. اخترها بنفسك.",
+        "ur": "The country where the person lives permanently. Choose it yourself.",
+        "ml": "The country where the person lives permanently. Choose it yourself."
+      }
+    },
+    {
+      "id": "address_outside_uae",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Detailed Address Outside UAE",
+        "العنوان التفصيلي خارج الدولة"
+      ],
+      "help": {
+        "en": "The full address outside the UAE.",
+        "ar": "العنوان الكامل خارج الدولة.",
+        "ur": "The full address outside the UAE.",
+        "ml": "The full address outside the UAE."
+      }
+    },
+    {
+      "id": "permanent_mobile_number",
+      "vault_key": null,
+      "input": "text",
+      "box": "auto",
+      "aliases": [
+        "Permanent Mobile No.",
+        "رقم الهاتف المتحرك الدائم"
+      ],
+      "help": {
+        "en": "The person's permanent mobile number, without the 00971 prefix.",
+        "ar": "رقم الهاتف المتحرك الدائم للشخص بدون 00971.",
+        "ur": "The person's permanent mobile number, without the 00971 prefix.",
+        "ml": "The person's permanent mobile number, without the 00971 prefix."
+      }
+    }
+  ]
 }

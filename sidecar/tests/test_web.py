@@ -323,24 +323,24 @@ ANY = json.loads((Path(__file__).parents[2] / "guides" / "any-form.json").read_t
 
 
 def test_name_and_name_in_english_are_both_filled_even_when_the_page_has_its_own_guide(monkeypatch):
-    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "EDEN VIJAY REBELLO", "verified": True})
+    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "NOOR AHMAD KHALIL", "verified": True})
     scan = web.plan({"url": "https://example.test", "guide": "demo-form",
                      "fields": [field("a", "Name in English"), field("b", "Name")]}, {**GUIDES, "any-form": ANY}, "p1")
     by = {f["element_id"]: f for f in scan["fields"]}
     assert by["a"]["field_id"] == "full_name" and not by["a"].get("unknown")
     assert by["b"]["field_id"] == "full_name"  # "Name" and "Name in English" are the same detail: both get the name
-    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "EDEN VIJAY REBELLO"
+    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "NOOR AHMAD KHALIL"
 
 
 def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
-    monkeypatch.setitem(VALUES, "passport.name", ("EDEN VIJAY REBELLO", True))
-    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "عدن فيجاي ريبيلو"})
+    monkeypatch.setitem(VALUES, "passport.name", ("NOOR AHMAD KHALIL", True))
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "نور أحمد خليل"})
     web._arabic_names.clear()
     scan = web.plan({"url": "https://example.test", "guide": "demo-form",
                      "fields": [field("a", "Name in English"), field("c", "Name in Arabic")]}, {**GUIDES, "any-form": ANY}, "p1")
     assert {f["element_id"]: f["field_id"] for f in scan["fields"]} == {"a": "full_name", "c": "full_name_ar"}
-    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "عدن فيجاي ريبيلو"
-    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Eden"})  # not Arabic: nothing is typed
+    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "نور أحمد خليل"
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Noor"})  # not Arabic: nothing is typed
     web._arabic_names.clear()
     assert web.values(scan, ["c"], "p1")["missing"]
 
@@ -414,3 +414,23 @@ def test_the_pairing_code_names_the_port_it_was_shown_for():
     for port in (bridge.PORTS[0], bridge.PORTS[3]):
         state = bridge.State(GUIDES, token="a" * 64, port=port)
         assert state.fresh_code()[-1] == str(port - bridge.PORTS[0])
+
+
+def test_the_icp_entry_permit_form_is_read_box_by_box(monkeypatch):
+    guides = {**GUIDES, "any-form": ANY, "icp-visa-issue": json.loads((Path(__file__).parents[2] / "guides" / "icp-visa-issue.json").read_text())}
+    monkeypatch.setitem(VALUES, "passport.name", ("NOOR AHMAD KHALIL", True))
+    monkeypatch.setitem(VALUES, "passport.number", ("X1234567", True))
+    labels = ["Full Name (English)", "Full Name (Arabic)", "Current Nationality", "Date of Birth", "Passport No.", "Expiry Date",
+              "Mother's First Name (English)", "Previous Nationality", "Mobile No.", "Permanent Mobile No."]
+    scan = web.plan({"url": "https://smartservices.icp.gov.ae/x", "title": "Entry permit", "guide": "icp-visa-issue",
+                     "fields": [field(f"f{i}", label, "select" if "Nationality" in label else "input") for i, label in enumerate(labels)]},
+                    guides, "p1")
+    got = {f["label"]: f.get("field_id") or "unknown" for f in scan["fields"]}
+    assert scan["guide"]["id"] == "icp-visa-issue"
+    assert got["Full Name (English)"] == "full_name_english" and got["Full Name (Arabic)"] == "full_name_arabic"
+    assert got["Passport No."] == "passport_number" and got["Date of Birth"] == "date_of_birth"
+    assert got["Expiry Date"] == "passport_expiry" and got["Current Nationality"] == "current_nationality"
+    out = web.values(scan, [f["element_id"] for f in scan["fields"]], "p1")
+    filled = {v["element_id"]: v.get("value") for v in out["values"]}
+    assert filled["f0"] == "NOOR AHMAD KHALIL" and filled["f4"] == "X1234567"
+    assert "f6" not in filled  # the mother's name is someone else's: never the person's own
