@@ -37,6 +37,13 @@ const docName = (d) => T(`doc_${d}`);
 
 function show(which) {
   for (const id of ["pair", "work", "none"]) $(id).hidden = id !== which;
+  $("dock").hidden = which !== "work";
+}
+
+// how many boxes the fill button will fill
+function count() {
+  const n = document.querySelectorAll("#fields input[type=checkbox]:checked").length;
+  $("count").textContent = n ? String(n) : "";
 }
 
 function setReading(on) {
@@ -151,28 +158,20 @@ function listFields(fields) {
   list.replaceChildren();
   if (!fields.length) {
     list.append(node("li", "empty", T("no_fields")));
+    count();
     return;
   }
-  const asked = fields.filter(asking).length;
-  const hasAsk = asked > 0;
+  // two groups: what I can fill (the main action, first), then the boxes I need to be told about, numbered as on the page
+  const ready = node("ol");
+  const ask = node("ol");
   let askNo = 0;
-  let section = "";
   for (const f of fields) {
     const isAsk = asking(f);
-    if (isAsk) askNo++;
-    const wanted = isAsk ? "ask" : "ready";
-    if (wanted !== section && (isAsk || hasAsk)) {
-      section = wanted;
-      const head = node("li", "section");
-      head.append(node("span", "", T(isAsk ? "new_fields" : "ready")));
-      if (isAsk) head.append(node("em", "", String(asked)));
-      list.append(head);
-    }
-    const li = node("li", isAsk ? "ask-row" : "");
+    const li = node("li");
     const row = node(isAsk ? "div" : "label", isAsk ? "field ask" : "field");
     let mark;
     if (isAsk) {
-      mark = node("span", "num", String(askNo));
+      mark = node("span", "num", String(++askNo));
       mark.setAttribute("aria-hidden", "true");
     } else {
       mark = document.createElement("input");
@@ -180,6 +179,7 @@ function listFields(fields) {
       mark.checked = true;
       mark.dataset.id = f.element_id;
       mark.setAttribute("aria-label", T("fill_box", { label: f.label }));
+      mark.addEventListener("change", count);
     }
     const text = node("span");
     text.append(iso("b", "", f.label));
@@ -187,7 +187,7 @@ function listFields(fields) {
     if (f.seen && f.seen !== f.label) why.push(f.seen);
     if (f.needs) why.push(T("needs", { doc: docName(f.needs) }));
     if (f.told) why.push(T("told"));
-    if (why.length) text.append(node("small", "", why.join(" · ")));
+    if (why.length) text.append(node("small", "", why.join(", ")));
     if (isAsk && f.suggest) text.append(node("small", "ask-help", T("may_know")));
     if (isAsk) {
       const toggle = node("button", "toggle", T("tell"));
@@ -211,12 +211,31 @@ function listFields(fields) {
       });
       row.append(mark, text, toggle);
       li.append(row, panel);
+      ask.append(li);
     } else {
       row.append(mark, text);
       li.append(row);
+      ready.append(li);
     }
-    list.append(li);
   }
+  for (const [ol, key, cls] of [[ready, "ready", ""], [ask, "new_fields", "ask"]]) {
+    if (!ol.children.length) continue;
+    const group = node("li", "group");
+    const head = node("div", `section ${cls}`.trim());
+    head.append(node("span", "", T(key)), node("em", "", String(ol.children.length)));
+    group.append(head, ol);
+    list.append(group);
+  }
+  count();
+}
+
+// while reading for the first time: the list's shape, so the popup doesn't jump when it arrives
+function skeleton() {
+  if ($("fields").children.length) return;
+  const box = node("li", "skeleton");
+  box.setAttribute("aria-hidden", "true");
+  for (let i = 0; i < 4; i++) box.append(node("i"));
+  $("fields").append(box);
 }
 
 function showPlan(out) {
@@ -255,6 +274,11 @@ async function scanPage() {
   note("");
   try {
     await currentTab();
+    if ($("work").hidden && !$("fields").children.length) {
+      show("work");
+      $("guide").replaceChildren();
+      skeleton();
+    }
     const out = await send("scan", { tabId, person: $("person").value || null, strings: pageStrings() });
     show("work");
     showPlan(out);
@@ -309,7 +333,7 @@ async function fillChosen() {
       bits.push(filled.length === 1 ? T("filled_one", { names }) : T("filled_many", { n: filled.length, names }));
     }
     if (skipped) bits.push(T("skipped", { n: skipped }));
-    for (const r of failed) bits.push(T("failed", { label: labelOf(r.element_id) || "—", why: T(FAILS[r.reason] || "fail_other") }));
+    for (const r of failed) bits.push(T("failed", { label: labelOf(r.element_id) || "?", why: T(FAILS[r.reason] || "fail_other") }));
     if (missing.length) {
       const needs = [...new Set(missing.map((m) => m.needs).filter(Boolean))];
       bits.push(needs.length ? T("add_for", { docs: needs.map(docName).join(T("and")), n: missing.length }) : T("no_value", { n: missing.length }));
