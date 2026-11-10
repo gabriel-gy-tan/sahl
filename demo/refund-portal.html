@@ -17,8 +17,8 @@
   .crumbs { max-width: 920px; margin: 18px auto 0; color: var(--quiet); font-size: 13px; padding: 0 4px; }
   main { max-width: 920px; margin: 10px auto 60px; }
   h1 { margin: 0 0 14px; font-size: 24px; padding: 0 4px; }
-  section { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
-  section > h2 { margin: 0; padding: 11px 18px; font-size: 15px; background: #f5f7fa; border-bottom: 1px solid var(--line); }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; }
+  section > h2 { margin: 0; padding: 11px 18px; border-radius: 8px 8px 0 0; font-size: 15px; background: #f5f7fa; border-bottom: 1px solid var(--line); }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; padding: 14px 18px 18px; }
   .row { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 10px; min-height: 46px; }
   .row.wide { grid-column: 1 / -1; grid-template-columns: 170px 1fr; }
@@ -169,7 +169,7 @@
       search.addEventListener("input", draw);
       draw();
       box.append(drop);
-      search.focus();
+      search.focus({ preventScroll: true });
     };
     shown.addEventListener("click", open);
     select.addEventListener("change", show);
