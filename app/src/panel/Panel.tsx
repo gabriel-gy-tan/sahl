@@ -72,7 +72,7 @@ function Dropdown({ value, options, placeholder, label, onChange }: {
       <button type="button" className="dropdown-button" aria-haspopup="listbox" aria-expanded={open} aria-label={label}
         onClick={() => setOpen(!open)}>
         <span className={current ? undefined : "placeholder"}>{current?.label ?? placeholder}</span>
-        <span className="chevron" aria-hidden />
+        <Icon name="down" />
       </button>
       {open && (
         <div className="dropdown-list" role="listbox" aria-label={label}>
@@ -118,9 +118,12 @@ function FormSearch({ guides, lang, placeholder, empty, other, onPick, onCancel 
   };
   return (
     <div className="dropdown open search">
-      <input className="dropdown-button" autoFocus value={q} placeholder={placeholder} dir={q ? "auto" : undefined}
-        role="combobox" aria-expanded aria-controls="form-results" aria-activedescendant={`form-${at}`} aria-label={placeholder}
-        onChange={(e) => setQ(e.target.value)} onKeyDown={key} />
+      <div className="search-box">
+        <Icon name="search" />
+        <input className="dropdown-button" autoFocus value={q} placeholder={placeholder} dir={q ? "auto" : undefined}
+          role="combobox" aria-expanded aria-controls="form-results" aria-activedescendant={`form-${at}`} aria-label={placeholder}
+          onChange={(e) => setQ(e.target.value)} onKeyDown={key} />
+      </div>
       <div className="dropdown-list" id="form-results" role="listbox" aria-label={placeholder}>
         {ids && !ids.length && <p className="fine">{empty}</p>}
         {rows.map((id, i) => (
@@ -151,7 +154,7 @@ function speak(text: string) {
 function Speaker({ text, label }: { text: string; label: string }) {
   return (
     <button type="button" className="speaker" aria-label={label} title={label} onClick={() => speak(text)}>
-      <svg viewBox="0 0 24 24" aria-hidden><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" /><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" /></svg>
+      <Icon name="speaker" />
     </button>
   );
 }
@@ -700,17 +703,17 @@ export default function Panel() {
 
           <div className="content" ref={contentRef} inert={!shownOpen}>
             {dropping && <div className="drop">{t("drop_here")}</div>}
-            {guide && !sheet && <button className="tuck" aria-label={t("tuck")} title={`${t("tuck")} (Esc)`} onClick={tuck}><span className="chevron" aria-hidden /></button>}
+            {guide && !sheet && <button className="tuck" aria-label={t("tuck")} title={`${t("tuck")} (Esc)`} onClick={tuck}><Icon name="up" /></button>}
             <button className={sheet ? "more open" : "more"} aria-label={sheet ? t("close") : t("settings")} title={sheet ? t("close") : t("settings")}
               aria-expanded={sheet} onClick={() => setSheet(!sheet)}>
-              <i /><i /><i />
+              <Icon name={sheet ? "close" : "more"} />
             </button>
 
             {sheet ? (
               <div className="sheet">
                 {/* the title shares its row with the close button, so nothing runs under it */}
                 <h2 className="sheet-title">
-                  {page && <button className="back" aria-label={t("back")} onClick={back}>‹</button>}
+                  {page && <button className="back" aria-label={t("back")} onClick={back}><Icon name="back" /></button>}
                   {t(page ? PAGES[page] : "settings")}
                 </h2>
                 {!page ? (
@@ -718,7 +721,7 @@ export default function Panel() {
                     {(Object.keys(PAGES) as Page[]).map((id) => (
                       <button key={id} className="row nav" onClick={() => setPage(id)}>
                         <span className={`tile ${id}`}><Icon name={id} /></span>
-                        <span>{t(PAGES[id])}</span><span className="chevron" aria-hidden />
+                        <span>{t(PAGES[id])}</span><Icon name="next" />
                       </button>
                     ))}
                   </nav>
@@ -857,7 +860,7 @@ export default function Panel() {
                       {improve?.on && !improve.reports.length && <div className="row"><span className="held">{t("no_reports")}</span></div>}
                       {improve?.on && (
                         <button className="row nav" onClick={() => void api("/improve/reveal", {}).catch(fail)}>
-                          <span className="label"><Icon name="folder" />{t("open_folder")}</span><span className="chevron" aria-hidden />
+                          <span className="label"><Icon name="folder" />{t("open_folder")}</span><Icon name="next" />
                         </button>
                       )}
                     </section>
@@ -913,7 +916,7 @@ export default function Panel() {
                             <span className="fine">{t(`allow_${w}_why`)}</span>
                           </span>
                           {allowed?.[w]
-                            ? <span className="held on">✓ {t("allowed")}</span>
+                            ? <span className="held on"><Icon name="check" />{t("allowed")}</span>
                             : <button className="ghost" onClick={() => allow(w)}>{t("allow")}</button>}
                         </div>
                       ))}
@@ -932,8 +935,11 @@ export default function Panel() {
                       {(["fill", "show"] as const).map((m) => (
                         <button key={m} role="radio" aria-checked={mode === m} className="mode"
                           onClick={() => (setMode(m), save("mode", m))}>
-                          <span>{t(m === "fill" ? "confirm_fill" : "show_only")}</span>
-                          <span className="fine">{t(m === "fill" ? "mode_fill_why" : "mode_show_why")}</span>
+                          <span className="stack">
+                            <span>{t(m === "fill" ? "confirm_fill" : "show_only")}</span>
+                            <span className="fine">{t(m === "fill" ? "mode_fill_why" : "mode_show_why")}</span>
+                          </span>
+                          <span className="mark" aria-hidden>{mode === m && <Icon name="check" />}</span>
                         </button>
                       ))}
                     </div>
@@ -982,12 +988,12 @@ export default function Panel() {
                           )}
                           {last && (m.kind === "match" || m.kind === "about") && m.options?.filter(guideLabel).map((id) => (
                             <button className="choice" key={id} onClick={() => choose(id)}>
-                              <span>{guideLabel(id)}</span><span aria-hidden>→</span>
+                              <span>{guideLabel(id)}</span><Icon name="go" />
                             </button>
                           ))}
                           {last && m.kind === "new" && (
                             <button className="choice" onClick={() => choose(GENERIC, m.name)}>
-                              <span dir="auto">{m.name}</span><span aria-hidden>→</span>
+                              <span dir="auto">{m.name}</span><Icon name="go" />
                             </button>
                           )}
                           {last && (m.kind === "pick" || m.kind === "search") && (
@@ -1033,8 +1039,8 @@ export default function Panel() {
                 </div>
                 {!thread.length && !thinking && (
                   <div className="suggestions">
-                    <button type="button" className="pick" onClick={searchForms}>{t("pick_form")}</button>
-                    <button type="button" onClick={() => (setSheet(true), setPage("docs"))}>{t("my_docs")}</button>
+                    <button type="button" className="pick" onClick={searchForms}><Icon name="search" />{t("pick_form")}</button>
+                    <button type="button" onClick={() => (setSheet(true), setPage("docs"))}><Icon name="folder" />{t("my_docs")}</button>
                     {suggestions.map((q) => <button key={q} type="button" dir="auto" onClick={() => send(q)}>{q}</button>)}
                   </div>
                 )}
@@ -1047,9 +1053,9 @@ export default function Panel() {
                     onChange={(e) => setText(e.target.value)} />
                   <button className="mic" type="button" aria-label={t("dictate")} title={t("dictate")}
                     onClick={() => (inputRef.current?.focus(), void invoke("dictate").catch(() => {}))}>
-                    <svg viewBox="0 0 24 24" aria-hidden><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" /></svg>
+                    <Icon name="mic" />
                   </button>
-                  <button className="send" type="submit" disabled={!text.trim() || thinking} aria-label={t("send")}>↑</button>
+                  <button className="send" type="submit" disabled={!text.trim() || thinking} aria-label={t("send")} title={t("send")}><Icon name="send" /></button>
                 </form>
               </div>
             ) : (
@@ -1071,7 +1077,11 @@ export default function Panel() {
                 {note && <p className="quiet" role="status">{note}</p>}
                 {field && (reading!.person || people.length < 2) ? (
                   <section className="card" aria-live="polite">
-                    <div className="eyebrow">{t("next_box")} · {t("step", { n: index, total: reading!.fields.length })}</div>
+                    <div className="eyebrow">
+                      <span>{t("next_box")}</span>
+                      <span>{t("step", { n: index, total: reading!.fields.length })}</span>
+                    </div>
+                    <div className="progress" aria-hidden><i style={{ width: `${(100 * index) / reading!.fields.length}%` }} /></div>
                     <div className="line">
                       <h2 dir="auto">{field.label}</h2>
                       <Speaker text={`${field.label}. ${field.help[lang]}`} label={t("listen")} />
@@ -1082,10 +1092,11 @@ export default function Panel() {
                       <>
                         <div className="value">
                           <code dir="ltr">{field.vault.value}</code>
-                          <button className="ghost" onClick={() => {
-                            navigator.clipboard.writeText(field.vault!.value);
-                            setCopied(true);
-                          }}>{copied ? t("copied") : t("copy")}</button>
+                          <button className="icon-button" aria-label={copied ? t("copied") : t("copy")} title={copied ? t("copied") : t("copy")}
+                            onClick={() => {
+                              navigator.clipboard.writeText(field.vault!.value);
+                              setCopied(true);
+                            }}><Icon name={copied ? "check" : "copy"} /></button>
                         </div>
                         {field.vault.crop && (
                           <figure>
@@ -1116,9 +1127,11 @@ export default function Panel() {
                         ) : (
                           <form className="teach" onSubmit={(e) => (e.preventDefault(), void tell("/taught", { label: field.label, value: told, person: reading!.person }))}>
                             <p dir="auto">{t("unknown_title", { label: field.label })}</p>
-                            <input value={told} dir="auto" autoFocus placeholder={t("unknown_ph")} aria-label={field.label}
-                              onChange={(e) => setTold(e.target.value)} />
-                            <button className="primary" type="submit" disabled={busy || !told.trim()}>{t("remember")}</button>
+                            <div className="edit">
+                              <input value={told} dir="auto" autoFocus placeholder={t("unknown_ph")} aria-label={field.label}
+                                onChange={(e) => setTold(e.target.value)} />
+                              <button className="primary" type="submit" disabled={busy || !told.trim()}>{t("remember")}</button>
+                            </div>
                           </form>
                         )
                       ) : (
