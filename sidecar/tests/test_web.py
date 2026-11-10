@@ -323,24 +323,24 @@ ANY = json.loads((Path(__file__).parents[2] / "guides" / "any-form.json").read_t
 
 
 def test_name_and_name_in_english_are_both_filled_even_when_the_page_has_its_own_guide(monkeypatch):
-    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "EDEN VIJAY REBELLO", "verified": True})
+    monkeypatch.setattr(web.vault, "get", lambda key, person: {"value": "NOOR AHMAD KHALIL", "verified": True})
     scan = web.plan({"url": "https://example.test", "guide": "demo-form",
                      "fields": [field("a", "Name in English"), field("b", "Name")]}, {**GUIDES, "any-form": ANY}, "p1")
     by = {f["element_id"]: f for f in scan["fields"]}
     assert by["a"]["field_id"] == "full_name" and not by["a"].get("unknown")
     assert by["b"]["field_id"] == "full_name"  # "Name" and "Name in English" are the same detail: both get the name
-    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "EDEN VIJAY REBELLO"
+    assert web.values(scan, ["a"], "p1")["values"][0]["value"] == "NOOR AHMAD KHALIL"
 
 
 def test_the_arabic_name_is_written_from_the_english_one(monkeypatch):
-    monkeypatch.setitem(VALUES, "passport.name", ("EDEN VIJAY REBELLO", True))
-    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "عدن فيجاي ريبيلو"})
+    monkeypatch.setitem(VALUES, "passport.name", ("NOOR AHMAD KHALIL", True))
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "نور أحمد خليل"})
     web._arabic_names.clear()
     scan = web.plan({"url": "https://example.test", "guide": "demo-form",
                      "fields": [field("a", "Name in English"), field("c", "Name in Arabic")]}, {**GUIDES, "any-form": ANY}, "p1")
     assert {f["element_id"]: f["field_id"] for f in scan["fields"]} == {"a": "full_name", "c": "full_name_ar"}
-    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "عدن فيجاي ريبيلو"
-    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Eden"})  # not Arabic: nothing is typed
+    assert web.values(scan, ["c"], "p1")["values"][0]["value"] == "نور أحمد خليل"
+    monkeypatch.setattr(web.ai, "chat", lambda body, timeout, tries=2: {"arabic": "Noor"})  # not Arabic: nothing is typed
     web._arabic_names.clear()
     assert web.values(scan, ["c"], "p1")["missing"]
 

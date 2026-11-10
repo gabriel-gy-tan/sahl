@@ -170,7 +170,7 @@ def _printed(value: str, text: str) -> bool:
 def _printed_name(lines, field: str) -> tuple[str, str] | None:
     """(given names, surname) from the printed lines, when they match the MRZ name field.
 
-    The MRZ spells the name but OCR reads its "<" fillers as letters (KOMALKVIJAY); the printed
+    The MRZ spells the name but OCR reads its "<" fillers as letters (NOORAKHALIL); the printed
     lines have the real spacing. Label words ("Surname") are dropped because the MRZ doesn't contain them.
     """
     surname, _, given = field.partition("<<")
@@ -298,7 +298,7 @@ def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, 
 
 
 def _given_first(name: str) -> str:
-    """'REBELLO, EDEN M' (surname first, as on US forms) → 'EDEN M REBELLO'."""
+    """'KHALIL, NOOR A' (surname first, as on US forms) → 'NOOR A KHALIL'."""
     last, comma, given = name.partition(",")
     return f"{given.strip()} {last.strip()}".strip() if comma else name.strip()
 
