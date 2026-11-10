@@ -64,4 +64,8 @@ jobs:
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" out/*.dmg out/*.exe dist/sahl-extension-*.zip --title "Sahl $GITHUB_REF_NAME" --generate-notes
+        # the artifacts keep their bundle/dmg and bundle/nsis folders, so look below out/
+        run: |
+          mapfile -t files < <(find out -name '*.dmg' -o -name '*.exe')
+          test ${#files[@]} -ge 2
+          gh release create "$GITHUB_REF_NAME" "${files[@]}" dist/sahl-extension-*.zip --title "Sahl $GITHUB_REF_NAME" --generate-notes
