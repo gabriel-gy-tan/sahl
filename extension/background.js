@@ -105,16 +105,25 @@ function metadata(page) {
   };
 }
 
+const framesOfTab = new Map(); // tab id -> the frames the last scan injected into, so a clear reaches the page's frames too
+
+async function toFrames(tabId, message) {
+  for (const frameId of framesOfTab.get(tabId) || [0]) {
+    try {
+      await chrome.tabs.sendMessage(tabId, message, { frameId });
+    } catch {}
+  }
+}
+
 async function endReading(tabId) {
-  try {
-    await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:read-end` });
-  } catch {}
+  await toFrames(tabId, { type: `sahl:v${VERSION}:read-end` });
 }
 
 async function scan(tabId, person, strings) {
   const token = await storedToken();
   if (!token) throw new BridgeError("Pair with Sahl first.", "pair");
   const frames = await inject(tabId);
+  framesOfTab.set(tabId, frames);
   const pages = [];
   for (const frameId of frames) {
     try {
@@ -211,9 +220,7 @@ async function pair(code) {
 }
 
 async function clear(tabId) {
-  try {
-    await chrome.tabs.sendMessage(tabId, { type: `sahl:v${VERSION}:clear` });
-  } catch {}
+  await toFrames(tabId, { type: `sahl:v${VERSION}:clear` });
   const token = await storedToken();
   if (token) await call("/clear", {}, token).catch(() => {});
   return { ok: true };
