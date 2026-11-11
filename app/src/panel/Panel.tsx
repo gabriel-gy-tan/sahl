@@ -1160,13 +1160,12 @@ export default function Panel() {
                           </div>
                         ))}
                         {current.checked && <p className="fine">{t("from_official", { date: current.checked })}</p>}
-                        {current.form && (
-                          <a className="continue" href={current.form}
-                            onClick={(e) => (e.preventDefault(), void invoke("open_url", { url: current.form }))}>{t("continue_form")}</a>
-                        )}
                       </section>
                     )}
                     {reading && !error && <p className="quiet">{reading.fields.length ? t("all_done") : t("no_form")}</p>}
+                    {!reading && current?.form && (
+                      <button className="ghost" onClick={() => void invoke("open_url", { url: current.form })}>{t("continue_form")}</button>
+                    )}
                     <button className="primary" disabled={busy} onClick={() => void read(true)}>
                       {busy ? t("reading") : t("read")} <kbd>{KEY}</kbd>
                     </button>

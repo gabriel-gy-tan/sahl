@@ -331,7 +331,6 @@ figcaption { font-size: calc(12px * var(--text)); color: var(--muted); margin-to
 /* what the chosen service is and needs, before the person starts on the form */
 .brief { display: flex; flex-direction: column; gap: 16px; padding: 18px; border-radius: var(--r-box); background: var(--field); box-shadow: var(--edge); }
 .brief p { margin: 0; }
-.brief .continue { align-self: flex-start; color: inherit; font-weight: 500; text-underline-offset: 3px; }
 .brief > p:first-child { line-height: 1.55; }
 .brief > div + div, .brief > p + div { padding-top: 14px; border-top: 1px solid var(--hairline); }
 .brief h3 { margin: 0 0 6px; font-size: calc(12px * var(--text)); font-weight: 500; color: var(--muted); }

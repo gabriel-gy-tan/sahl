@@ -16,6 +16,7 @@
     "بدل تالف الهوية"
   ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5b",
+  "form": "http://127.0.0.1:8077/eid-renewal.html",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels, so this guide has no fields to read yet. Emirates ID replacement. Translations not reviewed by native speakers.",
   "requirements": {
