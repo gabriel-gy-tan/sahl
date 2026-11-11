@@ -217,7 +217,7 @@ def plan(page: dict, guides: dict, person: str | None = None, lang: str = "en") 
             got = vault.get(key[3:], person)
             m["has_value"] = bool(got and got.get("verified")) and ai.have(ai.text_model())
         else:
-            got = vault.get(key, person) if key else None
+            got = vault.get(key, person) if key else _told(m, person)
             m["has_value"] = bool(got and got.get("verified"))
     unknown = _unknown_fields(fields, matched, person)
     for u in unknown:
@@ -238,6 +238,14 @@ def plan(page: dict, guides: dict, person: str | None = None, lang: str = "en") 
         "_specs": specs,
         "_fields": fields,
     }
+
+
+def _told(m: dict, person) -> dict | None:
+    """A guide box no document fills (an email): what the person told Sahl under the box's label or the guide's."""
+    for label in (m.get("seen"), m.get("label")):
+        if label and taught.allowed(label) and (told := taught.get(label, person)):
+            return {"value": told["value"], "verified": True}  # the person's own words
+    return None
 
 
 def teach(scan: dict, element_id: str, value: str, person: str | None = None) -> str | None:
@@ -372,7 +380,8 @@ def values(scan: dict, element_ids: list[str], person: str | None = None) -> dic
             if not spec or spec["input"] == "checkbox":
                 missing.append({"element_id": element_id, "reason": "Sahl never ticks this"})
                 continue
-            got = _arabic(spec["vault_key"][3:], pid) if str(spec["vault_key"]).startswith("ar:") else vault.get(spec["vault_key"], pid)
+            key = spec["vault_key"]
+            got = _arabic(key[3:], pid) if str(key).startswith("ar:") else vault.get(key, pid) if key else _told(m, pid)
         if not got or not got.get("verified"):
             missing.append({"element_id": element_id, "reason": "no verified value", "needs": m.get("needs")})
             continue

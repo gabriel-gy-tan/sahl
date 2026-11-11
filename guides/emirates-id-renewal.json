@@ -16,7 +16,7 @@
     "تجديد بطاقة الهوية"
   ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5d",
-  "form": "https://gabriel-gy-tan.github.io/sahl/demo/eid-renewal.html",
+  "form": "http://127.0.0.1:8077/eid-renewal.html",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels; the fields here were copied from the signed-in renewal form, where UAE PASS already fills most of them. Emirates ID renewal. Translations not reviewed by native speakers.",
   "requirements": {
@@ -144,7 +144,8 @@
       "input": "text",
       "box": "auto",
       "aliases": [
-        "Old EIDA Expiry Date"
+        "Old EIDA Expiry Date",
+        "Current EID Expiry Date"
       ],
       "help": {
         "en": "The expiry date printed on your current Emirates ID card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
@@ -672,10 +673,10 @@
         "Email"
       ],
       "help": {
-        "en": "The email address ICP will use for your application. Required. Type it yourself.",
+        "en": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form.",
         "ar": "البريد الإلكتروني الذي ستستخدمه الهيئة لطلبك. مطلوب. اكتبه بنفسك.",
-        "ur": "The email address ICP will use for your application. Required. Type it yourself.",
-        "ml": "The email address ICP will use for your application. Required. Type it yourself."
+        "ur": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form.",
+        "ml": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form."
       }
     },
     {

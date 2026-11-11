@@ -149,11 +149,12 @@ fn island(window: tauri::WebviewWindow, active: tauri::State<Active>, hit: tauri
     }
 }
 
-/// Opens a guide's form page in the person's own browser. Only https pages: the address comes from a guide file.
+/// Opens a guide's form page in the person's own browser: an https page, or the demo form served on this computer
+/// (demo/pitch.sh serves it on 127.0.0.1:8077). The address comes from a guide file.
 #[tauri::command]
 fn open_url(url: String) -> Result<(), String> {
-    if !url.starts_with("https://") {
-        return Err("not an https address".into());
+    if !(url.starts_with("https://") || url.starts_with("http://127.0.0.1:")) {
+        return Err("not an https or local address".into());
     }
     #[cfg(target_os = "macos")]
     let mut cmd = std::process::Command::new("open");

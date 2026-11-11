@@ -3,8 +3,9 @@
 #   sh demo/pitch.sh          start (the app, a clean demo vault, and the sample portal)
 #   sh demo/pitch.sh reset    the same, after wiping the demo vault (forgets what was told in the last run)
 #   sh demo/pitch.sh eid      the Emirates ID renewal demo: its own vault (~/SahlDemoEID) holding only Gabriel Tan, and
-#                             demo/eid-renewal.html (online at gabriel-gy-tan.github.io/sahl/demo/eid-renewal.html)
-#                             Add "reset" (sh demo/pitch.sh eid reset) to forget his Blood Group and Employer Name again.
+#                             demo/eid-renewal.html, which the renewal guide's "Click here to continue" opens
+#                             Sahl already knows his email (told on an earlier form); add "reset" (sh demo/pitch.sh eid reset)
+#                             to forget his Employer Name again.
 # The demo vault lives in ~/SahlDemo; your own vault and documents are not touched. The local AI models already
 # downloaded are reused (SAHL_MODELS), so nothing is downloaded again.
 set -e
@@ -28,6 +29,9 @@ case "$(uname)" in
   *) models="${APPDATA:-$HOME/.config}/Sahl/models" ;;
 esac
 export SAHL_HOME="$demo/home" SAHL_LIBRARY="$demo/library" SAHL_MODELS="$models"
+# the EID demo's resident told Sahl his email on an earlier form (an invented address)
+case " $* " in *" eid "*) [ -x "$here/../sidecar/.venv/bin/python" ] && (cd "$here/../sidecar" && .venv/bin/python -c \
+  'from sahl import taught; taught.get("Email", None) or taught.teach("Email", "gabriel.tan@example.com", None)') ;; esac
 
 # the sample portal, served over http so the browser extension can read it (8077: 8000 is often taken already)
 port=8077
