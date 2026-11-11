@@ -149,6 +149,25 @@ fn island(window: tauri::WebviewWindow, active: tauri::State<Active>, hit: tauri
     }
 }
 
+/// Opens a guide's form page in the person's own browser. Only https pages: the address comes from a guide file.
+#[tauri::command]
+fn open_url(url: String) -> Result<(), String> {
+    if !url.starts_with("https://") {
+        return Err("not an https address".into());
+    }
+    #[cfg(target_os = "macos")]
+    let mut cmd = std::process::Command::new("open");
+    #[cfg(windows)]
+    let mut cmd = {
+        let mut c = std::process::Command::new("rundll32");
+        c.arg("url.dll,FileProtocolHandler");
+        c
+    };
+    #[cfg(not(any(target_os = "macos", windows)))]
+    let mut cmd = std::process::Command::new("xdg-open");
+    cmd.arg(&url).spawn().map(|_| ()).map_err(|e| e.to_string())
+}
+
 /// Starts the system's own dictation in the focused text box: Start Dictation on macOS, Voice Typing (Win+H) on Windows.
 /// The OS does the listening and types the words in; Sahl never handles audio.
 #[tauri::command]
@@ -341,7 +360,7 @@ pub fn run() {
                 })
                 .build(),
         )
-        .invoke_handler(tauri::generate_handler![sidecar_info, notch, island, dictate, pick_documents])
+        .invoke_handler(tauri::generate_handler![sidecar_info, notch, island, dictate, pick_documents, open_url])
         .setup(|app| {
             spawn_sidecar(app.handle());
             let mon = app.primary_monitor()?.expect("a monitor");

@@ -70,6 +70,10 @@ def _guide_for(page: dict, guides: dict) -> tuple[dict | None, float]:
     chosen = page.get("guide")
     if chosen in guides:
         return guides[chosen], 1.0
+    where = str(page.get("url", "")).split("?")[0].split("#")[0]
+    own = next((g for g in guides.values() if where and g.get("form") == where), None)
+    if own:  # the page the guide itself names as its form
+        return own, 1.0
     text = _page_text(page)
     ranked = intent.rank(text, intent.catalogue(guides))
     if ranked and ranked[0][0] >= 0.75:
@@ -78,7 +82,6 @@ def _guide_for(page: dict, guides: dict) -> tuple[dict | None, float]:
         return None, 0.0  # nothing on the page resembles a guide: use the generic fields, don't wake the model
     # in between: the closest guide now, and the local model's pick in the background for the next read of this page,
     # so a read never waits for the model to load (it took up to 8 s)
-    where = str(page.get("url", "")).split("?")[0].split("#")[0]
     picked_id = _picked.get(where)
     if where not in _picked:
         _picked[where] = None

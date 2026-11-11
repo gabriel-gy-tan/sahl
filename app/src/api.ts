@@ -28,9 +28,9 @@ export type DocEntry = { path: string; file: string; person: string | null; type
 export type Told = { person: string; concept: string; value: string; labels: string[] };
 export type Library = { people: Person[]; documents: DocEntry[]; told: Told[] };
 export type Reading = { fields: Field[]; next: string | null; monitor: Box | null; person: string | null; people: Person[] };
-/** requirements: lists read from the official service page (in English), dated by checked. */
+/** requirements: lists read from the official service page (in English), dated by checked. form: a page to fill it on. */
 export type Guide = {
-  id: string; service: Record<Lang, string>; about: string; checked: string | null;
+  id: string; service: Record<Lang, string>; about: string; checked: string | null; form: string | null;
   requirements: Partial<Record<"eligibility" | "documents" | "fees" | "timing" | "channels", string[]>>;
 };
 /** "match" offers options (guide is the first); "about" answers a question about them; "new" is a form Sahl has no guide for. */

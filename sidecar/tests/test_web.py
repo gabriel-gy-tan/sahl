@@ -50,6 +50,11 @@ def page(**extra):
                        field("f6", "Card number", autocomplete="cc-number")], **extra}
 
 
+def test_a_guides_own_form_page_is_that_guide():
+    guides = {**GUIDES, "demo-form": {**GUIDE, "form": "https://forms.test/renew.html"}}
+    assert web._guide_for({"url": "https://forms.test/renew.html", "title": "zzzz", "fields": []}, guides)[0]["id"] == "demo-form"
+
+
 def test_weak_page_skips_the_local_model(monkeypatch):
     def boom(*_args, **_kwargs):
         raise AssertionError("the local model should not be asked about unrelated words")
