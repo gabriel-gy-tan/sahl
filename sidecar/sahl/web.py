@@ -219,6 +219,10 @@ def plan(page: dict, guides: dict, person: str | None = None, lang: str = "en") 
         else:
             got = vault.get(key, person) if key else _told(m, person)
             m["has_value"] = bool(got and got.get("verified"))
+    # a guide box that no document fills and the person hasn't told Sahl yet (a mobile number) is asked like one no guide
+    # knows, so it is told once and remembered; once told, it matches the guide again and fills from what was told
+    matched = [m for m in matched if m["has_value"] or specs.get(m["field_id"], {}).get("vault_key")
+               or m["kind"] not in ("text", "select", "radio")]
     unknown = _unknown_fields(fields, matched, person)
     for u in unknown:
         u["has_value"] = bool(u.get("told"))
