@@ -50,6 +50,20 @@ def page(**extra):
                        field("f6", "Card number", autocomplete="cc-number")], **extra}
 
 
+def test_a_guides_own_form_page_is_that_guide():
+    guides = {**GUIDES, "demo-form": {**GUIDE, "form": "https://forms.test/renew.html"}}
+    assert web._guide_for({"url": "https://forms.test/renew.html", "title": "zzzz", "fields": []}, guides)[0]["id"] == "demo-form"
+
+
+def test_a_guide_box_no_document_fills_uses_what_the_person_told():
+    guide = {**GUIDE, "id": "mail-form", "fields": [{"id": "email", "vault_key": None, "input": "text", "aliases": ["Email"]}]}
+    taught.teach("Email", "demo@example.com", "p1")
+    scan = web.plan({"url": "https://example.test/f", "title": "x", "guide": "mail-form", "fields": [field("e", "Email")]},
+                    {"mail-form": guide})
+    assert scan["fields"][0]["has_value"] and not scan["fields"][0].get("unknown")
+    assert web.values(scan, ["e"])["values"] == [{"element_id": "e", "kind": "text", "value": "demo@example.com"}]
+
+
 def test_weak_page_skips_the_local_model(monkeypatch):
     def boom(*_args, **_kwargs):
         raise AssertionError("the local model should not be asked about unrelated words")

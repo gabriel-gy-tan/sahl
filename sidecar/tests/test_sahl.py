@@ -86,6 +86,9 @@ def test_mrz_ocr_slips_are_repaired():
     l2 = "X1234567<71ND85O3149M3109029<<<<<<<<<<<<<<04"
     out = vault.parse_mrz("P<INDKUNNUMMAL<<MOHAMMED<RAFEEQ<<<<<<<<<<<<<", l2)
     assert out["nationality"] == ("Indian", True) and out["dob"] == ("14/03/1985", True)
+    # "P-" for "P<": an MRZ-shaped line gets its "<" back; a printed Emirates ID number keeps its dashes
+    assert vault._mrz_dashes("P-MYSTAN<<GABRIEL" + "<" * 27) == "P<MYSTAN<<GABRIEL" + "<" * 27
+    assert vault._mrz_dashes("784-1996-1234567-0") == "784-1996-1234567-0"
 
 
 def test_name_comes_from_the_printed_page_not_the_mrz(monkeypatch):
@@ -193,10 +196,10 @@ def test_family_in_one_folder(client):
     r = client.post("/vault/import", json={"path": str(ROOT / "demo/samples")}).json()
     # one entry per person, though the son's name appears three ways (passport, ID with his father's
     # name added, visa form surname first) and the father's name sits inside the son's
-    assert sorted(r["people"]) == ["Abdulla Kunnummal", "Mohammed Rafeeq Kunnummal", "Priya Anil Menon"]
+    assert sorted(r["people"]) == ["Abdulla Kunnummal", "Gabriel Tan", "Mohammed Rafeeq Kunnummal", "Priya Anil Menon"]
     people = {p["name"]: p["id"] for p in client.get("/people").json()}
     unsure = client.post("/read", json={"guide": "medical-fitness"}).json()
-    assert unsure["person"] is None and all(f["vault"] is None for f in unsure["fields"])  # three people: Sahl asks
+    assert unsure["person"] is None and all(f["vault"] is None for f in unsure["fields"])  # four people: Sahl asks
     read = lambda who: {f["id"]: f["vault"] for f in client.post(
         "/read", json={"guide": "medical-fitness", "person": people[who]}).json()["fields"]}
     son = read("Mohammed Rafeeq Kunnummal")

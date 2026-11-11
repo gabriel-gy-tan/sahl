@@ -182,7 +182,7 @@ def create_app(token: str, screen=ocr.screenshots, typer=fill.type_into, picker=
     def list_guides():
         # what the service is and needs, from the official page, shown before the person starts on the form
         return [{"id": g["id"], "service": g["service"], "about": g.get("about", ""), "requirements": g.get("requirements", {}),
-                 "checked": g.get("checked")} for g in guides.values()]
+                 "checked": g.get("checked"), "form": g.get("form")} for g in guides.values()]
 
     @app.get("/guides/search", dependencies=[Depends(auth)])
     def search_guides(q: str = ""):

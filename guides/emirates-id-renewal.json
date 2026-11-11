@@ -16,6 +16,7 @@
     "تجديد بطاقة الهوية"
   ],
   "source": "https://icp.gov.ae/en/services-details?serviceid=64afe3c1035448005bd52e5d",
+  "form": "http://127.0.0.1:8077/eid-renewal.html",
   "checked": "2026-10-30",
   "note": "Requirements read from the official ICP service page on the checked date. ICP fills the form in from the person's records after sign-in and does not publish its field labels; the fields here were copied from the signed-in renewal form, where UAE PASS already fills most of them. Emirates ID renewal. Translations not reviewed by native speakers.",
   "requirements": {
@@ -143,7 +144,8 @@
       "input": "text",
       "box": "auto",
       "aliases": [
-        "Old EIDA Expiry Date"
+        "Old EIDA Expiry Date",
+        "Current EID Expiry Date"
       ],
       "help": {
         "en": "The expiry date printed on your current Emirates ID card. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
@@ -217,17 +219,20 @@
     },
     {
       "id": "first_name_english",
-      "vault_key": null,
+      "vault_key": [
+        "passport.given",
+        "eid.given"
+      ],
       "input": "text",
       "box": "auto",
       "aliases": [
         "First Name English"
       ],
       "help": {
-        "en": "Your first name in English. ICP fills this in from your records; Sahl does not type it.",
-        "ar": "اسمك الأول بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
-        "ur": "Your first name in English. ICP fills this in from your records; Sahl does not type it.",
-        "ml": "Your first name in English. ICP fills this in from your records; Sahl does not type it."
+        "en": "Your first name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ar": "اسمك الأول بالإنجليزية كما في جواز سفرك.",
+        "ur": "Your first name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ml": "Your first name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value."
       }
     },
     {
@@ -337,17 +342,20 @@
     },
     {
       "id": "family_name_english",
-      "vault_key": null,
+      "vault_key": [
+        "passport.surname",
+        "eid.surname"
+      ],
       "input": "text",
       "box": "auto",
       "aliases": [
         "Family Name English"
       ],
       "help": {
-        "en": "Your family name in English. ICP fills this in from your records; Sahl does not type it.",
-        "ar": "اسمك العائلة بالإنجليزية. تملؤه الهيئة من سجلاتك ولا يكتبه سهل.",
-        "ur": "Your family name in English. ICP fills this in from your records; Sahl does not type it.",
-        "ml": "Your family name in English. ICP fills this in from your records; Sahl does not type it."
+        "en": "Your family name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ar": "اسم عائلتك بالإنجليزية كما في جواز سفرك.",
+        "ur": "Your family name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value.",
+        "ml": "Your family name in English, as on your passport. UAE PASS usually fills this in already; Sahl leaves a box alone when it already shows the right value."
       }
     },
     {
@@ -665,10 +673,10 @@
         "Email"
       ],
       "help": {
-        "en": "The email address ICP will use for your application. Required. Type it yourself.",
+        "en": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form.",
         "ar": "البريد الإلكتروني الذي ستستخدمه الهيئة لطلبك. مطلوب. اكتبه بنفسك.",
-        "ur": "The email address ICP will use for your application. Required. Type it yourself.",
-        "ml": "The email address ICP will use for your application. Required. Type it yourself."
+        "ur": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form.",
+        "ml": "The email address ICP will use for your application. Required. Sahl fills it once you have told it your email on any form."
       }
     },
     {

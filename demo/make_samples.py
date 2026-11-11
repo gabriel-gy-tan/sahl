@@ -29,9 +29,9 @@ def check(s):
 
 
 def passport(file="passport.png", surname="KUNNUMMAL", given="MOHAMMED RAFEEQ", num="X1234567<",
-             dob="850314", born="14 MAR 1985", sex="M", exp="310902", expires="02 SEP 2031"):
-    nat, pers = "IND", "<" * 14
-    l1 = "P<IND" + surname + "<<" + given.replace(" ", "<")
+             dob="850314", born="14 MAR 1985", sex="M", exp="310902", expires="02 SEP 2031", nat="IND", nationality="INDIAN"):
+    pers = "<" * 14
+    l1 = "P<" + nat + surname + "<<" + given.replace(" ", "<")
     l1 += "<" * (44 - len(l1))
     l2 = num + check(num) + nat + dob + check(dob) + sex + exp + check(exp) + pers + check(pers)
     l2 += check(num + check(num) + dob + check(dob) + exp + check(exp) + pers + check(pers))
@@ -40,7 +40,7 @@ def passport(file="passport.png", surname="KUNNUMMAL", given="MOHAMMED RAFEEQ", 
     d.text((60, 40), "REPUBLIC OF SAMPLELAND · PASSPORT", fill="#333", font=font(40))
     d.text((60, 95), "SAMPLE · INVENTED · NOT A REAL DOCUMENT", fill="#b33", font=font(28))
     d.rectangle((60, 170, 400, 600), fill="#d9d4c7")
-    rows = [("Surname", surname), ("Given names", given), ("Nationality", "INDIAN"),
+    rows = [("Surname", surname), ("Given names", given), ("Nationality", nationality),
             ("Date of birth", born), ("Passport No.", num.rstrip("<")), ("Date of expiry", expires)]
     for i, (k, v) in enumerate(rows):
         d.text((450, 170 + i * 70), k, fill="#666", font=font(24))
@@ -69,13 +69,14 @@ def emirates_id(file="emirates_id.png", number="784-1985-0000001-0", name="MOHAM
 
 
 def emirates_id_card(file="emirates_id_card.png", number="784198500000010", doc="104582367", name="MOHAMMED RAFEEQ KUNNUMMAL",
-                     surname="KUNNUMMAL", given="MOHAMMED RAFEEQ", dob="850314", sex="M", exp="290618", born="14/03/1985"):
+                     surname="KUNNUMMAL", given="MOHAMMED RAFEEQ", dob="850314", sex="M", exp="290618", born="14/03/1985",
+                     nat="IND", nationality="INDIAN"):
     """Both sides of an Emirates ID on one page, as people scan them: the back's machine-readable lines (TD1) let Sahl
     confirm the number, date of birth and nationality by their check digits, with no AI. Used by demo/pitch.sh."""
     l1 = "IDARE" + doc + check(doc) + number
     l1 += "<" * (30 - len(l1))
     opt = "<" * 11
-    l2 = dob + check(dob) + sex + exp + check(exp) + "IND" + opt
+    l2 = dob + check(dob) + sex + exp + check(exp) + nat + opt
     l2 += check(l1[5:30] + l2[0:7] + l2[8:15] + l2[18:29])
     l3 = (surname + "<<" + given.replace(" ", "<"))[:30]
     l3 += "<" * (30 - len(l3))
@@ -85,13 +86,13 @@ def emirates_id_card(file="emirates_id_card.png", number="784198500000010", doc=
     d.text((60, 95), "SAMPLE · INVENTED · NOT A REAL DOCUMENT", fill="#b33", font=font(28))
     d.rectangle((60, 170, 400, 600), fill="#cfdcd8")
     shown = f"{number[:3]}-{number[3:7]}-{number[7:14]}-{number[14]}"
-    for i, (k, v) in enumerate([("ID Number", shown), ("Name", name), ("Nationality", "INDIAN"), ("Date of Birth", born)]):
+    for i, (k, v) in enumerate([("ID Number", shown), ("Name", name), ("Nationality", nationality), ("Date of Birth", born)]):
         d.text((450, 180 + i * 110), k, fill="#666", font=font(24))
         d.text((450, 210 + i * 110), v, fill="#111", font=font(40 if i == 0 else 34))
     d.line((40, 700, 1360, 700), fill="#9fb3ad", width=3)  # the back of the card
     d.text((60, 740), "BACK", fill="#666", font=font(24))
     for i, line in enumerate((l1, l2, l3)):
-        d.text((60, 900 + i * 80), line, fill="#111", font=font(52, mono=True))
+        d.text((60, 900 + i * 80), line, fill="#111", font=font(48, mono=True))
     img.save(OUT / file)
 
 
@@ -120,4 +121,9 @@ if __name__ == "__main__":
     passport("passport_3.png", "KUNNUMMAL", "ABDULLA", "Y1112223<", "550210", "10 FEB 1955", "M", "300606", "06 JUN 2030")
     visa_form()
     emirates_id_card()
+    # the Emirates ID renewal demo's only resident (demo/pitch.sh eid); his card runs out soon, so he is renewing it
+    passport("gabriel_passport.png", "TAN", "GABRIEL", "A7654321<", "960615", "15 JUN 1996", "M", "320320", "20 MAR 2032",
+             "MYS", "MALAYSIAN")
+    emirates_id_card("gabriel_emirates_id_card.png", "784199612345670", "203917465", "GABRIEL TAN", "TAN", "GABRIEL",
+                     "960615", "M", "261201", "15/06/1996", "MYS", "MALAYSIAN")
     print("wrote", *sorted(p.name for p in OUT.iterdir()))

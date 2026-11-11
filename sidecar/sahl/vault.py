@@ -203,6 +203,11 @@ def _shown_as(key, value):
     return value.upper()
 
 
+def _mrz_dashes(t: str) -> str:
+    """An MRZ has no "-": OCR sometimes reads a lone "<" (the one in "P<") as one."""
+    return t.replace("-", "<") if len(t) in (30, 44) and "<<" in t and re.fullmatch(r"[A-Z0-9<-]+", t) else t
+
+
 def _mrz_lines(flat, width):
     return [i for i, (t, _) in enumerate(flat) if len(t) == width and re.fullmatch(r"[A-Z0-9<]+", t)]
 
@@ -214,7 +219,7 @@ def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, 
     so a form can ask for the one it wants: "as in passport" means the passport's.
     """
     lines = ocr.lines(gray) if lines is None else lines
-    flat = [(t.replace(" ", "").upper(), b) for t, b in lines]
+    flat = [(_mrz_dashes(t.replace(" ", "").upper()), b) for t, b in lines]
     text = " ".join(t for t, _ in lines).upper()
     found, boxes = {}, {}
 

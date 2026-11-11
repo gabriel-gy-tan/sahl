@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emirates ID renewal · Sample services portal</title>
+<!-- An invented practice form for showing Sahl. Not a real government service; nothing is sent or submitted.
+     Labels follow guides/emirates-id-renewal.json. "Employer Name" is on purpose in no guide, so Sahl asks for it
+     once and remembers it; the email comes from what Gabriel told Sahl before (demo/pitch.sh eid). sh demo/pitch.sh eid serves it at http://127.0.0.1:8077/eid-renewal.html -->
+<style>
+  :root { color-scheme: light; --ink: #1d2733; --quiet: #5f6c7a; --line: #d6dce3; --brand: #22405e; --req: #c0392b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eef1f5; color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 14px 32px; background: var(--brand); color: #fff; }
+  header b { font-size: 17px; }
+  header span { opacity: .7; font-size: 13px; }
+  .crumbs { max-width: 920px; margin: 18px auto 0; color: var(--quiet); font-size: 13px; padding: 0 16px; }
+  main { max-width: 920px; margin: 10px auto 60px; padding: 0 16px; }
+  h1 { margin: 0 0 14px; font-size: 24px; }
+  section { background: #fff; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; }
+  section > h2 { margin: 0; padding: 11px 18px; border-radius: 8px 8px 0 0; font-size: 15px; background: #f5f7fa; border-bottom: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; padding: 14px 18px 18px; }
+  .row { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 10px; min-height: 46px; }
+  label { font-size: 14px; color: var(--quiet); }
+  .req::after { content: " *"; color: var(--req); }
+  input, select { width: 100%; padding: 9px 10px; border: 1px solid #b9c3ce; border-radius: 5px; background: #fff; font: inherit; color: inherit; }
+  input:focus, select:focus { outline: 2px solid #8fb4dc; outline-offset: 0; border-color: #6c98c6; }
+  .declare { display: flex; gap: 10px; align-items: flex-start; padding: 14px 18px; }
+  .declare input { width: auto; margin-top: 3px; }
+  .actions { display: flex; justify-content: flex-end; }
+  button.submit { padding: 10px 26px; border: 0; border-radius: 5px; background: var(--brand); color: #fff; font: 600 15px/1 system-ui, sans-serif; cursor: pointer; }
+  .fine { color: var(--quiet); font-size: 12px; }
+  @media (max-width: 720px) { .grid, .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header><b>Sample services portal</b><span>Invented for demonstrations. Not a real government service.</span></header>
+<div class="crumbs">Services / Identity / Emirates ID renewal</div>
+<main>
+  <h1>Emirates ID renewal</h1>
+  <section>
+    <h2>Card details</h2>
+    <div class="grid">
+      <div class="row"><label for="eid" class="req">Emirates ID Number</label><input id="eid" name="emiratesIdNumber" placeholder="784-XXXX-XXXXXXX-X"></div>
+      <div class="row"><label for="expiry" class="req">Current EID Expiry Date</label><input id="expiry" name="currentEidExpiry" placeholder="dd/mm/yyyy"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Personal information</h2>
+    <div class="grid">
+      <div class="row"><label for="first" class="req">First Name English</label><input id="first" name="firstNameEn"></div>
+      <div class="row"><label for="family" class="req">Family Name English</label><input id="family" name="familyNameEn"></div>
+      <div class="row"><label for="dob" class="req">Date Of Birth</label><input id="dob" name="dateOfBirth" placeholder="dd/mm/yyyy"></div>
+      <div class="row"><label for="nat" class="req">Current Nationality</label>
+        <select id="nat" name="currentNationality"><option value="">Select</option><option>India</option><option>Malaysia</option>
+          <option>Pakistan</option><option>Philippines</option><option>United Kingdom</option></select></div>
+      <div class="row"><label for="employer" class="req">Employer Name</label><input id="employer" name="employerName"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Contact</h2>
+    <div class="grid">
+      <div class="row"><label for="email" class="req">Email</label><input id="email" name="email" type="email"></div>
+      <div class="row"><label for="mobile" class="req">UAE Mobile Number</label><input id="mobile" name="uaeMobile" placeholder="5X XXX XXXX"></div>
+    </div>
+    <label class="declare"><input type="checkbox" name="declare"> I declare that the information given is correct and complete.</label>
+  </section>
+  <div class="actions"><button type="button" class="submit" onclick="alert('This sample page never submits.')">Submit</button></div>
+  <p class="fine">Sahl fills what it can confirm from your documents, asks once for what it doesn't know and remembers it,
+    and leaves the declaration and Submit to you.</p>
+</main>
+</body>
+</html>
