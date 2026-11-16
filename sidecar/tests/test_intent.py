@@ -276,6 +276,9 @@ def host(monkeypatch, tmp_path):
     def make(data, **kw):
         h = _Host(data, **kw)
         monkeypatch.setattr(ai, "HF", h.url)
+        import hashlib
+        # the pinned hash lives in the repo; the host's own claim is ignored (a lying host sends a bad file, the pin stays honest)
+        monkeypatch.setitem(ai.SHA256, "tiny.gguf", hashlib.sha256(b"not what the host sends" if kw.get("lie_about_hash") else data).hexdigest())
         return h
     yield make
 
@@ -424,3 +427,4 @@ def test_no_server_when_the_model_is_not_downloaded(llama, tmp_path):
     (tmp_path / "models" / "Qwen3-0.6B-Q8_0.gguf").unlink()
     assert ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}]}, timeout=2) is None
     assert not ai._SERVERS["text"].alive()
+

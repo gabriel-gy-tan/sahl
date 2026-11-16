@@ -37,6 +37,18 @@ MODELS = {
     "qwen3-vl-8b": ("Qwen/Qwen3-VL-8B-Instruct-GGUF", (("Qwen3VL-8B-Instruct-Q4_K_M.gguf", 5.03), ("mmproj-Qwen3VL-8B-Instruct-F16.gguf", 1.16))),
     "qwen3-vl-30b": ("Qwen/Qwen3-VL-30B-A3B-Instruct-GGUF", (("Qwen3VL-30B-A3B-Instruct-Q4_K_M.gguf", 18.56), ("mmproj-Qwen3VL-30B-A3B-Instruct-F16.gguf", 1.08))),
 }
+# SHA-256 of each file, from Hugging Face's tree API (lfs.oid) for the repos above. A download is kept only if it matches.
+SHA256 = {
+    "Qwen3-0.6B-Q8_0.gguf": "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031",
+    "Qwen3-1.7B-Q8_0.gguf": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+    "Qwen3-8B-Q4_K_M.gguf": "d98cdcbd03e17ce47681435b5150e34c1417f50b5c0019dd560e4882c5745785",
+    "Qwen3VL-4B-Instruct-Q4_K_M.gguf": "66358cb18bb6b3b1b6675aa412c7a88ef01d228f481184d13668e5201c730a0a",
+    "mmproj-Qwen3VL-4B-Instruct-F16.gguf": "256f3a43bd4205ffef48d6b92715e1e70b5b0e9aef06522584967513a9985331",
+    "Qwen3VL-8B-Instruct-Q4_K_M.gguf": "67d1659bfe71b89d50b45a4ad1a9e5b997e5bb16ce5da66a6a6167abd569e9e2",
+    "mmproj-Qwen3VL-8B-Instruct-F16.gguf": "ca524100ebf825c9a870db1c580d03879e0da0ab2541697e2458e64891cf9d38",
+    "Qwen3VL-30B-A3B-Instruct-Q4_K_M.gguf": "87bb374d849f80ebdfabb304189fac9e0bd35a0f74506e6a59c51b206cbe863b",
+    "mmproj-Qwen3VL-30B-A3B-Instruct-F16.gguf": "cae72cf123cc9e08d553cd5a5055d6d3cf0f82652aa41c3e4aa424cda9a26f7f",
+}
 # The person picks how big a pair of local models to run: (text model for the form picker, vision model for documents).
 # Lighter is faster on a small computer; stronger needs a lot of memory. instruct: answers directly, no hidden reasoning.
 TIERS = {
@@ -340,7 +352,7 @@ def _sha256(path: Path) -> str:
 
 def _pull(model: str) -> bool:
     """One try at downloading a model's files. A part-way file is carried on from where it stopped, and checked against the
-    host's hash at the end; a failed try leaves what it has for the next one."""
+    pinned hash at the end; a failed try leaves what it has for the next one."""
     repo, files = MODELS[model]
     PULL.update(model=model, error=False, reason="")
     models_dir().mkdir(parents=True, exist_ok=True)
@@ -350,7 +362,8 @@ def _pull(model: str) -> bool:
             if dest.is_file():
                 continue
             url = f"{HF}/{repo}/resolve/main/{name}"
-            size, digest = _expected(url)
+            size, _ = _expected(url)
+            digest = SHA256[name]  # pinned here, not whatever the host says now
             if size:
                 _SIZE[name] = size
             part = dest.with_name(name + ".part")
@@ -372,7 +385,7 @@ def _pull(model: str) -> bool:
                             got += len(chunk)
                 if size and got != size:
                     raise OSError("cut short")
-            if digest and _sha256(part) != digest:
+            if _sha256(part) != digest:
                 part.unlink()
                 raise ValueError("the file did not match its hash")
             part.replace(dest)
