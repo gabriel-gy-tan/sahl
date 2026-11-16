@@ -118,6 +118,20 @@ def test_name_comes_from_the_printed_page_not_the_mrz(monkeypatch):
     assert (name, ok) == ("MOHAMMED RAFEEQ KUNNUMMAL", True)
 
 
+def test_a_printed_name_that_only_nearly_matches_the_mrz_is_not_verified():
+    # no check digit covers a name: a dropped or swapped letter in the printed reading must not pass as checked
+    mrz = "KUNNUMMAL<<FATIMA<HANA" + "<" * 17
+
+    def read(*printed):
+        return vault._printed_name([(t, None) for t in printed], mrz)
+
+    assert read("Surname KUNNUMMAL", "Given names FATIMA HANA") == ("FATIMA HANA", "KUNNUMMAL", True)
+    assert read("KUNNUMMA", "FATIMA HANA") == ("FATIMA HANA", "KUNNUMMA", False)  # a letter lost at the end
+    assert read("KUNNUMMAI", "FATIMA HANA")[2] is False  # L read as I
+    assert read("KUNNUMMAL", "FATIMA HA")[2] is False  # half a word
+    assert vault._printed_name([("KUNNUMMAL", None), ("FATIMA HANA", None)], mrz.replace("FATIMA<HANA", "FATIMAKHANA"))[2]  # "<" read as K
+
+
 def test_passport_needs_no_ai_but_an_id_front_does(monkeypatch):
     from sahl import ai
     calls = []
