@@ -167,14 +167,17 @@ def _printed(value: str, text: str) -> bool:
     return bool(words) and all(fuzz.partial_ratio(w, text) >= 90 for w in words)
 
 
-def _printed_name(lines, field: str) -> tuple[str, str] | None:
-    """(given names, surname) from the printed lines, when they match the MRZ name field.
+def _printed_name(lines, field: str) -> tuple[str, str, bool] | None:
+    """(given names, surname, the two readings agree) from the printed lines, when they match the MRZ name field.
 
     The MRZ spells the name but OCR reads its "<" fillers as letters (NOORAKHALIL); the printed
     lines have the real spacing. Label words ("Surname") are dropped because the MRZ doesn't contain them.
+    No check digit covers a name, so it is only as good as two readings agreeing: every printed word must be in
+    the MRZ letter for letter, with at most one stray letter (a misread "<") between words. A near match
+    (FERNANDE for FERNANDES) is still returned, to be shown and checked, but does not count as agreeing.
     """
     surname, _, given = field.partition("<<")
-    parts = []
+    parts, same = [], True
     for part in (given, surname):
         want = _letters(part)
         if not want:
@@ -187,12 +190,14 @@ def _printed_name(lines, field: str) -> tuple[str, str] | None:
                      if len(_letters(w)) >= 2 and fuzz.partial_ratio(_letters(w), want) >= 90]
             got = " ".join(words)
             score = fuzz.ratio(_letters(got), want)
-            if words and score >= 88 and (not best or score > best[0]):
-                best = (score, got)
+            exact = bool(words) and bool(re.fullmatch("[A-Z]?".join(re.escape(_letters(w)) for w in words), want))
+            if words and score >= 88 and (not best or (exact, score) > best[:2]):
+                best = (exact, score, got)
         if not best:
             return None
-        parts.append(best[1])
-    return parts[0], parts[1]
+        parts.append(best[2])
+        same = same and best[0]
+    return parts[0], parts[1], same
 
 
 def _shown_as(key, value):
@@ -226,6 +231,11 @@ def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, 
     td3 = _mrz_lines(flat, 44)
     if len(td3) >= 2 and flat[td3[0]][0].startswith("P"):
         found.update(parse_mrz(flat[td3[0]][0], flat[td3[1]][0]))
+        # the check digit can't tell a letter from the digit with the same value mod 10 (G / 6), so the number
+        # is verified only when the page prints it too, outside the MRZ lines
+        num, ok = found["passport.number"]
+        rest = "\n".join(t for i, (t, _) in enumerate(flat) if i not in td3).replace(" ", "")
+        found["passport.number"] = (num, ok and bool(num) and num in rest)
         boxes = {k: flat[td3[0 if k == "name" else 1]][1] for k in found}
     td1 = _mrz_lines(flat, 30)
     if len(td1) >= 3 and flat[td1[0]][0][2:5] == "ARE":
@@ -242,8 +252,8 @@ def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, 
         field = mrz_name[5:] if len(mrz_name) == 44 else mrz_name
         printed = _printed_name(lines, field.translate(TO_ALPHA))
         if printed:  # the MRZ's "<<" also says where the surname ends, for forms with separate boxes
-            given, surname = printed
-            found.update(name=(f"{given} {surname}", True), given=(given, True), surname=(surname, True))
+            given, surname, same = printed
+            found.update(name=(f"{given} {surname}", same), given=(given, same), surname=(surname, same))
 
     # the AI (seconds per page) only reads what the check digits and the printed text couldn't settle
     settled = found.get("name", ("", False))[1] and "nationality" in found and not (
