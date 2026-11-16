@@ -81,6 +81,24 @@ def test_mrz_flags_a_corrupted_digit():
     assert bad["passport.number"][1] is False
 
 
+def test_mrz_passport_number_needs_the_printed_one_to_agree(monkeypatch):
+    # G and 6 add up the same in the check digit, so a G read as 6 still passes it: only the printed number tells
+    from sahl import ai
+    monkeypatch.setattr(ai, "read_page", lambda g: None)
+    l1 = "P<INDKUNNUMMAL<<MOHAMMED<RAFEEQ<<<<<<<<<<<<<"
+    l2 = "G5567555<0IND8503149M3109029<<<<<<<<<<<<<<08"
+
+    def number(mrz2, *printed):
+        lines = [(t, (0, 0, 1, 1)) for t in (l1, mrz2, *printed)]
+        return vault._read_page(np.zeros((90, 90), np.uint8), lines)[1]["passport.number"][:2]
+
+    assert number(l2, "Passport No G5567555") == ("G5567555", True)
+    assert number(l2, "Passport No G 5567555") == ("G5567555", True)  # OCR put a space in it
+    assert number(l2) == ("G5567555", False)  # nothing printed to agree
+    assert number(l2, l2) == ("G5567555", False)  # the MRZ line read twice is not the printed number
+    assert number(l2.replace("G5567555", "65567555"), "Passport No G5567555") == ("65567555", False)
+
+
 def test_mrz_ocr_slips_are_repaired():
     # "1ND" for IND, and an O read in a date: both fields are known letters / digits
     l2 = "X1234567<71ND85O3149M3109029<<<<<<<<<<<<<<04"
@@ -98,6 +116,20 @@ def test_name_comes_from_the_printed_page_not_the_mrz(monkeypatch):
     monkeypatch.setattr(ocr, "lines", lambda g: [(t.replace("MOHAMMED<RAFEEQ", "MOHAMMEDKRAFEEQ"), b) for t, b in real(g)])
     name, ok, _ = vault.read_document(ROOT / "demo/samples/passport.png")[1]["passport.name"]
     assert (name, ok) == ("MOHAMMED RAFEEQ KUNNUMMAL", True)
+
+
+def test_a_printed_name_that_only_nearly_matches_the_mrz_is_not_verified():
+    # no check digit covers a name: a dropped or swapped letter in the printed reading must not pass as checked
+    mrz = "KUNNUMMAL<<FATIMA<HANA" + "<" * 17
+
+    def read(*printed):
+        return vault._printed_name([(t, None) for t in printed], mrz)
+
+    assert read("Surname KUNNUMMAL", "Given names FATIMA HANA") == ("FATIMA HANA", "KUNNUMMAL", True)
+    assert read("KUNNUMMA", "FATIMA HANA") == ("FATIMA HANA", "KUNNUMMA", False)  # a letter lost at the end
+    assert read("KUNNUMMAI", "FATIMA HANA")[2] is False  # L read as I
+    assert read("KUNNUMMAL", "FATIMA HA")[2] is False  # half a word
+    assert vault._printed_name([("KUNNUMMAL", None), ("FATIMA HANA", None)], mrz.replace("FATIMA<HANA", "FATIMAKHANA"))[2]  # "<" read as K
 
 
 def test_passport_needs_no_ai_but_an_id_front_does(monkeypatch):
