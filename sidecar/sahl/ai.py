@@ -209,6 +209,8 @@ class _Server:
         return self.proc is not None and self.proc.poll() is None
 
     def healthy(self) -> bool:
+        if not self.alive():
+            return False  # an answer on the port counts only while our own child runs (it exits if it could not bind)
         try:
             urllib.request.urlopen(f"http://127.0.0.1:{self.port}/health", timeout=2).close()
             return self.alive()
@@ -240,14 +242,15 @@ class _Server:
                     s.bind(("127.0.0.1", 0))
                     self.port = s.getsockname()[1]
                 files = [str(models_dir() / f) for f, _ in _files(model)]
-                cmd = [exe, "-m", files[0], "--host", "127.0.0.1", "--port", str(self.port), "--api-key", self.token,
+                cmd = [exe, "-m", files[0], "--host", "127.0.0.1", "--port", str(self.port),
                        "-c", str(self.context), "-np", str(self.slots)]
                 cmd += self.extra
                 if len(files) > 1:
                     cmd += ["--mmproj", files[1]]
                 log = open(os.environ["SAHL_LLAMA_LOG"] + self.role, "ab") if os.environ.get("SAHL_LLAMA_LOG") else subprocess.DEVNULL
                 flags = {"creationflags": 0x08000000} if sys.platform == "win32" else {}  # no console window
-                self.proc = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=log, stderr=log, cwd=os.path.dirname(exe), **flags)
+                self.proc = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=log, stderr=log, cwd=os.path.dirname(exe),
+                                             env={**os.environ, "LLAMA_API_KEY": self.token}, **flags)  # env, not argv: `ps` shows argv
                 self.model = model
                 self.pidfile.write_text(str(self.proc.pid))
                 _watch_idle()

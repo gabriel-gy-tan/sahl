@@ -428,3 +428,22 @@ def test_no_server_when_the_model_is_not_downloaded(llama, tmp_path):
     assert ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}]}, timeout=2) is None
     assert not ai._SERVERS["text"].alive()
 
+
+def test_the_key_is_not_in_the_servers_argv(monkeypatch, tmp_path):
+    seen = {}
+    class P:
+        pid = 1
+        def poll(self): return None
+    def popen(cmd, **kw):
+        seen.update(cmd=cmd, env=kw["env"])
+        return P()
+    monkeypatch.setenv("SAHL_HOME", str(tmp_path))
+    monkeypatch.setenv("SAHL_MODELS", str(tmp_path))
+    monkeypatch.setattr(ai, "binary", lambda: str(tmp_path / "llama-server"))
+    monkeypatch.setattr(ai, "have", lambda m: True)
+    monkeypatch.setattr(ai, "_watch_idle", lambda: None)
+    monkeypatch.setattr(ai.subprocess, "Popen", popen)
+    srv = ai._Server("text", 1024, 1)
+    srv.ensure("qwen3-1.7b", wait=0)
+    assert srv.token not in " ".join(seen["cmd"]) and "--api-key" not in seen["cmd"]
+    assert seen["env"]["LLAMA_API_KEY"] == srv.token
