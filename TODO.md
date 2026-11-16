@@ -7,6 +7,11 @@ Active log. Add tasks when you start them; move them to Done with the PR link wh
 - [ ] Island folds when a guide is open and nothing is being read (issue 47, `fix/island-folds-with-guide`)
 - [ ] Tests run on every pull request (`docs/todo-and-pr-tests`)
 - [ ] Security leads: pinned hashes, llama-server key out of argv, strict CSP (`fix/security-leads`)
+- [ ] Passport number and names are verified only when the printed page agrees with the MRZ (`fix/passport-number-letter-digit`). Eval on invented documents, 100 per kind and level, seeds 1-3: verified-but-wrong fell from 20 to 5, all `TARIQ` read as `TARIO` on the phone-photo level, where printed text and MRZ agree on the same wrong letter (a third source is needed). Clean level 98.2 / 97.6 / 98.2% verified-correct
+- [ ] Browser handoff: ⌥Space over a paired Chromium browser points to the extension (`feat/browser-handoff-on-main`, was #31)
+- [ ] Answering an amber box on the page saves it, with Undo (`feat/remember-typed-on-main`, was #32)
+- [ ] Extension install step in first-run setup and on the handoff card; the button opens the README until the Web Store listing exists (`feat/extension-install-step`, issue 46; contains the handoff commit, merge that first)
+- [ ] Unknown dropdowns, date boxes and day/month/year sets are asked about in the extension; rings follow scrolling (`feat/taught-dropdowns-dates`; contains the remember-typed commit, merge that first)
 - [ ] Try Sahl on real UAE portals and log which boxes it finds, misses or rings wrong. Labels for the ICP Emirates ID renewal guide were copied from the signed-in form and not yet tried on the live page
 
 ## Next
