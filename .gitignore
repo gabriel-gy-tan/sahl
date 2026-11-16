@@ -6,3 +6,5 @@ app/src-tauri/sidecar/
 app/src-tauri/llama/
 app/src-tauri/bundle/
 dist/
+sidecar/build/
+app/src-tauri/binaries/
