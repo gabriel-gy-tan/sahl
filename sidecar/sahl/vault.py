@@ -226,6 +226,11 @@ def _read_page(gray: np.ndarray, lines=None, force: bool = False) -> tuple[str, 
     td3 = _mrz_lines(flat, 44)
     if len(td3) >= 2 and flat[td3[0]][0].startswith("P"):
         found.update(parse_mrz(flat[td3[0]][0], flat[td3[1]][0]))
+        # the check digit can't tell a letter from the digit with the same value mod 10 (G / 6), so the number
+        # is verified only when the page prints it too, outside the MRZ lines
+        num, ok = found["passport.number"]
+        rest = "\n".join(t for i, (t, _) in enumerate(flat) if i not in td3).replace(" ", "")
+        found["passport.number"] = (num, ok and bool(num) and num in rest)
         boxes = {k: flat[td3[0 if k == "name" else 1]][1] for k in found}
     td1 = _mrz_lines(flat, 30)
     if len(td1) >= 3 and flat[td1[0]][0][2:5] == "ARE":

@@ -81,6 +81,24 @@ def test_mrz_flags_a_corrupted_digit():
     assert bad["passport.number"][1] is False
 
 
+def test_mrz_passport_number_needs_the_printed_one_to_agree(monkeypatch):
+    # G and 6 add up the same in the check digit, so a G read as 6 still passes it: only the printed number tells
+    from sahl import ai
+    monkeypatch.setattr(ai, "read_page", lambda g: None)
+    l1 = "P<INDKUNNUMMAL<<MOHAMMED<RAFEEQ<<<<<<<<<<<<<"
+    l2 = "G5567555<0IND8503149M3109029<<<<<<<<<<<<<<08"
+
+    def number(mrz2, *printed):
+        lines = [(t, (0, 0, 1, 1)) for t in (l1, mrz2, *printed)]
+        return vault._read_page(np.zeros((90, 90), np.uint8), lines)[1]["passport.number"][:2]
+
+    assert number(l2, "Passport No G5567555") == ("G5567555", True)
+    assert number(l2, "Passport No G 5567555") == ("G5567555", True)  # OCR put a space in it
+    assert number(l2) == ("G5567555", False)  # nothing printed to agree
+    assert number(l2, l2) == ("G5567555", False)  # the MRZ line read twice is not the printed number
+    assert number(l2.replace("G5567555", "65567555"), "Passport No G5567555") == ("65567555", False)
+
+
 def test_mrz_ocr_slips_are_repaired():
     # "1ND" for IND, and an O read in a date: both fields are known letters / digits
     l2 = "X1234567<71ND85O3149M3109029<<<<<<<<<<<<<<04"
