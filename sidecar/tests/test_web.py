@@ -457,3 +457,49 @@ def test_an_answer_remembered_from_the_page_can_be_undone(ext):
     assert ext.post("/taught/forget", json={"concept": concept}).json() == {"ok": True}
     assert not {f["element_id"]: f for f in ext.post("/page", json=card_page()).json()["fields"]}["c14"]["told"]
     assert ext.post("/taught/forget", json={"concept": concept}, headers={"x-sahl-ext-token": "0" * 64}).status_code == 403
+
+
+DATE_PARTS = [{"element_id": "dd", "part": "d"}, {"element_id": "mm", "part": "m"}, {"element_id": "yy", "part": "y"}]
+
+
+def dates_page():
+    return {"url": "https://shop.test/visit", "title": "Visit", "fields": [
+        field("how", "Preferred contact", "select", "select", options=[{"text": "Email"}, {"text": "Phone"}, {"text": ""}]),
+        field("last", "Date of last visit", kind="date"),
+        field("exp", "Card expiry", "date-parts", "date", parts=DATE_PARTS),
+        field("week", "Week of arrival", kind="week"),
+        field("pin", "Date of PIN change", kind="date"),
+        field("qa", "Security question", "select", "select", options=[{"text": "Pet"}]),
+        field("cvv", "Card verification date", "date-parts", "date", parts=DATE_PARTS)]}
+
+
+def test_unknown_dropdowns_and_dates_are_asked_with_their_own_choices(ext):
+    asked = {f["element_id"]: f for f in ext.post("/page", json=dates_page()).json()["fields"]}
+    assert set(asked) == {"how", "last", "exp"}  # never the PIN or security boxes, nor a week box
+    assert asked["how"]["options"] == ["Email", "Phone"]  # the page's own choices, empty ones left out
+    assert asked["last"]["kind"] == "date" and asked["exp"]["kind"] == "date-parts"
+    assert [p["part"] for p in asked["exp"]["parts"]] == ["d", "m", "y"]
+
+
+def test_a_told_dropdown_and_dates_come_back_fillable(ext):
+    ext.post("/page", json=dates_page())
+    assert ext.post("/taught", json={"element_id": "how", "value": "Phone"}).status_code == 200
+    assert ext.post("/taught", json={"element_id": "last", "value": "05/03/2030"}).status_code == 200
+    assert ext.post("/taught", json={"element_id": "exp", "value": "31/12/2031"}).status_code == 200
+    assert ext.post("/taught", json={"element_id": "last", "value": "2030-03-05"}).status_code == 422  # not dd/mm/yyyy
+    assert ext.post("/taught", json={"element_id": "exp", "value": "31/02/2031"}).status_code == 422  # not a day
+    again = {f["element_id"]: f for f in ext.post("/page", json=dates_page()).json()["fields"]}
+    assert all(again[i]["told"] for i in ("how", "last", "exp"))
+    out = {v["element_id"]: v for v in ext.post("/values", json={"element_ids": ["how", "last", "exp"]}).json()["values"]}
+    assert out["how"]["kind"] == "select" and out["how"]["option"] == "Phone"
+    assert out["last"] == {"element_id": "last", "kind": "date", "value": "2030-03-05"}  # a date box takes yyyy-mm-dd
+    parts = {p["part"]: p for p in out["exp"]["parts"]}
+    assert out["exp"]["kind"] == "date-parts" and parts["d"]["element_id"] == "dd"
+    assert parts["m"]["texts"][:2] == ["12", "12"] and parts["y"]["value"] == "2031"
+
+
+def test_secret_dropdowns_and_dates_are_refused_even_if_asked_directly(ext):
+    ext.post("/page", json=dates_page())
+    for element_id in ("pin", "qa", "cvv", "week"):
+        assert ext.post("/taught", json={"element_id": element_id, "value": "01/01/2030"}).status_code == 404
+        assert ext.post("/values", json={"element_ids": [element_id]}).json()["values"] == []

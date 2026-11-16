@@ -5,6 +5,7 @@ page's title, URL path and field labels, optionally asks the local text model, a
 page's elements by their visible text. Values come from the same vault as the screen reader.
 """
 import calendar
+import datetime
 import re
 from collections import Counter
 
@@ -160,9 +161,11 @@ def _fallback(fields: list[dict], guides: dict) -> tuple[dict, list[dict]] | Non
 
 def _unknown_fields(fields: list[dict], matched: list[dict], person) -> list[dict]:
     """Boxes no guide field matched, after the known ones: with what the person told Sahl before, a suggestion of which
-    told detail it is, or nothing, so the popup asks. Text boxes, dropdowns and radio buttons; never a secret."""
+    told detail it is, or nothing, so the popup asks. Text boxes, dropdowns, radio buttons and dates (a date box, or a
+    day/month/year set); never a secret."""
     taken = {m["element_id"] for m in matched}
-    boxes = [f for f in fields if _safe(f) and _identity(f) not in taken and _kind(f) in ("text", "select", "radio")
+    boxes = [f for f in fields if _safe(f) and _identity(f) not in taken and _kind(f) in ("text", "select", "radio", "date-parts", "date")
+             and (_kind(f) != "date" or str(f.get("type", "")).lower() == "date")  # not month/week/datetime boxes
              and str(f.get("label", "")).strip(" :*")]
     labels = [str(f["label"]).strip(" :*") for f in boxes]
     shared = Counter(match._norm(x) for x in labels)
@@ -178,6 +181,10 @@ def _unknown_fields(fields: list[dict], matched: list[dict], person) -> list[dic
         item = {"element_id": _identity(f), "field_id": "taught:" + match._norm(label), "label": label, "seen": label,
                 "input": _kind(f), "kind": _kind(f), "confidence": 100, "help": {}, "needs": None, "unknown": True,
                 "told": bool(told[_identity(f)]), "rect": f.get("rect", [])}
+        if item["kind"] in ("select", "radio"):  # the page's own choices, for the popup to offer
+            item["options"] = [str(o.get("text") or o.get("label")) for o in f.get("options", []) if o.get("text") or o.get("label")]
+        if item["kind"] == "date-parts":
+            item["parts"] = [{"element_id": p.get("element_id"), "part": p.get("part")} for p in f.get("parts", [])]
         if (c := ideas.get(label)):
             item["suggest"] = c  # the told detail's name only: values leave the vault one box at a time, on a fill
         out.append(item)
@@ -254,6 +261,11 @@ def teach(scan: dict, element_id: str, value: str, person: str | None = None) ->
     f = next((x for x in scan.get("fields", []) if x["element_id"] == element_id and x.get("unknown")), None)
     if not f or not taught.allowed(f["label"]):
         return None
+    if f["kind"] in ("date", "date-parts"):  # dates are kept the way the vault keeps them: dd/mm/yyyy
+        try:
+            datetime.datetime.strptime(value, "%d/%m/%Y")
+        except ValueError:
+            raise ValueError("a date is dd/mm/yyyy") from None
     return taught.teach(f["label"], value, _person(scan.get("people", []), person) or scan.get("person"))
 
 

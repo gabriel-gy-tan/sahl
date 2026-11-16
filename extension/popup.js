@@ -152,24 +152,35 @@ function askBox(f) {
       next.id = box.id;
       next.hidden = box.hidden;
       box.replaceWith(next);
-      next.querySelector("input")?.focus();
+      next.querySelector("input, select")?.focus();
     });
     row.append(yes, no);
     box.append(row);
     return box;
   }
   const form = node("form", "teach-row");
-  const input = document.createElement("input");
-  input.autocomplete = "off";
+  // the page's own control: its choices for a menu or radio group, a date picker for a date box (native, no extras)
+  const choices = (f.kind === "select" || f.kind === "radio") && f.options?.length;
+  const dated = f.kind === "date" || f.kind === "date-parts";
+  const input = document.createElement(choices ? "select" : "input");
+  if (choices) {
+    input.append(new Option(T("pick_one"), ""), ...f.options.map((o) => new Option(o, o)));
+  } else if (dated) {
+    input.type = "date";
+  } else {
+    input.autocomplete = "off";
+    input.placeholder = T("type_here");
+  }
   input.dir = "auto";
-  input.placeholder = T("type_here");
-  input.setAttribute("aria-label", T("what_goes", { label: f.label }));
+  input.setAttribute("aria-label", T(dated ? "what_date" : "what_goes", { label: f.label }));
   const save = node("button", "primary", T("remember"));
   save.type = "submit";
   form.append(input, save);
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (input.value.trim()) void remember("tell", { value: input.value, person: $("person").value || null });
+    // Sahl keeps dates as dd/mm/yyyy, like its documents
+    const value = dated ? input.value.replace(/^(\d{4})-(\d\d)-(\d\d)$/, "$3/$2/$1") : input.value.trim();
+    if (value) void remember("tell", { value, person: $("person").value || null });
   });
   box.append(node("p", "", T("unknown", { label: f.label })), form);
   return box;
@@ -240,7 +251,7 @@ function listFields(fields) {
         toggle.setAttribute("aria-expanded", String(open));
         word.textContent = T(open ? "close" : "tell");
         toggle.setAttribute("aria-label", T(open ? "close_about" : "tell_about", { label: f.label }));
-        if (open) current.querySelector("input, button")?.focus();
+        if (open) current.querySelector("input, select, button")?.focus();
       });
       row.append(mark, text, toggle);
       li.append(row, panel);

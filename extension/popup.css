@@ -262,7 +262,8 @@ label.field:hover .check input:not(:checked) + span { border-color: #6a6a71; }
 .teach { padding-block: 0 12px; padding-inline: 44px 12px; animation: sahl-rise .22s var(--ease); }
 .teach p { color: var(--quiet); font-size: 12px; margin-bottom: 8px; }
 .teach-row { display: flex; gap: 8px; }
-.teach-row input { flex: 1; min-width: 0; }
+.teach-row input, .teach-row select { flex: 1; min-width: 0; }
+.teach-row select { min-height: 36px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg); padding: 7px 10px; }
 .teach-row button { white-space: nowrap; min-height: 36px; }
 @keyframes sahl-rise { from { opacity: 0; translate: 0 -4px; } }
 

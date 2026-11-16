@@ -220,7 +220,16 @@
   let frame = 0;
   let reading = false;
   let timer = 0;
+  // the rings follow the page while marks are shown: any scroller (capture) and a resize move them, once per frame
+  const follow = (on) => {
+    const how = on ? addEventListener : removeEventListener;
+    how("scroll", schedule, { capture: true, passive: true });
+    how("resize", schedule, { passive: true });
+  };
   const clear = () => {
+    follow(false);
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
     reading = false;
     if (timer) clearTimeout(timer);
     timer = 0;
@@ -389,6 +398,7 @@
     tip.style.display = "none";
     root.append(tip);
     document.documentElement.append(host);
+    follow(true);
     place();
     return { ok: true };
   };
@@ -571,7 +581,9 @@
       return o && o.value !== "" && o.index !== 0 ? (o.textContent || "").trim() : ""; // the first entry is usually "Select…"
     }
     if (t.kind !== "text" || t.el.tagName === "TEXTAREA" || ["checkbox", "radio"].includes(t.el.type)) return "";
-    return String(t.el.value || "").trim();
+    const value = String(t.el.value || "").trim();
+    // a date box holds yyyy-mm-dd; Sahl keeps dates as dd/mm/yyyy, like the vault
+    return t.el.type === "date" ? value.replace(/^(\d{4})-(\d\d)-(\d\d)$/, "$3/$2/$1") : value;
   };
   const showAsk = (ring, ask) => {
     ring.ask = ask;
@@ -642,8 +654,6 @@
   addEventListener("pointerout", leave, { capture: true, passive: true });
   addEventListener("focusin", enter, true);
   addEventListener("focusout", leave, true);
-  addEventListener("scroll", schedule, { capture: true, passive: true });
-  addEventListener("resize", schedule, { passive: true });
   chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
     const type = String(msg?.type || "");
     const mine = (name) => type === `sahl:v${version}:${name}`;
