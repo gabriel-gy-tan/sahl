@@ -639,7 +639,7 @@ export default function Panel() {
   });
   const [tucked, setTucked] = useState(false); // they folded it themselves while working on a form
   useEffect(() => setTucked(false), [reading, guide]);
-  const keep = busy || thinking || readingDocs || dropping || focused || setup || ((!!field || !!guide) && !tucked);
+  const keep = busy || thinking || readingDocs || dropping || focused || setup || (!!field && !tucked);
   const keepRef = useRef(keep);
   keepRef.current = keep;
   const typingRef = useRef(false);
