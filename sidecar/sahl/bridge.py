@@ -230,7 +230,10 @@ def create_app(state: State) -> FastAPI:
         """The person typed what goes in a box from the last scan that no guide knows."""
         if not body.value.strip():
             raise HTTPException(422, "type what goes in this box")
-        concept = web.teach(state.scans.get(token) or {}, body.element_id, body.value.strip(), body.person)
+        try:
+            concept = web.teach(state.scans.get(token) or {}, body.element_id, body.value.strip(), body.person)
+        except ValueError as e:
+            raise HTTPException(422, str(e))
         if not concept:
             raise HTTPException(404, "scan the page again")
         return {"concept": concept}
