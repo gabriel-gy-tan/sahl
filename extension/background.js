@@ -1,7 +1,7 @@
 // Sahl's bridge takes the first free port of this range (sidecar/sahl/bridge.py PORTS); manifest.json lists the same ones
 const PORTS = [8765, 8766, 8767, 8768, 8769, 8770, 8771, 8772, 8773, 8774];
 const PROBE_MS = 1500;
-const VERSION = "8";
+const VERSION = "9";
 
 class BridgeError extends Error {
   constructor(message, code = "") {
@@ -226,20 +226,23 @@ async function clear(tabId) {
   return { ok: true };
 }
 
-async function handled(msg) {
+async function handled(msg, sender) {
   if (msg?.type === "health") return health();
   if (msg?.type === "pair") return pair(msg.code);
   if (msg?.type === "scan") return scan(msg.tabId, msg.person, msg.strings || {});
   if (msg?.type === "fill") return fill(msg.tabId, msg.ids || [], msg.person, msg.replace);
   if (msg?.type === "tell") return tell("/taught", { element_id: msg.id, value: msg.value, person: msg.person || null });
   if (msg?.type === "same") return tell("/taught/alias", { element_id: msg.id, concept: msg.concept });
+  // the person answered an amber box on the page itself: remember it, or forget it again on Undo
+  if (msg?.type === "learn") return tell("/taught", { element_id: named(sender?.frameId || 0, { element_id: msg.id }).element_id, value: msg.value, person: null }); // ids are qualified by frame
+  if (msg?.type === "unlearn") return tell("/taught/forget", { concept: msg.concept });
   if (msg?.type === "clear") return clear(msg.tabId);
   if (msg?.type === "token") return { token: Boolean(await storedToken()) };
   throw new BridgeError("Unknown request", "internal");
 }
 
-chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
-  handled(msg)
+chrome.runtime.onMessage.addListener((msg, sender, reply) => {
+  handled(msg, sender)
     .then((out) => reply({ ok: true, ...out }))
     .catch((e) => reply({ ok: false, error: e.message || String(e), code: e.code || "" }));
   return true;

@@ -29,7 +29,8 @@ function useLanguage(l) {
   }
 }
 // what the page overlay says, in the same language
-const pageStrings = () => ({ reading: T("page_reading"), new: T("page_new"), one: T("page_summary_one"), many: T("page_summary_many") });
+const pageStrings = () => ({ reading: T("page_reading"), new: T("page_new"), one: T("page_summary_one"), many: T("page_summary_many"),
+  learned: T("page_learned"), undo: T("page_undo"), forgotten: T("page_forgotten") });
 
 // errors from the helper carry a code; each code has words for people (the raw message goes to the console)
 function words(e) {

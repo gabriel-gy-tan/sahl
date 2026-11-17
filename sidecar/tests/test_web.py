@@ -448,3 +448,12 @@ def test_the_icp_entry_permit_form_is_read_box_by_box(monkeypatch):
     filled = {v["element_id"]: v.get("value") for v in out["values"]}
     assert filled["f0"] == "NOOR AHMAD KHALIL" and filled["f4"] == "X1234567"
     assert "f6" not in filled  # the mother's name is someone else's: never the person's own
+
+
+def test_an_answer_remembered_from_the_page_can_be_undone(ext):
+    ext.post("/page", json=card_page())
+    concept = ext.post("/taught", json={"element_id": "c14", "value": "Acme Ltd"}).json()["concept"]
+    assert {f["element_id"]: f for f in ext.post("/page", json=card_page()).json()["fields"]}["c14"]["told"]
+    assert ext.post("/taught/forget", json={"concept": concept}).json() == {"ok": True}
+    assert not {f["element_id"]: f for f in ext.post("/page", json=card_page()).json()["fields"]}["c14"]["told"]
+    assert ext.post("/taught/forget", json={"concept": concept}, headers={"x-sahl-ext-token": "0" * 64}).status_code == 403
