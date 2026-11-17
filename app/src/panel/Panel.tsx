@@ -139,6 +139,9 @@ function FormSearch({ guides, lang, placeholder, empty, other, onPick, onCancel 
 
 const TEXT_SIZES = ["1", "1.15", "1.3"] as const;
 // the settings menu's pages, in order
+const EXTENSION_STORE_URL = ""; // set when the Chrome Web Store listing is live
+const EXTENSION_HELP_URL = "https://github.com/gabriel-gy-tan/sahl#browser-extension"; // where people get it until then
+
 const PAGES = { general: "menu_general", docs: "menu_docs", extension: "menu_extension", telemetry: "menu_telemetry", license: "menu_license" } as const;
 type Page = keyof typeof PAGES;
 
@@ -399,7 +402,7 @@ export default function Panel() {
     const un = listen<boolean>("read", (e) => {
       setOpen(true);
       setSheet(false);
-      if (e.payload && paired.current && useExtension === "on") setHandoff(true);
+      if (e.payload && useExtension === "on" && (paired.current || saved<string>("ext", "") !== "skipped")) setHandoff(true);
       else readScreen();
     });
     return () => void un.then((f) => f());
@@ -538,10 +541,30 @@ export default function Panel() {
   // the browser companion: its loopback bridge, and the one-time code the extension asks for
   const [extension, setExtension] = useState<Extension | null>(null);
   const [copiedCode, setCopiedCode] = useState(false);
-  const loadExtension = () => api<Extension>("/extension").then(setExtension).catch(() => {});
+  const askExt = useRef<boolean | null>(null); // decided once: not already paired, not turned down before
+  const loadExtension = () => api<Extension>("/extension").then((x) => {
+    askExt.current ??= !x.paired && saved<string>("ext", "") !== "skipped";
+    setExtension(x);
+  }).catch(() => {});
   useEffect(() => void loadExtension(), []); // is a browser paired, for the ⌥Space handoff
   useEffect(() => void (paired.current = !!extension?.paired), [extension]);
   useEffect(() => void (page === "extension" && loadExtension()), [page]);
+  const getExtension = (
+    <button className="primary" onClick={() => void invoke("open_url", { url: EXTENSION_STORE_URL || EXTENSION_HELP_URL }).catch(fail)}>
+      {t(EXTENSION_STORE_URL ? "ext_add" : "ext_get")}
+    </button>
+  );
+  const extensionCode = (
+    <div className="extension-code">
+      <code dir="ltr">{extension?.code || "······"}</code>
+      <button className="ghost" disabled={!extension?.code}
+        onClick={() => {
+          if (!extension?.code) return;
+          navigator.clipboard.writeText(extension.code);
+          setCopiedCode(true);
+        }}>{copiedCode ? t("copied") : t("copy")}</button>
+    </div>
+  );
 
   const [held, setHeld] = useState<Held | null>(null);
   const loadHeld = () => api<Held>("/vault/summary").then(setHeld).catch(() => {});
@@ -555,7 +578,7 @@ export default function Panel() {
     askAllow.current ??= !(a.screen && a.typing);
     setAllowed(a);
   }).catch(() => {});
-  const steps = ["docs", ...(askAllow.current ? ["allow"] : []), "mode"] as const;
+  const steps = ["docs", ...(askAllow.current ? ["allow"] : []), "mode", ...(askExt.current ? ["browser"] : [])] as const;
   const at = steps[Math.min(step, steps.length - 1)];
   useEffect(() => void (setup && (loadAllowed(), loadHeld())), [setup]);
   useEffect(() => { // the person turns these on in System Settings: notice when they have
@@ -563,6 +586,11 @@ export default function Panel() {
     const id = setInterval(loadAllowed, 2000);
     return () => clearInterval(id);
   }, [setup, at]);
+  useEffect(() => { // the install step or handoff card is showing and nobody is paired: notice when the code is entered
+    if (extension?.paired || !((setup && at === "browser") || handoff)) return;
+    const id = setInterval(loadExtension, 2000);
+    return () => clearInterval(id);
+  }, [setup, at, handoff, extension?.paired]);
   const allow = (which: "screen" | "typing") => void api<Allowed>("/permissions", { which }).then(setAllowed).catch(fail);
   const next = () => {
     if (step < steps.length - 1) return setStep(step + 1);
@@ -834,15 +862,7 @@ export default function Panel() {
                       </div>
                       <div className="row stacked">
                         <span className="label"><Icon name="extension" />{t("extension_code")}</span>
-                        <div className="extension-code">
-                          <code dir="ltr">{extension?.code || "······"}</code>
-                          <button className="ghost" disabled={!extension?.code}
-                            onClick={() => {
-                              if (!extension?.code) return;
-                              navigator.clipboard.writeText(extension.code);
-                              setCopiedCode(true);
-                            }}>{copiedCode ? t("copied") : t("copy")}</button>
-                        </div>
+                        {extensionCode}
                         <p className="fine">{t("extension_steps")}</p>
                       </div>
                     </section>
@@ -947,7 +967,7 @@ export default function Panel() {
                         : <button className="link" onClick={next}>{t("setup_later")}</button>}
                     </div>
                   </>
-                ) : (
+                ) : at === "mode" ? (
                   <>
                     <h1>{t("setup_mode_title")}</h1>
                     <div className="modes" role="radiogroup" aria-label={t("setup_mode_title")}>
@@ -963,21 +983,50 @@ export default function Panel() {
                       ))}
                     </div>
                     <div className="actions">
-                      <button className="primary" onClick={next}>{t("setup_start")}</button>
+                      <button className="primary" onClick={next}>{t(askExt.current ? "setup_next" : "setup_start")}</button>
                     </div>
                     <p className="fine">{t("never_submits")}</p>
+                  </>
+                ) : (
+                  <>
+                    <h1>{t("setup_ext_title")}</h1>
+                    <p className="sub">{t("ext_why")}</p>
+                    {extensionCode}
+                    <div className="actions">
+                      {extension?.paired ? <button className="primary" onClick={next}>{t("setup_start")}</button> : (
+                        <>
+                          {getExtension}
+                          <button className="link" onClick={() => (save("ext", "skipped"), next())}>{t("setup_later")}</button>
+                        </>
+                      )}
+                    </div>
+                    {extension?.paired && <p className="quiet" role="status"><Icon name="check" />{t("ext_done")}</p>}
                   </>
                 )}
               </div>
             ) : handoff ? (
               <div className="setup handoff" role="status">
                 <div className="eyebrow">{t("menu_extension")}</div>
-                <h1>{t("handoff_title")}</h1>
-                <p className="sub">{t("handoff_body")}</p>
-                <div className="actions">
-                  <button className="primary" onClick={() => setHandoff(false)}>{t("handoff_ok")}</button>
-                  <button className="ghost" onClick={readScreen}>{t("handoff_screen")}</button>
-                </div>
+                {extension?.paired ? (
+                  <>
+                    <h1>{t("handoff_title")}</h1>
+                    <p className="sub">{t("handoff_body")}</p>
+                    <div className="actions">
+                      <button className="primary" onClick={() => setHandoff(false)}>{t("handoff_ok")}</button>
+                      <button className="ghost" onClick={readScreen}>{t("handoff_screen")}</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h1>{t("setup_ext_title")}</h1>
+                    <p className="sub">{t("ext_why")}</p>
+                    {extensionCode}
+                    <div className="actions">
+                      {getExtension}
+                      <button className="ghost" onClick={() => (save("ext", "skipped"), readScreen())}>{t("handoff_screen")}</button>
+                    </div>
+                  </>
+                )}
               </div>
             ) : !guide && lookAt ? (
               <div className="ask look" onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>

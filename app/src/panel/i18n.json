@@ -200,7 +200,12 @@
     "handoff_body": "Click Sahl in your browser's toolbar. There I read the page's own boxes, which is more reliable than reading the screen.",
     "handoff_ok": "Got it",
     "handoff_screen": "Read from the screen instead",
-    "handoff_pref": "In the browser, use the extension"
+    "handoff_pref": "In the browser, use the extension",
+    "setup_ext_title": "Add the browser extension",
+    "ext_why": "I read the page's real boxes, so I am more accurate in Chrome or Edge. Add the extension, then enter this code in it once.",
+    "ext_add": "Add to Chrome",
+    "ext_get": "Get the extension",
+    "ext_done": "Paired. I can read your browser's forms now."
   },
   "ar": {
     "local": "على هذا الحاسوب · دون اتصال",
@@ -402,7 +407,12 @@
     "handoff_body": "انقر Sahl في شريط أدوات المتصفح. هناك أقرأ خانات الصفحة نفسها، وهذا أدق من قراءة الشاشة.",
     "handoff_ok": "حسنًا",
     "handoff_screen": "اقرأ من الشاشة بدلًا من ذلك",
-    "handoff_pref": "في المتصفح، استخدم الإضافة"
+    "handoff_pref": "في المتصفح، استخدم الإضافة",
+    "setup_ext_title": "أضف إضافة المتصفح",
+    "ext_why": "أقرأ خانات الصفحة الحقيقية، فأكون أدق في Chrome أو Edge. أضف الإضافة ثم أدخل هذا الرمز فيها مرة واحدة.",
+    "ext_add": "أضف إلى Chrome",
+    "ext_get": "احصل على الإضافة",
+    "ext_done": "تم الاقتران. أستطيع الآن قراءة نماذج متصفحك."
   },
   "ur": {
     "local": "اسی کمپیوٹر پر · آف لائن",
@@ -604,7 +614,12 @@
     "handoff_body": "براؤزر کی ٹول بار میں Sahl پر کلک کریں۔ وہاں میں صفحے کے اپنے خانے پڑھتا ہوں، جو اسکرین پڑھنے سے زیادہ قابل اعتماد ہے۔",
     "handoff_ok": "ٹھیک ہے",
     "handoff_screen": "اس کی بجائے اسکرین سے پڑھیں",
-    "handoff_pref": "براؤزر میں ایکسٹینشن استعمال کریں"
+    "handoff_pref": "براؤزر میں ایکسٹینشن استعمال کریں",
+    "setup_ext_title": "براؤزر ایکسٹینشن شامل کریں",
+    "ext_why": "میں صفحے کے اصل خانے پڑھتا ہوں، اس لیے Chrome یا Edge میں زیادہ درست رہتا ہوں۔ ایکسٹینشن شامل کریں، پھر اس میں یہ کوڈ ایک بار درج کریں۔",
+    "ext_add": "Chrome میں شامل کریں",
+    "ext_get": "ایکسٹینشن حاصل کریں",
+    "ext_done": "جڑ گیا۔ اب میں آپ کے براؤزر کے فارم پڑھ سکتا ہوں۔"
   },
   "ml": {
     "local": "ഈ കമ്പ്യൂട്ടറിൽ · ഓഫ്‌ലൈൻ",
@@ -806,6 +821,11 @@
     "handoff_body": "ബ്രൗസറിന്റെ ടൂൾബാറിൽ Sahl ക്ലിക്ക് ചെയ്യുക. അവിടെ ഞാൻ പേജിലെ ബോക്സുകൾ നേരിട്ട് വായിക്കും, സ്ക്രീൻ വായിക്കുന്നതിനേക്കാൾ കൃത്യമാണ് അത്.",
     "handoff_ok": "ശരി",
     "handoff_screen": "പകരം സ്ക്രീനിൽ നിന്ന് വായിക്കുക",
-    "handoff_pref": "ബ്രൗസറിൽ എക്സ്റ്റൻഷൻ ഉപയോഗിക്കുക"
+    "handoff_pref": "ബ്രൗസറിൽ എക്സ്റ്റൻഷൻ ഉപയോഗിക്കുക",
+    "setup_ext_title": "ബ്രൗസർ എക്സ്റ്റൻഷൻ ചേർക്കുക",
+    "ext_why": "പേജിലെ യഥാർത്ഥ ബോക്സുകൾ ഞാൻ വായിക്കുന്നതിനാൽ Chrome-ലോ Edge-ലോ കൂടുതൽ കൃത്യമാണ്. എക്സ്റ്റൻഷൻ ചേർത്ത്, ഈ കോഡ് അതിൽ ഒരിക്കൽ നൽകുക.",
+    "ext_add": "Chrome-ൽ ചേർക്കുക",
+    "ext_get": "എക്സ്റ്റൻഷൻ നേടുക",
+    "ext_done": "ജോടിയായി. ഇനി നിങ്ങളുടെ ബ്രൗസറിലെ ഫോമുകൾ എനിക്ക് വായിക്കാം."
   }
 }
