@@ -402,13 +402,18 @@ def llama(monkeypatch, tmp_path):
     ai.stop_all()
 
 
+# a stand-in server written to disk a moment ago can take ~25 s to answer the first time on a CI runner (macOS checks a new
+# executable before it runs); the tests return as soon as it answers, so a long wait costs nothing when it is quick
+SLOW_START = 90
+
+
 def test_a_model_runs_in_its_own_server_and_is_stopped(llama, tmp_path):
-    out = ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}], "think": False}, timeout=10)
+    out = ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}], "think": False}, timeout=SLOW_START)
     assert out["ok"] and "--reasoning-budget" in out["args"] and "--mmproj" not in out["args"]
     text = ai._SERVERS["text"]
     assert text.healthy() and ai.running()
     pid = text.proc.pid
-    vision = ai.chat({"model": "qwen3-vl-4b", "messages": [{"role": "user", "content": "hi"}]}, timeout=10)
+    vision = ai.chat({"model": "qwen3-vl-4b", "messages": [{"role": "user", "content": "hi"}]}, timeout=SLOW_START)
     assert "--mmproj" in vision["args"] and ai._SERVERS["vision"].proc.pid != pid  # the image encoder rides with the vision model
     ai.stop_all()
     assert not text.alive() and not text.pidfile.exists() and not ai.running()
@@ -419,7 +424,7 @@ def test_a_server_left_over_from_a_killed_sidecar_is_stopped(llama, tmp_path):
     old = subprocess.Popen([str(tmp_path / "llama-server"), "--port", "1"], stdout=subprocess.DEVNULL)  # a server whose sidecar was killed
     ai._SERVERS["text"].pidfile.parent.mkdir(parents=True, exist_ok=True)
     ai._SERVERS["text"].pidfile.write_text(str(old.pid))
-    assert ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}]}, timeout=10)["ok"]
+    assert ai.chat({"model": "qwen3-0.6b", "messages": [{"role": "user", "content": "hi"}]}, timeout=SLOW_START)["ok"]
     assert old.wait(5) is not None  # the old one was stopped when the new one started
 
 
